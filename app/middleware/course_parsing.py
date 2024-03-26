@@ -2,12 +2,6 @@ import xmltodict
 import json
 from collections.abc import Mapping
 from typing import Union
-import math
-
-credit_counts = {
-    'core': 0,
-    'gen': 0
-}
 
 def print_dictionary(course_dictionary: dict) -> None:
     """
@@ -381,14 +375,13 @@ def generate_semester(request) -> None:
 
                 if course_added:
                     current_semester_cs_math_credit_count += int(course_info['credit'])
-                    credit_counts['core'] += int(course_info['credit'])
                     print(f"\t{course} {course_info['course_name']} added, {current_semester_credits}/{min_credits_per_semester}")
                     if total_credits_accumulated >= total_credits_for_degree:
                         current_semester_info = {
                             'semester': current_semester,
                             'semester number': semester,
                             'credits': current_semester_credits,
-                            'schedule': current_semester_classes
+                            'schedule': current_semester_classes,
                         }
                         course_schedule.append(current_semester_info)
                         is_semester_complete = True
@@ -418,7 +411,6 @@ def generate_semester(request) -> None:
                     'name': '_'
                 })
                 print(f"\tGen Ed or Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
-                credit_counts['gen'] += 3
 
             # if user can take 3000+ level classes
             else:
@@ -439,7 +431,6 @@ def generate_semester(request) -> None:
                     current_semester_cs_math_credit_count += 3
                     print(f"\tCMP SCI 3000+ level elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
                     min_3000_course -= 1
-                    credit_counts['core'] += DEFAULT_CREDIT_HOURS
 
                 # otherwise, add an elective for balance
                 else:
@@ -448,7 +439,6 @@ def generate_semester(request) -> None:
                         'name': '_'
                 })
                     print(f"\tGen Ed or Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
-                    credit_counts['gen'] += 3
 
             total_credits_accumulated = total_credits_accumulated + 3
             current_semester_credits = current_semester_credits + 3
@@ -488,7 +478,6 @@ def generate_semester(request) -> None:
     else:
         current_semester = "Fall"
 
-    print(credit_counts)
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "semesters": user_semesters,
@@ -503,5 +492,4 @@ def generate_semester(request) -> None:
         "min_3000_course": min_3000_course,
         "include_summer": include_summer,
         "saved_minimum_credits_selection": min_credits_per_semester,
-        "credit_counts": credit_counts
     }

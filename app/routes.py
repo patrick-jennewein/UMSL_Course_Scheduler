@@ -1,6 +1,7 @@
 from flask import render_template, request, json
 from app import app
 from app.middleware.course_parsing import parse_courses, generate_semester
+import pprint
 
 @app.route('/')
 @app.route('/index')
@@ -25,12 +26,13 @@ def index():
                            minimum_semester_credits=list(map(lambda x: x, range(3, 22))), # create list for minimum credits dropdown
                            min_3000_course=5,
                            starting_credits=list(map(lambda x: x, range(0, 201))), # create list for minimum credits dropdown
+                           core_credit_count = 0,
     )
 
 @app.route('/schedule', methods=["POST"])
 def schedule_generator():
     render_info = generate_semester(request)
-    print(render_info["course_schedule_display"])
+    pprint.pprint(render_info["course_schedule_display"])
     return render_template('index.html',
                            required_courses_dict_list=render_info["required_courses_dict_list"],
                            semesters=render_info["semesters"],
@@ -45,5 +47,4 @@ def schedule_generator():
                            min_3000_course=render_info["min_3000_course"],
                            include_summer=render_info["include_summer"],
                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
-                           credit_counts=render_info["credit_counts"]
     )

@@ -39,6 +39,7 @@
                     </select>
                     <br><br>
 
+
                     <!-- Select summer semester boolean -->
                     <label for="summer">Summer Semester</label>
                     <input type="checkbox" id="summer" name="include_summer" onClick="handleClick(this)"><br>
@@ -102,11 +103,10 @@
                 <input type="hidden" name="semesters" value="{{ semesters }}">
                 <input type="hidden" name="total_credits" value="{{ total_credits }}">
                 <input type="hidden" name="required_courses_dict_list" value="{{ required_courses_dict_list }}">
+
                 <!-- Ask user for number of credits next semester-->
                 <div class = "next-semester">
                     <p><label>Total Accumulated Credits</label>{{ total_credits }} / 120</p>
-                    <p><label>Core Credits Earned</label>{{ credit_counts.core }} / 71</p>
-                    <p><label>Elective Credits Earned</label>{{ credit_counts.gen }} / 27</p>
                     <label for="minimum_semester_credits">Minimum Credits for Next Semester</label>
                     <select name="minimum_semester_credits" id="minimum_credits">
                         {% for credits in minimum_semester_credits %}
