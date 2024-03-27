@@ -209,8 +209,7 @@ def generate_semester(request) -> None:
     current_semester = request.form["current_semester"]
     semester = int(request.form["semester_number"])
     elective_courses = json.loads(request.form["elective_courses"])
-    # generate_complete_schedule = True if request.form["generate_complete_schedule"] == "True" else False
-    generate_complete_schedule = False ## Implement above code was a button for auto-generation is added
+    generate_complete_schedule = True if "generate_complete_schedule" in request.form.keys() else False
     courses_taken = []
     waived_courses = None
     include_summer = False
