@@ -90,6 +90,7 @@
                     <input type="hidden" name="semester_number" value="{{ semester_number }}">
                     <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
                     <input type="hidden" name="include_summer" value="{{ include_summer }}">
+                    <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
                     <input type="submit" value="Start Schedule">
                 </div>
             </div>
@@ -124,6 +125,7 @@
                     <input type="hidden" name="semester_number" value="{{ semester_number }}">
                     <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
                     <input type="hidden" name="include_summer" value="{{ include_summer }}">
+                    <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
                     <input type="submit" value="Continue Schedule">
                     <br><br>
                     <small>This course scheduling tool is not an official schedule.<br>
@@ -140,7 +142,7 @@
                         <p><label>Courses</label></p>
                         <ul>
                             {% for course in semester.schedule %}
-                            <li title="{{ course.name }}">
+                            <li title="{{ course.description }}">
                                 <p class = "course-number">{{ course.course }}: </p>
                                 <p class = "course-name">{{ course.name }}</p>
                             </li>

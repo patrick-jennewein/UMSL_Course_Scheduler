@@ -168,9 +168,11 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
     # Add course, credits to current semester and list of courses taken, credits earned
     course_added = False
     if current_semester in course_info['semesters_offered']:
+        print(course_info)
         current_semester_classes.append({
             'course': course,
-            'name': course_info['course_name']
+            'name': course_info['course_name'],
+            'description': course_info['course_description']
         })
         courses_taken.append(course)
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
@@ -206,6 +208,9 @@ def generate_semester(request) -> None:
     course_schedule = json.loads(request.form["course_schedule"])
     current_semester = request.form["current_semester"]
     semester = int(request.form["semester_number"])
+    elective_courses = json.loads(request.form["elective_courses"])
+    # generate_complete_schedule = True if request.form["generate_complete_schedule"] == "True" else False
+    generate_complete_schedule = False ## Implement above code was a button for auto-generation is added
     courses_taken = []
     waived_courses = None
     include_summer = False
@@ -267,9 +272,10 @@ def generate_semester(request) -> None:
     current_semester_credits = 0
     current_semester_classes = []
     current_semester_cs_math_credit_count = 0
-    is_semester_complete = False
+    is_course_generation_complete = False
 
-    while (not is_semester_complete):
+    # Loop through to generate a semester or a whole schedule
+    while (not is_course_generation_complete):
         current_semester_core_credits = 0
         course_added = False
 
@@ -376,16 +382,7 @@ def generate_semester(request) -> None:
                 if course_added:
                     current_semester_cs_math_credit_count += int(course_info['credit'])
                     print(f"\t{course} {course_info['course_name']} added, {current_semester_credits}/{min_credits_per_semester}")
-                    if total_credits_accumulated >= total_credits_for_degree:
-                        current_semester_info = {
-                            'semester': current_semester,
-                            'semester number': semester,
-                            'credits': current_semester_credits,
-                            'schedule': current_semester_classes,
-                        }
-                        course_schedule.append(current_semester_info)
-                        is_semester_complete = True
-                    elif current_semester_credits >= min_credits_per_semester:
+                    if current_semester_credits >= min_credits_per_semester:
                         current_semester_info = {
                             'semester': current_semester,
                             'semester number': semester,
@@ -393,12 +390,19 @@ def generate_semester(request) -> None:
                             'schedule': current_semester_classes
                         }
                         course_schedule.append(current_semester_info)
-                        is_semester_complete = True
+
+                        # if only generating a semester stop here
+                        if not generate_complete_schedule:
+                            is_course_generation_complete = True
+                        # if generating the whole schedule stop after hitting the 120 credit minimum
+                        elif generate_complete_schedule and total_credits_accumulated >= 120:
+                            is_course_generation_complete = True
 
                         # update semester info
                         current_semester_credits = 0
                         current_semester_classes = []
                         semester += 1
+
                     required_courses_dict_list.pop(index)
                     break
 
@@ -408,7 +412,8 @@ def generate_semester(request) -> None:
             if total_credits_accumulated < credits_for_3000_level:
                 current_semester_classes.append({
                     'course': "Gen Ed or Elective",
-                    'name': '_'
+                    'name': '_',
+                    'description': ''
                 })
                 print(f"\tGen Ed or Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
 
@@ -426,7 +431,8 @@ def generate_semester(request) -> None:
                         current_semester_cs_math_credit_count <= (max_CS_math_total_credits - 3):
                     current_semester_classes.append({
                         'course': "CMP SCI 3000+ level elective",
-                        'name': '_'
+                        'name': '_',
+                        'description': ''
                     })
                     current_semester_cs_math_credit_count += 3
                     print(f"\tCMP SCI 3000+ level elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
@@ -436,14 +442,15 @@ def generate_semester(request) -> None:
                 else:
                     current_semester_classes.append({
                         'course': "Gen Ed or Elective",
-                        'name': '_'
+                        'name': '_',
+                        'description': ''
                 })
                     print(f"\tGen Ed or Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
 
             total_credits_accumulated = total_credits_accumulated + 3
             current_semester_credits = current_semester_credits + 3
 
-            if total_credits_accumulated >= total_credits_for_degree:
+            if current_semester_credits >= min_credits_per_semester:
                 current_semester_info = {
                     'semester': current_semester,
                     'semester number': semester,
@@ -451,16 +458,13 @@ def generate_semester(request) -> None:
                     'schedule': current_semester_classes
                 }
                 course_schedule.append(current_semester_info)
-                is_semester_complete = True
-            elif current_semester_credits >= min_credits_per_semester:
-                current_semester_info = {
-                    'semester': current_semester,
-                    'semester number': semester,
-                    'credits': current_semester_credits,
-                    'schedule': current_semester_classes
-                }
-                course_schedule.append(current_semester_info)
-                is_semester_complete = True
+
+                # if only generating a semester stop here
+                if not generate_complete_schedule:
+                    is_course_generation_complete = True
+                # if generating the whole schedule stop after hitting the 120 credit minimum
+                elif generate_complete_schedule and total_credits_accumulated >= 120:
+                    is_course_generation_complete = True
 
                 # update semester info
                 current_semester_credits = 0
@@ -492,4 +496,5 @@ def generate_semester(request) -> None:
         "min_3000_course": min_3000_course,
         "include_summer": include_summer,
         "saved_minimum_credits_selection": min_credits_per_semester,
+        "elective_courses": json.dumps(elective_courses),
     }

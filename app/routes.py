@@ -20,7 +20,7 @@ def index():
                            semesters=semesters,
                            total_credits=0,
                            course_schedule=json.dumps([]),
-                           elective_course=json.dumps(elective_courses),
+                           elective_courses=json.dumps(elective_courses),
                            include_summer=False,
                            semester_number=0,
                            minimum_semester_credits=list(map(lambda x: x, range(3, 22))), # create list for minimum credits dropdown
@@ -47,4 +47,6 @@ def schedule_generator():
                            min_3000_course=render_info["min_3000_course"],
                            include_summer=render_info["include_summer"],
                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
+                           elective_courses=render_info["elective_courses"]
+
     )
