@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- Change log: 
+									
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!--these are the only subjects in the CS degree-->
+    <xs:simpleType name="SubjectList">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CMP SCI"/>
+            <xs:enumeration value="MATH"/>
+            <xs:enumeration value="ENGLISH"/>
+            <xs:enumeration value="INFSYS"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--Credit hours are usually single integers, but a couple courses have variable list of credit hours-->
+    <xs:simpleType name="CreditHoursRange">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[1-5]( ?[1-5])*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RotationTerms">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Spring"/>
+            <xs:enumeration value="Fall"/>
+            <xs:enumeration value="Summer"/>
+            <xs:enumeration value=""/>
+            <!--Should not have empty value here, but some rotation data is missing. this is a temp fix-->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--Includes all possible timecodes. Add explanation above-->
+    <xs:simpleType name="RotationTimeCodes">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(A|D|E|H|O|)(, (A|D|E|H|O))*"/>
+            <!--List cannot be nillable, so empty choice added-->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--Defines groups of prerequisites for each "or_choice" grouping.-->
+    <xs:complexType name="PrerequisiteGroup">
+        <xs:sequence>
+            <xs:element name="and_required" maxOccurs="unbounded" minOccurs="0">
+                <xs:simpleType>
+                    <xs:list itemType="xs:string"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Defines order for the descriptive elements of required courses and elective courses. Element sequence is the same for both, but elective courses have fewer required elements since only "subject", "course_number", "course_name", and "credit" are used in map generation-->
+    <xs:complexType name="RequiredCourseDetails">
+        <xs:sequence>
+            <xs:element name="subject" type="SubjectList"/>
+            <xs:element name="course_number" type="xs:integer"/>
+            <xs:element name="course_name" type="xs:string"/>
+            <xs:element name="credit" type="CreditHoursRange"/>
+            <xs:element name="rotation_term" maxOccurs="3" minOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="term" type="RotationTerms"/>
+                        <xs:element name="time_code" type="RotationTimeCodes" nillable="true"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="course_description" type="xs:string"/>
+            <xs:element name="prerequisite" minOccurs="0" form="qualified">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="or_choice" type="PrerequisiteGroup" maxOccurs="unbounded" minOccurs="0"/>
+                        <xs:element name="additional_preq" type="xs:string" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="paired" maxOccurs="unbounded" minOccurs="0">
+                <xs:simpleType>
+                    <xs:list itemType="xs:string"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ElectiveCourseDetails">
+        <xs:sequence>
+            <xs:element name="subject" type="SubjectList"/>
+            <xs:element name="course_number" type="xs:integer"/>
+            <xs:element name="course_name" type="xs:string"/>
+            <xs:element name="credit" type="CreditHoursRange"/>
+            <xs:element name="rotation_term" maxOccurs="3" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="term" type="RotationTerms"/>
+                        <xs:element name="time_code" type="RotationTimeCodes" nillable="true"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="course_description" type="xs:string"/>
+            <xs:element name="prerequisite" minOccurs="0" form="qualified">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="or_choice" type="PrerequisiteGroup" maxOccurs="unbounded" minOccurs="0"/>
+                        <xs:element name="additional_preq" type="xs:string" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="paired" maxOccurs="unbounded" minOccurs="0">
+                <xs:simpleType>
+                    <xs:list itemType="xs:string"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <!--Defines the sequence of course data for the certificate programs.-->
+    <xs:complexType name="CertCourses">
+        <xs:sequence>
+            <xs:element name="CertCore">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="course" type="RequiredCourseDetails" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CertElectives">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="course" type="ElectiveCourseDetails" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Defines a sequence for data about the general CSBSRequirements, including all electives and also defines a sequence for the current certificate options.-->
+    <xs:element name="CSCertificates">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="AICERTReq" type="CertCourses"/>
+                <xs:element name="CYBERCERTReq" type="CertCourses"/>
+                <xs:element name="DATACERTReq" type="CertCourses"/>
+                <xs:element name="MOBILECERTReq" type="CertCourses"/>
+                <xs:element name="WEBCERTReq" type="CertCourses"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema> 

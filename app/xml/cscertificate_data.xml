@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<CSCertificates xsi:noNamespaceSchemaLocation="./cscertificate_schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <AICERTReq>
+        <CertCore>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>3130</course_number>
+                <course_name>Design and Analysis of Algorithms</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>D, E, O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>D, E, O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Summer</term>
+                    <time_code>O, H</time_code>
+                </rotation_term>
+                <course_description>Addresses the design and analysis of fundamental algorithms in computer science. Studies basic sorting algorithms priority queues, order statistics, search trees, and hash tables. Analysis techniques may involve time and space complexity analysis of both iterative and recursive algorithms, analysis of algorithm correctness, and amortized complexity analysis. Additional topics may include data compression, string manipulation, greedy algorithms, dynamic programming, and graph traversal.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2250</and_required>
+                        <and_required>MATH 1320</and_required>
+                        <and_required>MATH 3000</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4300</course_number>
+                <course_name>Introduction to Artificial Intelligence</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to artificial intelligence. The list of topics may include search, planning, knowledge-based reasoning, probabilistic inference, machine learning, natural language processing, and practical applications. Credit cannot be granted for both CMP SCI 4300 and CMP SCI 5300.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5300</paired>
+            </course>	
+        </CertCore>
+        <CertElectives>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4151</course_number>
+                <course_name>Introduction to Statistical Methods for Data Science</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course covers statistical inference with emphasis on applications and computer simulation. Topics may include multivariate distributions, transformations and combinations of random variables, sampling distributions, maximum likelihood, bootstrap, order statistics, hypothesis testing, likelihood ratio tests, Monte Carlo methods, Bayesian inference, and sufficient statistics. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 1250</and_required>
+                        <and_required>MATH 1900</and_required>
+                        <and_required>MATH 1320</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4320</course_number>
+                <course_name>Introduction to Evolutionary Computation</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course introduces the concepts of nature-inspired problem solving with artificial evolution using selection, crossover, mutation and inheritance. It discusses applications of evolutionary algorithms, overviews the existing models and instances, and analyzes specific instances such as genetic algorithms, evolutionary programming, evolution strategies, and genetic programming. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4340</course_number>
+                <course_name>Introduction to Machine Learning</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>Provides an introduction to machine learning in the context of applications such as data mining, natural language processing, and adaptive computer systems. The course reviews several supervised, unsupervised, and reinforcement machine learning techniques such as naive Bayes networks, clustering, and decision trees. Selected concepts in computational learning theory may also be covered. Credit cannot be granted for both CMP SCI 4340 and CMP SCI 5340.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 4342</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5340</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4342</course_number>
+                <course_name>Introduction to Data Mining</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to data mining principles, algorithms and applications. Topics may include data preprocessing, data transformation, similarity and dissimilarity measures, data representation, classification techniques, association analysis, cluster analysis, regression, dimension reduction, and anomaly detection. Credit not granted for both CMP SCI 4342 and CMP SCI 5342.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 4200</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5342</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4370</course_number>
+                <course_name>Introduction to Biological Data Science</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>E</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction into several key areas of biological data science, with a focus upon genetic data. Relevant background topics in genetics, current issues, and a variety of available resources will be explored. Upon successful completion of this course, the student will be able to evaluate algorithms for analyzing genetic data, including assessments of sources of errors and analysis of time and space complexity; address shortcomings in existing approaches; and implement efficient and effective software for exposing information hidden in genetic data. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4390</course_number>
+                <course_name>Introduction to Deep Learning</course_name>
+                <credit>3</credit>
+                <course_description>This course introduces mathematical foundations for deep learning, and follows with practical applications using selected domains such as image classification or protein predictions. It also covers dense neural networks, convolutional neural networks, recurrent neural networks, and other state-of-the-art networks. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4420</course_number>
+                <course_name>Introduction to Digital Image Processing and Computer Vision</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>E</time_code>
+                </rotation_term>
+                <course_description>Focuses on image analysis and visual perception. Students learn data structures and algorithms for image processing, region and texture analysis, image filtering, edge detection, contour following, and image enhancement in both spatial and frequency domain. Other topics may include color processing, coding for storage, retrieval, transmission, and image restoration. Credit cannot be granted for both CMP SCI 4420 and CMP SCI 5420.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>CMP SCI 3130</and_required>
+                        <and_required>MATH 2450</and_required>
+                        <and_required>MATH 1900</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5420</paired>
+            </course>
+        </CertElectives>
+    </AICERTReq>
+    <CYBERCERTReq>
+        <CertCore>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>3702</course_number>
+                <course_name>Introduction to Cyber Threats and Defense</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course introduces the importance of cybersecurity and covers its various components. Topics may include different types of malware, phishing, password attacks, spoofing, efficient encryption algorithms, firewalls, intrusion prevention/detection systems, and honeypots. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2250</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4730</course_number>
+                <course_name>Computer Networks and Communications</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>D, E</time_code>
+                </rotation_term>
+                <course_description>Covers communication systems in the context of the ISO and TCP/IP standards for systems interconnection. Covers various types of networks including wide area networks, local area networks, and fiber optic networks.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>MATH 1320</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4782</course_number>
+                <course_name>Information Security</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course covers topics related to maintaining security in an organizational infrastructure, including risk analysis of the environment, access level and control including multi-factor authentication, and detection capabilities to ensure adequate security monitoring. Additional topics may include network level protections, firewalls, intrusion detection/prevention systems, securing web and mobile applications, securing cloud implementations, and overall architectural considerations for system security. Credit not granted for both CMP SCI 4782 and CMP SCI 5782.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>CMP SCI 3702</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>INFSYS 3848</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5782</paired>
+            </course>
+        </CertCore>
+        <CertElectives>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4700</course_number>
+                <course_name>Computer Forensics</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course explores topics and methodologies for examining digital evidence, along with some principles of the investigative process. Includes memory, file system, operating system, network, and mobile device forensics. Addresses both theory and hands-on aspects for conducting digital forensic examinations.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4020</course_number>
+                <course_name>Introduction to Android Apps: Android Fundamentals</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course covers the fundamental programming principles, software architecture, and user experience considerations underlying handheld software applications and their development environments. The course involves in-depth, hands-on examples that are implemented on the Android Platform, along with discussions of security.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5020</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4222</course_number>
+                <course_name>iOS Apps</course_name>
+                <credit>3</credit>
+                <course_description>This course focuses on building more sophisticated apps using Objective-C and the scripting language Swift. May include networking such as web services, Bluetooth and wifi connectivity, graphics and animation in 2-d and 3-d, autolayouts, OpenGL, advanced data sources such as plist and core data, source control and unit testing. May also discuss security topics. Credit not granted for both CMP SCI 4222 and CMP SCI 5222.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 4220</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5222</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4732</course_number>
+                <course_name>Introduction to Cryptography for Computer Security</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Summer</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to cryptography as it applies to computer security. It describes modern cryptographic systems and potential attacks on against these systems. Topics may include both symmetric and asymmetric encryption algorithms, authentication, key exchange protocols, onion networks and blockchain technology, as well as potential attacks on these systems.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>MATH 1100</and_required>
+                        <and_required>MATH 1800</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4750</course_number>
+                <course_name>Introduction to Cloud Computing</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to development and deployment of applications in the cloud space. Touches on different aspects of cloud computing such as IaaS, PaaS, and SaaS. Includes significant discussion on legal and security aspects of clouds in the marketplace. May also include public, private, and hybrid clouds, and Internet of Things. Credit not granted for both CMP SCI 4750 and CMP SCI 5750.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5750</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4792</course_number>
+                <course_name>Introduction to Mobile Computing, Networking, and Security</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course introduces fundamental concepts of mobile wireless networks, mobile edge computing, and security measures at the edge. It discusses challenges related to mobile edge computing systems in general and may include topics such as crowdsourcing/crowdsensing systems, Quality of Experience (QoE) in real-time mobile services, Internet of Things, scalability, secure and verifiable computing, and vehicular and autonomous driving networks.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>CMP SCI 3702</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>INFSYS 3848</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4794</course_number>
+                <course_name>Introduction to Security of IoT Systems</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course covers the cutting-edge techniques on the emerging edge cloud and wireless/mobile Internet of Things (IoT) systems. It covers the IoT reference architecture, integrated IoT security architecture, major threats and vulnerabilities with the IoT devices and edge cloud, and defense mechanisms. It includes hands-on labs on both the vulnerabilities and defense of the systems. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 4730</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>INFSYS</subject>
+                <course_number>3830</course_number>
+                <course_name>Data Programming for Business Intelligence</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>INFSYS</subject>
+                <course_number>3862</course_number>
+                <course_name>Artificial Intelligence App for Business and Cybersecurity</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>INFSYS</subject>
+                <course_number>3864</course_number>
+                <course_name>Applied Cryptography for Business Applications</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>INFSYS</subject>
+                <course_number>3866</course_number>
+                <course_name>Cloud Security for Business</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>INFSYS</subject>
+                <course_number>3860</course_number>
+                <course_name>Software Assurance</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code></time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code></time_code>
+                </rotation_term>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>INFSYS</subject>
+                <course_number>3878</course_number>
+                <course_name>Management of Information Security</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code></time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code></time_code>
+                </rotation_term>
+                <course_description></course_description>
+            </course>
+        </CertElectives>
+    </CYBERCERTReq>
+    <DATACERTReq>
+        <CertCore>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4200</course_number>
+                <course_name>Python for Scientific Computing and Data Science</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H, O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Summer</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course covers programming using the Python language and related libraries. The course explores problem solving using Python's support of procedural, object-oriented, and functional approaches to programming. Topics may include NumPy arrays, visualization, Pandas DataFrames, and selected functions from statistical and scientific packages.
+                </course_description>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4340</course_number>
+                <course_name>Introduction to Machine Learning</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>Provides an introduction to machine learning in the context of applications such as data mining, natural language processing, and adaptive computer systems. The course reviews several supervised, unsupervised, and reinforcement machine learning techniques such as naive Bayes networks, clustering, and decision trees. Selected concepts in computational learning theory may also be covered. Credit cannot be granted for both CMP SCI 4340 and CMP SCI 5340.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 4342</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5340</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4342</course_number>
+                <course_name>Introduction to Data Mining</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to data mining principles, algorithms and applications. Topics may include data preprocessing, data transformation, similarity and dissimilarity measures, data representation, classification techniques, association analysis, cluster analysis, regression, dimension reduction, and anomaly detection. Credit not granted for both CMP SCI 4342 and CMP SCI 5342.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 4200</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5342</paired>
+            </course>
+        </CertCore>
+        <CertElectives>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>3411</course_number>
+                <course_name>Introduction to Data Visualization</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>D, E, H</time_code>
+                </rotation_term>
+                <course_description>This course introduces students to the principles of effective data visualization. The course includes an introduction to data cleaning and analysis. Plotting tools such as Tableau, Matplotlib, and D3.js are also introduced. Topics covered may include graphical excellence, log scale, color, heat maps, network visualization, plotting scientific data, interactive plots, and plotting live stream of data. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 1250</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4030</course_number>
+                <course_name>Introduction to Intelligent Web</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4151</course_number>
+                <course_name>Introduction to Statistical Methods for Data Science</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course covers statistical inference with emphasis on applications and computer simulation. Topics may include multivariate distributions, transformations and combinations of random variables, sampling distributions, maximum likelihood, bootstrap, order statistics, hypothesis testing, likelihood ratio tests, Monte Carlo methods, Bayesian inference, and sufficient statistics. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 1250</and_required>
+                        <and_required>MATH 1900</and_required>
+                        <and_required>MATH 1320</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4300</course_number>
+                <course_name>Introduction to Artificial Intelligence</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to artificial intelligence. The list of topics may include search, planning, knowledge-based reasoning, probabilistic inference, machine learning, natural language processing, and practical applications. Credit cannot be granted for both CMP SCI 4300 and CMP SCI 5300.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5300</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4320</course_number>
+                <course_name>Introduction to Evolutionary Computation</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course introduces the concepts of nature-inspired problem solving with artificial evolution using selection, crossover, mutation and inheritance. It discusses applications of evolutionary algorithms, overviews the existing models and instances, and analyzes specific instances such as genetic algorithms, evolutionary programming, evolution strategies, and genetic programming. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4370</course_number>
+                <course_name>Introduction to Biological Data Science</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>E</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction into several key areas of biological data science, with a focus upon genetic data. Relevant background topics in genetics, current issues, and a variety of available resources will be explored. Upon successful completion of this course, the student will be able to evaluate algorithms for analyzing genetic data, including assessments of sources of errors and analysis of time and space complexity; address shortcomings in existing approaches; and implement efficient and effective software for exposing information hidden in genetic data. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4390</course_number>
+                <course_name>Introduction to Deep Learning</course_name>
+                <credit>3</credit>
+                <course_description>This course introduces mathematical foundations for deep learning, and follows with practical applications using selected domains such as image classification or protein predictions. It also covers dense neural networks, convolutional neural networks, recurrent neural networks, and other state-of-the-art networks. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3130</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>MATH</subject>
+                <course_number>4005</course_number>
+                <course_name>Exploratory Data Analysis with R</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code></time_code>
+                </rotation_term>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>MATH</subject>
+                <course_number>4090</course_number>
+                <course_name>Introduction to High-dimensional Data Analysis</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code></time_code>
+                </rotation_term>
+                <course_description></course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required></and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>MATH</subject>
+                <course_number>4220</course_number>
+                <course_name>Bayesian Statistical Methods</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
+                <course_description></course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required></and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>MATH</subject>
+                <course_number>4225</course_number>
+                <course_name>Introduction to Statistical Computing</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
+                <course_description></course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required></and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>MATH</subject>
+                <course_number>4250</course_number>
+                <course_name>Introduction to Stat Methods in Learning and Mod.</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code></time_code>
+                </rotation_term>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>MATH</subject>
+                <course_number>4260</course_number>
+                <course_name>Introduction to Stochastic Processes</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+        </CertElectives>
+    </DATACERTReq>
+    <MOBILECERTReq>
+        <CertCore>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4020</course_number>
+                <course_name>Introduction to Android Apps: Android Fundamentals</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course covers the fundamental programming principles, software architecture, and user experience considerations underlying handheld software applications and their development environments. The course involves in-depth, hands-on examples that are implemented on the Android Platform, along with discussions of security.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5020</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4220</course_number>
+                <course_name>Introduction to iOS Programming and Apps</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Summer</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course covers Objective-C and uses it for building iOS apps. It also introduces Xcode, Interface Builder, basic architectural patterns for MVC such as action, delegation, and outlets. Additional topics may include online services, mapping, persistence with core data, and single and multiple views.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>INFSYS 3806</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4792</course_number>
+                <course_name>Introduction to Mobile Computing, Networking, and Security</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course introduces fundamental concepts of mobile wireless networks, mobile edge computing, and security measures at the edge. It discusses challenges related to mobile edge computing systems in general and may include topics such as crowdsourcing/crowdsensing systems, Quality of Experience (QoE) in real-time mobile services, Internet of Things, scalability, secure and verifiable computing, and vehicular and autonomous driving networks.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>CMP SCI 3702</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>INFSYS 3848</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+        </CertCore>
+        <CertElectives>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4010</course_number>
+                <course_name>Advanced Web Development with Java</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>D, E</time_code>
+                </rotation_term>
+                <course_description>Covers more advanced Java topics, along with related concepts and technologies for Web development. Topics may include database connectivity, multithreading, security, networking, MVC pattern, testing and source control for Java applications, and server-side topics such as servlets and web servers.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>INFSYS 3806</and_required>
+                        <and_required>CMP SCI 3010</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 3010</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4222</course_number>
+                <course_name>iOS Apps</course_name>
+                <credit>3</credit>
+                <course_description>This course focuses on building more sophisticated apps using Objective-C and the scripting language Swift. May include networking such as web services, Bluetooth and wifi connectivity, graphics and animation in 2-d and 3-d, autolayouts, OpenGL, advanced data sources such as plist and core data, source control and unit testing. May also discuss security topics. Credit not granted for both CMP SCI 4222 and CMP SCI 5222.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 4220</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5222</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4610</course_number>
+                <course_name>Database Management Systems</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>D, E</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>E</time_code>
+                </rotation_term>
+                <course_description>Focuses on database theory and applications, with emphasis on the relational model. Topics include database design, modeling, file systems, indexing, integrity constraints, relational algebra, normalization, transaction processing, and concurrency control. Students are exposed to emerging DBMS technologies and applications. Several programming projects will be required, using a popular SQL server.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3010</and_required>
+                        <and_required>MATH 3000</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4750</course_number>
+                <course_name>Introduction to Cloud Computing</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to development and deployment of applications in the cloud space. Touches on different aspects of cloud computing such as IaaS, PaaS, and SaaS. Includes significant discussion on legal and security aspects of clouds in the marketplace. May also include public, private, and hybrid clouds, and Internet of Things. Credit not granted for both CMP SCI 4750 and CMP SCI 5750.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5750</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4794</course_number>
+                <course_name>Introduction to Security of IoT Systems</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course covers the cutting-edge techniques on the emerging edge cloud and wireless/mobile Internet of Things (IoT) systems. It covers the IoT reference architecture, integrated IoT security architecture, major threats and vulnerabilities with the IoT devices and edge cloud, and defense mechanisms. It includes hands-on labs on both the vulnerabilities and defense of the systems. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 4730</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+        </CertElectives>
+    </MOBILECERTReq>
+    <WEBCERTReq>
+        <CertCore>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>3010</course_number>
+                <course_name>Web Programming</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>D, E, O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>D, E, O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Summer</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>Provides a survey of current Web technologies including markup languages (such as HTML/XHTML, CSS, XML), client side languages (such as JavaScript), server side languages (such as PERL, PHP), and Web protocols. This course requires client-server computing projects.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2250</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4010</course_number>
+                <course_name>Advanced Web Development with Java</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>D, E</time_code>
+                </rotation_term>
+                <course_description>Covers more advanced Java topics, along with related concepts and technologies for Web development. Topics may include database connectivity, multithreading, security, networking, MVC pattern, testing and source control for Java applications, and server-side topics such as servlets and web servers.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>INFSYS 3806</and_required>
+                        <and_required>CMP SCI 3010</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 3010</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4011</course_number>
+                <course_name>Web Development with Advanced JavaScript</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course provides a comprehensive overview of website development using the modern MEAN (MongoDB, Express.js, Angular, Node.js) stack architecture. Students will create web applications that make use of today's modern JavaScript engine. Other topics may include React, Sass (Syntactically awesome style sheets), and Pug template engine.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3010</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4012</course_number>
+                <course_name>Introduction to Enterprise Microservice Development</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This is a hands-on course providing students with an understanding of microservices and related technologies, with enough scope and depth to make the students ready to participate in real-world microservice application developments. Emphasis is placed on practical and effective knowledge and an in-depth technical learning experience suitable for any developer. The target audience is students who want to be involved in microservice application development. </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                        <and_required>CMP SCI 3010</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>	
+        </CertCore>
+        <CertElectives>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4020</course_number>
+                <course_name>Introduction to Android Apps: Android Fundamentals</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>H</time_code>
+                </rotation_term>
+                <course_description>This course covers the fundamental programming principles, software architecture, and user experience considerations underlying handheld software applications and their development environments. The course involves in-depth, hands-on examples that are implemented on the Android Platform, along with discussions of security.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2261</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5020</paired>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4030</course_number>
+                <course_name>Introduction to Intelligent Web</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4610</course_number>
+                <course_name>Database Management Systems</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>D, E</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>E</time_code>
+                </rotation_term>
+                <course_description>Focuses on database theory and applications, with emphasis on the relational model. Topics include database design, modeling, file systems, indexing, integrity constraints, relational algebra, normalization, transaction processing, and concurrency control. Students are exposed to emerging DBMS technologies and applications. Several programming projects will be required, using a popular SQL server.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 3010</and_required>
+                        <and_required>MATH 3000</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4730</course_number>
+                <course_name>Computer Networks and Communications</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Spring</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>D, E</time_code>
+                </rotation_term>
+                <course_description>Covers communication systems in the context of the ISO and TCP/IP standards for systems interconnection. Covers various types of networks including wide area networks, local area networks, and fiber optic networks.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                        <and_required>MATH 1320</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>Graduate Standing</and_required>
+                    </or_choice>
+                </prerequisite>
+            </course>
+            <course>
+                <subject>CMP SCI</subject>
+                <course_number>4750</course_number>
+                <course_name>Introduction to Cloud Computing</course_name>
+                <credit>3</credit>
+                <rotation_term>
+                    <term>Fall</term>
+                    <time_code>O</time_code>
+                </rotation_term>
+                <course_description>This course provides an introduction to development and deployment of applications in the cloud space. Touches on different aspects of cloud computing such as IaaS, PaaS, and SaaS. Includes significant discussion on legal and security aspects of clouds in the marketplace. May also include public, private, and hybrid clouds, and Internet of Things. Credit not granted for both CMP SCI 4750 and CMP SCI 5750.</course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 2750</and_required>
+                    </or_choice>
+                </prerequisite>
+                <paired>CMP SCI 5750</paired>
+            </course>
+            <course>
+                <subject>INFSYS</subject>
+                <course_number>3846</course_number>
+                <course_name>E-Commerce</course_name>
+                <credit>3</credit>
+                <course_description></course_description>
+            </course>
+        </CertElectives>
+    </WEBCERTReq>
+</CSCertificates>
