@@ -87,7 +87,7 @@
             <xs:element name="course_number" type="xs:integer"/>
             <xs:element name="course_name" type="xs:string"/>
             <xs:element name="credit" type="CreditHoursRange"/>
-            <xs:element name="rotation_term" maxOccurs="3" minOccurs="0">
+            <xs:element name="rotation_term" maxOccurs="3" minOccurs="1">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="term" type="RotationTerms"/>
