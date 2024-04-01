@@ -7,6 +7,7 @@ import pprint
 @app.route('/index')
 def index():
     semesters = ["Fall", "Spring"]
+    certificates = [("None", ""), ("Artificial Intelligence", "AICERTReq"), ("Cybersecurity", "CYBERCERTReq"), ("Data Science", "DATACERTReq"), ("Mobile Apps and Computing", "MOBILECERTReq"), ("Internet and Web", "WEBCERTReq")]
     # create dictionaries for each course type
     core_courses, elective_courses = parse_courses()
 
@@ -18,6 +19,7 @@ def index():
                            required_courses=required_courses_list,
                            required_courses_dict=json.dumps(core_courses),
                            semesters=semesters,
+                           certificates=certificates,
                            total_credits=0,
                            course_schedule=json.dumps([]),
                            elective_courses=json.dumps(elective_courses),
@@ -46,6 +48,7 @@ def schedule_generator():
                            minimum_semester_credits=render_info["minimum_semester_credits"],
                            min_3000_course=render_info["min_3000_course"],
                            include_summer=render_info["include_summer"],
+                           certificates=render_info["certificate_choice"],
                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                            elective_courses=render_info["elective_courses"]
 
