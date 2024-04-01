@@ -162,6 +162,40 @@ def parse_courses() -> dict:
     # return finalized dictionary of the course type
     return core_courses, elective_courses
 
+def parse_certificate(certificate_name) -> dict:
+    """
+    Parses relevant information from XML and return dictionaries.
+
+    cscertificate_data.xml is a document that contains all course data for certificates in the computer science program.
+
+    Params
+    ----------
+    certificate_name        string
+                            is the name of the desired certificate. May have any of the following values: 
+                            AICERTReq
+                            CYBERCERTReq
+                            DATACERTReq
+                            MOBILECERTReq
+                            WEBCERTReq
+
+    Returns
+    ----------
+    dict
+
+    """
+    # open xml document to begin parsing
+    with open('app/xml/cscertificate_data.xml') as fd:
+        doc = xmltodict.parse(fd.read())
+
+    # create a dictionary with course information to further parse
+    certificate_data = doc["CSCertificates"]
+
+    core_courses = build_dictionary(certificate_data[certificate_name]["CertCore"]["course"])
+    elective_courses = build_dictionary(certificate_data[certificate_name]["CertElectives"]["course"])
+
+    # return finalized dictionary of the course type
+    return core_courses, elective_courses
+
 
 def add_course(current_semester, course_info, current_semester_classes, course, courses_taken,
                total_credits_accumulated, current_semester_credits):
@@ -213,6 +247,9 @@ def generate_semester(request) -> None:
     courses_taken = []
     waived_courses = None
     include_summer = False
+    certificate_choice = request.form["certificate_choice"]
+    certificate_core = {}
+    certificate_electives = {}
 
     # if the first semester, get info about summer, courses taken, and courses waived
     if semester == 0:
@@ -227,12 +264,19 @@ def generate_semester(request) -> None:
             courses_taken.extend(request.form.getlist("waived_courses"))
             # Removes duplicates in case a class was added from both waived and taken select options
             courses_taken = list(dict.fromkeys(courses_taken))
+        if ("certificate_choice" in request.form.keys()):
+            ## get the certificate id from the input form and parse course data for that certificate
+            certificate_core, certificate_electives = parse_certificate(certificate_choice)
+            
 
         # determine the semesters that user will be enrolled in
         user_semesters = build_semester_list(current_semester, include_summer)
 
-        # generate required courses
+        # generate required courses, if a certificate was selected add the required certificate courses
         required_courses_dict = json.loads(request.form['required_courses_dict'])
+        if certificate_core:
+            required_courses_dict.update(certificate_core)
+
         for course in courses_taken:
             try:
                 del required_courses_dict[course]
@@ -494,6 +538,7 @@ def generate_semester(request) -> None:
         "minimum_semester_credits": list(map(lambda x: x, range(3, 22))),
         "min_3000_course": min_3000_course,
         "include_summer": include_summer,
+        "certificate_choice": certificate_choice,
         "saved_minimum_credits_selection": min_credits_per_semester,
         "elective_courses": json.dumps(elective_courses),
     }
