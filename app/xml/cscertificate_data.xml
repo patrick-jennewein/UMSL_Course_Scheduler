@@ -159,6 +159,10 @@
                 <course_number>4390</course_number>
                 <course_name>Introduction to Deep Learning</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description>This course introduces mathematical foundations for deep learning, and follows with practical applications using selected domains such as image classification or protein predictions. It also covers dense neural networks, convolutional neural networks, recurrent neural networks, and other state-of-the-art networks. </course_description>
                 <prerequisite>
                     <or_choice>
@@ -299,6 +303,10 @@
                 <course_number>4222</course_number>
                 <course_name>iOS Apps</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description>This course focuses on building more sophisticated apps using Objective-C and the scripting language Swift. May include networking such as web services, Bluetooth and wifi connectivity, graphics and animation in 2-d and 3-d, autolayouts, OpenGL, advanced data sources such as plist and core data, source control and unit testing. May also discuss security topics. Credit not granted for both CMP SCI 4222 and CMP SCI 5222.</course_description>
                 <prerequisite>
                     <or_choice>
@@ -383,6 +391,10 @@
                 <course_number>3830</course_number>
                 <course_name>Data Programming for Business Intelligence</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
             <course>
@@ -390,6 +402,10 @@
                 <course_number>3862</course_number>
                 <course_name>Artificial Intelligence App for Business and Cybersecurity</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
             <course>
@@ -397,6 +413,10 @@
                 <course_number>3864</course_number>
                 <course_name>Applied Cryptography for Business Applications</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
             <course>
@@ -404,6 +424,10 @@
                 <course_number>3866</course_number>
                 <course_name>Cloud Security for Business</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
             <course>
@@ -533,6 +557,10 @@
                 <course_number>4030</course_number>
                 <course_name>Introduction to Intelligent Web</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
             <course>
@@ -613,6 +641,10 @@
                 <course_number>4390</course_number>
                 <course_name>Introduction to Deep Learning</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description>This course introduces mathematical foundations for deep learning, and follows with practical applications using selected domains such as image classification or protein predictions. It also covers dense neural networks, convolutional neural networks, recurrent neural networks, and other state-of-the-art networks. </course_description>
                 <prerequisite>
                     <or_choice>
@@ -695,6 +727,10 @@
                 <course_number>4260</course_number>
                 <course_name>Introduction to Stochastic Processes</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
         </CertElectives>
@@ -796,6 +832,10 @@
                 <course_number>4222</course_number>
                 <course_name>iOS Apps</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description>This course focuses on building more sophisticated apps using Objective-C and the scripting language Swift. May include networking such as web services, Bluetooth and wifi connectivity, graphics and animation in 2-d and 3-d, autolayouts, OpenGL, advanced data sources such as plist and core data, source control and unit testing. May also discuss security topics. Credit not granted for both CMP SCI 4222 and CMP SCI 5222.</course_description>
                 <prerequisite>
                     <or_choice>
@@ -974,6 +1014,10 @@
                 <course_number>4030</course_number>
                 <course_name>Introduction to Intelligent Web</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
             <course>
@@ -1046,6 +1090,10 @@
                 <course_number>3846</course_number>
                 <course_name>E-Commerce</course_name>
                 <credit>3</credit>
+                <rotation_term>
+                    <term></term>
+                    <time_code></time_code>
+                </rotation_term>
                 <course_description></course_description>
             </course>
         </CertElectives>
