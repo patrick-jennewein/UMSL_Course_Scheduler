@@ -247,7 +247,11 @@ def generate_semester(request) -> None:
     courses_taken = []
     waived_courses = None
     include_summer = False
+    min_3000_course = int(request.form["min_3000_course"]) # default is 5
     certificate_choice = request.form["certificate_choice"]
+    num_electives_fulfilled_by_cert = int(request.form["num_electives_fulfilled_by_cert"]) # default is 0
+    num_electives_in_cert = int(request.form["num_electives_in_cert"]) # default is 0
+    certificate_total_courses = 5 # currently true for all certificates, may be better to calculate this number to avoid complications with future changes ...
     certificate_core = {}
     certificate_electives = {}
 
@@ -264,7 +268,7 @@ def generate_semester(request) -> None:
             courses_taken.extend(request.form.getlist("waived_courses"))
             # Removes duplicates in case a class was added from both waived and taken select options
             courses_taken = list(dict.fromkeys(courses_taken))
-        if ("certificate_choice" in request.form.keys()):
+        if (certificate_choice != ""):
             ## get the certificate id from the input form and parse course data for that certificate
             certificate_core, certificate_electives = parse_certificate(certificate_choice)
             
@@ -272,11 +276,21 @@ def generate_semester(request) -> None:
         # determine the semesters that user will be enrolled in
         user_semesters = build_semester_list(current_semester, include_summer)
 
-        # generate required courses, if a certificate was selected add the required certificate courses
+        # generate required courses
         required_courses_dict = json.loads(request.form['required_courses_dict'])
+
+        #if a certificate was selected add the required certificate courses to required courses
         if certificate_core:
+            # count how many certificate_core classes will fulfill electives
+            num_required_courses = len(required_courses_dict.keys())
             required_courses_dict.update(certificate_core)
 
+            num_electives_fulfilled_by_cert = (len(required_courses_dict.keys()) - num_required_courses)
+            num_electives_in_cert = certificate_total_courses - len(certificate_core.keys())
+
+            # update 3000 electives with certificate values
+            min_3000_course -= (num_electives_fulfilled_by_cert + num_electives_in_cert)
+            
         for course in courses_taken:
             try:
                 del required_courses_dict[course]
@@ -299,7 +313,7 @@ def generate_semester(request) -> None:
     # user enters credits for upcoming semester
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
     print(f"Minimum credits for this semester: {min_credits_per_semester}")
-    min_3000_course = int(request.form["min_3000_course"]) # default is 5
+
 
     ##############################
     ####### Credit amounts #######
@@ -480,7 +494,19 @@ def generate_semester(request) -> None:
                     current_semester_cs_math_credit_count += 3
                     print(f"\tCMP SCI 3000+ level elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
                     min_3000_course -= 1
-
+                # look closer at this
+                elif min_3000_course == 0 and num_electives_in_cert != 0 and \
+                        ((current_semester_classes.count("CMP SCI CERTIFICATE elective") * DEFAULT_CREDIT_HOURS)
+                         < (max_CS_elective_credits_per_semester - 3)) and \
+                        current_semester_cs_math_credit_count <= (max_CS_math_total_credits - 3):
+                    current_semester_classes.append({
+                        'course': "CMP SCI CERTIFICATE elective",
+                        'name': '_',
+                        'description': ''
+                    })
+                    num_electives_in_cert -= 1
+                    current_semester_cs_math_credit_count += 3
+                    print(f"\tCMP SCI CERTIFICATE elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
                 # otherwise, add an elective for balance
                 else:
                     current_semester_classes.append({
@@ -539,6 +565,8 @@ def generate_semester(request) -> None:
         "min_3000_course": min_3000_course,
         "include_summer": include_summer,
         "certificate_choice": certificate_choice,
+        "num_electives_fulfilled_by_cert": num_electives_fulfilled_by_cert,
+        "num_electives_in_cert": num_electives_in_cert,
         "saved_minimum_credits_selection": min_credits_per_semester,
         "elective_courses": json.dumps(elective_courses),
     }
