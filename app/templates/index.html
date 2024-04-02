@@ -38,7 +38,7 @@
                         {% endfor %}
                     </select>
                     <br><br>
-                    
+
                     <!-- Select summer semester boolean -->
                     <label for="summer">Summer Semester</label>
                     <input type="checkbox" id="summer" name="include_summer" onClick="handleClick(this)"><br>
@@ -99,6 +99,8 @@
                     <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
                     <input type="hidden" name="include_summer" value="{{ include_summer }}">
                     <input type="hidden" name="certificate_choice" value="{{ certificate_value }}">
+                    <input type="hidden" name="num_electives_fulfilled_by_cert" value="{{ num_electives_fulfilled_by_cert }}">
+                    <input type="hidden" name="num_electives_in_cert" value="{{ num_electives_in_cert }}">
                     <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
                     <input type="submit" name="single_semester" value="Start Schedule (by Semester)">
                     <input type="submit" name="generate_complete_schedule" value="Generate Full Schedule">
@@ -136,6 +138,8 @@
                     <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
                     <input type="hidden" name="include_summer" value="{{ include_summer }}">
                     <input type="hidden" name="certificate_choice" value="{{ certificate_value }}">
+                    <input type="hidden" name="num_electives_fulfilled_by_cert" value="{{ num_electives_fulfilled_by_cert }}">
+                    <input type="hidden" name="num_electives_in_cert" value="{{ num_electives_in_cert }}">
                     <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
                     <input type="submit" value="Continue Schedule">
                     <br><br>
