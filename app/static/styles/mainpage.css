@@ -2,7 +2,7 @@ body{
     margin: 0;
 }
 
-@media screen and (min-width: 600px) and (min-height: 600px){
+@media screen and (min-width: 550px) and (min-height: 550px){
     body {
         height: 100vh;
     }

@@ -8,6 +8,8 @@ import pprint
 def index():
     semesters = ["Fall", "Spring"]
     certificates = [("None", ""), ("Artificial Intelligence", "AICERTReq"), ("Cybersecurity", "CYBERCERTReq"), ("Data Science", "DATACERTReq"), ("Mobile Apps and Computing", "MOBILECERTReq"), ("Internet and Web", "WEBCERTReq")]
+    #num_3000_replaced_by_cert_core=0
+    #cert_electives_still_needed=0
     # create dictionaries for each course type
     core_courses, elective_courses = parse_courses()
 
@@ -20,8 +22,8 @@ def index():
                            required_courses_dict=json.dumps(core_courses),
                            semesters=semesters,
                            certificates=certificates,
-                           num_electives_fulfilled_by_cert=0,
-                           num_electives_in_cert=0,
+                           num_3000_replaced_by_cert_core=0,
+                           cert_electives_still_needed=0,
                            total_credits=0,
                            course_schedule=json.dumps([]),
                            elective_courses=json.dumps(elective_courses),
@@ -51,8 +53,8 @@ def schedule_generator():
                            min_3000_course=render_info["min_3000_course"],
                            include_summer=render_info["include_summer"],
                            certificates=render_info["certificate_choice"],
-                           num_electives_fulfilled_by_cert=render_info["num_electives_fulfilled_by_cert"],
-                           num_electives_in_cert=render_info["num_electives_in_cert"],
+                           num_3000_replaced_by_cert_core=render_info["num_3000_replaced_by_cert_core"],
+                           cert_electives_still_needed=render_info["cert_electives_still_needed"],
                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                            elective_courses=render_info["elective_courses"]
 
