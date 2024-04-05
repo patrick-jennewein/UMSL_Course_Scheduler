@@ -375,10 +375,8 @@ def generate_semester(request) -> None:
                     # iterate through pre-requisites for the current course
                     required_courses_taken = False
                     for prereqs in course_info["prerequisite"]:
-
                         # if there is only one pre-requisite (a string)
                         if isinstance(prereqs, str):
-
                             # ENGLISH 3130 has a special prerequisite of at least 56 credit hours before the class can be taken
                             if (course == "ENGLISH 3130"):
                                 if (total_credits_accumulated >= 56) and (prereqs in courses_taken):
@@ -391,14 +389,14 @@ def generate_semester(request) -> None:
 
                             # add the current course because pre-requisite has already been taken
                             elif (prereqs in courses_taken) and (
-                                    (prereqs not in current_semester_classes) or (prereqs == concurrent)):
+                                    # `not any(current...)` verifies the prereq is not in the current semester class list of dictionaries
+                                    (not any(current['course'] == prereqs for current in current_semester_classes)) or (prereqs == concurrent)):
                                 required_courses_taken = True
                             else:
                                 required_courses_taken = False
 
                         # if there is a list of pre-requisites
                         else:
-
                             # if there is only one pre-requisite
                             if (len(prereqs) == 1):
 
@@ -418,7 +416,8 @@ def generate_semester(request) -> None:
                                 # iterate through each pre-requisite
                                 for prereq in prereqs:
                                     if (prereq in courses_taken) and (
-                                            (prereq not in current_semester_classes) or (prereq == concurrent)):
+                                            # `not any(current...)` verifies the prereq is not in the current semester class list of dictionaries
+                                            (not any(current['course'] == prereqs for current in current_semester_classes)) or (prereq == concurrent)):
                                         required_courses_taken = True
                                     else:
                                         required_courses_taken = False
