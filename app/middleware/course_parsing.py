@@ -208,7 +208,8 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
         current_semester_classes.append({
             'course': course,
             'name': course_info['course_name'],
-            'description': course_info['course_description']
+            'description': course_info['course_description'],
+            'credits': course_info['credit']
         })
         courses_taken.append(course)
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
@@ -238,7 +239,7 @@ def build_semester_list(first_season="Fall", include_summer=True) -> list:
     return [season for season in possible_seasons if season in selected_semesters]
 
 
-def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
+def generate_semester(request):
     # get information from user form, routes.py
     total_credits_accumulated = int(request.form["total_credits"])
     course_schedule = json.loads(request.form["course_schedule"])
@@ -498,7 +499,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                 current_semester_classes.append({
                     'course': "Gen Ed or Elective",
                     'name': '_',
-                    'description': ''
+                    'description': '',
+                    'credits': 3
                 })
                 print(f"\tGen Ed or Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
 
@@ -520,7 +522,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                                 current_semester_classes.append({
                                         'course': "CMP SCI 3000+ level elective",
                                         'name': '_',
-                                        'description': ''
+                                        'description': '',
+                                        'credits': 3
                                     })
                                 current_semester_cs_math_credits_per_semester += 3
                                 current_CS_elective_credits_per_semester += 3
@@ -532,7 +535,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                                 current_semester_classes.append({
                                         'course': "CMP SCI certificate elective",
                                         'name': '_',
-                                        'description': ''
+                                        'description': '',
+                                        'credits': 3
                                     })
                                 current_semester_cs_math_credits_per_semester += 3
                                 current_CS_elective_credits_per_semester += 3
@@ -543,7 +547,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                     current_semester_classes.append({
                             'course': "Gen Ed or Elective",
                             'name': '_',
-                            'description': ''
+                            'description': '',
+                            'credits': 3
                     })
                     print(f"\tGen Ed or Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
 
@@ -561,7 +566,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                         current_semester_classes.append({
                             'course': "CMP SCI 3000+ level elective",
                             'name': '_',
-                            'description': ''
+                            'description': '',
+                            'credits': 3
                         })
                         current_semester_cs_math_credits_per_semester += 3
                         current_CS_elective_credits_per_semester += 3
@@ -575,7 +581,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                         current_semester_classes.append({
                             'course': "Gen Ed or Elective",
                             'name': '_',
-                            'description': ''
+                            'description': '',
+                            'credits': 3
                     })
                         print(f"\tGen Ed or Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
 

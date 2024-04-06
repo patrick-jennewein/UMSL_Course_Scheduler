@@ -116,6 +116,67 @@
                 }
             }
         }
+
+        function drag(ev, course_element) {
+            var course_desc = course_element.getAttribute("title");
+            var course_num = course_element.getAttribute("courseNum");
+            var course_name = course_element.getAttribute("courseName");
+            var course_credits = course_element.getAttribute("courseCredits");
+
+            ev.dataTransfer.setData("course_desc", course_desc);
+            ev.dataTransfer.setData("course_num", course_num);
+            ev.dataTransfer.setData("course_name", course_name);
+            ev.dataTransfer.setData("course_credits", course_credits);
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drop(ev, course_element) {
+            ev.preventDefault();
+            var course_desc = ev.dataTransfer.getData("course_desc");
+            var course_num = ev.dataTransfer.getData("course_num");
+            var course_name = ev.dataTransfer.getData("course_name");
+            var course_credits = parseInt(ev.dataTransfer.getData("course_credits"));
+
+            var newListItem = document.createElement('li');
+
+            // const $test = $("<li></li>");
+            // $test.attr({
+            //     courseNum: course_num,
+            //     courseName: course_name,
+            //     courseCredits: course_credits,
+            //     title: course_desc,
+            //     draggable: true,
+            // })
+            // $test.on("dragstart", function(ev){drag(ev, this);});
+            // console.log($test)
+            // console.log($test[0])
+            // $newListItem.html(`title="${course_desc}" courseNum="${course_num }" courseName="${course_name}" courseCredits="${course_credits}" draggable=${true} ondragstart="${drag(event, this)}"`)
+
+            // console.log($newListItem)
+
+            newListItem.title = course_desc;
+            newListItem.setAttribute("courseNum", course_num);
+            newListItem.setAttribute("courseName", course_name);
+            newListItem.setAttribute("courseCredits", course_credits);
+            newListItem.draggable=true;
+            newListItem.addEventListener('dragstart', function() { console.log('test')}, false);
+
+            var course_num_element = document.createElement('p');
+            course_num_element.classList.add("course-number");
+            course_num_element.textContent = `${course_num}:`;
+
+            var course_name_element = document.createElement('p');
+            course_name_element.classList.add("course-name");
+            course_name_element.textContent = course_name;
+
+            newListItem.appendChild(course_num_element);
+            newListItem.appendChild(course_name_element);
+            
+            course_element.appendChild(newListItem);
+        }
     </script>
     <head>
         <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
@@ -260,12 +321,14 @@
                         <p><label>Semester</label>{{ semester.semester }}</p>
                         <p><label>Credits</label>{{ semester.credits }}</p>
                         <p><label>Courses</label></p>
-                        <ul>
+                        <ul ondrop="drop(event, this)" ondragover="allowDrop(event)">
                             {% for course in semester.schedule %}
-                            <li title="{{ course.description }}">
-                                <p class = "course-number">{{ course.course }}: </p>
-                                <p class = "course-name">{{ course.name }}</p>
-                            </li>
+                                <li title="{{ course.description }}" courseNum="{{ course.course }}" courseName="{{ course.name }}"
+                                    courseCredits="{{ course.credits }}"draggable="true" ondragstart="drag(event, this)">
+
+                                    <p class = "course-number">{{ course.course }}: </p>
+                                    <p class = "course-name">{{ course.name }}</p>
+                                </li>
                             {% endfor %}
                         </ul>
                     <hr>
