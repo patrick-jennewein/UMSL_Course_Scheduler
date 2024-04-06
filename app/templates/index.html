@@ -142,27 +142,12 @@
 
             var newListItem = document.createElement('li');
 
-            // const $test = $("<li></li>");
-            // $test.attr({
-            //     courseNum: course_num,
-            //     courseName: course_name,
-            //     courseCredits: course_credits,
-            //     title: course_desc,
-            //     draggable: true,
-            // })
-            // $test.on("dragstart", function(ev){drag(ev, this);});
-            // console.log($test)
-            // console.log($test[0])
-            // $newListItem.html(`title="${course_desc}" courseNum="${course_num }" courseName="${course_name}" courseCredits="${course_credits}" draggable=${true} ondragstart="${drag(event, this)}"`)
-
-            // console.log($newListItem)
-
             newListItem.title = course_desc;
             newListItem.setAttribute("courseNum", course_num);
             newListItem.setAttribute("courseName", course_name);
             newListItem.setAttribute("courseCredits", course_credits);
             newListItem.draggable=true;
-            newListItem.addEventListener('dragstart', function() { console.log('test')}, false);
+            newListItem.addEventListener('dragstart', function(ev) { drag(ev, this)}, false);
 
             var course_num_element = document.createElement('p');
             course_num_element.classList.add("course-number");
