@@ -191,6 +191,9 @@
                 <paired>CMP SCI 5420</paired>
             </course>
         </CertElectives>
+        <NoOfElectives>
+            <num>3</num>
+        </NoOfElectives>
     </AICERTReq>
     <CYBERCERTReq>
         <CertCore>
@@ -461,6 +464,9 @@
                 <course_description></course_description>
             </course>
         </CertElectives>
+        <NoOfElectives>
+            <num>2</num>
+        </NoOfElectives>
     </CYBERCERTReq>
     <DATACERTReq>
         <CertCore>
@@ -734,6 +740,9 @@
                 <course_description></course_description>
             </course>
         </CertElectives>
+        <NoOfElectives>
+            <num>2</num>
+        </NoOfElectives>
     </DATACERTReq>
     <MOBILECERTReq>
         <CertCore>
@@ -902,6 +911,9 @@
                 </prerequisite>
             </course>
         </CertElectives>
+        <NoOfElectives>
+            <num>2</num>
+        </NoOfElectives>
     </MOBILECERTReq>
     <WEBCERTReq>
         <CertCore>
@@ -1097,5 +1109,8 @@
                 <course_description></course_description>
             </course>
         </CertElectives>
+        <NoOfElectives>
+            <num>1</num>
+        </NoOfElectives>
     </WEBCERTReq>
 </CSCertificates>

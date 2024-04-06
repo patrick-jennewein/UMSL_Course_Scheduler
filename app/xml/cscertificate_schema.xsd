@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-
-<!-- Change log: 
-									
--->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <!--these are the only subjects in the CS degree-->
     <xs:simpleType name="SubjectList">
@@ -81,6 +77,7 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+
     <xs:complexType name="ElectiveCourseDetails">
         <xs:sequence>
             <xs:element name="subject" type="SubjectList"/>
@@ -112,8 +109,14 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="NoOfElectives">
+        <xs:sequence>
+            <xs:element name="num" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
 
-    <!--Defines the sequence of course data for the certificate programs.-->
+    <xs:element name="NoOfElectives" type="NoOfElectives"/>
+
     <xs:complexType name="CertCourses">
         <xs:sequence>
             <xs:element name="CertCore">
@@ -130,10 +133,10 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="NoOfElectives" type="NoOfElectives"/>
         </xs:sequence>
     </xs:complexType>
 
-    <!--Defines a sequence for data about the general CSBSRequirements, including all electives and also defines a sequence for the current certificate options.-->
     <xs:element name="CSCertificates">
         <xs:complexType>
             <xs:sequence>
@@ -145,4 +148,4 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-</xs:schema> 
+</xs:schema>

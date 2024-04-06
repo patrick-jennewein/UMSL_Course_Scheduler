@@ -49,6 +49,7 @@ def index():
 @app.route('/schedule', methods=["POST"])
 def schedule_generator():
     render_info = generate_semester(request)
+    print("Back to routes.py")
     pprint.pprint(render_info["course_schedule_display"])
     return render_template('index.html',
                            required_courses_dict_list=render_info["required_courses_dict_list"],
