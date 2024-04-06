@@ -459,7 +459,7 @@ def generate_semester(request):
                     if current_semester_credits >= min_credits_per_semester:
                         current_semester_info = {
                             'semester': current_semester,
-                            'semester number': semester,
+                            'semester_number': semester,
                             'credits': current_semester_credits,
                             'schedule': current_semester_classes
                         }
@@ -593,7 +593,7 @@ def generate_semester(request):
             if current_semester_credits >= min_credits_per_semester:
                 current_semester_info = {
                     'semester': current_semester,
-                    'semester number': semester,
+                    'semester_number': semester,
                     'credits': current_semester_credits,
                     'schedule': current_semester_classes
                 }
