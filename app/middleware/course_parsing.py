@@ -437,9 +437,16 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
     print(f"Minimum credits for all Fall/Spring semesters: {min_credits_per_semester}")
 
     # adjust credit ratios for scheduling parameters
-    max_core_credits_per_semester = (min_credits_per_semester / 2)  # sets the total # of credits of core/required classes
-    credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
+    if(min_credits_per_semester >= 21):
+        max_core_credits_per_semester = min_credits_per_semester - 9
+    elif(min_credits_per_semester >= 18):
+        max_core_credits_per_semester = min_credits_per_semester - 6
+    elif(min_credits_per_semester >= 15):
+        max_core_credits_per_semester = min_credits_per_semester - 6
+    else:
+        max_core_credits_per_semester = min_credits_per_semester - 3  # sets the total # of credits of core/required classes
     max_CS_elective_credits_per_semester = 6
+    credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
     max_CS_math_total_credits = min_credits_per_semester - 3
     summer_credit_count = 3
 
@@ -655,7 +662,7 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                             print(f"\tCMP SCI certificate elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
 
                         # all 4 conditions fail. Add an elective.
-                        if gen_ed_credits_still_needed > 0:
+                        elif gen_ed_credits_still_needed > 0:
                             current_semester_classes.append(add_gen_ed_elective())
                             print(
                                 f"\tGeneral Education Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
@@ -674,6 +681,7 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                         else:
                             current_semester_classes.append(add_free_elective())
                             print(f"\tFree Elective added, {current_semester_credits + 3}/{min_credits_per_semester}")
+
 
                 # user does NOT elect for a certificate
                 elif certificate_option == False:
