@@ -2,8 +2,6 @@ import xmltodict
 import json
 from collections.abc import Mapping
 from typing import Union, Dict, Any, List
-from pprint import pprint
-from rich.console import Console
 
 
 def print_dictionary(course_dictionary: dict) -> None:
@@ -318,6 +316,18 @@ def check_schedule(total_credits_accumulated, required_courses_tuple, courses_ta
 
     return is_course_generation_complete
 
+
+def update_semester(current_semester, include_summer) -> str:
+    if current_semester == "Fall":
+        return "Spring"
+    elif current_semester == "Spring":
+        if include_summer:
+            return "Summer"
+        else:
+            return "Fall"
+    else:
+        return "Fall"
+
 def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     # get information from user form, routes.py
     total_credits_accumulated = int(request.form["total_credits"])
@@ -561,15 +571,7 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                         semester += 1
                         current_semester_cs_math_credits_per_semester = 0
                         current_CS_elective_credits_per_semester = 0
-                        if current_semester == "Fall":
-                            current_semester = "Spring"
-                        elif current_semester == "Spring":
-                            if include_summer:
-                                current_semester = "Summer"
-                            else:
-                                current_semester = "Fall"
-                        else:
-                            current_semester = "Fall"
+                        current_semester = update_semester(current_semester, include_summer)
                         print("Next Semester: ")
 
                         # if only generating a semester stop here
@@ -729,17 +731,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                 semester += 1
                 current_semester_cs_math_credits_per_semester = 0
                 current_CS_elective_credits_per_semester = 0
-                if current_semester == "Fall":
-                    current_semester = "Spring"
-                elif current_semester == "Spring":
-                    if include_summer:
-                        current_semester = "Summer"
-                    else:
-                        current_semester = "Fall"
-                else:
-                    current_semester = "Fall"
+                current_semester = update_semester(current_semester, include_summer)
 
-    # finished
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "semesters": user_semesters,
