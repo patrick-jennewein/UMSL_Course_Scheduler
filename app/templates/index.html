@@ -169,6 +169,7 @@
                 var course_num_element = document.createElement('p');
                 course_num_element.classList.add("course-number");
                 course_num_element.textContent = `${course_num}:`;
+                course_num_element.appendChild( document.createTextNode( '\u00A0' ) ); // Adds space after the colon
 
                 var course_name_element = document.createElement('p');
                 course_name_element.classList.add("course-name");
@@ -179,6 +180,14 @@
                 
                 course_element.appendChild(newListItem);
 
+                var new_li_parent = newListItem.parentNode;
+                var new_li_parent_semester_num = parseInt(new_li_parent.getAttribute("semesterNum"));
+                var new_li_parent_semester_credits_element = document.getElementById(`semester-${new_li_parent_semester_num}-credits`);
+                var new_li_parent_semester_credits = parseInt(new_li_parent_semester_credits_element.childNodes[1].textContent);
+                var new_semester_updated_credits = new_li_parent_semester_credits + course_credits;
+
+                new_li_parent_semester_credits_element.childNodes[1].textContent = new_semester_updated_credits;
+
                 var li_to_delete_parent = li_to_delete.parentNode;
                 var li_to_del_semester_num = parseInt(li_to_delete_parent.getAttribute("semesterNum"));
                 var li_to_del_semester_credits_element = document.getElementById(`semester-${li_to_del_semester_num}-credits`);
@@ -186,8 +195,29 @@
                 var original_semester_updated_credits = li_to_del_semester_credits - course_credits;
 
                 li_to_del_semester_credits_element.childNodes[1].textContent = original_semester_updated_credits;
+
+                var course_schedule = JSON.parse(document.getElementById("course_schedule").value);
                 
-                li_to_delete.remove()
+                var added_course = {
+                    course: course_num,
+                    credits: course_credits,
+                    description: course_desc,
+                    name: course_name
+                };
+
+                course_schedule[new_li_parent_semester_num].schedule.push(added_course);
+                course_schedule[new_li_parent_semester_num].credits = new_semester_updated_credits;
+
+                var index_of_old_course_location = course_schedule[li_to_del_semester_num].schedule.findIndex(i => i.course === course_num);
+
+                if (index_of_old_course_location > -1) { // only splice array when item is found
+                    course_schedule[li_to_del_semester_num].schedule.splice(index_of_old_course_location, 1); // 2nd parameter means remove one item only
+                    course_schedule[li_to_del_semester_num].credits = original_semester_updated_credits;
+                }
+
+                document.getElementById("course_schedule").value = JSON.stringify(course_schedule);
+                                
+                li_to_delete.remove();
             }
         }
     </script>
@@ -312,7 +342,7 @@
                     <br><br>
 
                     <!-- hidden values -->
-                    <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
+                    <input type="hidden" id="course_schedule" name="course_schedule" value="{{ course_schedule }}">
                     <input type="hidden" name="semester_number" value="{{ semester_number }}">
                     <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
                     <input type="hidden" name="include_summer" value="{{ include_summer }}">
