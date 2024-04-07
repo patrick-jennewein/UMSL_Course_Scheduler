@@ -2,6 +2,7 @@ import xmltodict
 import json
 from collections.abc import Mapping
 from typing import Union, Dict, Any, List
+import math
 
 
 def print_dictionary(course_dictionary: dict) -> None:
@@ -437,17 +438,11 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
     print(f"Minimum credits for all Fall/Spring semesters: {min_credits_per_semester}")
 
     # adjust credit ratios for scheduling parameters
-    if(min_credits_per_semester >= 21):
-        max_core_credits_per_semester = min_credits_per_semester - 9
-    elif(min_credits_per_semester >= 18):
-        max_core_credits_per_semester = min_credits_per_semester - 6
-    elif(min_credits_per_semester >= 15):
-        max_core_credits_per_semester = min_credits_per_semester - 6
-    else:
-        max_core_credits_per_semester = min_credits_per_semester - 3  # sets the total # of credits of core/required classes
-    max_CS_elective_credits_per_semester = 6
-    credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
+    max_core_credits_per_semester = math.ceil(min_credits_per_semester * 2/3)
     max_CS_math_total_credits = min_credits_per_semester - 3
+    max_CS_elective_credits_per_semester = 6
+
+    credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
     summer_credit_count = 3
 
     # start with a blank semester
