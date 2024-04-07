@@ -433,6 +433,7 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
 
     # user enters credits for upcoming semester
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
+    temp_min_credits_per_semester = min_credits_per_semester
     print(f"Minimum credits for all Fall/Spring semesters: {min_credits_per_semester}")
 
     # adjust credit ratios for scheduling parameters
@@ -440,6 +441,7 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
     credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
     max_CS_elective_credits_per_semester = 6
     max_CS_math_total_credits = min_credits_per_semester - 3
+    summer_credit_count = 3
 
     # start with a blank semester
     current_semester_credits = 0
@@ -572,7 +574,13 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                         current_semester_cs_math_credits_per_semester = 0
                         current_CS_elective_credits_per_semester = 0
                         current_semester = update_semester(current_semester, include_summer)
-                        print("Next Semester: ")
+                        print(f"Next Semester, {current_semester}")
+
+                        # ensure summer credit hours are not F/Sp credit hours
+                        if (current_semester == "Summer" and generate_complete_schedule):
+                            min_credits_per_semester = summer_credit_count
+                        elif (current_semester != "Summer" and generate_complete_schedule):
+                            min_credits_per_semester = temp_min_credits_per_semester
 
                         # if only generating a semester stop here
                         if not generate_complete_schedule:
@@ -732,6 +740,14 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
                 current_semester_cs_math_credits_per_semester = 0
                 current_CS_elective_credits_per_semester = 0
                 current_semester = update_semester(current_semester, include_summer)
+                print(f"Next Semester, {current_semester}")
+
+                # ensure summer credit hours are not F/Sp credit hours
+                if(current_semester == "Summer" and generate_complete_schedule):
+                    min_credits_per_semester = summer_credit_count
+                elif (current_semester != "Summer" and generate_complete_schedule):
+                    min_credits_per_semester = temp_min_credits_per_semester
+
 
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
