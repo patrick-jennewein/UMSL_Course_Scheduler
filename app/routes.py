@@ -68,5 +68,6 @@ def schedule_generator():
                            cert_electives_still_needed=render_info["cert_electives_still_needed"],
                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                            elective_courses=render_info["elective_courses"],
-                           gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed']
+                           gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
+                           full_schedule_generation=render_info['full_schedule_generation']
     )

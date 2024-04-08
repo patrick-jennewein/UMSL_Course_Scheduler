@@ -469,15 +469,6 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
     temp_min_credits_per_semester = min_credits_per_semester
 
-    # create header for console
-    if(generate_complete_schedule):
-        print(f"Minimum credits for all Fall/Spring semesters: {min_credits_per_semester}\n\n")
-    elif(not generate_complete_schedule):
-        print(f"Minimum credits for upcoming semester: {min_credits_per_semester}\n\n")
-    print(f"Status:\t{'Num:':<15}{'Course Name:':<40} "
-          f"{'Cr of Min:':<5}"
-          f"{'Total':>15}/{TOTAL_CREDITS_FOR_GRADUATION}:")
-
     # adjust credit ratios for scheduling
     max_core_credits_per_semester = math.ceil(min_credits_per_semester * 2/3)
     max_CS_math_total_credits = min_credits_per_semester - 3
@@ -493,6 +484,16 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
     current_semester_cs_math_credits_per_semester = 0
     current_CS_elective_credits_per_semester = 0
     is_course_generation_complete = False
+
+    # create header for console
+    if(generate_complete_schedule):
+        print(f"Minimum credits for all Fall/Spring semesters: {min_credits_per_semester}")
+        print(f"Minimum credits for summer semester: {summer_credit_count}\n\n")
+    elif(not generate_complete_schedule):
+        print(f"Minimum credits for upcoming semester: {min_credits_per_semester}\n\n")
+    print(f"Status:\t{'Num:':<15}{'Course Name:':<40} "
+          f"{'Cr of Min:':<5}"
+          f"{'Total':>15}/{TOTAL_CREDITS_FOR_GRADUATION}:")
 
     # loop through to generate a semester or a whole schedule
     while (not is_course_generation_complete):
@@ -902,5 +903,6 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
         "cert_electives_still_needed": cert_electives_still_needed,
         "saved_minimum_credits_selection": min_credits_per_semester,
         "elective_courses": json.dumps(elective_courses),
-        "gen_ed_credits_still_needed": gen_ed_credits_still_needed
+        "gen_ed_credits_still_needed": gen_ed_credits_still_needed,
+        "full_schedule_generation": generate_complete_schedule
     }
