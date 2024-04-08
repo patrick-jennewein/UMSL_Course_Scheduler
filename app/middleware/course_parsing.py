@@ -564,7 +564,8 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
 
                                 # add the current course because pre-requisite has already been taken
                                 if (prereqs[0] in courses_taken) and (
-                                        (prereqs[0] not in current_semester_classes) or (prereqs[0] == concurrent)):
+                                        (not any(current['course'] == prereqs[0] for current in current_semester_classes))
+                                        or (prereqs[0] == concurrent)):
                                     course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                                         current_semester, course_info, current_semester_classes, course, courses_taken,
                                         total_credits_accumulated, current_semester_credits

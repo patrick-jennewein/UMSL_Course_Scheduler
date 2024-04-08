@@ -2,7 +2,7 @@ body{
     margin: 0;
 }
 
-@media screen and (min-width: 550px) and (min-height: 550px){
+@media screen and (min-width: 0px){
     body {
         height: 100vh;
     }
@@ -86,10 +86,14 @@ body{
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
-
     .grid-item {
-        border: 1px solid #ccc;
+        border: 3px solid #ccc;
         padding: 10px;
+    }
+    .grid-item:hover {
+        background-color: #fff7df;
+        border: 3px solid #a80b2d;
+        transition: 1.0s;
     }
 
 
@@ -104,28 +108,46 @@ body{
     .semester-schedules label{
         display: inline-block;
         color: #a80b2d;
-        width: 250px;
+        width: 120px;               /* changes how far away semester, credits are from edge*/
         font-weight: 600;
+    }
+    .semester-schedules ul{
+        margin-left: 0;
+        padding-left: 0;
     }
     .semester-schedules li{
         list-style: none;
-        margin-left: 210px;
+        padding-left: 0;
+        margin-top: 10px;
     }
     .course-number{
         display: inline-block;
-        /*min-width: 150px;*/
     }
     .course-name{
         display: inline-block;
     }
     .course-name-and-num{
         border: 1px solid lightgray;
-        margin: 10px 10px 10px 0px;
+        padding: 5px;
     }
     .course-name-and-num:hover{
         background-color: #a80b2d;
         color: white;
         border: 1px solid black;
+        transition: 0.5s;
+        font-weight: 600;
     }
 
 }
+
+@media screen and (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .semester-schedules li {
+        margin-left: 0;
+    }
+}
+
+
