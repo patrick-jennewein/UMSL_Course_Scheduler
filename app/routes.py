@@ -53,6 +53,7 @@ def schedule_generator():
     pprint.pprint(render_info["course_schedule_display"])
     return render_template('index.html',
                            required_courses_dict_list=render_info["required_courses_dict_list"],
+                           required_courses_dict_list_unchanged=render_info["required_courses_dict_list_unchanged"],
                            semesters=render_info["semesters"],
                            total_credits=render_info["total_credits"],
                            course_schedule=render_info["course_schedule"],

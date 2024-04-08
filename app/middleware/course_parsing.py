@@ -298,6 +298,7 @@ def generate_semester(request):
             except:
                 print(f"Course: {course} was not found in the required_courses_dict")
         required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
+        required_courses_dict_list_unchanged = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
 
         # print information for certificates and proposed course schedule
         print("Certificate Core: ")
@@ -366,24 +367,13 @@ def generate_semester(request):
 
                 # if the course has no pre-requisites
                 if len(course_info["prerequisite"]) == 0:
-
-                    # if course is not ENGLISH 3130, just add it
-                    if (course != "ENGLISH 3130"):
-                        course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
-                            = add_course(
-                            current_semester, course_info, current_semester_classes, course, courses_taken,
-                            total_credits_accumulated, current_semester_credits)
-
-                    # if course is ENGLISH 3130, add it IF the appropriate credits have been earned
-                    if (course == "ENGLISH 3130") and (total_credits_accumulated >= 56) and (prereqs in courses_taken):
-                        course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
-                            = add_course(
-                            current_semester, course_info, current_semester_classes, course, courses_taken,
-                            total_credits_accumulated, current_semester_credits)
+                    course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
+                        = add_course(
+                        current_semester, course_info, current_semester_classes, course, courses_taken,
+                        total_credits_accumulated, current_semester_credits)
 
                 # if the course has at least one pre-requisite
                 else:
-
                     # look up list of pre-requisites for current course
                     course_added = False
                     prereqs = course_info["prerequisite"]
@@ -418,7 +408,7 @@ def generate_semester(request):
 
                                 # add the current course because pre-requisite has already been taken
                                 if (prereqs[0] in courses_taken) and (
-                                        (prereqs[0] not in current_semester_classes) or (prereqs[0] == concurrent)):
+                                        (not any(current['course'] == prereqs[0] for current in current_semester_classes)) or (prereqs[0] == concurrent)):
                                     course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                                         current_semester, course_info, current_semester_classes, course, courses_taken,
                                         total_credits_accumulated, current_semester_credits
@@ -626,6 +616,7 @@ def generate_semester(request):
 
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
+        "required_courses_dict_list_unchanged": json.dumps(required_courses_dict_list_unchanged),
         "semesters": user_semesters,
         "total_credits": total_credits_accumulated,
         "course_schedule": json.dumps(course_schedule),

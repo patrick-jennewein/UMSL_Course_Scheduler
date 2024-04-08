@@ -136,6 +136,11 @@
             ev.preventDefault();
         }
 
+        function prereqFailedAlert (msg, li_element) {
+            alert(msg);
+            li_element.removeAttribute("id");
+        }
+        
         function drop(ev, course_element) {
             ev.preventDefault();
             // Can possibly clean up with the use of the li_to_delete to get element
@@ -153,6 +158,101 @@
                 if (course_num == items[i].getAttribute("courseNum")) {
                     li_to_delete.removeAttribute("id");
                     should_move_course = false
+                }
+            }
+
+            let course_info = null;
+            let concurrent = null;
+
+            const required_courses_dict_list = JSON.parse(document.getElementById("required_courses_dict_list_unchanged").value);
+
+            required_courses_dict_list.some((course_array) => {
+                if (course_array[0] === course_num) {
+                    course_info = course_array[1];
+                    return true;
+                }
+            });
+
+            if (Object.keys(course_info).includes("concurrent")) {
+                concurrent = course_info["concurrent"];
+            }
+
+            if (course_info["prerequisite"].length != 0) {
+                let alert_message = "";
+                let required_courses_taken = false;
+                const prereqs = course_info["prerequisite"];
+
+                const semester_num = parseInt(course_element.getAttribute("semesterNum"));
+
+                const course_schedule = JSON.parse(document.getElementById("course_schedule").value)
+                let credits_total_for_new_semester = 0;
+                const courses_taken_before_new_semester = [];
+                const new_semester_current_courses = [];
+
+                for (let i = 0; i <= semester_num; ++i) {
+                    course_schedule[i].schedule.forEach((x) => {
+                        if (!x.course.toLowerCase().includes("elective") && i != semester_num) {
+                            courses_taken_before_new_semester.push(x.course);
+                        }
+                        if (i == semester_num) {
+                            new_semester_current_courses.push(x.course);
+                        }
+                    });
+                    credits_total_for_new_semester = credits_total_for_new_semester + course_schedule[i].credits;
+                }
+
+                prereqs.some((prereq) => {
+                    if (Array.isArray(prereq)) {
+                        if (prereq.length === 1) {
+                            if (courses_taken_before_new_semester.includes(prereq[0]) ||
+                                (new_semester_current_courses.includes(prereq[0]) && (prereq[0] === concurrent))) {
+                                    required_courses_taken = true;
+                                    return true;
+                            } else {
+                                alert_message = `${course_num} prerequisite (${prereq[0]}) has yet to be taken!`;
+                                required_courses_taken = false;
+                            }
+                        } else {
+                            required_courses_taken = false;
+
+                            prereq.forEach((prereq_course) => {
+                                if (courses_taken_before_new_semester.includes(prereq_course) ||
+                                    (new_semester_current_courses.includes(prereq_course) && (prereq_course === concurrent))) {
+                                        required_courses_taken = true;
+                                } else {
+                                    alert_message = `${course_num} prerequisite (${prereq[0]}) has yet to be taken!`;
+                                    required_courses_taken = false;
+                                }
+                            })
+                            if (required_courses_taken) {
+                                required_courses_taken = true;
+                                return true;
+                            }
+                        }
+                    } else {
+                        if (course_num === "ENGLISH 3130") {
+                            if (!(credits_total_for_new_semester >= 56)) {
+                                alert_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 56 credit hours for the selected semester!";
+                                required_courses_taken = false;
+                            } else if (!courses_taken_before_new_semester.includes(prereq)) {
+                                alert_message = `${course_num} prerequisite (${prereq}) has yet to be taken!`;
+                                required_courses_taken = false;
+                            } else {
+                                required_courses_taken = true;
+                                return true; // Stop looping since class can be added
+                            }
+                        } else if ((courses_taken_before_new_semester.includes(prereq) ||
+                            (new_semester_current_courses.includes(prereq) && (prereq === concurrent)))) {
+                                required_courses_taken = true;
+                        } else {
+                            alert_message = `${course_num} prerequisite (${prereq}) has yet to be taken!`;
+                            required_courses_taken = false
+                        }
+                    }
+                })
+                if (!required_courses_taken) {
+                    prereqFailedAlert(alert_message, li_to_delete)
+                    should_move_course = false;
                 }
             }
 
@@ -216,7 +316,7 @@
                 }
 
                 document.getElementById("course_schedule").value = JSON.stringify(course_schedule);
-                                
+
                 li_to_delete.remove();
             }
         }
@@ -321,11 +421,11 @@
             <div class = "scheduler">
                 <input type="hidden" name="waived_courses" value="{{ waived_courses }}">
                 <input type="hidden" name="current_semester" value="{{ current_semester }}">
-                <input type="hidden" name="courses_taken" value="{{ courses_taken }}">
+                <input type="hidden" id="courses_taken" name="courses_taken" value="{{ courses_taken }}">
                 <input type="hidden" name="semesters" value="{{ semesters }}">
                 <input type="hidden" name="total_credits" value="{{ total_credits }}">
-                <input type="hidden" name="required_courses_dict_list" value="{{ required_courses_dict_list }}">
-
+                <input type="hidden" id="required_courses_dict_list" name="required_courses_dict_list" value="{{ required_courses_dict_list }}">
+                <input type="hidden" id="required_courses_dict_list_unchanged" name="required_courses_dict_list_unchanged" value="{{ required_courses_dict_list_unchanged }}">
                 <!-- Ask user for number of credits next semester-->
                 <div class = "next-semester">
                     <p><label>Total Accumulated Credits</label>{{ total_credits }} / 120</p>
