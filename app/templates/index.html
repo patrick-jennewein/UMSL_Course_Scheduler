@@ -155,9 +155,10 @@
             var should_move_course = true;
 
             for (var i = 0; i < items.length; ++i) {
-                if (course_num == items[i].getAttribute("courseNum")) {
+                // Check if course is being dropped back into the same semester it was previously in
+                if (course_num == items[i].getAttribute("courseNum")) { 
                     li_to_delete.removeAttribute("id");
-                    should_move_course = false
+                    return; // Stop drop() function since the list item is not being dropped in a new semester
                 }
             }
 
