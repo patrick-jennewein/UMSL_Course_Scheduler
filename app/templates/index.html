@@ -257,47 +257,54 @@
 
                         <!-- Individual semester information, repeating until credits are reached -->
                         <div class = "semester-schedules">
-                            {% for semester in course_schedule_display %}
-                            <br>
-                                <p><label>Semester</label>{{ semester.semester }}</p>
-                                <p><label>Credits</label>{{ semester.credits }}</p>
-                                <p><label>Courses</label></p>
-                                <ul>
-                                    {% for course in semester.schedule %}
-                                    <li title="{{ course.description }}">
-                                        <p class = "course-number">{{ course.course }}: </p>
-                                        <p class = "course-name">{{ course.name }}</p>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            <hr>
-                            {% endfor %}
+                            <div class="grid-container">
+                                {% for semester in course_schedule_display %}
+                                <div class="grid-item">
+                                    <p><label>Semester</label>{{ semester.semester }}</p>
+                                    <p><label>Credits</label>{{ semester.credits }}</p>
+                                    <p><label>Courses</label></p>
+                                    <ul>
+                                        {% for course in semester.schedule %}
+                                        <li title="{{ course.description }}">
+                                            <div class = "course-name-and-num">
+                                                <p class="course-number">{{ course.course }}: </p>
+                                                <p class="course-name">{{ course.name }}</p>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                            </div>
                         </div>
                 </div>
-                    <!-- If generating a schedule all at once-->
+
+                <!-- If generating a schedule all at once-->
                 {% else %}
                     <div class = "full-schedule-scheduler">
-                        <!-- if summer is NOT included, generate 2 columns-->
                         <div class = "semester-schedules">
-                            {% for semester in course_schedule_display %}
-                            <br>
-                                <p><label>Semester</label>{{ semester.semester }}</p>
-                                <p><label>Credits</label>{{ semester.credits }}</p>
-                                <p><label>Courses</label></p>
-                                <ul>
-                                    {% for course in semester.schedule %}
-                                    <li title="{{ course.description }}">
-                                        <p class = "course-number">{{ course.course }}: </p>
-                                        <p class = "course-name">{{ course.name }}</p>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            <hr>
-                            {% endfor %}
+                            <div class="grid-container">
+                                {% for semester in course_schedule_display %}
+                                <div class="grid-item">
+                                    <p><label>Semester</label>{{ semester.semester }}</p>
+                                    <p><label>Credits</label>{{ semester.credits }}</p>
+                                    <p><label>Courses</label></p>
+                                    <ul>
+                                        {% for course in semester.schedule %}
+                                        <li title="{{ course.description }}">
+                                            <div class = "course-name-and-num">
+                                                <p class="course-number">{{ course.course }}: </p>
+                                                <p class="course-name">{{ course.name }}</p>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                            </div>
                         </div>
-
-                        <!-- if summer IS included, generate 3 columns-->
                     </div>
+
                 {% endif %}
 
             {% endif %}

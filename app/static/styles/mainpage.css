@@ -75,10 +75,23 @@ body{
     }
 
     /* full-schedule styles */
-    .full-schedule-scheduler .semester-schedules{
+    .full-schedule-scheduler .semester-schedules {
         padding: 20px;
         margin: 20px;
     }
+
+    /* grid styles */
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .grid-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+
 
     /* styles for BOTH semester-by-semester AND full-schedule */
     .semester-schedules p{
@@ -104,6 +117,15 @@ body{
     }
     .course-name{
         display: inline-block;
+    }
+    .course-name-and-num{
+        border: 1px solid lightgray;
+        margin: 10px 10px 10px 0px;
+    }
+    .course-name-and-num:hover{
+        background-color: #a80b2d;
+        color: white;
+        border: 1px solid black;
     }
 
 }
