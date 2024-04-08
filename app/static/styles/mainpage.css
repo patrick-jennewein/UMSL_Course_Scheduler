@@ -136,6 +136,7 @@ body{
         border: 1px solid black;
         transition: 0.5s;
         font-weight: 600;
+        margin-left: 50px;
     }
 
 }
