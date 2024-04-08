@@ -3,6 +3,7 @@ import json
 from collections.abc import Mapping
 from typing import Union, Dict, Any, List
 import math
+import pprint
 
 
 def print_dictionary(course_dictionary: dict) -> None:
@@ -361,6 +362,7 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
 
     # if the first semester, overwrite schedular variables from above
     if semester == 0:
+        print(f"Total Credits Earned Before Starting School: {total_credits_accumulated}")
         if "include_summer" in request.form.keys():
             include_summer = True if request.form["include_summer"] == "on" else False  ## Not sure why it's returning 'on' if checkbox is checked
         if ("courses_taken" in request.form.keys()):
@@ -387,6 +389,10 @@ def generate_semester(request) -> dict[Union[str, Any], Union[Union[str, list, i
 
         # generate required courses
         required_courses_dict = json.loads(request.form['required_courses_dict'])
+
+        # remove University course - INTDSC 1003 - if user has required credits
+        if total_credits_accumulated > 24:
+            del required_courses_dict['INTDSC 1003']
 
         # if a certificate was selected, add the required certificate courses to required courses
         if certificate_core:

@@ -1104,6 +1104,21 @@
 		</course>
 	</MathandStatistics>
 	<OtherCourses>
+        <course>
+			<subject>INTDSC</subject>
+			<course_number>1003</course_number>
+			<course_name>University Studies</course_name>
+			<credit>1</credit>
+			<course_description>This course, required of all new freshmen in the College of Arts and Sciences, is designed to assist students in making the transition to the university experience and to UMSL by giving students the knowledge and tools needed to succeed as a scholar. The course will also familiarize students with the relationship between their education and their career and personal goals, and will assist in developing positive connections with faculty, staff, and peers at UMSL. Students will learn about faculty expectations, support services, and student life, as well as academic disciplines. The course counts toward the 120 credit hours needed for graduation.</course_description>
+			<rotation_term>
+				<term>Spring</term>
+				<time_code>D, E, O</time_code>
+			</rotation_term>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code>D, E, O</time_code>
+			</rotation_term>
+		</course>
 		<course>
 			<subject>ENGLISH</subject>
 			<course_number>1100</course_number>
