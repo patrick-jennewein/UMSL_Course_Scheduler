@@ -460,6 +460,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     # if NOT the first semester
     elif semester != 0:
         required_courses_dict_list = json.loads(request.form['required_courses_dict_list'])
+        required_courses_dict_list_unchanged = json.loads(request.form['required_courses_dict_list_unchanged'])
         user_semesters = request.form["semesters"]
         include_summer = True if request.form["include_summer"] == "True" else False
 
@@ -881,7 +882,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 elif (current_semester != "Summer" and generate_complete_schedule):
                     min_credits_per_semester = temp_min_credits_per_semester
 
-
+    print(required_courses_dict_list_unchanged)
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(required_courses_dict_list_unchanged),
