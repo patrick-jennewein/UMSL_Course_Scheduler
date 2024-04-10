@@ -155,8 +155,11 @@
             const semester_num = parseInt(course_element.getAttribute("semesterNum"));
             const ul_element = document.getElementById(`semester-${semester_num}-ul`);
 
-            if (course_num == "INTDSC 1003") {
+            if (course_num === "INTDSC 1003") {
                 dropFailedAlert("INTDSC 1003 must be taken in the first semester!", li_to_delete);
+                return;
+            } else if (course_num === "CMP SCI 1000" && semester_num > 1) {
+                dropFailedAlert("CMP SCI 1000 must be taken in the first or second semester!", li_to_delete);
                 return;
             }
 
