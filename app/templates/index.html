@@ -136,7 +136,7 @@
             ev.preventDefault();
         }
 
-        function prereqFailedAlert (msg, li_element) {
+        function dropFailedAlert (msg, li_element) {
             alert(msg);
             li_element.removeAttribute("id");
         }
@@ -154,6 +154,11 @@
 
             const semester_num = parseInt(course_element.getAttribute("semesterNum"));
             const ul_element = document.getElementById(`semester-${semester_num}-ul`);
+
+            if (course_num == "INTDSC 1003") {
+                dropFailedAlert("INTDSC 1003 must be taken in the first semester!", li_to_delete);
+                return;
+            }
 
             let should_move_course = true;
 
@@ -214,7 +219,7 @@
                                         required_courses_taken = true;
                                         return true;
                                 } else {
-                                    alert_message = `${course_num} prerequisite (${prereq[0]}) has yet to be taken!`;
+                                    alert_message = alert_message !== "" ? alert_message : `${course_num} prerequisite (${prereq[0]}) has to be completed first!`;
                                     required_courses_taken = false;
                                 }
                             } else {
@@ -225,7 +230,7 @@
                                         (new_semester_current_courses.includes(prereq_course) && (prereq_course === concurrent))) {
                                             required_courses_taken = true;
                                     } else {
-                                        alert_message = `${course_num} prerequisite (${prereq[0]}) has yet to be taken!`;
+                                        alert_message = alert_message !== "" ? alert_message : `${course_num} prerequisite (${prereq_course}) has to be completed first!`;
                                         required_courses_taken = false;
                                     }
                                 })
@@ -256,7 +261,7 @@
                         }
                     })
                     if (!required_courses_taken) {
-                        prereqFailedAlert(alert_message, li_to_delete)
+                        dropFailedAlert(alert_message, li_to_delete)
                         should_move_course = false;
                     }
                 }

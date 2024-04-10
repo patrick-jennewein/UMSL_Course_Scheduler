@@ -429,7 +429,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         required_courses_dict = json.loads(request.form['required_courses_dict'])
 
         # remove University course - INTDSC 1003 - if user has required credits
-        if total_credits_accumulated > 24:
+        if total_credits_accumulated >= 24:
             del required_courses_dict['INTDSC 1003']
 
         # if a certificate was selected, add the required certificate courses to required courses and update counters
