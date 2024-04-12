@@ -379,7 +379,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     generate_complete_schedule = True if "generate_complete_schedule" in request.form.keys() else False
     cert_electives_still_needed = int(request.form["cert_electives_still_needed"])  # default is 0
     min_3000_course_still_needed = int(request.form["min_3000_course"]) # default is 5
-    certificate_choice = request.form["certificate_choice"]
+    certificate_choice_xml_tag = ""
+    certificate_choice_name = ""
     num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])  # default is 0
     gen_ed_credits_still_needed = int(request.form["gen_ed_credits_still_needed"])
 
@@ -416,8 +417,12 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             courses_taken = list(dict.fromkeys(courses_taken))
 
         # if user elects to complete a certificate, get course data for that certificate and decrease electives accordingly
-        if (certificate_choice != ""):
-            certificate_core, certificate_electives, cert_electives_still_needed = parse_certificate(certificate_choice)
+        certificate_choice = request.form["certificate_choice"].split(",")
+        certificate_choice_xml_tag = certificate_choice[0]
+        certificate_choice_name = certificate_choice[1]
+
+        if (certificate_choice_name != ""):
+            certificate_core, certificate_electives, cert_electives_still_needed = parse_certificate(certificate_choice_name)
             min_3000_course_still_needed -= cert_electives_still_needed
             print(type(cert_electives_still_needed))
             certificate_option = True
@@ -463,6 +468,10 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         required_courses_dict_list_unchanged = json.loads(request.form['required_courses_dict_list_unchanged'])
         user_semesters = request.form["semesters"]
         include_summer = True if request.form["include_summer"] == "True" else False
+
+        certificate_choice = json.loads(request.form["certificate_choice"])
+        certificate_choice_xml_tag = certificate_choice[0]
+        certificate_choice_name = certificate_choice[1]
 
         # courses_taken is returned as a string (that looks like an array), so we have to convert it to a list
         if ("courses_taken" in request.form.keys()):
@@ -882,7 +891,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 elif (current_semester != "Summer" and generate_complete_schedule):
                     min_credits_per_semester = temp_min_credits_per_semester
 
-    print(required_courses_dict_list_unchanged)
+    print(f'{certificate_choice=}')
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(required_courses_dict_list_unchanged),
@@ -897,7 +906,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "minimum_semester_credits": list(map(lambda x: x, range(3, 22))),
         "min_3000_course": min_3000_course_still_needed,
         "include_summer": include_summer,
-        "certificate_choice": certificate_choice,
+        "certificate_choice": json.dumps(certificate_choice),
         "num_3000_replaced_by_cert_core": num_3000_replaced_by_cert_core,
         "cert_electives_still_needed": cert_electives_still_needed,
         "saved_minimum_credits_selection": min_credits_per_semester,
