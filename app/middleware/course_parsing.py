@@ -398,7 +398,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     # set up certificate variables
     certificate_core = {}
     certificate_electives = {}
-    certificate_option = False
+    #certificate_option = False
 
     # if the first semester, overwrite schedular variables from above
     if semester == 0:
@@ -418,14 +418,14 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # if user elects to complete a certificate, get course data for that certificate and decrease electives accordingly
         certificate_choice = request.form["certificate_choice"].split(",")
-        certificate_choice_xml_tag = certificate_choice[0]
-        certificate_choice_name = certificate_choice[1]
+        certificate_choice_name = certificate_choice[0]
+        certificate_choice_xml_tag = certificate_choice[1]
 
-        if (certificate_choice_name != ""):
-            certificate_core, certificate_electives, cert_electives_still_needed = parse_certificate(certificate_choice_name)
+        if (certificate_choice_xml_tag != ""):
+            certificate_core, certificate_electives, cert_electives_still_needed = parse_certificate(certificate_choice_xml_tag)
             min_3000_course_still_needed -= cert_electives_still_needed
             print(type(cert_electives_still_needed))
-            certificate_option = True
+            #certificate_option = True
 
         # determine the semesters that user will be enrolled in
         user_semesters = build_semester_list(current_semester, include_summer)
@@ -470,8 +470,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         include_summer = True if request.form["include_summer"] == "True" else False
 
         certificate_choice = json.loads(request.form["certificate_choice"])
-        certificate_choice_xml_tag = certificate_choice[0]
-        certificate_choice_name = certificate_choice[1]
+        certificate_choice_name = certificate_choice[0]
+        certificate_choice_xml_tag = certificate_choice[1]
 
         # courses_taken is returned as a string (that looks like an array), so we have to convert it to a list
         if ("courses_taken" in request.form.keys()):
@@ -696,7 +696,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             # if user CAN take 3000+ level classes
             else:
                 # user elects for a certificate
-                if certificate_option == True:
+                if certificate_choice_xml_tag != "":
                     """
                     check to ensure enough room is in schedule for another CMP SCI class based on 4 conditions:
                         1. The amount of CMP SCI 3000 elective credit is less than pre-determined maximum
@@ -730,7 +730,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         # condition 4: if elective 3000-level courses are still needed, add these secondarily
                         elif cert_electives_still_needed > 0:
                             current_semester_classes.append({
-                                    'course': "CMP SCI certificate elective",
+                                    'course': f"CMP SCI {certificate_choice_name} elective",
                                     'name': '_',
                                     'description': '',
                                     'credits': 3
@@ -775,7 +775,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
 
                 # user does NOT elect for a certificate
-                elif certificate_option == False:
+                elif certificate_choice_xml_tag == "":
                     """
                     check to ensure enough room is in schedule for another CMP SCI class based on 3 conditions:
                         1. There are still CMP SCI 3000 electives to take
@@ -892,6 +892,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     min_credits_per_semester = temp_min_credits_per_semester
 
     print(f'{certificate_choice=}')
+    #print(f'{certificate_option=}')
+    print(f'{certificate_choice_xml_tag=}')
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(required_courses_dict_list_unchanged),
