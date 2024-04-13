@@ -9,7 +9,7 @@ def index():
     semesters = ["Fall", "Spring"]
     certificates = [("None", ""), ("Artificial Intelligence", "AICERTReq"), ("Cybersecurity", "CYBERCERTReq"), ("Data Science", "DATACERTReq"), ("Mobile Apps and Computing", "MOBILECERTReq"), ("Internet and Web", "WEBCERTReq")]
     #num_3000_replaced_by_cert_core=0
-    #cert_electives_still_needed=0
+    #cert_elective_courses_still_needed=0
     # create dictionaries for each course type
     core_courses, elective_courses = parse_courses()
 
@@ -34,7 +34,7 @@ def index():
                            semesters=semesters,
                            certificates=certificates,
                            num_3000_replaced_by_cert_core=0,
-                           cert_electives_still_needed=0,
+                           cert_elective_courses_still_needed=0,
                            total_credits=0,
                            course_schedule=json.dumps([]),
                            elective_courses=json.dumps(elective_courses),
@@ -66,7 +66,8 @@ def schedule_generator():
                            include_summer=render_info["include_summer"],
                            certificates=render_info["certificate_choice"],
                            num_3000_replaced_by_cert_core=render_info["num_3000_replaced_by_cert_core"],
-                           cert_electives_still_needed=render_info["cert_electives_still_needed"],
+                           cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"],
+                           TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES=render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                            elective_courses=render_info["elective_courses"],
                            gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
