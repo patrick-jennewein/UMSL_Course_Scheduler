@@ -46,16 +46,6 @@ body {
     font-weight: 300;
   }
 
-
-  
-
-  /* 
-
-
-WORKING ON LAYOUT HERE - HEADER
-
-
-*/
   /* semester-by-semester styles */
   .scheduler {
     display: flex;
@@ -63,6 +53,7 @@ WORKING ON LAYOUT HERE - HEADER
     flex-direction: column;
   }
 
+  /* header styling */ 
   .header-container {
     display: flex;
     flex-direction: column;
@@ -81,6 +72,7 @@ WORKING ON LAYOUT HERE - HEADER
     align-items: center;
   }
 
+  /*containers for counters*/
   .next-semester .advance-to-next {
     /*background-color: yellow;*/
     padding: 2px 40px;
@@ -91,7 +83,7 @@ WORKING ON LAYOUT HERE - HEADER
     padding: 2px 40px;
   }
 
-  /* labels for Total credits and advancing to next semester*/
+  /* labels for total credits and advancing to next semester*/
   .advance-to-next label {
     display: inline-block;
     color: #a80b2d;
@@ -155,21 +147,12 @@ WORKING ON LAYOUT HERE - HEADER
     vertical-align: top;
     font-family: "Roboto Condensed", sans-serif;
     font-weight: 300;
-  }
+  }  /* END OF HEADER STYLES */
 
   .scheduler .semester-schedules {
     padding: 20px;
     margin: 280px 20px 20px 20px;
   }
-  /* 
-
-WORKING ON LAYOUT HERE - HEADER
-
-
-*/
-
-
-
 
   /* full-schedule styles */
   .full-schedule-scheduler .semester-schedules {

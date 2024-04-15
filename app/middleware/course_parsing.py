@@ -385,12 +385,12 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])  # default is 0
     min_3000_course_still_needed = int(request.form["min_3000_course"]) # default is 5
 
-    # set up default variables (also used for counter on scheduling page) < may try different method later
+    # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_GRADUATION = 120
     TOTAL_CREDITS_FOR_BSCS = 71
     TOTAL_CREDITS_FOR_BSCS_ELECTIVES = 15
     TOTAL_CREDITS_FOR_GEN_EDS = 27
-    TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # set in first semester and pulled from request.form in subsequent semesters
+    TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # set in first semester and maintained by request.form in subsequent semesters
     DEFAULT_CREDIT_HOURS = 3
 
     # set up scheduler variables, overwritten below
@@ -486,7 +486,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         certificate_choice_xml_tag = certificate_choice[1]
         TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = int(request.form["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"])
 
-        # courses_taken is returned as a string (that looks like an array), so we have to convert it to a list # can this be removed if we use json.loads? << check later
+        # courses_taken is returned as a string (that looks like an array), so we have to convert it to a list
         if ("courses_taken" in request.form.keys()):
             courses_taken = request.form["courses_taken"][1:-1]  # removes the '[]' from the string
             courses_taken = courses_taken.replace("'", "")  # removes the string characters around each course
@@ -911,7 +911,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     #print(f'{certificate_option=}')
     print(f'{certificate_choice_xml_tag=}')
 
-    # credits for ELECTIVES
+    # Calculating counter values (credits for ELECTIVES)
     accumulated_gen_eds = (TOTAL_CREDITS_FOR_GEN_EDS - gen_ed_credits_still_needed)
     accumulated_certificates = (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed* DEFAULT_CREDIT_HOURS))
     accumulated_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - ((min_3000_course_still_needed + cert_elective_courses_still_needed + num_3000_replaced_by_cert_core)*DEFAULT_CREDIT_HOURS))
@@ -927,7 +927,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         print(f'{course}', end=", ")
     print("\n")
     #print(f'{required_courses_dict_list=}')
-
 
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
