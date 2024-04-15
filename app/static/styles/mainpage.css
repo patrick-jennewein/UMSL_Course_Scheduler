@@ -200,11 +200,17 @@ body {
     padding-left: 0;
     margin-top: 10px;
   }
-  .course-number {
+  .course-number, .course-name, .course-credits {
     display: inline-block;
   }
-  .course-name {
-    display: inline-block;
+
+  .course-number{
+    font-weight: 400;
+    min-width: 15ch;
+  }
+  .course-category {
+    display: inline;
+    float: right;
   }
   .course-name-and-num {
     border: 1px solid lightgray;
@@ -216,11 +222,10 @@ body {
     border: 1px solid black;
     transition: 0.5s;
     font-weight: 600;
-    margin-left: 50px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 920px) {
   .grid-container {
     grid-template-columns: 1fr;
   }

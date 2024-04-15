@@ -202,7 +202,7 @@ def parse_certificate(certificate_name) -> dict:
 
 
 def add_course(current_semester, course_info, current_semester_classes, course, courses_taken,
-               total_credits_accumulated, current_semester_credits):
+               total_credits_accumulated, current_semester_credits, course_category):
     # Add course, credits to current semester and list of courses taken, credits earned
     course_added = False
     if current_semester in course_info['semesters_offered']:
@@ -210,7 +210,8 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
             'course': course,
             'name': course_info['course_name'],
             'description': course_info['course_description'],
-            'credits': course_info['credit']
+            'credits': course_info['credit'],
+            'category': course_category
         })
         courses_taken.append(course)
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
@@ -242,20 +243,22 @@ def build_semester_list(first_season="Fall", include_summer=True) -> list:
 
 def add_gen_ed_elective() -> dict:
     gen_ed_info = {
-        'course': "General Education Elective",
-        'name': '_',
+        'course': "GEN ED",
+        'name': '[User Selects]',
         'description': '',
-        'credits': 3
+        'credits': 3,
+        'category': "General Education"
     }
     return gen_ed_info
 
 
 def add_free_elective() -> dict:
     free_elective_info = {
-        'course': "Free Elective",
-        'name': '_',
+        'course': "FREE",
+        'name': '[User Selects]',
         'description': '',
-        'credits': 3
+        'credits': 3,
+        'category': 'Free Elective'
     }
     return free_elective_info
 
@@ -488,6 +491,14 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     TOTAL_CREDITS_FOR_GEN_EDS = 27
     TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # set in first semester and maintained by request.form in subsequent semesters
     DEFAULT_CREDIT_HOURS = 3
+    course_categories = {
+        'R': 'CS Required',
+        'E': 'CS Elective',
+        'C': 'CS Certificate Elective',
+        'G': 'General Education',
+        'F': 'Free Elective',
+        'O': 'Other'
+    }
 
     # set up scheduler variables, overwritten below
     include_summer = False
@@ -640,7 +651,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
                         = add_course(
                         current_semester, course_info, current_semester_classes, course, courses_taken,
-                        total_credits_accumulated, current_semester_credits)
+                        total_credits_accumulated, current_semester_credits, course_categories['R'])
 
                 # if the course has at least one pre-requisite
                 else:
@@ -659,7 +670,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                     course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
                                         = add_course(
                                         current_semester, course_info, current_semester_classes, course, courses_taken,
-                                        total_credits_accumulated, current_semester_credits
+                                        total_credits_accumulated, current_semester_credits, course_categories['R']
                                     )
                                     break
 
@@ -682,7 +693,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                         or (prereqs[0] == concurrent)):
                                     course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                                         current_semester, course_info, current_semester_classes, course, courses_taken,
-                                        total_credits_accumulated, current_semester_credits
+                                        total_credits_accumulated, current_semester_credits, course_categories['R']
                                     )
                                     break
 
@@ -703,14 +714,14 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                 if required_courses_taken:
                                     course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                                         current_semester, course_info, current_semester_classes, course, courses_taken,
-                                        total_credits_accumulated, current_semester_credits
+                                        total_credits_accumulated, current_semester_credits, course_categories['R']
                                     )
                                     required_courses_taken = False
                                     break
                     if required_courses_taken:
                         course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                             current_semester, course_info, current_semester_classes, course, courses_taken,
-                            total_credits_accumulated, current_semester_credits
+                            total_credits_accumulated, current_semester_credits, course_categories['R']
                         )
 
                 # if the course was added, update semester info
@@ -828,10 +839,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         # condition 3: if non-elective 3000-level courses are still needed, add these primarily
                         if min_3000_course_still_needed > 0:
                             current_semester_classes.append({
-                                    'course': "CMP SCI 3000+ level elective",
-                                    'name': '_',
+                                    'course': "CMP SCI 3000+",
+                                    'name': '[User Selects]',
                                     'description': '',
-                                    'credits': 3
+                                    'credits': 3,
+                                    'category': 'CS Elective'
                                 })
 
                             # increment current semester credits, decrement courses needed
@@ -845,10 +857,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         # condition 4: if elective 3000-level courses are still needed, add these secondarily
                         elif cert_elective_courses_still_needed > 0:
                             current_semester_classes.append({
-                                    'course': f"CMP SCI {certificate_choice_name} elective",
-                                    'name': '_',
+                                    'course': f"CMP SCI {certificate_choice_name} Elective",
+                                    'name': '[User Selects]',
                                     'description': '',
-                                    'credits': 3
+                                    'credits': 3,
+                                    'category': course_categories['C']
                                 })
 
                             # increment current semester credits, decrement courses needed
@@ -904,10 +917,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
                             current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3):
                         current_semester_classes.append({
-                            'course': "CMP SCI 3000+ level elective",
-                            'name': '_',
+                            'course': "CMP SCI 3000+",
+                            'name': '[User Selects]',
                             'description': '',
-                            'credits': 3
+                            'credits': 3,
+                            'category': course_categories['E']
                         })
                         current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
                         current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS

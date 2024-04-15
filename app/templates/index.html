@@ -162,7 +162,7 @@
                                 {% endfor %}
                             </select>
                         </p>
-                        <p><input type="submit" value="Continue Schedule"></p>
+                        <p><input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule"></p>
                     </div>
                     <div class="counts">
                         <p><label>Total Accumulated Electives</label>
@@ -200,15 +200,16 @@
                         <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
                         <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
                             }}</p>
-                        <p><label>Courses</label></p>
                         <ul id="semester-{{ semester.semester_number}}-ul">
                             {% for course in semester.schedule %}
                             <li title="{{ course.description }}" courseNum="{{ course.course }}"
                                 courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
                                 ondragstart="drag(event, this)">
                                 <div class="course-name-and-num">
-                                    <p class="course-number">{{ course.course }}: </p>
+                                    <p class="course-number">{{ course.course }}</p>
                                     <p class="course-name">{{ course.name }}</p>
+                                    <p class="course-credits">({{ course.credits }})</p>
+                                    <p class="course-category">{{ course.category }}</p>
                                 </div>
                             </li>
                             {% endfor %}
@@ -230,15 +231,16 @@
                         <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
                         <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
                             }}</p>
-                        <p><label>Courses</label></p>
                         <ul id="semester-{{ semester.semester_number}}-ul">
                             {% for course in semester.schedule %}
                             <li title="{{ course.description }}" courseNum="{{ course.course }}"
                                 courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
                                 ondragstart="drag(event, this)">
                                 <div class="course-name-and-num">
-                                    <p class="course-number">{{ course.course }}: </p>
+                                    <p class="course-number">{{ course.course }}</p>
                                     <p class="course-name">{{ course.name }}</p>
+                                    <p class="course-credits">({{ course.credits }})</p>
+                                    <p class="course-category">{{ course.category }}</p>
                                 </div>
                             </li>
                             {% endfor %}
