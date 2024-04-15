@@ -503,7 +503,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # adjust credit parameters for scheduling
     credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
-    summer_credit_count = 3
+    summer_credit_count = int(request.form["minimum_summer_credits"])
 
     # start with a blank semester
     current_semester_credits = 0
@@ -949,5 +949,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "saved_minimum_credits_selection": min_credits_per_semester,
         "elective_courses": json.dumps(elective_courses),
         "gen_ed_credits_still_needed": gen_ed_credits_still_needed,
-        "full_schedule_generation": generate_complete_schedule
+        "full_schedule_generation": generate_complete_schedule,
+        "minimum_summer_credits": summer_credit_count
     }

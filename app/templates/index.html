@@ -86,6 +86,19 @@
                 </select>
                 <br><br>
 
+             <!-- Ask user for number of credits for summer-->
+                <label for="initial_minimum_summer_credits">Minimum Credits for Summer</label>
+                <select name="minimum_summer_credits" id="initial_minimum_summer_credits">
+                    {% for credits in minimum_summer_credits %}
+                    {% if credits == 0 %}
+                    <option selected value="{{credits}}">{{ credits }}</option>
+                    {% else %}
+                    <option value="{{credits}}">{{ credits }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <br><br>
+
                 <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
                 <input type="hidden" name="semester_number" value="{{ semester_number }}">
                 <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
@@ -123,6 +136,7 @@
             value="{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}">
         <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
         <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
+        <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
 
         <!-- If generating a schedule semester-by-semester-->
         {% if not full_schedule_generation %}

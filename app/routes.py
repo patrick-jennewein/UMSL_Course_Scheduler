@@ -44,7 +44,8 @@ def index():
                            min_3000_course=5,
                            starting_credits=list(map(lambda x: x, range(0, 201))), # create list for minimum credits dropdown
                            core_credit_count = 0,
-                           gen_ed_credits_still_needed=27
+                           gen_ed_credits_still_needed=27,
+                           minimum_summer_credits = list(map(lambda x: x, range(0, 10)))
     )
 
 @app.route('/schedule', methods=["POST"])
@@ -71,5 +72,6 @@ def schedule_generator():
                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                            elective_courses=render_info["elective_courses"],
                            gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
-                           full_schedule_generation=render_info['full_schedule_generation']
+                           full_schedule_generation=render_info['full_schedule_generation'],
+                           minimum_summer_credits=render_info['minimum_summer_credits']
     )
