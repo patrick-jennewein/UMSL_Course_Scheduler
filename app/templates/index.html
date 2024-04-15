@@ -110,6 +110,9 @@
                     value="{{ cert_elective_courses_still_needed }}">
                 <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
                 <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
+                <input type="hidden" name="first_semester" value="{{ first_semester }}">
+                <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
+                <input type="hidden" name="semester_years" value="{{ semester_years }}">
                 <input type="submit" name="single_semester" value="Start Schedule (by Semester)">
                 <input type="submit" name="generate_complete_schedule" value="Generate Full Schedule">
             </div>
@@ -137,6 +140,8 @@
         <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
         <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
         <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
+        <input type="hidden" name="first_semester" value="{{ first_semester }}">
+        <input type="hidden" name="semester_years" value="{{ semester_years }}">
 
         <!-- If generating a schedule semester-by-semester-->
         {% if not full_schedule_generation %}
@@ -192,7 +197,7 @@
                     {% for semester in course_schedule_display %}
                     <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
                         ondragover="allowDrop(event)">
-                        <p><label>Semester</label>{{ semester.semester }}</p>
+                        <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
                         <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
                             }}</p>
                         <p><label>Courses</label></p>
@@ -222,7 +227,7 @@
                     {% for semester in course_schedule_display %}
                     <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
                         ondragover="allowDrop(event)">
-                        <p><label>Semester</label>{{ semester.semester }}</p>
+                        <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
                         <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
                             }}</p>
                         <p><label>Courses</label></p>

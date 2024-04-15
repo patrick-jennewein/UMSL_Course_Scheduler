@@ -3,6 +3,7 @@ import json
 from collections.abc import Mapping
 from typing import Union, Any
 import math
+import datetime
 
 
 def print_dictionary(course_dictionary: dict) -> None:
@@ -369,6 +370,99 @@ def update_semester(current_semester, include_summer) -> str:
         return "Fall"
 
 
+def get_semester_years(selected_season) -> dict:
+    # calculate user's current time and season
+    seasons_from_month = {
+        1: 'Spring',
+        2: 'Spring',
+        3: 'Spring',
+        4: 'Spring',
+        5: 'Spring',
+        6: 'Summer',
+        7: 'Summer',
+        8: 'Fall',
+        9: 'Fall',
+        10: 'Fall',
+        11: 'Fall',
+        12: 'Fall'
+    }
+    first_month_of_seasons = {
+        'Spring': 1,
+        'Summer': 6,
+        'Fall': 8
+    }
+    current_date = datetime.datetime.now()
+    current_month = int(current_date.month)
+    current_year = int(current_date.year)
+    current_season = seasons_from_month[current_month]
+    semester_years = {}
+
+    print("Season Information: ")
+    print(f"\tCurrent Month: {current_month}")
+    print(f"\tCurrent Year: {current_year}")
+    print(f"\tCurrent Season: {current_season}")
+
+    # planning for Spring
+    if(selected_season == 'Spring'):
+        # if in first month of Spring, plan for this Spring
+        if (current_month <= first_month_of_seasons[selected_season]):
+            print("\tPlan for upcoming Spring")
+            semester_years = {
+                'Spring': current_year,
+                'Summer': current_year,
+                'Fall': current_year
+            }
+        # if NOT in first month of Spring, plan for next Spring
+        else:
+            print("\tPlan for next Spring")
+            semester_years = {
+                'Spring': current_year + 1,
+                'Summer': current_year + 1,
+                'Fall': current_year + 1
+            }
+
+    # planning for Fall
+    elif(selected_season == 'Fall'):
+        # if in first month of Fall, plan for this Fall
+        if (current_month <= first_month_of_seasons[selected_season]):
+            print("\tPlan for upcoming Fall")
+            semester_years = {
+                'Spring': current_year + 1,
+                'Summer': current_year + 1,
+                'Fall': current_year
+            }
+        # if NOT in first month of Fall, plan for next Fall
+        elif (current_month > first_month_of_seasons[selected_season]):
+            print("\tPlan for next Fall")
+            semester_years = {
+                'Spring': current_year + 2,
+                'Summer': current_year + 2,
+                'Fall': current_year + 1
+            }
+
+    elif(selected_season == 'Summer'):
+        # if in first month of Summmer, plan for this Summer
+        if (current_month <= first_month_of_seasons[selected_season]):
+            print("\tPlan for upcoming Summer")
+            semester_years = {
+                'Spring': current_year + 1,
+                'Summer': current_year,
+                'Fall': current_year
+            }
+        # if NOT in first month of Fall, plan for next Fall
+        elif (current_month > first_month_of_seasons[selected_season]):
+            print("\tPlan for upcoming Summer")
+            semester_years = {
+                'Spring': current_year + 2,
+                'Summer': current_year + 1,
+                'Fall': current_year + 1
+            }
+
+    print("\t", semester_years)
+    print()
+    return semester_years
+
+
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     # get information from user form, routes.py
     course_schedule = json.loads(request.form["course_schedule"])
@@ -377,6 +471,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     elective_courses = json.loads(request.form["elective_courses"])
     generate_complete_schedule = True if "generate_complete_schedule" in request.form.keys() else False
     num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])  # default is 0
+    first_semester = request.form["first_semester"]
+    semester_years = json.loads(request.form["semester_years"])
 
     # credit hour trackers
     total_credits_accumulated = int(request.form["total_credits"])
@@ -409,6 +505,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # if the first semester, overwrite schedular variables from above
     if semester == 0:
+        first_semester = request.form["current_semester"]
+        semester_years = get_semester_years(first_semester)
         print(f"Total Credits Earned Before Semester 1: {total_credits_accumulated}")
         if "include_summer" in request.form.keys():
             include_summer = True if request.form["include_summer"] == "on" else False
@@ -638,7 +736,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                 'semester': current_semester,
                                 'semester_number': semester,
                                 'credits': current_semester_credits,
-                                'schedule': current_semester_classes
+                                'schedule': current_semester_classes,
+                                'year': semester_years[current_semester]
                             }
                             course_schedule.append(current_semester_info)
                             current_semester_credits = 0
@@ -655,7 +754,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             'semester': current_semester,
                             'semester_number': semester,
                             'credits': current_semester_credits,
-                            'schedule': current_semester_classes
+                            'schedule': current_semester_classes,
+                            'year': semester_years[current_semester]
                         }
                         course_schedule.append(current_semester_info)
 
@@ -666,7 +766,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         current_semester_cs_math_credits_per_semester = 0
                         current_CS_elective_credits_per_semester = 0
                         current_semester = update_semester(current_semester, include_summer)
-                        print(f"\nNext Semester, {current_semester}")
+                        if(current_semester == first_semester):
+                            semester_years = {key: value + 1 for key, value in semester_years.items()}
+                        print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
 
                         # ensure summer credit hours are not F/Sp credit hours
                         if (current_semester == "Summer" and generate_complete_schedule):
@@ -853,7 +955,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             'semester': current_semester,
                             'semester_number': semester,
                             'credits': current_semester_credits,
-                            'schedule': current_semester_classes
+                            'schedule': current_semester_classes,
+                            'year': semester_years[current_semester]
                         }
                     course_schedule.append(current_semester_info)
 
@@ -863,7 +966,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     'semester': current_semester,
                     'semester_number': semester,
                     'credits': current_semester_credits,
-                    'schedule': current_semester_classes
+                    'schedule': current_semester_classes,
+                    'year': semester_years[current_semester]
                 }
                 course_schedule.append(current_semester_info)
 
@@ -899,7 +1003,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 current_semester_cs_math_credits_per_semester = 0
                 current_CS_elective_credits_per_semester = 0
                 current_semester = update_semester(current_semester, include_summer)
-                print(f"\nNext Semester, {current_semester}")
+                if (current_semester == first_semester):
+                    semester_years = {key: value + 1 for key, value in semester_years.items()}
+                print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
 
                 # ensure summer credit hours are not F/Sp credit hours
                 if(current_semester == "Summer" and generate_complete_schedule):
@@ -927,7 +1033,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         print(f'{course}', end=", ")
     print("\n")
     #print(f'{required_courses_dict_list=}')
-
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(required_courses_dict_list_unchanged),
@@ -950,5 +1055,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "elective_courses": json.dumps(elective_courses),
         "gen_ed_credits_still_needed": gen_ed_credits_still_needed,
         "full_schedule_generation": generate_complete_schedule,
-        "minimum_summer_credits": summer_credit_count
+        "minimum_summer_credits": summer_credit_count,
+        "first_semester": first_semester,
+        "semester_years": json.dumps(semester_years),
     }
