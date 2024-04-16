@@ -17,10 +17,10 @@ def index():
         course_info = {
             "course": course[0],
             "credits": course[1]["credit"],
-            "course_number": course[1]["course_number"]
+            "course_number": course[1]["course_number"],
+            "prerequisite_description": course[1]["prerequisite_description"]
         }
         required_courses_list.append(course_info)
-
     # sort required courses by course number
     # required_courses_list = sorted(required_courses_list, key=lambda d: d["course_number"])
     # required_courses_list = sorted(list(core_courses.keys()))

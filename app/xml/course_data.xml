@@ -43,7 +43,7 @@
 				<time_code>O</time_code>
 			</rotation_term>
 			<course_description>This course is for recently declared undergraduate students majoring in Computer Science or Computing Technology. Topics may include resources that are available on campus and in the department, career opportunities, choosing the right degree, and exploration of concepts, skills and practices that are essential for successful careers. This course should be taken by freshmen and transfers within the first two semesters of declaring the major.</course_description>
-		    <prerequisite_description></prerequisite_description>
+            <prerequisite_description>No prerequisites. </prerequisite_description>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1165,6 +1165,7 @@
 				<term>Fall</term>
 				<time_code>D, E, O</time_code>
 			</rotation_term>
+            <prerequisite_description>No prerequisites. </prerequisite_description>
 		</course>
 		<course>
 			<subject>ENGLISH</subject>
@@ -1184,6 +1185,7 @@
 				<term>Summer</term>
 				<time_code>O</time_code>
 			</rotation_term>
+            <prerequisite_description>No prerequisites. </prerequisite_description>
 		</course>
 		<course>
 			<subject>ENGLISH</subject>

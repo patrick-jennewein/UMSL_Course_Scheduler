@@ -97,6 +97,7 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
                 Each key is the course subject and course number.
                 The corresponding value is a dictionary holding all the information about that course.
     """
+
     # create empty dict to store course information
     updated_course_dict = {}
 
@@ -112,6 +113,8 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
         course_dict = {
             key: course
         }
+        if 'prerequisite_description' in course:
+            pass
 
         # add list of semesters offered to dictionary
         course["semesters_offered"] = []
@@ -121,6 +124,8 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
         else:
             course["semesters_offered"] = course['rotation_term']['term']
 
+        if 'prerequisite_description' in course:
+            course['prerequisite_description'] = course['prerequisite_description']
         # make final update to course dictionary
         updated_course_dict.update(course_dict)
 
@@ -211,7 +216,8 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
             'name': course_info['course_name'],
             'description': course_info['course_description'],
             'credits': course_info['credit'],
-            'category': course_category
+            'category': course_category,
+            'prerequisite_description': course_info['prerequisite_description']
         })
         courses_taken.append(course)
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
