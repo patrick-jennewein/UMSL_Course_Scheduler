@@ -506,6 +506,10 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         'O': 'Other'
     }
 
+    # user enters credits for upcoming semester
+    min_credits_per_semester = int(request.form["minimum_semester_credits"])
+    temp_min_credits_per_semester = None
+
     # set up scheduler variables, overwritten below
     include_summer = False
     courses_taken = []
@@ -522,6 +526,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # if the first semester, overwrite schedular variables from above
     if semester == 0:
+        temp_min_credits_per_semester = min_credits_per_semester
         first_semester = request.form["current_semester"]
         semester_years = get_semester_years(first_semester)
         print(f"Total Credits Earned Before Semester 1: {total_credits_accumulated}")
@@ -595,6 +600,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         required_courses_dict_list_unchanged = json.loads(request.form['required_courses_dict_list_unchanged'])
         user_semesters = request.form["semesters"]
         include_summer = True if request.form["include_summer"] == "True" else False
+        temp_min_credits_per_semester = int(request.form["saved_minimum_credits_selection"])
 
         certificate_choice = json.loads(request.form["certificate_choice"])
         certificate_choice_name = certificate_choice[0]
@@ -606,10 +612,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             courses_taken = request.form["courses_taken"][1:-1]  # removes the '[]' from the string
             courses_taken = courses_taken.replace("'", "")  # removes the string characters around each course
             courses_taken = courses_taken.split(", ")  # creates a list delimited by commas
-
-    # user enters credits for upcoming semester
-    min_credits_per_semester = int(request.form["minimum_semester_credits"])
-    temp_min_credits_per_semester = min_credits_per_semester
 
     # adjust credit ratios for scheduling
     max_core_credits_per_semester = math.ceil(min_credits_per_semester * 2/3)
@@ -1033,9 +1035,15 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 elif (current_semester != "Summer" and generate_complete_schedule):
                     min_credits_per_semester = temp_min_credits_per_semester
 
+    if (current_semester != "Summer" and not generate_complete_schedule):
+        min_credits_per_semester = temp_min_credits_per_semester
+
     print(f'{certificate_choice=}')
     #print(f'{certificate_option=}')
     print(f'{certificate_choice_xml_tag=}')
+
+    print(f'{min_credits_per_semester=}')
+    print(f'{temp_min_credits_per_semester=}')
 
     # Calculating counter values (credits for ELECTIVES)
     accumulated_gen_eds = (TOTAL_CREDITS_FOR_GEN_EDS - gen_ed_credits_still_needed)
@@ -1053,6 +1061,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         print(f'{course}', end=", ")
     print("\n")
     #print(f'{required_courses_dict_list=}')
+
+    print(f"saved")
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(required_courses_dict_list_unchanged),
@@ -1064,7 +1074,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "semester_number": semester,
         "waived_courses": waived_courses,
         "current_semester": current_semester,
-        "minimum_semester_credits": list(map(lambda x: x, range(3, 22))),
+        "minimum_semester_credits": list(map(lambda x: x, range(3, 22))) if current_semester.lower() != "summer" else list(map(lambda x: x, range(0, 10))),
         "min_3000_course": min_3000_course_still_needed,
         "include_summer": include_summer,
         "certificate_choice": json.dumps(certificate_choice),
