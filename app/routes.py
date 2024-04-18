@@ -45,7 +45,7 @@ def index():
                            core_credit_count = 0,
                            gen_ed_credits_still_needed=27,
                            minimum_summer_credits = list(map(lambda x: x, range(0, 10))),
-                           semester_years = json.dumps({})
+                           semester_years = json.dumps({}),
     )
 
 @app.route('/schedule', methods=["POST"])
@@ -75,5 +75,6 @@ def schedule_generator():
                            full_schedule_generation=render_info['full_schedule_generation'],
                            minimum_summer_credits=render_info['minimum_summer_credits'],
                            first_semester = render_info['first_semester'],
-                           semester_years = render_info['semester_years']
+                           semester_years = render_info['semester_years'],
+                           course_prereqs_for = render_info['course_prereqs_for']
     )

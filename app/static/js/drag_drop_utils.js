@@ -22,7 +22,7 @@ function dropFailedAlert (msg, li_element) {
     li_element.removeAttribute("id");
 }
 
-function prereqVerification(course_info, course_num, semester_num, li_to_move, course_name) {
+function prereqVerification(course_info, course_num, semester_num, li_to_move, course_name, is_prereq_for_check = false, orig_course_num) {
     let alert_message = "";
     let should_move_course = true;
     let required_courses_taken = false;
@@ -38,19 +38,51 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
         concurrent = course_info["concurrent"];
     }
 
-    for (let i = 0; i <= semester_num; ++i) {
-        course_schedule[i].schedule.forEach((x) => {
-            // check if the course is an elective
-            const elective = course_name === '[User Selects]';
-            
-            if (!elective && i != semester_num) {
-                courses_taken_before_new_semester.push(x.course);
+    if (!is_prereq_for_check) {
+        for (let i = 0; i <= semester_num; ++i) {
+            course_schedule[i].schedule.forEach((x) => {
+                // check if the course is an elective
+                const elective = course_name === '[User Selects]';
+                
+                if (!elective && i != semester_num) {
+                    courses_taken_before_new_semester.push(x.course);
+                }
+                if (i == semester_num) {
+                    new_semester_current_courses.push(x.course);
+                }
+            });
+            credits_total_for_new_semester = credits_total_for_new_semester + course_schedule[i].credits;
+        }
+    } else {
+        let semester_of_prereq_course = null;
+        course_schedule.some((semester) => {
+            semester_schedule = semester.schedule.map(x => x.course);
+            if (semester_schedule.includes(course_num)) {
+                semester_of_prereq_course = semester.semester_number;
             }
-            if (i == semester_num) {
-                new_semester_current_courses.push(x.course);
+
+            credits_to_remove = 0;
+            if (semester.semester_number === semester_num && !semester_of_prereq_course) {
+                courses_taken_before_new_semester.push(orig_course_num);
+            } else if (semester.semester_number === semester_of_prereq_course) {
+                new_semester_current_courses.push(orig_course_num);
+            }
+            semester.schedule.forEach((course_information) => {
+                if (!(course_information.course === orig_course_num)) {
+                    if (!semester_of_prereq_course) {
+                        courses_taken_before_new_semester.push(course_information.course);
+                    } else {
+                        new_semester_current_courses.push(course_information.course);
+                    }
+                } else {
+                    credits_to_remove = course_information.credits;
+                }
+            });
+            credits_total_for_new_semester = credits_total_for_new_semester + semester_schedule.credits - credits_to_remove;
+            if (semester_of_prereq_course) {
+                return true;
             }
         });
-        credits_total_for_new_semester = credits_total_for_new_semester + course_schedule[i].credits;
     }
 
     course_info["prerequisite"].some((prereq) => {
@@ -67,13 +99,16 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
             } else {
                 required_courses_taken = false;
 
-                prereq.forEach((prereq_course) => {
+                prereq.some((prereq_course) => {
                     if (courses_taken_before_new_semester.includes(prereq_course) ||
                         (new_semester_current_courses.includes(prereq_course) && (prereq_course === concurrent))) {
                             required_courses_taken = true;
                     } else {
                         alert_message = `${course_num} prerequisite (${prereq_course}) has to be completed prior to the selected semester!`;
                         required_courses_taken = false;
+                    }
+                    if (!required_courses_taken) {
+                        return true;
                     }
                 })
                 if (required_courses_taken) {
@@ -166,6 +201,22 @@ function drop(ev, course_element) {
 
         if ((course_info["prerequisite"].length != 0) && should_move_course) {
             should_move_course = prereqVerification(course_info, course_num, semester_num, li_to_move, course_name)
+        }
+
+        course_prereqs_for = JSON.parse(document.getElementById("course_prereqs_for").value);
+        course_prereqs_for_selected_course = course_prereqs_for[course_num]
+
+        if (course_prereqs_for_selected_course) {
+            should_move_course = course_prereqs_for_selected_course.some((prereq) => {
+                prereq_for_course_info = null;
+                required_courses_dict_list.some((course_array) => {
+                    if (course_array[0] === prereq) {
+                        prereq_for_course_info = course_array[1];
+                        return true;
+                    }
+                });
+                return prereqVerification(prereq_for_course_info, prereq, semester_num, li_to_move, null, true, course_num)
+            })
         }
     }
 

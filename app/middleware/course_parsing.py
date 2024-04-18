@@ -4,6 +4,7 @@ from collections.abc import Mapping
 from typing import Union, Any
 import math
 import datetime
+from itertools import chain
 
 
 def print_dictionary(course_dictionary: dict) -> None:
@@ -107,6 +108,7 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
     for course in courses:
         # add pre-requisites to dictionary
         course['prerequisite'] = build_prerequisites(course)
+        
         key = course["subject"] + " " + course["course_number"]
 
         # add rest of information to dictionary
@@ -519,6 +521,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     certificate_choice_xml_tag = ""
     certificate_choice_name = ""
 
+    course_prereqs_for = None
+
 
     # if the first semester, overwrite schedular variables from above
     if semester == 0:
@@ -580,7 +584,29 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # convert required courses dictionary to list for easier processing
         required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
-        required_courses_dict_list_unchanged = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
+        courses_dict_list_unchanged = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
+
+        prereqs_for_dict = {}
+
+        for course_data in required_courses_dict.items():
+            prereq_for_list = []
+            key = course_data[0]
+            course = course_data[1]
+            for prereq in course['prerequisite']:
+                if isinstance(prereq, str):
+                    prereq_for_list.append(prereq)
+                else:
+                    prereq_for_list.extend(list(chain.from_iterable(course['prerequisite'])))
+            prereq_for_list = list(set(prereq_for_list))
+        
+            for prereq in prereq_for_list:
+                if prereq not in prereqs_for_dict.keys():
+                    prereqs_for_dict[prereq] = [key]
+                else:
+                    prereqs_for_dict[prereq].append(key)
+
+        course_prereqs_for = prereqs_for_dict
+        print(prereqs_for_dict)
 
         # holds an immutable tuple of what is required for later comparison (changed into tuple, below)
         required_courses_tuple = create_static_required_courses(required_courses_dict_list)
@@ -592,7 +618,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     # if NOT the first semester
     elif semester != 0:
         required_courses_dict_list = json.loads(request.form['required_courses_dict_list'])
-        required_courses_dict_list_unchanged = json.loads(request.form['required_courses_dict_list_unchanged'])
+        courses_dict_list_unchanged = json.loads(request.form['required_courses_dict_list_unchanged'])
+        course_prereqs_for = json.loads(request.form["course_prereqs_for"])
         user_semesters = request.form["semesters"]
         include_summer = True if request.form["include_summer"] == "True" else False
 
@@ -1055,7 +1082,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     #print(f'{required_courses_dict_list=}')
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
-        "required_courses_dict_list_unchanged": json.dumps(required_courses_dict_list_unchanged),
+        "required_courses_dict_list_unchanged": json.dumps(courses_dict_list_unchanged),
         "semesters": user_semesters,
         "total_credits": total_credits_accumulated,
         "course_schedule": json.dumps(course_schedule),
@@ -1078,4 +1105,5 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "minimum_summer_credits": summer_credit_count,
         "first_semester": first_semester,
         "semester_years": json.dumps(semester_years),
+        "course_prereqs_for": json.dumps(course_prereqs_for)
     }
