@@ -41,8 +41,8 @@ function dropFailedElementUpdate (should_add_warning, li_to_update, msg, course_
         icon_element = document.getElementById(`${course_num}-quest-icon`);
         if (icon_element) {
             icon_element.remove();
-            li_to_update.style.border = "";
         }
+        li_to_update.style.border = null;
     }
 }
 
