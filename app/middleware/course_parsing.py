@@ -735,7 +735,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                 for prereq in prereqs:
                                     if (prereq in courses_taken) and (
                                             # `not any(current...)` verifies the prereq is not in the current semester class list of dictionaries
-                                            (not any(current['course'] == prereqs for current in current_semester_classes)) or (prereq == concurrent)):
+                                            (not any(current['course'] == prereq for current in current_semester_classes)) or (prereq == concurrent)):
                                         required_courses_taken = True
                                     else:
                                         required_courses_taken = False
