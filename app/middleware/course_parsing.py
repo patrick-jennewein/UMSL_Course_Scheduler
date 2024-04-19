@@ -606,7 +606,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     prereqs_for_dict[prereq].append(key)
 
         course_prereqs_for = prereqs_for_dict
-        print(prereqs_for_dict)
 
         # holds an immutable tuple of what is required for later comparison (changed into tuple, below)
         required_courses_tuple = create_static_required_courses(required_courses_dict_list)

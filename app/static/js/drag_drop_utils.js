@@ -16,18 +16,42 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function dropFailedAlert (msg, li_element) {
-    alert(msg);
-    li_element.removeAttribute("id");
+function dropFailedElementUpdate (should_add_warning, li_to_update, msg, course_num) {
+    if (should_add_warning) {
+        if (!document.getElementById(`${course_num}-quest-icon`)) {
+            li_to_update.style.border = "1px solid red";
+
+            question_mark_icon = document.createElement("i");
+            // The class information added is imported at the top of the schedule_display_page.html
+            question_mark_icon.classList.add("fa");
+            question_mark_icon.classList.add("fa-question-circle");
+            question_mark_icon.title = msg;   
+            question_mark_icon.style.color = "red";
+            question_mark_icon.setAttribute("id", `${course_num}-quest-icon`);
+
+            children = li_to_update.childNodes;
+            for (i = 0; i < children.length; ++i) {
+                if (children[i].nodeName === "DIV") {
+                    children[i].prepend(question_mark_icon);
+                    break;
+                }
+            }
+        }
+    } else {
+        icon_element = document.getElementById(`${course_num}-quest-icon`);
+        if (icon_element) {
+            icon_element.remove();
+            li_to_update.style.border = "";
+        }
+    }
 }
 
 function prereqVerification(course_info, course_num, semester_num, li_to_move, course_name, is_prereq_for_check = false, orig_course_num) {
     let li_to_update = li_to_move;
 
-    let alert_message = "";
-    let should_move_course = true;
     let required_courses_taken = false;
 
+    let failed_message = "";
     const course_schedule = JSON.parse(document.getElementById("course_schedule").value)
     let credits_total_for_new_semester = 0;
     const courses_taken_before_new_semester = [];
@@ -95,7 +119,7 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
                         required_courses_taken = true;
                         return true;
                 } else {
-                    alert_message = `${course_num} prerequisite (${prereq[0]}) has to be completed prior to the selected semester!`;
+                    failed_message = `${course_num} prerequisite (${prereq[0]}) has to be completed prior to the selected semester!`;
                     required_courses_taken = false;
                 }
             } else {
@@ -106,7 +130,7 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
                         (new_semester_current_courses.includes(prereq_course) && (prereq_course === concurrent))) {
                             required_courses_taken = true;
                     } else {
-                        alert_message = `${course_num} prerequisite (${prereq_course}) has to be completed prior to the selected semester!`;
+                        failed_message = `${course_num} prerequisite (${prereq_course}) has to be completed prior to the selected semester!`;
                         required_courses_taken = false;
                     }
                     if (!required_courses_taken) {
@@ -121,10 +145,10 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
         } else {
             if (course_num === "ENGLISH 3130") {
                 if (!(credits_total_for_new_semester >= 56)) {
-                    alert_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 56 credit hours for the selected semester!";
+                    failed_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 56 credit hours for the selected semester!";
                     required_courses_taken = false;
                 } else if (!courses_taken_before_new_semester.includes(prereq)) {
-                    alert_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                    failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
                     required_courses_taken = false;
                 } else {
                     required_courses_taken = true;
@@ -134,17 +158,20 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
                 (new_semester_current_courses.includes(prereq) && (prereq === concurrent)))) {
                     required_courses_taken = true;
             } else {
-                alert_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
                 required_courses_taken = false
             }
         }
     })
-    if (!required_courses_taken) {
-        li_to_update.style.border = "1px solid red";
-    } else {
-        li_to_update.style.border = "";
+
+    let msg = "";
+    if (is_prereq_for_check && !required_courses_taken) {
+        msg = `${course_num} failed prerequisite validation after ${orig_course_num} was moved. `.concat(failed_message);
+    } else if (!required_courses_taken) {
+        msg = `${course_num} failed prerequisite validation after moving. `.concat(failed_message);
     }
-    return should_move_course;
+
+    dropFailedElementUpdate(!required_courses_taken, li_to_update, msg, course_num);
 }
 
 function drop(ev, course_element) {
@@ -163,29 +190,25 @@ function drop(ev, course_element) {
     const semester_num = parseInt(course_element.getAttribute("semesterNum"));
     const selected_drop_ul = document.getElementById(`semester-${semester_num}-ul`);
 
-    let should_move_course = true;
+    const failed_prereq_for_courses = [];
 
     if (course_num === "INTDSC 1003") {
         if (semester_num === 0) {
-            li_to_move.style.border = "";
+            dropFailedElementUpdate(false, li_to_move, null, course_num);
         } else {
-            li_to_move.style.border = "1px solid red";
+            dropFailedElementUpdate(true, li_to_move, "INTDSC 1003 must be taken in the first semester!", course_num);
         }
-        // dropFailedAlert("INTDSC 1003 must be taken in the first semester!", li_to_move);
-        // should_move_course = false;
     } else if (course_num === "CMP SCI 1000") {
-        if (semester_num > 1) {
-            li_to_move.style.border = "";
+        if (semester_num <= 1) {
+            dropFailedElementUpdate(false, li_to_move, null, course_num);
         } else {
-            li_to_move.style.border = "1px solid red";
+            dropFailedElementUpdate(true, li_to_move, "CMP SCI 1000 must be taken in the first or second semester!", course_num);
         }
-        // dropFailedAlert("CMP SCI 1000 must be taken in the first or second semester!", li_to_move);
-        // should_move_course = false;
     } else {
         // check if the course is an elective
         const elective = course_name === '[User Selects]';
 
-        if (!elective && should_move_course) {
+        if (!elective) {
             var items = selected_drop_ul.getElementsByTagName("li");
             let course_info = null;
 
@@ -206,15 +229,17 @@ function drop(ev, course_element) {
                 }
             });
 
+            let should_validate_prereqs = true;
+
             if (!course_info.semesters_offered.includes(course_schedule[semester_num].semester)) {
-                // dropFailedAlert(`${course_num} is not offered during the ${course_schedule[semester_num].semester} semester!`, li_to_move)
-                // should_move_course = false;
-                li_to_move.style.border = "1px solid red";
+                let msg = `${course_num} is not offered during the ${course_schedule[semester_num].semester} semester!`;
+                dropFailedElementUpdate(true, li_to_move, msg, course_num);
+                should_validate_prereqs = false;
             } else {
-                li_to_move.style.border = "";
+                dropFailedElementUpdate(false, li_to_move, null, course_num);
             }
 
-            if ((course_info["prerequisite"].length != 0) && should_move_course) {
+            if ((course_info["prerequisite"].length != 0) && should_validate_prereqs) {
                 prereqVerification(course_info, course_num, semester_num, li_to_move, course_name)
             }
 
@@ -230,7 +255,10 @@ function drop(ev, course_element) {
                             return true;
                         }
                     });
-                    prereqVerification(prereq_for_course_info, prereq, semester_num, li_to_move, null, true, course_num)
+                    required_courses_taken = prereqVerification(prereq_for_course_info, prereq, semester_num, li_to_move, null, true, course_num);
+                    if (!required_courses_taken) {
+                        failed_prereq_for_courses.push(prereq)
+                    }
                 })
             }
         }        
