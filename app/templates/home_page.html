@@ -9,6 +9,10 @@
             <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
             <br><br>
 
+            <label for="name">Name</label>
+            <input type="text" id="name" name="user_name">
+            <br><br>
+
             <!-- Select certificate option -->
             <label for="certificate">
                 Certificate Option
@@ -231,6 +235,10 @@
             </select>
             <input type="hidden" name="required_courses_dict" value="{{ required_courses_dict }}">
             <br><br>
+
+            <!-- Disclaimer -->
+            <small>This course scheduling tool is not an official schedule.
+            Users should consult with academic advisors for guidance on course selection and scheduling.</small>
         </div>
     </div>
 </html>

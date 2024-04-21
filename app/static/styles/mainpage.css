@@ -49,6 +49,13 @@ body {
     color: lightgray;
     background-color: #a80b2d;
   }
+  .form-container input[type = "text"]{
+    display: inline-block;
+    width: 140px;
+    vertical-align: top;
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 300;
+  }
   .form-container label, .form-container-2 label {
     display: inline-block;
     width: 250px;
