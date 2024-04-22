@@ -51,23 +51,56 @@
                     </div>
                     <div class="counts">
                         <p><label>Total Accumulated Electives</label>
-                            <sub-label>General Education</sub-label><small>6 / 27</small>
+                            <sub-label>General Education Credits</sub-label><small>{{ 27 - gen_ed_credits_still_needed }} / 27</small>
                             <br>
                             <label></label>
-                            <sub-label>CS 3000+ Electives</sub-label><small>0 / 15</small>
+
+                            <!--
+                            <sub-label>CS 3000+ Electives</sub-label><small>{{ min_3000_ }}</small>
                             <br>
                             <label></label>
-                            <sub-label>Artificial Intelligence Certificate</sub-label><small>0 / 15</small>
+
+                            <sub-label>Artificial Intelligence Certificate</sub-label><small>{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}</small>
+                            <br>
+                            <label></label>-->
+
+                            <sub-label>Free Elective Credits</sub-label><small>{{ fe_taken }}</small>
                             <br>
                             <label></label>
-                            <sub-label>Free Electives</sub-label><small>   12</small>
+
+                            <sub-label>Certificate Elective Earned</sub-label>
+                            <small>{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed * 3)}}
+                                / {{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES}}</small>
                             <br>
+                            <label></label>
+
+                            <!--
+                            <sub-label>3000 Replaced</sub-label><small>{{ num_3000_replaced_by_cert_core }}</small>
+                            <br>
+                            <label></label>
+
+                            <sub-label>Total Credits Cert Electives</sub-label><small>{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}</small>
+                            <br>
+                            <label></label>-->
+
+
+                            <sub-label>BSCS Courses</sub-label><small>
+                                {{ total_credits - (27 - gen_ed_credits_still_needed) - fe_taken
+                                        - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed * 3))
+                                        }}</small>
+                            <br>
+                            <label></label>
+
+                            <sub-label>Total Accumulated Credits</sub-label><small>{{ total_credits }} / 120</small>
+                            <br>
+                            <label></label>
                         </p>
+                        <!--
                         <label>Required Courses Remaining</label><br>
                         <div class="course-container">
-                            <degree>CMP SCI 4500</degree>
-                            <certificate>CMP SCI 4500</certificate>
-                        </div>
+                            <degree></degree>
+                            <certificate></certificate>
+                        </div>-->
                     </div>
                 </div>
                 <div class="disclaimer">This course scheduling tool is not an official schedule.<br>
