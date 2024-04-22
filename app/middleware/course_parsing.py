@@ -408,16 +408,10 @@ def get_semester_years(selected_season) -> dict:
     current_season = seasons_from_month[current_month]
     semester_years = {}
 
-    print("Season Information: ")
-    print(f"\tCurrent Month: {current_month}")
-    print(f"\tCurrent Year: {current_year}")
-    print(f"\tCurrent Season: {current_season}")
-
     # planning for Spring
     if(selected_season == 'Spring'):
         # if in first month of Spring, plan for this Spring
         if (current_month <= first_month_of_seasons[selected_season]):
-            print("\tPlan for upcoming Spring")
             semester_years = {
                 'Spring': current_year,
                 'Summer': current_year,
@@ -425,7 +419,6 @@ def get_semester_years(selected_season) -> dict:
             }
         # if NOT in first month of Spring, plan for next Spring
         else:
-            print("\tPlan for next Spring")
             semester_years = {
                 'Spring': current_year + 1,
                 'Summer': current_year + 1,
@@ -436,7 +429,6 @@ def get_semester_years(selected_season) -> dict:
     elif(selected_season == 'Fall'):
         # if in first month of Fall, plan for this Fall
         if (current_month <= first_month_of_seasons[selected_season]):
-            print("\tPlan for upcoming Fall")
             semester_years = {
                 'Spring': current_year + 1,
                 'Summer': current_year + 1,
@@ -444,7 +436,6 @@ def get_semester_years(selected_season) -> dict:
             }
         # if NOT in first month of Fall, plan for next Fall
         elif (current_month > first_month_of_seasons[selected_season]):
-            print("\tPlan for next Fall")
             semester_years = {
                 'Spring': current_year + 2,
                 'Summer': current_year + 2,
@@ -454,7 +445,6 @@ def get_semester_years(selected_season) -> dict:
     elif(selected_season == 'Summer'):
         # if in first month of Summmer, plan for this Summer
         if (current_month <= first_month_of_seasons[selected_season]):
-            print("\tPlan for upcoming Summer")
             semester_years = {
                 'Spring': current_year + 1,
                 'Summer': current_year,
@@ -462,14 +452,11 @@ def get_semester_years(selected_season) -> dict:
             }
         # if NOT in first month of Fall, plan for next Fall
         elif (current_month > first_month_of_seasons[selected_season]):
-            print("\tPlan for upcoming Summer")
             semester_years = {
                 'Spring': current_year + 2,
                 'Summer': current_year + 1,
                 'Fall': current_year + 1
             }
-
-    print("\t", semester_years)
     print()
     return semester_years
 
