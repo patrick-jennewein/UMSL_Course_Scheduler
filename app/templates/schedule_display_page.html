@@ -35,7 +35,6 @@
                 <!-- Ask user for number of credits next semester-->
                 <div class="next-semester">
                     <div class="advance-to-next">
-                        <p><label>Total Accumulated Credits</label>{{ total_credits }} / 120</p>
                         <p><label for="minimum_semester_credits">Minimum Credits for Next Semester</label>
                             <select name="minimum_semester_credits" id="minimum_credits">
                                 {% for credits in minimum_semester_credits %}
@@ -47,60 +46,52 @@
                                 {% endfor %}
                             </select>
                         </p>
-                        <p><input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule"></p>
+                        <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
                     </div>
                     <div class="counts">
-                        <p><label>Total Accumulated Electives</label>
-                            <sub-label>General Education Credits</sub-label><small>{{ 27 - gen_ed_credits_still_needed }} / 27</small>
-                            <br>
-                            <label></label>
+                       <!-- Gen Ed Credits-->
+                       <div class = "credit-category">
+                            <label>General Education Credits</label>
+                            <span class = "credit-count">{{ 27 - gen_ed_credits_still_needed }}</span>
+                            <span class = "credit-minimum">27</span>
+                       </div>
+                       <br>
 
-                            <!--
-                            <sub-label>CS 3000+ Electives</sub-label><small>{{ min_3000_ }}</small>
-                            <br>
-                            <label></label>
+                       <!-- Certificate Elective Credits-->
+                       <div class = "credit-category">
+                           <label>Certificate Elective Credits</label>
+                            <span class = "credit-count">
+                                {{
+                                    TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed * 3)
+                                }}
+                            </span>
+                            <span class = "credit-minimum">
+                                {{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES}}
+                            </span>
+                        </div>
+                       <br>
 
-                            <sub-label>Artificial Intelligence Certificate</sub-label><small>{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}</small>
-                            <br>
-                            <label></label>-->
+                       <!-- Core Courses -->
+                       <div class = "credit-category">
+                            <label>BSCS Core Credits</label>
+                            <span class = "credit-count">
+                                {{ total_credits - (27 - gen_ed_credits_still_needed)
+                                - fe_taken
+                                - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES
+                                - (cert_elective_courses_still_needed * 3))
+                                }}
+                            </span>
+                        </div>
+                       <br>
 
-                            <sub-label>Free Elective Credits</sub-label><small>{{ fe_taken }}</small>
-                            <br>
-                            <label></label>
+                       <!-- Total Credits-->
+                       <div class = "credit-category">
+                           <label>Total Credits</label>
+                            <span class = "credit-count">{{ total_credits }}</span>
+                            <span class = "credit-minimum">120</span>
+                       </div>
+                       <br>
 
-                            <sub-label>Certificate Elective Earned</sub-label>
-                            <small>{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed * 3)}}
-                                / {{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES}}</small>
-                            <br>
-                            <label></label>
-
-                            <!--
-                            <sub-label>3000 Replaced</sub-label><small>{{ num_3000_replaced_by_cert_core }}</small>
-                            <br>
-                            <label></label>
-
-                            <sub-label>Total Credits Cert Electives</sub-label><small>{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}</small>
-                            <br>
-                            <label></label>-->
-
-
-                            <sub-label>BSCS Courses</sub-label><small>
-                                {{ total_credits - (27 - gen_ed_credits_still_needed) - fe_taken
-                                        - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed * 3))
-                                        }}</small>
-                            <br>
-                            <label></label>
-
-                            <sub-label>Total Accumulated Credits</sub-label><small>{{ total_credits }} / 120</small>
-                            <br>
-                            <label></label>
-                        </p>
-                        <!--
-                        <label>Required Courses Remaining</label><br>
-                        <div class="course-container">
-                            <degree></degree>
-                            <certificate></certificate>
-                        </div>-->
                     </div>
                 </div>
                 <div class="disclaimer">This course scheduling tool is not an official schedule.<br>

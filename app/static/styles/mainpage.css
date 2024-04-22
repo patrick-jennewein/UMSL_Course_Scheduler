@@ -80,7 +80,7 @@ body {
     display: flex;
     flex-direction: column;
     position: fixed;
-    min-width: 100vw;
+    width: 100%;
     top: 0;
     background-color: #fff4d5;
     font-size: medium;
@@ -94,13 +94,36 @@ body {
   }
 
   /*containers for counters*/
-  .next-semester .advance-to-next {
-    /*background-color: yellow;*/
-    padding: 2px 40px;
+  .counts{
+    margin-right: 40px;
+    line-height: 0.7em;
   }
-  .next-semester .counts {
-    /*background-color: orange;*/
-    padding: 2px 40px;
+
+  .advance-to-next{
+    line-height: 0.7em;
+    margin-left: 40px;
+  }
+
+  .next-semester{
+    height: 150px;
+  }
+  .disclaimer{
+  }
+
+  .advance-to-next input[type = submit]{
+    border: 1px solid black;
+    padding: 10px;
+    font-family: "Roboto Condensed", sans-serif;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    width: 45%;
+  }
+  .advance-to-next input[type = submit]:hover{
+    transition: 0.5s;
+    color: lightgray;
+    background-color: #a80b2d;
   }
 
   /* labels for total credits and advancing to next semester*/
@@ -111,24 +134,19 @@ body {
     font-weight: 600;
   }
 
-  /* Smaller labels for elective counters */
-  .counts label {
+  .credit-category label {
     display: inline-block;
     color: #a80b2d;
-    width: 175px;
-    font-weight: 550;
-    font-size: small;
+    width: 350px;
+    font-weight: 600;
+    text-align: left;
   }
-  sub-label {
-    display: inline-block;
-    color: #000000;
-    width: 175px;
-    font-weight: 550;
-    font-size: small;
+
+  .credit-count p{
+    background-color: red;
   }
-  .course-container {
-    /*background-color: violet;*/
-    padding: 5px 1px;
+
+  .credit-minimum p{
   }
 
   /*course icon styling*/
@@ -152,7 +170,6 @@ body {
     font-weight: 600;
   }
   .header-container .disclaimer {
-    /*background-color: pink;*/
     padding: 5px 1px 5px 40px;
     font-size: x-small;
   }
