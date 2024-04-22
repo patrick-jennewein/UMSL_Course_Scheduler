@@ -287,15 +287,15 @@ def print_course_list_information(certificate_core, cert_elective_courses_still_
     print(f"Certificate Electives (Pick {cert_elective_courses_still_needed}): ")
     for item in certificate_electives.keys():
         print(f"{'':<40}{item}")
-    print(f"{'3000+ Level Electives Still Needed Certificates':<40}: {min_3000_course_still_needed}")
+    print(f"{'3000+ Level Electives Still Needed:':<40}{min_3000_course_still_needed}")
     print("Required Course List:")
     for item in required_courses_tuple:
         if item in certificate_core.keys() and item[0] not in required_courses_tuple:
-            print(f"{'':<40}{item} ***(Core of Certificate, Now Required)")
+            print(f"\t{item} ***(Core of Certificate, Now Required)")
         elif item in certificate_electives.keys():
-            print(f"{'':<40}{item} ***(Elective of Certificate)")
+            print(f"\t{item} ***(Elective of Certificate)")
         else:
-            print(f"{'':<40}{item}")
+            print(f"\t{item}")
 
 
 def intermediate_check_schedule(total_credits_accumulated, required_courses_tuple, courses_taken,
@@ -648,8 +648,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # create header for console
     if(generate_complete_schedule):
-        print(f"Minimum credits for all Fall/Spring semesters: {min_credits_per_semester}")
-        print(f"Minimum credits for summer semester: {summer_credit_count}\n\n")
+        print(f"{'Min credits Fall/Spring:':<40} {min_credits_per_semester}")
+        print(f"{'Min credits for summer:':<40} {summer_credit_count}\n\n")
     elif(not generate_complete_schedule):
         print(f"Minimum credits for upcoming semester: {min_credits_per_semester}\n\n")
     print(f"Status:\t{'Num:':<15}{'Course Name:':<40} "
@@ -1062,16 +1062,17 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     accumulated_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - ((min_3000_course_still_needed + cert_elective_courses_still_needed + num_3000_replaced_by_cert_core)*DEFAULT_CREDIT_HOURS))
     modified_total_for_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES+ (num_3000_replaced_by_cert_core*DEFAULT_CREDIT_HOURS)))
     modified_accumulated_3000 = (modified_total_for_3000 -(min_3000_course_still_needed*DEFAULT_CREDIT_HOURS))
-    print(f"{min_3000_course_still_needed=} {cert_elective_courses_still_needed=} {num_3000_replaced_by_cert_core=}")
-    print(f'TOTAL_CREDITS_FOR_GEN_EDS:               {accumulated_gen_eds:>2} / {TOTAL_CREDITS_FOR_GEN_EDS}')
-    print(f'TOTAL_CREDITS_FOR_BSCS_ELECTIVES:        {accumulated_3000:>2} / {TOTAL_CREDITS_FOR_BSCS_ELECTIVES}')
-    print(f'TOTAL_CREDITS_FOR_BSCS_ELECTIVES after certificate added: {modified_accumulated_3000} / {modified_total_for_3000}')
-    print(f'TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES: {accumulated_certificates:>2} / {TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES}')
-    print(f'Total Free Electives Accumulated:        {free_elective_credits_accumulated:<5}')
-    for course, info in required_courses_dict_list:
-        print(f'{course}', end=", ")
-    print("\n")
-    #print(f'{required_courses_dict_list=}')
+
+    # print(f"{min_3000_course_still_needed=} {cert_elective_courses_still_needed=} {num_3000_replaced_by_cert_core=}")
+    # print(f'TOTAL_CREDITS_FOR_GEN_EDS:               {accumulated_gen_eds:>2} / {TOTAL_CREDITS_FOR_GEN_EDS}')
+    # print(f'TOTAL_CREDITS_FOR_BSCS_ELECTIVES:        {accumulated_3000:>2} / {TOTAL_CREDITS_FOR_BSCS_ELECTIVES}')
+    # print(f'TOTAL_CREDITS_FOR_BSCS_ELECTIVES after certificate added: {modified_accumulated_3000} / {modified_total_for_3000}')
+    # print(f'TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES: {accumulated_certificates:>2} / {TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES}')
+    # print(f'Total Free Electives Accumulated:        {free_elective_credits_accumulated:<5}')
+    # for course, info in required_courses_dict_list:
+    #     print(f'{course}', end=", ")
+    # print("\n")
+    # #print(f'{required_courses_dict_list=}')
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(courses_dict_list_unchanged),
