@@ -283,19 +283,19 @@ def print_course_list_information(certificate_core, cert_elective_courses_still_
                                   required_courses_tuple):
     print("Certificate Core (Necessary): ")
     for item in certificate_core.keys():
-        print(f"\t{item}")
+        print(f"{'':<40}{item}")
     print(f"Certificate Electives (Pick {cert_elective_courses_still_needed}): ")
     for item in certificate_electives.keys():
-        print(f"\t{item}")
-    print(f"Min 3000+ Level Electives Still Needed (Above Certificates): {min_3000_course_still_needed}")
-    print("Required Course List: ")
+        print(f"{'':<40}{item}")
+    print(f"{'3000+ Level Electives Still Needed Certificates':<40}: {min_3000_course_still_needed}")
+    print("Required Course List:")
     for item in required_courses_tuple:
         if item in certificate_core.keys() and item[0] not in required_courses_tuple:
-            print(f"\t{item} ***(Core of Certificate, Now Required)")
+            print(f"{'':<40}{item} ***(Core of Certificate, Now Required)")
         elif item in certificate_electives.keys():
-            print(f"\t{item} ***(Elective of Certificate)")
+            print(f"{'':<40}{item} ***(Elective of Certificate)")
         else:
-            print(f"\t{item}")
+            print(f"{'':<40}{item}")
 
 
 def intermediate_check_schedule(total_credits_accumulated, required_courses_tuple, courses_taken,
@@ -474,18 +474,18 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     user_name = request.form["user_name"]
 
     # credit hour trackers
-    total_credits_accumulated = int(request.form["total_credits"])
     ge_taken = int(request.form["ge_taken"])
-    fe_taken = int(request.form["fe_taken"])
-    free_elective_credits_accumulated = int(request.form["fe_taken"]) if semester == 0 else 0
+    free_elective_credits_accumulated = int(request.form["fe_taken"])
     gen_ed_credits_still_needed = int(request.form["gen_ed_credits_still_needed"]) - ge_taken if semester == 0 else int(request.form["gen_ed_credits_still_needed"])
     cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])  # default is 0
     min_3000_course_still_needed = int(request.form["min_3000_course"]) # default is 5
+    total_credits_accumulated = int(request.form["total_credits"]) if semester != 0 else int(request.form["total_credits"]) + ge_taken + free_elective_credits_accumulated
 
-    print(f"{'Student:':<20}{user_name}")
-    print(f"{'General Education Credits Earned:':<20}{27 - gen_ed_credits_still_needed}")
-    print(f"{'General Education Credits Needed:':<20}{gen_ed_credits_still_needed}: {gen_ed_credits_still_needed / 3} classes")
-    print(f"{'Free Elective Credits Earned:':<20}{free_elective_credits_accumulated}")
+    # print out student information
+    print(f"{'Student:':<40}{user_name}")
+    print(f"{'General Education Credits Earned:':<40}{27 - gen_ed_credits_still_needed}")
+    print(f"{'Free Elective Credits Earned:':<40}{free_elective_credits_accumulated}")
+    print(f"{'Total Credits Incoming:':<40}{total_credits_accumulated}")
 
     # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_GRADUATION = 120
@@ -523,7 +523,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     if semester == 0:
         first_semester = request.form["current_semester"]
         semester_years = get_semester_years(first_semester)
-        print(f"Total Credits Earned Before Semester 1: {total_credits_accumulated}")
         if "include_summer" in request.form.keys():
             include_summer = True if request.form["include_summer"] == "on" else False
 
@@ -565,7 +564,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             num_courses_in_base_csdeg = len(required_courses_dict)
             required_courses_dict.update(certificate_core)
             num_3000_replaced_by_cert_core = len(required_courses_dict) - num_courses_in_base_csdeg
-            print(f'Number of 3000+ level electives to be used by certificate core: {num_3000_replaced_by_cert_core}')
+            print(f"{'3000+ Electives Used in Certificate':<40}{num_3000_replaced_by_cert_core}")
             
             # update counters according to certificate selection
             min_3000_course_still_needed -= num_3000_replaced_by_cert_core
@@ -1100,6 +1099,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "semester_years": json.dumps(semester_years),
         "course_prereqs_for": json.dumps(course_prereqs_for),
         "user_name": user_name,
-        "fe_taken": fe_taken,
+        "fe_taken": free_elective_credits_accumulated,
         "ge_taken": ge_taken
     }
