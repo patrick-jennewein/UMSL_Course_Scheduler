@@ -25,7 +25,9 @@
     <input type="hidden" name="first_semester" value="{{ first_semester }}">
     <input type="hidden" name="semester_years" value="{{ semester_years }}">
     <input type="hidden" id="course_prereqs_for" name="course_prereqs_for" value="{{ course_prereqs_for }}">
-
+    <input type="hidden" name="user_name" value = "{{ user_name }}">
+    <input type="hidden" name="fe_taken" value = "{{ fe_taken }}">
+    <input type="hidden" name="ge_taken" value = "{{ ge_taken }}">
     <!-- If generating a schedule semester-by-semester-->
     {% if not full_schedule_generation %}
         <div class="scheduler">

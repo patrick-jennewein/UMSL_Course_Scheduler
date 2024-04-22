@@ -471,13 +471,21 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])  # default is 0
     first_semester = request.form["first_semester"]
     semester_years = json.loads(request.form["semester_years"])
+    user_name = request.form["user_name"]
 
     # credit hour trackers
     total_credits_accumulated = int(request.form["total_credits"])
-    free_elective_credits_accumulated = 0
-    gen_ed_credits_still_needed = int(request.form["gen_ed_credits_still_needed"])
+    ge_taken = int(request.form["ge_taken"])
+    fe_taken = int(request.form["fe_taken"])
+    free_elective_credits_accumulated = int(request.form["fe_taken"]) if semester == 0 else 0
+    gen_ed_credits_still_needed = int(request.form["gen_ed_credits_still_needed"]) - ge_taken if semester == 0 else int(request.form["gen_ed_credits_still_needed"])
     cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])  # default is 0
     min_3000_course_still_needed = int(request.form["min_3000_course"]) # default is 5
+
+    print(f"{'Student:':<20}{user_name}")
+    print(f"{'General Education Credits Earned:':<20}{27 - gen_ed_credits_still_needed}")
+    print(f"{'General Education Credits Needed:':<20}{gen_ed_credits_still_needed}: {gen_ed_credits_still_needed / 3} classes")
+    print(f"{'Free Elective Credits Earned:':<20}{free_elective_credits_accumulated}")
 
     # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_GRADUATION = 120
@@ -540,7 +548,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             # Update counters according to certificate addition
             min_3000_course_still_needed -= cert_elective_courses_still_needed
             TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = cert_elective_courses_still_needed * DEFAULT_CREDIT_HOURS
-            print(type(cert_elective_courses_still_needed))
             #certificate_option = True
 
         # determine the semesters that user will be enrolled in
@@ -1091,5 +1098,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "minimum_summer_credits": summer_credit_count,
         "first_semester": first_semester,
         "semester_years": json.dumps(semester_years),
-        "course_prereqs_for": json.dumps(course_prereqs_for)
+        "course_prereqs_for": json.dumps(course_prereqs_for),
+        "user_name": user_name,
+        "fe_taken": fe_taken,
+        "ge_taken": ge_taken
     }
