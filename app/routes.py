@@ -48,7 +48,8 @@ def index():
                            semester_years = json.dumps({}),
                            user_name = "Student",
                            ge_taken = 0,
-                           fe_taken = 0
+                           fe_taken = 0,
+                           is_graduated = False
     )
 
 @app.route('/schedule', methods=["POST"])
@@ -82,5 +83,6 @@ def schedule_generator():
                            course_prereqs_for = render_info['course_prereqs_for'],
                            user_name = render_info['user_name'],
                            ge_taken = render_info['ge_taken'],
-                           fe_taken = render_info['fe_taken']
+                           fe_taken = render_info['fe_taken'],
+                           is_graduated = render_info['is_graduated']
     )

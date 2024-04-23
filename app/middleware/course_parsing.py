@@ -473,6 +473,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     semester_years = json.loads(request.form["semester_years"])
     user_name = request.form["user_name"]
 
+
     # credit hour trackers
     ge_taken = int(request.form["ge_taken"])
     free_elective_credits_accumulated = int(request.form["fe_taken"])
@@ -645,6 +646,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     current_semester_cs_math_credits_per_semester = 0
     current_CS_elective_credits_per_semester = 0
     is_course_generation_complete = False
+    is_graduated = False
 
     # create header for console
     if(generate_complete_schedule):
@@ -1101,5 +1103,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "course_prereqs_for": json.dumps(course_prereqs_for),
         "user_name": user_name,
         "fe_taken": free_elective_credits_accumulated,
-        "ge_taken": ge_taken
+        "ge_taken": ge_taken,
+        "is_graduated": is_graduated
     }

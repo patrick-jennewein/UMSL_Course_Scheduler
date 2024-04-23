@@ -135,6 +135,24 @@
                         <span class = "credit-minimum">/ 120</span>
                    </div>
 
+                    <!-- Graduation Check-->
+                   <div class = "credit-category">
+                       <label>Requirements Met for Graduation
+                           <span class="tooltip">
+                                <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                                    <span class="tooltiptext">
+                                    This is the total amount of credits earned after adding BSCS, General Education, and Free Elective credits.<br><br>
+                                    Every student must earn 120 total credits to graduate.
+                                </span>
+                            </span>
+                       </label>
+                        {% if is_graduated == True %}
+                            <span class="credit-count-success">{{ is_graduated }}</span>
+                        {% else %}
+                            <span class="credit-count">{{ is_graduated }}</span>
+                        {% endif %}
+                   </div>
+
                 </div>
             </div>
 
