@@ -51,7 +51,8 @@ def index():
                            fe_taken = 0,
                            is_graduated = False,
                            required_courses_tuple = json.dumps([]),
-                           number_of_required_courses_taken = 0
+                           number_of_required_courses_taken = 0,
+                           certificate_choice = json.dumps([])
     )
 
 @app.route('/schedule', methods=["POST"])
