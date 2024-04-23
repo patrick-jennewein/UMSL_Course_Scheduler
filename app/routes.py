@@ -85,6 +85,7 @@ def schedule_generator():
                            minimum_summer_credits=render_info['minimum_summer_credits'],
                            first_semester = render_info['first_semester'],
                            semester_years = render_info['semester_years'],
+                           semester_years_display = render_info["semester_years_display"],
                            course_prereqs_for = render_info['course_prereqs_for'],
                            user_name = render_info['user_name'],
                            ge_taken = render_info['ge_taken'],

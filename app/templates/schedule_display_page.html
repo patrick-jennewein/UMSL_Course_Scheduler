@@ -39,7 +39,7 @@
                 <div class = "left-counter">
                     <label>{{ user_name }} </label><br>
                     <label for="minimum_semester_credits">
-                        Minimum Credits for {{ current_semester }}
+                        Minimum Credits for {{ current_semester }} {{ semester_years_display[current_semester] }}
                     </label>
                     <select name="minimum_semester_credits" id="minimum_credits">
                         {% for credits in minimum_semester_credits %}
@@ -49,18 +49,23 @@
                         <option value="{{credits}}">{{ credits }}</option>
                         {% endif %}
                         {% endfor %}
-                    </select>
-                    <br><br>
-                    <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
+                    </select><br>
+                    <label>Bachelor of Science</label><br>
+                    <label>Computer Science</label><br>
+                    <div class = "credit-category">
+                        {% if certificates_display[0] != "None" %}
+                            <label>{{ certificates_display[0]}} Certificate</label>
+                        {% endif %}
+                    </div>
+                    <div class = "continue-schedule">
+                        <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
+                    </div>
                     <br>
-                    <p>This course scheduling tool is not an official schedule. Students should consult with UMSL
-                    academic advising for guidance.</p>
                 </div>
                 <div class = "center-counter">
                     <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
                 </div>
                 <div class = "right-counter">
-                    <p>Certificate Choice: {{ certificates_display[0] }}</p>
                     <!-- Free Electives-->
                     <div class = "credit-category">
                         <label>Free Elective Credits
@@ -75,7 +80,6 @@
                             {{ fe_taken
                             }}
                         </span>
-
                     </div>
 
                    <!-- Core Courses -->
@@ -158,7 +162,7 @@
                    </div>
 
                     <div class="grad-class-list">
-                        <span class="tooltip"> See Progress
+                        <span class="tooltip"> <p>See Progress</p>
                             <span class="tooltiptext">
                                 Required Courses
                                 <ul class="class-grid">

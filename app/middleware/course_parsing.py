@@ -109,7 +109,7 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
     for course in courses:
         # add pre-requisites to dictionary
         course['prerequisite'] = build_prerequisites(course)
-        
+
         key = course["subject"] + " " + course["course_number"]
 
         # add rest of information to dictionary
@@ -183,7 +183,7 @@ def parse_certificate(certificate_name) -> dict:
     Params
     ----------
     certificate_name        string
-                            is the name of the desired certificate. May have any of the following values: 
+                            is the name of the desired certificate. May have any of the following values:
                             AICERTReq
                             CYBERCERTReq
                             DATACERTReq
@@ -548,7 +548,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         if (certificate_choice_xml_tag != ""):
             certificate_core, certificate_electives, cert_elective_courses_still_needed = parse_certificate(certificate_choice_xml_tag)
-            
+
             # Update counters according to certificate addition
             min_3000_course_still_needed -= cert_elective_courses_still_needed
             TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = cert_elective_courses_still_needed * DEFAULT_CREDIT_HOURS
@@ -570,7 +570,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             required_courses_dict.update(certificate_core)
             num_3000_replaced_by_cert_core = len(required_courses_dict) - num_courses_in_base_csdeg
             print(f"{'3000+ Electives Used in Certificate':<40}{num_3000_replaced_by_cert_core}")
-            
+
             # update counters according to certificate selection
             min_3000_course_still_needed -= num_3000_replaced_by_cert_core
 
@@ -596,7 +596,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 else:
                     prereq_for_list.extend(list(chain.from_iterable(course['prerequisite'])))
             prereq_for_list = list(set(prereq_for_list))
-        
+
             for prereq in prereq_for_list:
                 if prereq not in prereqs_for_dict.keys():
                     prereqs_for_dict[prereq] = [key]
@@ -743,7 +743,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                     else:
                                         required_courses_taken = False
                                     if not required_courses_taken:
-                                        break                                       
+                                        break
 
                                 # add the current course because pre-requisite has already been taken
                                 if required_courses_taken:
@@ -1123,6 +1123,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "minimum_summer_credits": summer_credit_count,
         "first_semester": first_semester,
         "semester_years": json.dumps(semester_years),
+        "semester_years_display": semester_years,
         "course_prereqs_for": json.dumps(course_prereqs_for),
         "user_name": user_name,
         "fe_taken": free_elective_credits_accumulated,

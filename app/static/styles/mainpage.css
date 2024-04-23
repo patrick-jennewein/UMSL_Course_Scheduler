@@ -116,27 +116,46 @@ body {
     width: 100%;
   }
 
-  .left-counter, .right-counter{
-    width: 40%;
-    margin: 40px;
-  }
 
   .center-counter{
     width: 20%;
   }
 
   .left-counter{
+    width: 40%;
+    margin: 40px;
   }
 
   .center-counter{
   }
   .right-counter{
+    width: 40%;
+    margin: 40px;
   }
 
-.grad-class-list {
+.grad-class-list, .continue-schedule{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
+
+.grad-class-list p{
+    border: 1px solid black;
+    padding: 10px;
+    font-family: "Roboto Condensed", sans-serif;
+    border-radius: 5px;
+    text-align: center;
+    font-size: small;
+    width: 100%;
+    font-weight: 400;
+    background-color: #f0f0f0;
+
+  }
+  .grad-class-list p:hover{
+    transition: 0.5s;
+    color: lightgray;
+    background-color: #a80b2d;
+  }
+
 
 .class-grid {
     list-style-type: none;
@@ -164,6 +183,8 @@ body {
     width: 300px;
   }
 
+
+
   .class-grid li{
     color: white;
     background-color: red;
@@ -189,8 +210,6 @@ body {
     color: green;
     font-weight: 600;
   }
-
-
 
   /*course icon styling*/
   .course-container degree {
@@ -363,6 +382,13 @@ body {
   }
 
   /*course list tooltip*/
+  .grad-class-list .tooltip{
+    width: auto;
+  }
+  .counter-bar input[type = submit]{
+    width: auto;
+    padding: 10px;
+  }
   .grad-class-list .tooltip .tooltiptext {
     visibility: hidden;
     background-color: rgba(0, 0, 0, 0.8);
@@ -431,7 +457,7 @@ body {
   }
 
   .counter-bar input[type = submit]{
-    width: 100%;
+    width: auto;
   }
   .counter-bar input[type = submit]:hover{
   }
