@@ -495,9 +495,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # set in first semester and maintained by request.form in subsequent semesters
     DEFAULT_CREDIT_HOURS = 3
     course_categories = {
-        'R': 'CS Required',
-        'E': 'CS Elective',
-        'C': 'CS Certificate Elective',
+        'R': 'BSCS',
+        'E': 'BSCS',
+        'C': 'BSCS',
         'G': 'General Education',
         'F': 'Free Elective',
         'O': 'Other'
