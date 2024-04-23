@@ -49,7 +49,9 @@ def index():
                            user_name = "Student",
                            ge_taken = 0,
                            fe_taken = 0,
-                           is_graduated = False
+                           is_graduated = False,
+                           required_courses_tuple = json.dumps([]),
+                           number_of_required_courses_taken = 0
     )
 
 @app.route('/schedule', methods=["POST"])
@@ -84,5 +86,7 @@ def schedule_generator():
                            user_name = render_info['user_name'],
                            ge_taken = render_info['ge_taken'],
                            fe_taken = render_info['fe_taken'],
-                           is_graduated = render_info['is_graduated']
+                           is_graduated = render_info['is_graduated'],
+                           required_courses_tuple = render_info['required_courses_tuple'],
+                           number_of_required_courses_taken = render_info['number_of_required_courses_taken']
     )
