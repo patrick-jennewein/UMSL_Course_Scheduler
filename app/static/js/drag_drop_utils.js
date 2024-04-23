@@ -80,98 +80,102 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
         }
     } else {
         li_to_update = document.getElementById(course_num)
-        let semester_of_prereq_course = null;
-        course_schedule.some((semester) => {
-            semester_schedule = semester.schedule.map(x => x.course);
-            if (semester_schedule.includes(course_num)) {
-                semester_of_prereq_course = semester.semester_number;
-            }
-
-            credits_to_remove = 0;
-            if (semester.semester_number === semester_num && !semester_of_prereq_course) {
-                courses_taken_before_new_semester.push(orig_course_num);
-            } else if (semester.semester_number === semester_of_prereq_course) {
-                new_semester_current_courses.push(orig_course_num);
-            }
-            semester.schedule.forEach((course_information) => {
-                if (!(course_information.course === orig_course_num)) {
-                    if (!semester_of_prereq_course) {
-                        courses_taken_before_new_semester.push(course_information.course);
-                    } else {
-                        new_semester_current_courses.push(course_information.course);
-                    }
-                } else {
-                    credits_to_remove = course_information.credits;
+        if (li_to_update) {
+            let semester_of_prereq_course = null;
+            course_schedule.some((semester) => {
+                semester_schedule = semester.schedule.map(x => x.course);
+                if (semester_schedule.includes(course_num)) {
+                    semester_of_prereq_course = semester.semester_number;
                 }
-            });
-            credits_total_for_new_semester = credits_total_for_new_semester + semester_schedule.credits - credits_to_remove;
-            if (semester_of_prereq_course) {
-                return true;
-            }
-        });
-    }
 
-    course_info["prerequisite"].some((prereq) => {
-        if (Array.isArray(prereq)) {
-            if (prereq.length === 1) {
-                if (courses_taken_before_new_semester.includes(prereq[0]) ||
-                    (new_semester_current_courses.includes(prereq[0]) && (prereq[0] === concurrent))) {
-                        required_courses_taken = true;
-                        return true;
-                } else {
-                    failed_message = `${course_num} prerequisite (${prereq[0]}) has to be completed prior to the selected semester!`;
-                    required_courses_taken = false;
+                credits_to_remove = 0;
+                if (semester.semester_number === semester_num && !semester_of_prereq_course) {
+                    courses_taken_before_new_semester.push(orig_course_num);
+                } else if (semester.semester_number === semester_of_prereq_course) {
+                    new_semester_current_courses.push(orig_course_num);
                 }
-            } else {
-                required_courses_taken = false;
-
-                prereq.some((prereq_course) => {
-                    if (courses_taken_before_new_semester.includes(prereq_course) ||
-                        (new_semester_current_courses.includes(prereq_course) && (prereq_course === concurrent))) {
-                            required_courses_taken = true;
+                semester.schedule.forEach((course_information) => {
+                    if (!(course_information.course === orig_course_num)) {
+                        if (!semester_of_prereq_course) {
+                            courses_taken_before_new_semester.push(course_information.course);
+                        } else {
+                            new_semester_current_courses.push(course_information.course);
+                        }
                     } else {
-                        failed_message = `${course_num} prerequisite (${prereq_course}) has to be completed prior to the selected semester!`;
-                        required_courses_taken = false;
+                        credits_to_remove = course_information.credits;
                     }
-                    if (!required_courses_taken) {
-                        return true;
-                    }
-                })
-                if (required_courses_taken) {
-                    required_courses_taken = true;
+                });
+                credits_total_for_new_semester = credits_total_for_new_semester + semester_schedule.credits - credits_to_remove;
+                if (semester_of_prereq_course) {
                     return true;
                 }
-            }
-        } else {
-            if (course_num === "ENGLISH 3130") {
-                if (!(credits_total_for_new_semester >= 56)) {
-                    failed_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 56 credit hours for the selected semester!";
-                    required_courses_taken = false;
-                } else if (!courses_taken_before_new_semester.includes(prereq)) {
-                    failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
-                    required_courses_taken = false;
-                } else {
-                    required_courses_taken = true;
-                    return true; // Stop looping since class can be added
-                }
-            } else if ((courses_taken_before_new_semester.includes(prereq) ||
-                (new_semester_current_courses.includes(prereq) && (prereq === concurrent)))) {
-                    required_courses_taken = true;
-            } else {
-                failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
-                required_courses_taken = false
-            }
+            });
         }
-    })
-
-    let msg = "";
-    if (is_prereq_for_check && !required_courses_taken) {
-        msg = `${course_num} failed prerequisite validation after ${orig_course_num} was moved. `.concat(failed_message);
-    } else if (!required_courses_taken) {
-        msg = `${course_num} failed prerequisite validation after moving. `.concat(failed_message);
     }
 
-    dropFailedElementUpdate(!required_courses_taken, li_to_update, msg, course_num);
+    if (li_to_update) {
+        course_info["prerequisite"].some((prereq) => {
+            if (Array.isArray(prereq)) {
+                if (prereq.length === 1) {
+                    if (courses_taken_before_new_semester.includes(prereq[0]) ||
+                        (new_semester_current_courses.includes(prereq[0]) && (prereq[0] === concurrent))) {
+                            required_courses_taken = true;
+                            return true;
+                    } else {
+                        failed_message = `${course_num} prerequisite (${prereq[0]}) has to be completed prior to the selected semester!`;
+                        required_courses_taken = false;
+                    }
+                } else {
+                    required_courses_taken = false;
+    
+                    prereq.some((prereq_course) => {
+                        if (courses_taken_before_new_semester.includes(prereq_course) ||
+                            (new_semester_current_courses.includes(prereq_course) && (prereq_course === concurrent))) {
+                                required_courses_taken = true;
+                        } else {
+                            failed_message = `${course_num} prerequisite (${prereq_course}) has to be completed prior to the selected semester!`;
+                            required_courses_taken = false;
+                        }
+                        if (!required_courses_taken) {
+                            return true;
+                        }
+                    })
+                    if (required_courses_taken) {
+                        required_courses_taken = true;
+                        return true;
+                    }
+                }
+            } else {
+                if (course_num === "ENGLISH 3130") {
+                    if (!(credits_total_for_new_semester >= 56)) {
+                        failed_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 56 credit hours for the selected semester!";
+                        required_courses_taken = false;
+                    } else if (!courses_taken_before_new_semester.includes(prereq)) {
+                        failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                        required_courses_taken = false;
+                    } else {
+                        required_courses_taken = true;
+                        return true; // Stop looping since class can be added
+                    }
+                } else if ((courses_taken_before_new_semester.includes(prereq) ||
+                    (new_semester_current_courses.includes(prereq) && (prereq === concurrent)))) {
+                        required_courses_taken = true;
+                } else {
+                    failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                    required_courses_taken = false
+                }
+            }
+        })
+    
+        let msg = "";
+        if (is_prereq_for_check && !required_courses_taken) {
+            msg = `${course_num} failed prerequisite validation after ${orig_course_num} was moved. `.concat(failed_message);
+        } else if (!required_courses_taken) {
+            msg = `${course_num} failed prerequisite validation after moving. `.concat(failed_message);
+        }
+    
+        dropFailedElementUpdate(!required_courses_taken, li_to_update, msg, course_num);
+    }
 }
 
 function drop(ev, course_element) {
@@ -185,6 +189,7 @@ function drop(ev, course_element) {
     var course_credits = parseInt(ev.dataTransfer.getData("course_credits"));
 
     var li_to_move = document.getElementById("li_to_move");
+    console.log(li_to_move)
     let course_schedule = JSON.parse(document.getElementById("course_schedule").value);
 
     const semester_num = parseInt(course_element.getAttribute("semesterNum"));
