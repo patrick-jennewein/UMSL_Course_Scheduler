@@ -30,6 +30,7 @@
     <input type="hidden" name="ge_taken" value = "{{ ge_taken }}">
     <input type = "hidden" name = "required_courses_tuple" value = "{{ required_courses_tuple }}">
     <input type = "hidden" name = "number_of_required_courses_taken" value = "{{ number_of_required_courses_taken }}">
+    <input type = "hidden" name = "list_of_required_courses_taken" value = "{{ list_of_required_courses_taken }}">
     <!-- If generating a schedule semester-by-semester-->
     {% if not full_schedule_generation %}
         <div class="scheduler">
@@ -59,6 +60,7 @@
                     <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
                 </div>
                 <div class = "right-counter">
+                    <p>Certificate Choice: {{ certificates_display[0] }}</p>
                     <!-- Free Electives-->
                     <div class = "credit-category">
                         <label>Free Elective Credits
@@ -154,6 +156,23 @@
                             <span class="credit-count">{{ is_graduated }}</span>
                         {% endif %}
                    </div>
+
+                    <div class="grad-class-list">
+                        <span class="tooltip"> See Progress
+                            <span class="tooltiptext">
+                                Required Courses
+                                <ul class="class-grid">
+                                    {% for course in required_courses_tuple_display %}
+                                        {%  if course in list_of_required_courses_taken %}
+                                            <li id = "course-taken">{{ course }}</li>
+                                        {% else %}
+                                            <li id = "course-not-taken">{{ course }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </span>
+                        </span>
+                    </div>
 
                 </div>
             </div>

@@ -607,6 +607,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # holds an immutable tuple of what is required for later comparison (changed into tuple, below)
         required_courses_tuple = create_static_required_courses(required_courses_dict_list)
+        list_of_required_courses_taken = []
 
         # print information for certificates and proposed course schedule, update tuple
         print_course_list_information(certificate_core, cert_elective_courses_still_needed, certificate_electives,
@@ -632,6 +633,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             courses_taken = courses_taken.split(", ")  # creates a list delimited by commas
 
         required_courses_tuple = json.loads(request.form["required_courses_tuple"])
+        list_of_required_courses_taken = json.loads(request.form["list_of_required_courses_taken"])
 
     # user enters credits for upcoming semester
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
@@ -760,6 +762,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 # if the course was added, update semester info
                 if course_added:
                     number_of_required_courses_taken += 1
+                    list_of_required_courses_taken.append(course)
                     current_semester_cs_math_credits_per_semester += int(course_info['credit'])
                     print(f"Added: \t{course:<15}{course_info['course_name'][:40]:<40} "
                           f"{current_semester_credits:<2} of {min_credits_per_semester:<2}"
@@ -1083,13 +1086,15 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     print("\n")
     print(f'{required_courses_dict_list=}')
 
+
     # complete graduation check
-    # print("Certificate Electives Still Needed ", cert_elective_courses_still_needed)
-    # print("Gen Eds Still Needed ", gen_ed_credits_still_needed)
-    # print("Total Credits Accumulated ", total_credits_accumulated)
-    # print("Required Courses Tuple ", len(list(required_courses_tuple)))
-    # print("Required Courses Taken ", number_of_required_courses_taken)
-    # print("Min 3000+ courses ", min_3000_course_still_needed)
+    print("Certificate Electives Still Needed ", cert_elective_courses_still_needed)
+    print("Gen Eds Still Needed ", gen_ed_credits_still_needed)
+    print("Total Credits Accumulated ", total_credits_accumulated)
+    print("Required Courses Tuple ", len(list(required_courses_tuple)))
+    print("Required Courses Taken ", number_of_required_courses_taken)
+    print("Min 3000+ courses ", min_3000_course_still_needed)
+    print("Required courses taken", list_of_required_courses_taken)
 
 
     return {
@@ -1107,6 +1112,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "min_3000_course": min_3000_course_still_needed,
         "include_summer": include_summer,
         "certificate_choice": json.dumps(certificate_choice),
+        "certificates_display": certificate_choice,
         "num_3000_replaced_by_cert_core": num_3000_replaced_by_cert_core,
         "cert_elective_courses_still_needed": cert_elective_courses_still_needed,
         "TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES": TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES,
@@ -1123,5 +1129,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "ge_taken": ge_taken,
         "is_graduated": is_graduated,
         "required_courses_tuple": json.dumps(required_courses_tuple),
-        "number_of_required_courses_taken": number_of_required_courses_taken
+        "number_of_required_courses_taken": number_of_required_courses_taken,
+        "list_of_required_courses_taken": json.dumps(list_of_required_courses_taken),
+        "list_of_required_courses_taken_display": list_of_required_courses_taken,
+        "required_courses_tuple_display": required_courses_tuple
     }
