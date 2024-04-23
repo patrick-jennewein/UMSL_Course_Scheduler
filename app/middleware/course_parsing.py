@@ -5,6 +5,7 @@ from typing import Union, Any
 import math
 import datetime
 from itertools import chain
+import os
 
 
 def print_dictionary(course_dictionary: dict) -> None:
@@ -154,7 +155,8 @@ def parse_courses() -> dict:
                     The dictionary that holds all course information
     """
     # open xml document to begin parsing
-    with open('app/xml/course_data.xml') as fd:
+    root = os.path.dirname(os.path.dirname(__file__))
+    with open(os.path.join(root, 'xml/course_data.xml')) as fd:
         doc = xmltodict.parse(fd.read())
 
     # create a dictionary with course information to further parse
@@ -194,7 +196,8 @@ def parse_certificate(certificate_name) -> dict:
 
     """
     # open xml document to begin parsing
-    with open('app/xml/cscertificate_data.xml') as fd:
+    root = os.path.dirname(os.path.dirname(__file__))
+    with open(os.path.join(root, 'xml/cscertificate_data.xml')) as fd:
         doc = xmltodict.parse(fd.read())
 
     # create a dictionary with course information to further parse
