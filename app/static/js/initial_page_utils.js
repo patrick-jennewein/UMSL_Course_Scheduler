@@ -40,6 +40,19 @@ function handleSummerCheckboxClick(checkbox){
     mobile_cert_check(cert_value);
 }
 
+// Add the earned credit form upon earned credit checkbox
+function handleEarnedCreditCheckboxClick(checkbox){
+    console.log("Function initiated.")
+    const second_form = document.getElementById('form-container-2');
+
+    if (!checkbox.checked){
+        second_form.classList.remove('form-container-2');
+    }
+    else {
+        second_form.classList.add('form-container-2');
+    }
+}
+
 // Remove all options of a passed in select element
 function removeOptions(selectElement) {
     var i, L = selectElement.options.length - 1;

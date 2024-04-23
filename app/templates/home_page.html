@@ -1,11 +1,41 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
     <div class="cover-page-background">
         <!-- Menu -->
         <div class="form-container">
+            <!-- Display logo-->
             <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
             <br><br>
 
-            <!-- Select current semester-->
+            <label for="user_name">Name</label>
+            <input type="text" id="user_name" name="user_name">
+            <br><br>
+
+            <!-- Select certificate option -->
+            <label for="certificate">
+                Certificate Option
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                    <span class="tooltiptext">
+                        Enhance your expertise with our undergraduate certificate programs tailored to complement your degree.
+                        These focused curricula offer specialized training in areas, providing valuable skills to bolster
+                        your resume and advance your career.<br><br>
+                        <a href ="https://www.umsl.edu/cmpsci/certificates/undergraduate-certificates.html" target="_blank">
+                            Learn More
+                        </a>
+                    </span>
+                </span>
+            </label>
+            <select id="certificate" name="certificate_choice" onchange="handleCertSelect(this)">
+                {% for certificate, certificate_value in certificates %}
+                <option value="{{certificate}},{{certificate_value}}">{{ certificate }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <!-- Select starting semester-->
             <label for="current_semester">Starting Semester</label>
             <select name="current_semester" id="starting_semester">
                 {% for semester in semesters %}
@@ -14,50 +44,7 @@
             </select>
             <br><br>
 
-            <!-- Select summer semester boolean -->
-            <label for="summer">Summer Semester</label>
-            <input type="checkbox" id="summer" name="include_summer" onClick="handleSummerCheckboxClick(this)"><br>
-            <br><br>
-
-            <!-- Select certificate option -->
-            <label for="certificate">Certificate Option</label>
-            <select id="certificate" name="certificate_choice" onchange="handleCertSelect(this)">
-                {% for certificate, certificate_value in certificates %}
-                <option value="{{certificate}},{{certificate_value}}">{{ certificate }}</option>
-                {% endfor %}
-            </select>
-            <br><br>
-
-            <!-- Select waived courses-->
-            <label for="waived_courses">Select Waived Courses</label>
-            <select name="waived_courses" id="waived_courses" multiple onchange="updateWaivedTakenDropdown(this)">
-                {% for required_course in required_courses %}
-                <option value="{{required_course.course}}">{{ required_course.course }}</option>
-                {% endfor %}
-            </select>
-            <br><br>
-
-            <!-- Select courses taken -->
-            <label for="courses_taken">Select Completed Courses</label>
-            <select name="courses_taken" id="taken_courses" multiple onChange="handleTakenCourseSelect(this)">
-                {% for required_course in required_courses %}
-                <option value="{{required_course.course}}" credits="{{required_course.credits}}">{{
-                    required_course.course }}</option>
-                {% endfor %}
-            </select>
-            <br><br>
-
-            <!-- Select number of credits already earned -->
-            <label for="total_credits">Current Credits Earned</label>
-            <select name="total_credits" id="starting_credits">
-                {% for credits in starting_credits %}
-                <option value="{{credits}}">{{ credits }}</option>
-                {% endfor %}
-            </select>
-            <input type="hidden" name="required_courses_dict" value="{{ required_courses_dict }}">
-            <br><br>
-
-            <!-- Ask user for number of credits for first semester-->
+            <!-- Select minimum credits for 1st semester-->
             <label for="initial_minimum_semester_credits">Minimum Credits for First Semester</label>
             <select name="minimum_semester_credits" id="initial_minimum_credits">
                 {% for credits in minimum_semester_credits %}
@@ -70,7 +57,26 @@
             </select>
             <br><br>
 
-         <!-- Ask user for number of credits for summer-->
+            <!-- Select summer semester boolean -->
+            <label for="summer">Summer Semester</label>
+            <input type="checkbox" id="summer" name="include_summer" onClick="handleSummerCheckboxClick(this)"><br>
+            <br><br>
+
+            <!-- Earned credit boolean -->
+            <label for="earned_credit">
+                Earned Credit
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                    <span class="tooltiptext">
+                        If you have already earned credits — be it through waived, transferred, or already completed courses at UMSL —
+                        check this box to bring you to a form for more information.
+                    </span>
+                </span>
+            </label>
+            <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
+            <br>
+
+            <!-- Ask user for number of credits for summer-->
             <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">Minimum Credits for Summer</label>
             <select style="visibility: hidden;" id="summer_credits_select" name="minimum_summer_credits">
                 {% for credits in minimum_summer_credits %}
@@ -97,8 +103,142 @@
             <input type="hidden" name="first_semester" value="{{ first_semester }}">
             <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
             <input type="hidden" name="semester_years" value="{{ semester_years }}">
-            <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule (by Semester)">
-            <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+            <!-- submit buttons-->
+            <div class = "buttons">
+                <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule (by Semester)">
+                <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+            </div>
+        </div>
+        <div class="second-form" id = "form-container-2">
+            <!-- Select waived courses-->
+            <label for="waived_courses">
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                    <span class="tooltiptext">
+                        A waived course is one in which a student is exempt from completing due to previous academic
+                        achievements or demonstrated proficiency. If a course waived, the student <em>cannot</em> claim
+                        credit for that course, and it does not count towards minimum credit requirements.<br><br>
+
+                        Unsure if a course is waived?<br><br>
+                        <a href ="https://www.umsl.edu/~academicadvising/index.html" target="_blank">
+                            Academic Advising Office
+                        </a>
+                    </span>
+                </span>
+                Waived Core Courses
+            </label>
+            <select name="waived_courses" id="waived_courses" multiple onchange="updateWaivedTakenDropdown(this)"
+            onfocus='this.size=10;' onblur='this.size=10;'
+            onchange='this.size=10;'>
+                {% for required_course in required_courses %}
+                <option value="{{required_course.course}}">{{ required_course.course }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <!-- Select courses taken -->
+            <label for="courses_taken">
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                    <span class="tooltiptext">
+                        Select any courses from the dropdown that you have earned,
+                        either previously at UMSL or transferred in from another institution.<br><br>
+
+                        Unsure if a course transfers?<br><br>
+                        <a href ="https://www.umsl.edu/admissions/transfer/transfer-credit-evaluation.html"
+                           target="_blank">
+                            Visit the Transfer Portal
+                        </a>
+                    </span>
+                </span>
+                Completed Core Courses
+            </label>
+            <select name="courses_taken" id="taken_courses" multiple onChange="handleTakenCourseSelect(this)"
+            onfocus='this.size=10;' onblur='this.size=10;'
+            onchange='this.size=10;'>
+                {% for required_course in required_courses %}
+                <option value="{{required_course.course}}" credits="{{required_course.credits}}">{{
+                    required_course.course }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <!-- Select general education taken -->
+            <label for="ge_taken">
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                    <span class="tooltiptext">
+                        Select the credits from the dropdown that you have earned,
+                        either previously at UMSL or transferred in from another institution, that
+                        count for General Education requirements.<br><br>
+
+                        Want to learn more about the General Education Requirements?<br><br>
+                        <a href ="https://bulletin.umsl.edu/generaleducationrequirements/"
+                           target="_blank">
+                            Learn More</a><br><br>
+                        Unsure if a course transfers?<br><br>
+                        <a href ="https://www.umsl.edu/admissions/transfer/transfer-credit-evaluation.html"
+                           target="_blank">
+                            Visit the Transfer Portal
+                        </a>
+                    </span>
+                </span>
+                General Education Credits Earned
+            </label>
+            <select name="ge_taken" id="ge_taken_id">
+                {% for i in range(0, 61) %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <!-- Select free electives taken -->
+            <label for="fe_taken">
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                    <span class="tooltiptext">
+                        Select the credits from the dropdown that you have earned,
+                        either previously at UMSL or transferred in from another institution, that
+                        count for credit, but not General Education or BSCS required courses.<br><br>
+
+                        Unsure if a course transfers?<br><br>
+                        <a href ="https://www.umsl.edu/admissions/transfer/transfer-credit-evaluation.html"
+                           target="_blank">
+                            Visit the Transfer Portal
+                        </a>
+
+                    </span>
+                </span>
+                Free Elective Credits Earned
+            </label>
+            <select name="fe_taken" id="free_taken_id">
+                {% for i in range(0, 61) %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <!-- Select number of credits already earned -->
+            <label for="total_credits">
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                    <span class="tooltiptext">This is the total amount of credits earned
+                    from Computer Science, Mathematics, General Education courses, Free Electives,
+                    and other BSCS core. These credits will go to the 120-credit graduation requirements.</span>
+                </span>
+                Current Credits Earned
+            </label>
+            <select name="total_credits" id="starting_credits">
+                {% for credits in starting_credits %}
+                <option value="{{credits}}">{{ credits }}</option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="required_courses_dict" value="{{ required_courses_dict }}">
+            <br><br>
+
+            <!-- Disclaimer -->
+            <small>This course scheduling tool is not an official schedule.
+            Users should consult with academic advisors for guidance on course selection and scheduling.</small>
         </div>
     </div>
 </html>
