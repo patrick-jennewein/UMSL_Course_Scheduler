@@ -122,7 +122,7 @@
                             }}</p>
                         <ul id="semester-{{ semester.semester_number}}-ul">
                             {% for course in semester.schedule %}
-                                <li title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
+                                <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
                                 courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
                                 ondragstart="drag(event, this)">
                                 <div class="course-name-and-num">
