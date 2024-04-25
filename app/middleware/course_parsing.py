@@ -301,8 +301,8 @@ def print_course_list_information(certificate_core, cert_elective_courses_still_
             print(f"\t{item}")
 
 
-def intermediate_check_schedule(total_credits_accumulated, required_courses_tuple, courses_taken,
-                   min_3000_course_still_needed, cert_elective_courses_still_needed) -> bool:
+def graduation_check(total_credits_accumulated, required_courses_tuple, courses_taken,
+                   min_3000_course_still_needed, cert_elective_courses_still_needed, gen_ed_credits_still_needed) -> bool:
 
     # assume that course generation is complete
     is_course_generation_complete = True
@@ -313,19 +313,29 @@ def intermediate_check_schedule(total_credits_accumulated, required_courses_tupl
         if course not in courses_taken:
             error_messages.append(f"ERROR: Must take {course}")
             is_course_generation_complete = False
+            break # leave 'for' loop if a course still needs to be taken
 
     # check all required electives have been taken
-    if min_3000_course_still_needed != 0:
+    print(f"{'CMP SCI 3000+ courses needed:':<30}{min_3000_course_still_needed:}")
+    if is_course_generation_complete and min_3000_course_still_needed != 0:
         is_course_generation_complete = False
         error_messages.append(f"ERROR: Must take {min_3000_course_still_needed} more 3000+ level electives.")
 
     # check that all certificates have been taken
-    if cert_elective_courses_still_needed != 0:
+    print(f"{'Certificate courses needed:':<30}{cert_elective_courses_still_needed:}")
+    if is_course_generation_complete and cert_elective_courses_still_needed != 0:
         is_course_generation_complete = False
         error_messages.append(f"ERROR: Must take {cert_elective_courses_still_needed} more certificate electives.")
 
+     # check that all gen eds have been taken
+    print(f"{'Gen Ed courses needed:':<30}{gen_ed_credits_still_needed:}")
+    if is_course_generation_complete and gen_ed_credits_still_needed != 0:
+        is_course_generation_complete = False
+        error_messages.append(f"ERROR: Must take {gen_ed_credits_still_needed} more general education electives.")
+
     # check credit hours
-    if total_credits_accumulated < 120:
+    print(f"{'Total credits accumulated:':<30}{total_credits_accumulated:}/{120}")
+    if is_course_generation_complete and total_credits_accumulated < 120:
         is_course_generation_complete = False
         error_messages.append(f"ERROR: Must have 120 credit hours completed. Only {total_credits_accumulated} completed.")
 
@@ -334,43 +344,6 @@ def intermediate_check_schedule(total_credits_accumulated, required_courses_tupl
 
     # check if ultimately finished
     return is_course_generation_complete
-
-
-def final_check_schedule(total_credits_accumulated, required_courses_tuple, courses_taken,
-                   min_3000_course_still_needed, cert_elective_courses_still_needed) -> bool:
-
-    print("\n\nCOURSE CHECK-UP:")
-    # assume that course generation is complete
-    is_course_generation_complete = True
-
-    # check that all required core (BSCS and certificate) has been taken
-    for course in required_courses_tuple:
-        if course not in courses_taken:
-            print(f"{course:<30}NO")
-            is_course_generation_complete = False
-        else:
-            print(f"{course:<30}YES")
-
-    # check credit hours
-    print(f"{'Total credits accumulated:':<30}{total_credits_accumulated:}/{120}")
-    if total_credits_accumulated < 120:
-        is_course_generation_complete = False
-
-    # check all required electives have been taken
-    print(f"{'CMP SCI 3000+ courses needed:':<30}{min_3000_course_still_needed:}")
-    if min_3000_course_still_needed != 0:
-        is_course_generation_complete = False
-
-    # check that all certificates have been taken
-    print(f"{'Certificate courses needed:':<30}{cert_elective_courses_still_needed:}")
-    if cert_elective_courses_still_needed != 0:
-        is_course_generation_complete = False
-
-    # check if ultimately finished
-    print(f"{'Complete?:':<30}{is_course_generation_complete}")
-
-    return is_course_generation_complete
-
 
 def update_semester(current_semester, include_summer) -> str:
     if current_semester == "Fall":
@@ -767,37 +740,14 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     print(f"Added: \t{course:<15}{course_info['course_name'][:40]:<40} "
                           f"{current_semester_credits:<2} of {min_credits_per_semester:<2}"
                           f"{total_credits_accumulated:>15}")
-
-                    # if generating the whole schedule, complete check to see if graduation requirements are fulfilled
-                    if generate_complete_schedule and total_credits_accumulated >= TOTAL_CREDITS_FOR_GRADUATION:
-                        print("1st intermediate graduation check...")
-                        is_course_generation_complete = intermediate_check_schedule(
+                    
+                    is_graduated = graduation_check(
                             total_credits_accumulated, required_courses_tuple,
                             courses_taken, min_3000_course_still_needed,
-                            cert_elective_courses_still_needed)
-                        if is_course_generation_complete:
-                            print("1st intermediate graduation check: COMPLETE")
-                            is_course_generation_complete = final_check_schedule(total_credits_accumulated, required_courses_tuple,
-                            courses_taken, min_3000_course_still_needed,
-                            cert_elective_courses_still_needed)
-                            current_semester_info = {
-                                'semester': current_semester,
-                                'semester_number': semester,
-                                'credits': current_semester_credits,
-                                'schedule': current_semester_classes,
-                                'year': semester_years[current_semester]
-                            }
-                            course_schedule.append(current_semester_info)
-                            current_semester_credits = 0
-                            current_semester_classes = []
-                            semester += 1
-                            current_semester_cs_math_credits_per_semester = 0
-                            current_CS_elective_credits_per_semester = 0
-                            current_semester = update_semester(current_semester, include_summer)
-                            break
+                            cert_elective_courses_still_needed, gen_ed_credits_still_needed)
 
-                    # if credit requirements for semester have been met
-                    if current_semester_credits >= min_credits_per_semester:
+                    # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
+                    if (current_semester_credits >= min_credits_per_semester) or (generate_complete_schedule and is_graduated):
                         current_semester_info = {
                             'semester': current_semester,
                             'semester_number': semester,
@@ -807,34 +757,30 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         }
                         course_schedule.append(current_semester_info)
 
-                        # update semester info
+                        # if only generating a semester stop here
+                        if not generate_complete_schedule:
+                            is_course_generation_complete = True
+
+                        # reset semester info
                         current_semester_credits = 0
                         current_semester_classes = []
                         semester += 1
                         current_semester_cs_math_credits_per_semester = 0
                         current_CS_elective_credits_per_semester = 0
                         current_semester = update_semester(current_semester, include_summer)
-                        if(current_semester == first_semester):
-                            semester_years = {key: value + 1 for key, value in semester_years.items()}
-                        print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
 
-                        # ensure summer credit hours are not F/Sp credit hours
-                        if (current_semester == "Summer" and generate_complete_schedule):
-                            min_credits_per_semester = summer_credit_count
-                        elif (current_semester != "Summer" and generate_complete_schedule):
-                            min_credits_per_semester = temp_min_credits_per_semester
-
-                        # if only generating a semester stop here
-                        if not generate_complete_schedule:
+                        if is_graduated and generate_complete_schedule:
                             is_course_generation_complete = True
-
-                        # if generating an entire schedule
-                        elif generate_complete_schedule and total_credits_accumulated >= TOTAL_CREDITS_FOR_GRADUATION:
-                            print("2nd intermediate graduation check...")
-                            is_course_generation_complete = intermediate_check_schedule(
-                                total_credits_accumulated, required_courses_tuple,
-                                courses_taken, min_3000_course_still_needed,
-                                cert_elective_courses_still_needed)
+                            break
+                        else:
+                            if(current_semester == first_semester):
+                                semester_years = {key: value + 1 for key, value in semester_years.items()}
+                                print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
+                            # ensure summer credit hours are not F/Sp credit hours
+                            if (current_semester == "Summer" and generate_complete_schedule):
+                                min_credits_per_semester = summer_credit_count
+                            elif (current_semester != "Summer" and generate_complete_schedule):
+                                min_credits_per_semester = temp_min_credits_per_semester
 
                     required_courses_dict_list.pop(index)
                     break
@@ -986,33 +932,13 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             total_credits_accumulated = total_credits_accumulated + DEFAULT_CREDIT_HOURS
             current_semester_credits = current_semester_credits + DEFAULT_CREDIT_HOURS
 
-            # check if schedule can be suspended now (only for generating whole schedule at once)
-            if (total_credits_accumulated > TOTAL_CREDITS_FOR_GRADUATION
-                    and generate_complete_schedule
-                    and current_semester_credits < min_credits_per_semester):
-                print("3rd intermediate graduation check...")
-                is_course_generation_complete = intermediate_check_schedule(total_credits_accumulated,
-                        required_courses_tuple,
-                        courses_taken, min_3000_course_still_needed,
-                        cert_elective_courses_still_needed)
-                if is_course_generation_complete:
-                    print("3rd intermediate graduation check: COMPLETE")
-                    is_course_generation_complete = final_check_schedule(
-                        total_credits_accumulated, required_courses_tuple,
-                        courses_taken, min_3000_course_still_needed,
-                        cert_elective_courses_still_needed)
+            is_graduated = graduation_check(
+                            total_credits_accumulated, required_courses_tuple,
+                            courses_taken, min_3000_course_still_needed,
+                            cert_elective_courses_still_needed, gen_ed_credits_still_needed)
 
-                    current_semester_info = {
-                            'semester': current_semester,
-                            'semester_number': semester,
-                            'credits': current_semester_credits,
-                            'schedule': current_semester_classes,
-                            'year': semester_years[current_semester]
-                        }
-                    course_schedule.append(current_semester_info)
-
-            # if the number of credits for the semester has been reached
-            if current_semester_credits >= min_credits_per_semester:
+            # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
+            if (current_semester_credits >= min_credits_per_semester) or (generate_complete_schedule and is_graduated):
                 current_semester_info = {
                     'semester': current_semester,
                     'semester_number': semester,
@@ -1022,47 +948,30 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 }
                 course_schedule.append(current_semester_info)
 
-                # if only generating a semester, stop here
+                # if only generating a semester stop here
                 if not generate_complete_schedule:
                     is_course_generation_complete = True
 
-                # if generating the whole schedule, complete checks
-                elif generate_complete_schedule and total_credits_accumulated >= TOTAL_CREDITS_FOR_GRADUATION:
-                    print("4th intermediate graduation check...")
-                    is_course_generation_complete = intermediate_check_schedule(
-                        total_credits_accumulated, required_courses_tuple,
-                        courses_taken, min_3000_course_still_needed,
-                        cert_elective_courses_still_needed)
-
-                    # if user is ready for graduation, end program
-                    if is_course_generation_complete:
-                        print("4th intermediate graduation check: COMPLETE")
-                        is_course_generation_complete = final_check_schedule(total_credits_accumulated, required_courses_tuple,
-                                             courses_taken, min_3000_course_still_needed,
-                                             cert_elective_courses_still_needed)
-                        current_semester_info = {
-                            'semester': current_semester,
-                            'semester_number': semester,
-                            'credits': current_semester_credits,
-                            'schedule': current_semester_classes
-                        }
-
-                # update semester info
+                # reset semester info
                 current_semester_credits = 0
                 current_semester_classes = []
                 semester += 1
                 current_semester_cs_math_credits_per_semester = 0
                 current_CS_elective_credits_per_semester = 0
                 current_semester = update_semester(current_semester, include_summer)
-                if (current_semester == first_semester):
-                    semester_years = {key: value + 1 for key, value in semester_years.items()}
-                print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
 
-                # ensure summer credit hours are not F/Sp credit hours
-                if(current_semester == "Summer" and generate_complete_schedule):
-                    min_credits_per_semester = summer_credit_count
-                elif (current_semester != "Summer" and generate_complete_schedule):
-                    min_credits_per_semester = temp_min_credits_per_semester
+                if is_graduated and generate_complete_schedule:
+                    is_course_generation_complete = True
+                    break
+                else:
+                    if(current_semester == first_semester):
+                        semester_years = {key: value + 1 for key, value in semester_years.items()}
+                        print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
+                    # ensure summer credit hours are not F/Sp credit hours
+                    if (current_semester == "Summer" and generate_complete_schedule):
+                        min_credits_per_semester = summer_credit_count
+                    elif (current_semester != "Summer" and generate_complete_schedule):
+                        min_credits_per_semester = temp_min_credits_per_semester
 
     print(f'{certificate_choice=}')
     #print(f'{certificate_option=}')
