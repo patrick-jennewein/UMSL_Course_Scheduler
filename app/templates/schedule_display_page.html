@@ -1,265 +1,266 @@
 <html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <input type="hidden" name="waived_courses" value="{{ waived_courses }}">
-    <input type="hidden" name="current_semester" value="{{ current_semester }}">
-    <input type="hidden" id="courses_taken" name="courses_taken" value="{{ courses_taken }}">
-    <input type="hidden" name="semesters" value="{{ semesters }}">
-    <input type="hidden" name="total_credits" value="{{ total_credits }}">
-    <input type="hidden" id="required_courses_dict_list" name="required_courses_dict_list"
-        value="{{ required_courses_dict_list }}">
-    <input type="hidden" id="required_courses_dict_list_unchanged" name="required_courses_dict_list_unchanged"
-        value="{{ required_courses_dict_list_unchanged }}">
-    <input type="hidden" id="course_schedule" name="course_schedule" value="{{ course_schedule }}">
-    <input type="hidden" name="semester_number" value="{{ semester_number }}">
-    <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
-    <input type="hidden" name="include_summer" value="{{ include_summer }}">
-    <input type="hidden" name="certificate_choice" value="{{ certificates }}">
-    <input type="hidden" name="num_3000_replaced_by_cert_core" value="{{ num_3000_replaced_by_cert_core }}">
-    <input type="hidden" name="cert_elective_courses_still_needed" value="{{ cert_elective_courses_still_needed }}">
-    <input type="hidden" name="TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"
-        value="{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}">
-    <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
-    <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
-    <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
-    <input type="hidden" name="first_semester" value="{{ first_semester }}">
-    <input type="hidden" name="semester_years" value="{{ semester_years }}">
-    <input type="hidden" name="saved_minimum_credits_selection" value="{{ saved_minimum_credits_selection }}">
-    <input type="hidden" id="course_prereqs_for" name="course_prereqs_for" value="{{ course_prereqs_for }}">
-    <input type="hidden" name="user_name" value = "{{ user_name }}">
-    <input type="hidden" name="fe_taken" value = "{{ fe_taken }}">
-    <input type="hidden" name="ge_taken" value = "{{ ge_taken }}">
-    <input type = "hidden" name = "required_courses_tuple" value = "{{ required_courses_tuple }}">
-    <input type = "hidden" name = "number_of_required_courses_taken" value = "{{ number_of_required_courses_taken }}">
-    <input type = "hidden" name = "list_of_required_courses_taken" value = "{{ list_of_required_courses_taken }}">
     <!-- If generating a schedule semester-by-semester-->
-    {% if not full_schedule_generation %}
-        <div class="scheduler">
-            <!-- Header for semester by semester -->
-            <div class = "counter-bar">
-                <div class = "left-counter">
-                    <label>{{ user_name }} </label><br>
-                    <label for="minimum_semester_credits">
-                        Minimum Credits for {{ current_semester }} {{ semester_years_display[current_semester] }}
-                    </label>
-                    <select name="minimum_semester_credits" id="minimum_credits">
-                        {% for credits in minimum_semester_credits %}
-                        {% if current_semester == "Summer" and credits == minimum_summer_credits %}
-                        <option selected value="{{credits}}">{{ credits }}</option>
-                        {% elif credits == saved_minimum_credits_selection %}
-                        <option selected value="{{credits}}">{{ credits }}</option>
-                        {% else %}
-                        <option value="{{credits}}">{{ credits }}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select><br>
-                    <label>Bachelor of Science in Computer Science </label><br>
-                    <label id = "printer"><a href="{{ url_for('printable', course_schedule_display = course_schedule ) }}"> See Printer-Friendly Version </a></label><br><br>
-                    <div class = "credit-category">
-                        {% if certificates_display[0] != "None" %}
-                            <label>{{ certificates_display[0]}} Certificate</label>
-                        {% endif %}
-                    </div>
-                    <div class = "continue-schedule">
-                        <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
-                    </div>
-                    <br>
-                </div>
-                <div class = "center-counter">
-                    <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
-                </div>
-                <div class = "right-counter">
-                    <!-- Free Electives-->
-                    <div class = "credit-category">
-                        <label>Free Elective Credits
-                            <span class="tooltip">
-                                <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                    <span class="tooltiptext">
-                                    All courses that are not covered by BSCS Credits and General Education credits.
-                                </span>
-                            </span>
+    <form id="form" action="/schedule" method="post">
+        {% if not full_schedule_generation %}
+            <div class="scheduler">
+                <!-- Header for semester by semester -->
+                <div class = "counter-bar">
+                    <div class = "left-counter">
+                        <label>{{ user_name }} </label><br>
+                        <label id = "printer"><a href="{{ url_for('printable', course_schedule_display = course_schedule ) }}"> See Printer-Friendly Version </a></label><br><br>
+                        <label for="minimum_semester_credits">
+                            Minimum Credits for {{ current_semester }} {{ semester_years_display[current_semester] }}
                         </label>
-                        <span class = "credit-count">
-                            {{ fe_taken
-                            }}
-                        </span>
+                        <select name="minimum_semester_credits" id="minimum_credits">
+                            {% for credits in minimum_semester_credits %}
+                            {% if current_semester == "Summer" and credits == minimum_summer_credits %}
+                            <option selected value="{{credits}}">{{ credits }}</option>
+                            {% elif credits == saved_minimum_credits_selection %}
+                            <option selected value="{{credits}}">{{ credits }}</option>
+                            {% else %}
+                            <option value="{{credits}}">{{ credits }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select><br>
+                        <label>Bachelor of Science in Computer Science </label><br>
+                        <div class = "credit-category">
+                            {% if certificates_display[0] != "None" %}
+                                <label>{{ certificates_display[0]}} Certificate</label>
+                            {% endif %}
+                        </div>
+                        <div class = "continue-schedule">
+                            <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
+                        </div>
+                        <br>
                     </div>
-
-                   <!-- Core Courses -->
-                   <div class = "credit-category">
-                        <label>BSCS Credits
-                            <span class="tooltip">
-                                <i style="font-size:16px" class="fa" class="fas fa-question-circle">
-                                    &#xf059;
-                                </i>
-                                    <span class="tooltiptext">
-                                    Credits earned from Computer Science core classes, Computer Science 3000+ level electives,
-                                    required Mathematics courses, and required English courses. This also includes any required
-                                    courses if a student elects for a certificate.
+                    <div class = "center-counter">
+                        <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
+                    </div>
+                    <div class = "right-counter">
+                        <!-- Free Electives-->
+                        <div class = "credit-category">
+                            <label>Free Elective Credits
+                                <span class="tooltip">
+                                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                                        <span class="tooltiptext">
+                                        All courses that are not covered by BSCS Credits and General Education credits.
                                     </span>
+                                </span>
+                            </label>
+                            <span class = "credit-count">
+                                {{ fe_taken
+                                }}
                             </span>
-                        </label>
-                        <span class = "credit-count">
-                            {{ total_credits - (27 - gen_ed_credits_still_needed)
-                            - fe_taken
-                            - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES
-                            - (cert_elective_courses_still_needed * 3))
-                            }}
-                        </span>
+                        </div>
+
+                    <!-- Core Courses -->
+                    <div class = "credit-category">
+                            <label>BSCS Credits
+                                <span class="tooltip">
+                                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">
+                                        &#xf059;
+                                    </i>
+                                        <span class="tooltiptext">
+                                        Credits earned from Computer Science core classes, Computer Science 3000+ level electives,
+                                        required Mathematics courses, and required English courses. This also includes any required
+                                        courses if a student elects for a certificate.
+                                        </span>
+                                </span>
+                            </label>
+                            <span class = "credit-count">
+                                {{ total_credits - (27 - gen_ed_credits_still_needed)
+                                - fe_taken
+                                - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES
+                                - (cert_elective_courses_still_needed * 3))
+                                }}
+                            </span>
+                        </div>
+
+                    <!-- Gen Ed Credits-->
+                    <div class = "credit-category">
+                            <label>General Education Credits
+                                <span class="tooltip">
+                                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                                        <span class="tooltiptext">
+                                        Credits earned from various courses needed for the BSCS degree.<br><br>
+                                        Every student must earn 27 general education credits to graduate.
+                                    </span>
+                                </span>
+                            </label>
+                        {% if 27 - gen_ed_credits_still_needed >= 27 %}
+                                <span class="credit-count-success">{{ 27 - gen_ed_credits_still_needed }}</span>
+                            {% else %}
+                                <span class="credit-count">{{ 27 - gen_ed_credits_still_needed }}</span>
+                            {% endif %}
+                            <span class = "credit-minimum">/ 27</span>
                     </div>
 
-                   <!-- Gen Ed Credits-->
-                   <div class = "credit-category">
-                        <label>General Education Credits
+                    <!-- Total Credits-->
+                    <div class = "credit-category">
+                        <label>Total Credits
                             <span class="tooltip">
-                                <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                    <span class="tooltiptext">
-                                    Credits earned from various courses needed for the BSCS degree.<br><br>
-                                    Every student must earn 27 general education credits to graduate.
+                                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                                        <span class="tooltiptext">
+                                        This is the total amount of credits earned after adding BSCS, General Education, and Free Elective credits.<br><br>
+                                        Every student must earn 120 total credits to graduate.
+                                    </span>
                                 </span>
-                            </span>
                         </label>
-                       {% if 27 - gen_ed_credits_still_needed >= 27 %}
-                            <span class="credit-count-success">{{ 27 - gen_ed_credits_still_needed }}</span>
-                        {% else %}
-                            <span class="credit-count">{{ 27 - gen_ed_credits_still_needed }}</span>
-                        {% endif %}
-                        <span class = "credit-minimum">/ 27</span>
-                   </div>
+                            {% if total_credits >= 120 %}
+                                <span class="credit-count-success">{{ total_credits }}</span>
+                            {% else %}
+                                <span class="credit-count">{{ total_credits }}</span>
+                            {% endif %}
+                            <span class = "credit-minimum">/ 120</span>
+                    </div>
 
-                   <!-- Total Credits-->
-                   <div class = "credit-category">
-                       <label>Total Credits
-                           <span class="tooltip">
-                                <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                    <span class="tooltiptext">
-                                    This is the total amount of credits earned after adding BSCS, General Education, and Free Elective credits.<br><br>
-                                    Every student must earn 120 total credits to graduate.
+                        <!-- Graduation Check-->
+                    <div class = "credit-category">
+                        <label>Requirements Met for Graduation
+                            <span class="tooltip">
+                                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                                        <span class="tooltiptext">
+                                        This is the total amount of credits earned after adding BSCS, General Education, and Free Elective credits.<br><br>
+                                        Every student must earn 120 total credits to graduate.
+                                    </span>
+                                </span>
+                        </label>
+                            {% if is_graduated == True %}
+                                <span class="credit-count-success">{{ is_graduated }}</span>
+                            {% else %}
+                                <span class="credit-count">{{ is_graduated }}</span>
+                            {% endif %}
+                    </div>
+
+                        <div class="grad-class-list">
+                            <span class="tooltip"> <p>See Progress</p>
+                                <span class="tooltiptext">
+                                    Required Courses
+                                    <ul class="class-grid">
+                                        {% for course in required_courses_tuple_display %}
+                                            {%  if course in list_of_required_courses_taken %}
+                                                <li id = "course-taken">{{ course }}</li>
+                                            {% else %}
+                                                <li id = "course-not-taken">{{ course }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
                                 </span>
                             </span>
-                       </label>
-                        {% if total_credits >= 120 %}
-                            <span class="credit-count-success">{{ total_credits }}</span>
-                        {% else %}
-                            <span class="credit-count">{{ total_credits }}</span>
-                        {% endif %}
-                        <span class = "credit-minimum">/ 120</span>
-                   </div>
+                        </div>
 
-                    <!-- Graduation Check-->
-                   <div class = "credit-category">
-                       <label>Requirements Met for Graduation
-                           <span class="tooltip">
-                                <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                    <span class="tooltiptext">
-                                    This is the total amount of credits earned after adding BSCS, General Education, and Free Elective credits.<br><br>
-                                    Every student must earn 120 total credits to graduate.
-                                </span>
-                            </span>
-                       </label>
-                        {% if is_graduated == True %}
-                            <span class="credit-count-success">{{ is_graduated }}</span>
-                        {% else %}
-                            <span class="credit-count">{{ is_graduated }}</span>
-                        {% endif %}
-                   </div>
-
-                    <div class="grad-class-list">
-                        <span class="tooltip"> <p>See Progress</p>
-                            <span class="tooltiptext">
-                                Required Courses
-                                <ul class="class-grid">
-                                    {% for course in required_courses_tuple_display %}
-                                        {%  if course in list_of_required_courses_taken %}
-                                            <li id = "course-taken">{{ course }}</li>
-                                        {% else %}
-                                            <li id = "course-not-taken">{{ course }}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </span>
-                        </span>
                     </div>
+                </div>
 
+                <!-- Individual semester information, repeating until credits are reached -->
+                <div class="semester-schedules">
+                    <div class="grid-container">
+                        {% for semester in course_schedule_display %}
+                        <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
+                            ondragover="allowDrop(event)">
+                            <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
+                            <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
+                                }}</p>
+                            <ul id="semester-{{ semester.semester_number}}-ul">
+                                {% for course in semester.schedule %}
+                                    {% if course.passed_validation == true %}
+                                        <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
+                                            courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
+                                            ondragstart="drag(event, this)">
+                                            <div class="course-name-and-num">
+                                                <p class="course-number">{{ course.course }}</p>
+                                                <p class="course-name">{{ course.name }}</p>
+                                                <p class="course-credits">({{ course.credits }})</p>
+                                                <p class="course-category">{{ course.category }}</p>
+                                            </div>
+                                        </li>
+                                    {% else %}
+                                        <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
+                                            courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
+                                            ondragstart="drag(event, this)" style="border: 1px solid red;">
+                                            <div class="course-name-and-num">
+                                                <i id="{{ course.course }}-quest-icon" class="fa fa-question-circle" title="{{ course.validation_msg }}" style="color: red"></i>
+                                                <p class="course-number">{{ course.course }}</p>
+                                                <p class="course-name">{{ course.name }}</p>
+                                                <p class="course-credits">({{ course.credits }})</p>
+                                                <p class="course-category">{{ course.category }}</p>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-
-            <!-- Individual semester information, repeating until credits are reached -->
-            <div class="semester-schedules">
-                <div class="grid-container">
-                    {% for semester in course_schedule_display %}
-                    <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
-                        ondragover="allowDrop(event)">
-                        <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
-                        <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
-                            }}</p>
-                        <ul id="semester-{{ semester.semester_number}}-ul">
-                            {% for course in semester.schedule %}
-                                {% if course.passed_validation == true %}
-                                    <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
-                                        courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
-                                        ondragstart="drag(event, this)">
-                                        <div class="course-name-and-num">
-                                            <p class="course-number">{{ course.course }}</p>
-                                            <p class="course-name">{{ course.name }}</p>
-                                            <p class="course-credits">({{ course.credits }})</p>
-                                            <p class="course-category">{{ course.category }}</p>
-                                        </div>
-                                    </li>
-                                {% else %}
-                                    <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
-                                        courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
-                                        ondragstart="drag(event, this)" style="border: 1px solid red;">
-                                        <div class="course-name-and-num">
-                                            <i id="{{ course.course }}-quest-icon" class="fa fa-question-circle" title="{{ course.validation_msg }}" style="color: red"></i>
-                                            <p class="course-number">{{ course.course }}</p>
-                                            <p class="course-name">{{ course.name }}</p>
-                                            <p class="course-credits">({{ course.credits }})</p>
-                                            <p class="course-category">{{ course.category }}</p>
-                                        </div>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+            <!-- Scroll to bottom of page as new semesters get added -->
+            <script>
+                window.scrollTo(0, document.body.scrollHeight);
+            </script>
+        <!-- If generating a schedule all at once-->
+        {% else %}
+            <div class="full-schedule-scheduler">
+                <div class="semester-schedules">
+                    <label><a href="{{ url_for('printable', course_schedule_display = course_schedule ) }}"> See Printer-Friendly Version </a></label><br><br>
+                    <div class="grid-container">
+                        {% for semester in course_schedule_display %}
+                        <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
+                            ondragover="allowDrop(event)">
+                            <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
+                            <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
+                                }}</p>
+                            <ul id="semester-{{ semester.semester_number}}-ul">
+                                {% for course in semester.schedule %}
+                                <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}"
+                                    courseNum="{{ course.course }}" courseName="{{ course.name }}" courseCredits="{{ course.credits }}"
+                                    draggable="true" ondragstart="drag(event, this)">
+                                    <div class="course-name-and-num">
+                                        <p class="course-number">{{ course.course }}</p>
+                                        <p class="course-name">{{ course.name }}</p>
+                                        <p class="course-credits">({{ course.credits }})</p>
+                                        <p class="course-category">{{ course.category }}</p>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
-        </div>
-        <!-- Scroll to bottom of page as new semesters get added -->
-        <script>
-            window.scrollTo(0, document.body.scrollHeight);
-        </script>
-    <!-- If generating a schedule all at once-->
-    {% else %}
-        <div class="full-schedule-scheduler">
-            <div class="semester-schedules">
-                <label><a href="{{ url_for('printable', course_schedule_display = course_schedule ) }}"> See Printer-Friendly Version </a></label><br><br>
-                <div class="grid-container">
-                    {% for semester in course_schedule_display %}
-                    <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
-                        ondragover="allowDrop(event)">
-                        <p><label>Semester</label>{{ semester.semester }} {{ semester.year }}</p>
-                        <p id="semester-{{ semester.semester_number}}-credits"><label>Credits</label>{{ semester.credits
-                            }}</p>
-                        <ul id="semester-{{ semester.semester_number}}-ul">
-                            {% for course in semester.schedule %}
-                            <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}"
-                                courseNum="{{ course.course }}" courseName="{{ course.name }}" courseCredits="{{ course.credits }}"
-                                draggable="true" ondragstart="drag(event, this)">
-                                <div class="course-name-and-num">
-                                    <p class="course-number">{{ course.course }}</p>
-                                    <p class="course-name">{{ course.name }}</p>
-                                    <p class="course-credits">({{ course.credits }})</p>
-                                    <p class="course-category">{{ course.category }}</p>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    {% endif %}
+        {% endif %}
+        <input type="hidden" name="waived_courses" value="{{ waived_courses }}">
+        <input type="hidden" name="current_semester" value="{{ current_semester }}">
+        <input type="hidden" id="courses_taken" name="courses_taken" value="{{ courses_taken }}">
+        <input type="hidden" name="semesters" value="{{ semesters }}">
+        <input type="hidden" name="total_credits" value="{{ total_credits }}">
+        <input type="hidden" id="required_courses_dict_list" name="required_courses_dict_list"
+            value="{{ required_courses_dict_list }}">
+        <input type="hidden" id="required_courses_dict_list_unchanged" name="required_courses_dict_list_unchanged"
+            value="{{ required_courses_dict_list_unchanged }}">
+        <input type="hidden" id="course_schedule" name="course_schedule" value="{{ course_schedule }}">
+        <input type="hidden" name="semester_number" value="{{ semester_number }}">
+        <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
+        <input type="hidden" name="include_summer" value="{{ include_summer }}">
+        <input type="hidden" name="certificate_choice" value="{{ certificates }}">
+        <input type="hidden" name="num_3000_replaced_by_cert_core" value="{{ num_3000_replaced_by_cert_core }}">
+        <input type="hidden" name="cert_elective_courses_still_needed" value="{{ cert_elective_courses_still_needed }}">
+        <input type="hidden" name="TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"
+            value="{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}">
+        <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
+        <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
+        <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
+        <input type="hidden" name="first_semester" value="{{ first_semester }}">
+        <input type="hidden" name="semester_years" value="{{ semester_years }}">
+        <input type="hidden" name="saved_minimum_credits_selection" value="{{ saved_minimum_credits_selection }}">
+        <input type="hidden" id="course_prereqs_for" name="course_prereqs_for" value="{{ course_prereqs_for }}">
+        <input type="hidden" name="user_name" value = "{{ user_name }}">
+        <input type="hidden" name="fe_taken" value = "{{ fe_taken }}">
+        <input type="hidden" name="ge_taken" value = "{{ ge_taken }}">
+        <input type = "hidden" name = "required_courses_tuple" value = "{{ required_courses_tuple }}">
+        <input type = "hidden" name = "number_of_required_courses_taken" value = "{{ number_of_required_courses_taken }}">
+        <input type = "hidden" name = "list_of_required_courses_taken" value = "{{ list_of_required_courses_taken }}">
+    </form>
 </html>

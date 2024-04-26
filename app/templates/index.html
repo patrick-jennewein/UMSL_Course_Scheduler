@@ -12,15 +12,13 @@
 </head>
 
 <body>
-    <form id="form" action="/schedule" method="post">
-        <!-- First page: page to set up schedule and enter in parameters -->
-        {% if initial_load %}
-            {% include 'home_page.html' %}
-        <!-- Second page: page to display schedule -->
-        {% else %}
-            {% include 'schedule_display_page.html' %}
-        {% endif %}
-    </form>
+    <!-- First page: page to set up schedule and enter in parameters -->
+    {% if initial_load %}
+        {% include 'home_page.html' %}
+    <!-- Second page: page to display schedule -->
+    {% else %}
+        {% include 'schedule_display_page.html' %}
+    {% endif %}
 </body>
 
 </html>
