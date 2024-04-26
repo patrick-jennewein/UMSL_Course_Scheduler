@@ -8,7 +8,6 @@
                 <div class = "counter-bar">
                     <div class = "left-counter">
                         <label>{{ user_name }} </label><br>
-                        <label id = "printer"><a href="{{ url_for('printable', course_schedule_display = course_schedule ) }}"> See Printer-Friendly Version </a></label><br><br>
                         <label for="minimum_semester_credits">
                             Minimum Credits for {{ current_semester }} {{ semester_years_display[current_semester] }}
                         </label>
@@ -28,6 +27,9 @@
                             {% if certificates_display[0] != "None" %}
                                 <label>{{ certificates_display[0]}} Certificate</label>
                             {% endif %}
+                        </div>
+                        <div class = "continue-schedule">
+                            <input type="submit" id = "print" name = "Print" value="Print">
                         </div>
                         <div class = "continue-schedule">
                             <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
@@ -203,8 +205,9 @@
         {% else %}
             <div class="full-schedule-scheduler">
                 <div class="semester-schedules">
-                    <label><a href="{{ url_for('printable', course_schedule_display = course_schedule ) }}"> See Printer-Friendly Version </a></label><br><br>
-                    <div class="grid-container">
+                    <div class = "continue-schedule">
+                        <input type="submit" id = "print" name = "Print" value="Print">
+                    </div>                    <div class="grid-container">
                         {% for semester in course_schedule_display %}
                         <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
                             ondragover="allowDrop(event)">
