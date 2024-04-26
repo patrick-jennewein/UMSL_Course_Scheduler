@@ -103,6 +103,9 @@
             <input type="hidden" name="first_semester" value="{{ first_semester }}">
             <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
             <input type="hidden" name="semester_years" value="{{ semester_years }}">
+            <input type="hidden" name="is_graduated" value = "{{ is_graduated }}">
+            <input type="hidden" name="required_courses_tuple" value = "{{ required_courses_tuple }}">
+            <input type="hidden" name="number_of_required_courses_taken" value = {{ number_of_required_courses_taken }}>
             <!-- submit buttons-->
             <div class = "buttons">
                 <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule (by Semester)">
@@ -219,7 +222,7 @@
             <br><br>
 
             <!-- Select number of credits already earned -->
-            <label for="total_credits">
+            <label for="total_credits" id = "total_credits_id">
                 <span class="tooltip">
                     <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                     <span class="tooltiptext">This is the total amount of credits earned

@@ -48,7 +48,12 @@ def index():
                            semester_years = json.dumps({}),
                            user_name = "Student",
                            ge_taken = 0,
-                           fe_taken = 0
+                           fe_taken = 0,
+                           is_graduated = False,
+                           required_courses_tuple = json.dumps([]),
+                           number_of_required_courses_taken = 0,
+                           list_of_required_courses_taken = json.dumps([]),
+                           certificate_choice = json.dumps([])
     )
 
 @app.route('/schedule', methods=["POST"])
@@ -69,6 +74,7 @@ def schedule_generator():
                            min_3000_course=render_info["min_3000_course"],
                            include_summer=render_info["include_summer"],
                            certificates=render_info["certificate_choice"],
+                           certificates_display = render_info["certificates_display"],
                            num_3000_replaced_by_cert_core=render_info["num_3000_replaced_by_cert_core"],
                            cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"],
                            TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES=render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
@@ -79,8 +85,15 @@ def schedule_generator():
                            minimum_summer_credits=render_info['minimum_summer_credits'],
                            first_semester = render_info['first_semester'],
                            semester_years = render_info['semester_years'],
+                           semester_years_display = render_info["semester_years_display"],
                            course_prereqs_for = render_info['course_prereqs_for'],
                            user_name = render_info['user_name'],
                            ge_taken = render_info['ge_taken'],
-                           fe_taken = render_info['fe_taken']
+                           fe_taken = render_info['fe_taken'],
+                           is_graduated = render_info['is_graduated'],
+                           required_courses_tuple = render_info['required_courses_tuple'],
+                           number_of_required_courses_taken = render_info['number_of_required_courses_taken'],
+                           list_of_required_courses_taken = render_info['list_of_required_courses_taken'],
+                           required_courses_tuple_display = render_info["required_courses_tuple_display"],
+                           list_of_required_courses_taken_display = render_info["list_of_required_courses_taken_display"]
     )
