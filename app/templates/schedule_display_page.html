@@ -44,7 +44,9 @@
                     </label>
                     <select name="minimum_semester_credits" id="minimum_credits">
                         {% for credits in minimum_semester_credits %}
-                        {% if credits == saved_minimum_credits_selection %}
+                        {% if current_semester == "Summer" and credits == minimum_summer_credits %}
+                        <option selected value="{{credits}}">{{ credits }}</option>
+                        {% elif credits == saved_minimum_credits_selection %}
                         <option selected value="{{credits}}">{{ credits }}</option>
                         {% else %}
                         <option value="{{credits}}">{{ credits }}</option>

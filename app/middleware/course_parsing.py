@@ -619,7 +619,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # user enters credits for upcoming semester
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
-    temp_min_credits_per_semester = min_credits_per_semester
 
     # adjust credit ratios for scheduling
     max_core_credits_per_semester = math.ceil(min_credits_per_semester * 2/3)
@@ -987,6 +986,15 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     if (current_semester != "Summer" and not generate_complete_schedule):
         min_credits_per_semester = temp_min_credits_per_semester
+    
+    print()
+    print()
+    print(f"{current_semester=}")
+    print(f"{min_credits_per_semester=}")
+    print(f"{temp_min_credits_per_semester=}")
+    print(f"{summer_credit_count=}")
+    print()
+    print()
 
     print(f'{certificate_choice=}')
     #print(f'{certificate_option=}')
@@ -1011,7 +1019,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     for course, info in required_courses_dict_list:
         print(f'{course}', end=", ")
     print("\n")
-    print(f'{required_courses_dict_list=}')
+    # print(f'{required_courses_dict_list=}')
 
 
     # complete graduation check
