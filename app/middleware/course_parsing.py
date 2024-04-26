@@ -222,7 +222,8 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
             'description': course_info['course_description'],
             'credits': course_info['credit'],
             'category': course_category,
-            'prerequisite_description': course_info['prerequisite_description'] if 'prerequisite_description' in course_info.keys() else ''
+            'prerequisite_description': course_info['prerequisite_description'] if 'prerequisite_description' in course_info.keys() else '',
+            'passed_validation': True
         })
         courses_taken.append(course)
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
@@ -258,7 +259,8 @@ def add_gen_ed_elective() -> dict:
         'name': '[User Selects]',
         'description': '',
         'credits': 3,
-        'category': "General Education"
+        'category': "General Education",
+        'passed_validation': True
     }
     return gen_ed_info
 
@@ -269,7 +271,8 @@ def add_free_elective() -> dict:
         'name': '[User Selects]',
         'description': '',
         'credits': 3,
-        'category': 'Free Elective'
+        'category': 'Free Elective',
+        'passed_validation': True
     }
     return free_elective_info
 
@@ -832,7 +835,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                     'name': '[User Selects]',
                                     'description': '',
                                     'credits': 3,
-                                    'category': 'CS Elective'
+                                    'category': 'CS Elective',
+                                    'passed_validation': True
                                 })
 
                             # increment current semester credits, decrement courses needed
@@ -850,7 +854,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                     'name': '[User Selects]',
                                     'description': '',
                                     'credits': 3,
-                                    'category': course_categories['C']
+                                    'category': course_categories['C'],
+                                    'passed_validation': True
                                 })
 
                             # increment current semester credits, decrement courses needed
@@ -910,7 +915,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             'name': '[User Selects]',
                             'description': '',
                             'credits': 3,
-                            'category': course_categories['E']
+                            'category': course_categories['E'],
+                            'passed_validation': True
                         })
                         current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
                         current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS

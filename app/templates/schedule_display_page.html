@@ -182,6 +182,14 @@
                 </div>
             </div>
 
+            question_mark_icon = document.createElement("i");
+            // The class information added is imported at the top of the schedule_display_page.html
+            question_mark_icon.classList.add("fa");
+            question_mark_icon.classList.add("fa-question-circle");
+            question_mark_icon.title = msg;   
+            question_mark_icon.style.color = "red";
+            question_mark_icon.setAttribute("id", `${course_num}-quest-icon`);
+
             <!-- Individual semester information, repeating until credits are reached -->
             <div class="semester-schedules">
                 <div class="grid-container">
@@ -193,16 +201,30 @@
                             }}</p>
                         <ul id="semester-{{ semester.semester_number}}-ul">
                             {% for course in semester.schedule %}
-                                <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
-                                courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
-                                ondragstart="drag(event, this)">
-                                <div class="course-name-and-num">
-                                    <p class="course-number">{{ course.course }}</p>
-                                    <p class="course-name">{{ course.name }}</p>
-                                    <p class="course-credits">({{ course.credits }})</p>
-                                    <p class="course-category">{{ course.category }}</p>
-                                </div>
-                            </li>
+                                {% if course.passed_validation == true %}
+                                    <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
+                                        courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
+                                        ondragstart="drag(event, this)">
+                                        <div class="course-name-and-num">
+                                            <p class="course-number">{{ course.course }}</p>
+                                            <p class="course-name">{{ course.name }}</p>
+                                            <p class="course-credits">({{ course.credits }})</p>
+                                            <p class="course-category">{{ course.category }}</p>
+                                        </div>
+                                    </li>
+                                {% else %}
+                                    <li id="{{ course.course }}" title="{{ course.prerequisite_description }} {{ course.description }}" courseNum="{{ course.course }}"
+                                        courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
+                                        ondragstart="drag(event, this)" style="border: 1px solid red;">
+                                        <div class="course-name-and-num">
+                                            <i id="{{ course.course }}-quest-icon" class="fa fa-question-circle" title="{{ course.validation_msg }}" style="color: red"></i>
+                                            <p class="course-number">{{ course.course }}</p>
+                                            <p class="course-name">{{ course.name }}</p>
+                                            <p class="course-credits">({{ course.credits }})</p>
+                                            <p class="course-category">{{ course.category }}</p>
+                                        </div>
+                                    </li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
