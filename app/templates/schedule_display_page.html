@@ -208,20 +208,6 @@
                 <div class="semester-schedules">
                     <div class="continue-schedule">
                         <input type="submit" id = "print" name = "Print" value="Print">
-                        <span class="tooltip"> <p id = "progress">See Progress</p>
-                                <span class="tooltiptext">
-                                    Required Courses
-                                    <ul class="class-grid">
-                                        {% for course in required_courses_tuple_display %}
-                                            {%  if course in list_of_required_courses_taken %}
-                                                <li id = "course-taken">{{ course }}</li>
-                                            {% else %}
-                                                <li id = "course-not-taken">{{ course }}</li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </ul>
-                                </span>
-                            </span>
                     </div>
                     <div class="grid-container">
                         {% for semester in course_schedule_display %}
