@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Printable Schedule</title>
     <link rel="stylesheet" href="../static/styles/printable.css">
 </head>
 <body>
     <div class = "printable-page">
         <!-- Iterate through each semester's courses-->
         <div class = "grid-container">
+            <h1>{{ user_name }}</h1>
             {% for semester in course_schedule_display %}
                 <!-- One semester -->
                 <div class = "grid-item">
@@ -29,6 +30,30 @@
                 </div>
             {% endfor %}
         </div>
+        <span class = "printable-header">
+            <span id = "label"><p>Total Credits</p></span>
+            <span id = "answer"><p> {{ total_credits }} / 120</p></span><br>
+
+            <span id = "label"><p>General Education Credits Earned</p></span>
+            <span id = "answer"><p> {{ ge_taken }} / 27</p></span><br>
+
+            <span id = "label"><p>Free Elective Credits Earned</p></span>
+            <span id = "answer"><p> {{ fe_taken }} </p></span><br>
+
+            <!-- if a certificate was selected, all CMP SCI 3000+ electives are accounted for-->
+            {% if certificate != "None" %}
+                <span id = "label"><p>Certificate Choice</p></span>
+                <span id = "answer"><p> {{ certificate }} </p></span><br>
+
+                <span id = "label"><p>Certificate Elective Credits Earned </p></span>
+                <span id = "answer"><p> {{ total_elective_credits - (cert_elective_courses_still_needed * 3) }} / {{ total_elective_credits }}</p></span><br>
+
+            <!-- Otherwise, the number of electives is 15-->
+            {% else %}
+                <span id = "label"><p>CMP SCI 3000+ Elective Credits Earned</p></span>
+                <span id = "answer"><p> {{ 15 - (min_3000_course * 3)}} / 15</p></span><br>
+            {% endif %}
+        </span>
     </div>
 </body>
 </html>

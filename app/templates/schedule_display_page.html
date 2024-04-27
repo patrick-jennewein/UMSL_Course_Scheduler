@@ -26,12 +26,13 @@
                         <div class = "credit-category">
                             {% if certificates_display[0] != "None" %}
                                 <label>{{ certificates_display[0]}} Certificate</label>
+                            {% else %}
+                                <br>
                             {% endif %}
                         </div>
+                        <br>
                         <div class = "continue-schedule">
                             <input type="submit" id = "print" name = "Print" value="Print">
-                        </div>
-                        <div class = "continue-schedule">
                             <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
                         </div>
                         <br>
@@ -136,7 +137,7 @@
                     </div>
 
                         <div class="grad-class-list">
-                            <span class="tooltip"> <p>See Progress</p>
+                            <span class="tooltip"> <p id = "progress">See Progress</p>
                                 <span class="tooltiptext">
                                     Required Courses
                                     <ul class="class-grid">
@@ -205,9 +206,24 @@
         {% else %}
             <div class="full-schedule-scheduler">
                 <div class="semester-schedules">
-                    <div class = "continue-schedule">
+                    <div class="continue-schedule">
                         <input type="submit" id = "print" name = "Print" value="Print">
-                    </div>                    <div class="grid-container">
+                        <span class="tooltip"> <p id = "progress">See Progress</p>
+                                <span class="tooltiptext">
+                                    Required Courses
+                                    <ul class="class-grid">
+                                        {% for course in required_courses_tuple_display %}
+                                            {%  if course in list_of_required_courses_taken %}
+                                                <li id = "course-taken">{{ course }}</li>
+                                            {% else %}
+                                                <li id = "course-not-taken">{{ course }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </span>
+                            </span>
+                    </div>
+                    <div class="grid-container">
                         {% for semester in course_schedule_display %}
                         <div class="grid-item" semesterNum="{{ semester.semester_number}}" ondrop="drop(event, this)"
                             ondragover="allowDrop(event)">

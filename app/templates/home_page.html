@@ -82,9 +82,9 @@
                 <select style="visibility: hidden;" id="summer_credits_select" name="minimum_summer_credits">
                     {% for credits in minimum_summer_credits %}
                     {% if credits == 0 %}
-                    <option selected value="{{credits}}">{{ credits }}</option>
+                        <option selected value="{{credits}}">{{ credits }}</option>
                     {% else %}
-                    <option value="{{credits}}">{{ credits }}</option>
+                        <option value="{{credits}}">{{ credits }}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
