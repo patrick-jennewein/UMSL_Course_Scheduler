@@ -61,7 +61,21 @@
                 <!-- Select summer semester boolean -->
                 <label for="summer">Summer Semester</label>
                 <input type="checkbox" id="summer" name="include_summer" onClick="handleSummerCheckboxClick(this)"><br>
-                <br><br>
+                <br>
+
+                <!-- Ask user for number of credits for summer-->
+                <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">Minimum Credits for Summer</label>
+                <select style="visibility: hidden;" id="summer_credits_select" name="minimum_summer_credits">
+                    {% for credits in minimum_summer_credits %}
+                    {% if credits == 0 %}
+                        <option selected value="{{credits}}">{{ credits }}</option>
+                    {% else %}
+                        <option value="{{credits}}">{{ credits }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <br>
+                <br>
 
                 <!-- Earned credit boolean -->
                 <label for="earned_credit">
@@ -77,17 +91,6 @@
                 <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
                 <br>
 
-                <!-- Ask user for number of credits for summer-->
-                <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">Minimum Credits for Summer</label>
-                <select style="visibility: hidden;" id="summer_credits_select" name="minimum_summer_credits">
-                    {% for credits in minimum_summer_credits %}
-                    {% if credits == 0 %}
-                        <option selected value="{{credits}}">{{ credits }}</option>
-                    {% else %}
-                        <option value="{{credits}}">{{ credits }}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
                 <br><br>
 
                 <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
