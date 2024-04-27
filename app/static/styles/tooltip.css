@@ -1,0 +1,87 @@
+/* basic tool tip styles*/
+.tooltip {
+    position: relative;
+    display: inline-block;
+    width: auto;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    border-radius: 20px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.6s;
+    padding: 20px;
+    border: 3px solid lightgray;
+}
+.tooltiptext a{
+    color: #c22033;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.9);.
+    min-width: 200px;
+}
+.tooltiptext a:hover{
+    text-decoration: none;
+    border-color: #c22033;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* tooltips on semester-by-semester scheduler */
+.scheduler .tooltip .tooltiptext {
+    right: calc(100% + 10px)
+}
+
+/* rollover required list tooltips */
+.grad-class-list .tooltip{
+    width: auto;
+}
+
+/* counter bar tooltips */
+.credit-category ul{
+    text-align: left;
+}
+
+/* requirements list tooltips */
+.grad-class-list .tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.6s;
+    padding: 20px;
+    border: 3px solid lightgray;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+}
+.grad-class-list .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* styles for smaller screens */
+@media screen and (max-width: 940px) {
+  .scheduler .tooltip .tooltiptext {
+    left: calc(100% + 10px)
+  }
+  .grad-class-list .tooltip .tooltiptext {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+}

@@ -1,467 +1,107 @@
 body {
-  margin: 0;
-}
-
-@media screen and (min-width: 0px) {
-  body {
+    margin: 0;
     height: 100vh;
-  }
-
-  /* cover page styles*/
-  .cover-page-background {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url("https://www.umsl.edu/new-home/files/images/tour-2023.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    box-shadow: inset 0 0 10em 6em #000;
-    overflow: hidden;
-  }
-  .form-container {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 30px;
-    font-family: "Roboto Condensed", sans-serif;
-    margin: 20px;
-    height: 550px;
-  }
-  .form-container img {
-    width: 300px;
-    display: block;
-    margin: auto;
-  }
-  .form-container input[type = submit]{
-    border: 1px solid black;
-    padding: 10px;
-    font-family: "Roboto Condensed", sans-serif;
-    border-radius: 5px;
-    margin: 0 auto;
-    display: inline-block;
-    text-align: center;
-    width: 45%;
-  }
-  .form-container input[type = submit]:hover{
-    transition: 0.5s;
-    color: lightgray;
-    background-color: #a80b2d;
-  }
-  .form-container input[type = "text"]{
-    display: inline-block;
-    width: 140px;
-    vertical-align: top;
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 300;
-  }
-  .form-container label, .form-container-2 label {
-    display: inline-block;
-    width: 250px;
-  }
-  .form-container select, .form-container-2 select {
-    display: inline-block;
-    width: 150px;
-    vertical-align: top;
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 300;
-  }
-  /* hide this box temporarily*/
-  #starting_credits{
-    display: none;
-  }
-  #total_credits_id{
-    display: none;
-  }
-
-  /* semester-by-semester styles */
-  .scheduler {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-  }
-  .counter-bar{
-    display: flex;
-    position: fixed;
-    top: 0;
-    min-width: 100vw;
-    align-items: center;
-    border-bottom: 8px solid #a80b2d;
-    background-color: rgba(255, 255, 255, 0.95)
-  }
-
-  .counter-bar small{
-    font-size: x-small;
-    line-height: 3px;
-  }
-
-  .counter-bar .continue-schedule{
-  }
-
-  .counter-bar input[type = submit]{
-    border: 1px solid black;
-    padding: 10px;
-    font-family: "Roboto Condensed", sans-serif;
-    border-radius: 5px;
-    margin: 0 auto;
-    display: inline-block;
-    text-align: center;
-  }
-  .counter-bar input[type = submit]:hover{
-    transition: 0.5s;
-    color: lightgray;
-    background-color: #a80b2d;
-  }
-
-    .continue-schedule input[type = submit]{
-    border: 1px solid black;
-    padding: 10px;
-    font-family: "Roboto Condensed", sans-serif;
-    border-radius: 5px;
-    margin: 20px;
-    display: inline-block;
-    text-align: center;
-  }
-  .continue-schedule input[type = submit]:hover{
-    transition: 0.5s;
-    color: lightgray;
-    background-color: #a80b2d;
-  }
-
-  .continue-schedule #print,
-  .continue-schedule #single_semester_submit,
-  #progress{
-    width: 200px;
-  }
-
-  .counter-bar img{
-    width: 100%;
-  }
-
-
-  .center-counter{
-    width: 20%;
-  }
-
-  .left-counter{
-    width: 40%;
-    margin: 40px;
-  }
-
-  .center-counter{
-  }
-  .right-counter{
-    width: 40%;
-    margin: 40px;
-  }
-
-.grad-class-list, .continue-schedule{
-    display: flex;
-    justify-content: center;
 }
 
-.grad-class-list p{
-    border: 1px solid black;
-    padding: 10px;
-    font-family: "Roboto Condensed", sans-serif;
-    border-radius: 5px;
-    text-align: center;
-    font-size: small;
-    width: 100%;
-    font-weight: 400;
-    background-color: #f0f0f0;
-
-  }
-  .grad-class-list p:hover{
-    transition: 0.5s;
-    color: lightgray;
-    background-color: #a80b2d;
-  }
-
-
-.class-grid {
-    list-style-type: none;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Three columns */
-    grid-auto-rows: auto; /* Automatically create new rows */
-    grid-gap: 10px;
-    padding: 0;
-}
-
-.class-grid li {
-    background-color: black;
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-}
-  .counter-bar label {
-    display: inline-block;
-    color: #a80b2d;
-    font-weight: 600;
-    width: 300px;
-  }
-
-  .counter-bar label a:link, a:visited, a:active, a:focus, a:hover{
-      color: #a80b2d;
-      text-decoration: none;
-  }
-
-  .counter-bar label a:hover{
-      text-decoration: underline;
-  }
-
-  .class-grid li{
-    color: white;
-    background-color: red;
-  }
-
-  #course-taken{
-    color: black;
-    background-color: #66FF00;
-  }
-
-  #course-not-taken{
-    color: white;
-    background-color: red;
-  }
-
-  span{
-    display: inline-block;
-    width: 40px;
-    text-align: right;
-  }
-
-  .credit-count-success{
-    color: green;
-    font-weight: 600;
-  }
-
-  #fail{
-    color: red;
-    font-weight: 600;
-  }
-
-  /*course icon styling*/
-  .course-container degree {
-    outline: 1px solid #800020;
-    background-color: #a80b2d;
-    border-radius: 5px;
-    margin: 3px 10px 1px 1px;
-    padding: 2px 5px;
-    color: #ffffff;
-    font-size: x-small;
-    font-weight: 600;
-  }
-  .course-container certificate {
-    outline: 1px solid #654a00;
-    background-color: #eaad00;
-    border-radius: 5px;
-    margin: 3px 10px 1px 1px;
-    padding: 2px 5px;
-    font-size: x-small;
-    font-weight: 600;
-  }
-  .header-container .disclaimer {
-    padding: 5px 1px 5px 40px;
-    font-size: x-small;
-  }
-  .next-semester select {
-    display: inline-block;
-    width: 50px;
-    vertical-align: top;
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 300;
-  }
-  /* END OF HEADER STYLES */
-  .scheduler .semester-schedules {
+/* styles for both types of schedules*/
+.scheduler .semester-schedules {
     padding: 20px;
     margin: 320px 20px 20px 20px;
-  }
+}
+.semester-schedules label a:link, a:visited, a:active, a:focus, a:hover{
+    color: #a80b2d;
+    text-decoration: none;
+    display: inline-block;
+    width: 500px;
+}
+.semester-schedules label a:hover{
+    text-decoration: underline;
+}
 
-  /* full-schedule styles */
-  .full-schedule-scheduler .semester-schedules {
-    padding: 20px;
+.continue-schedule input[type = submit]{
+    border: 1px solid black;
+    padding: 10px;
+    font-family: "Roboto Condensed", sans-serif;
+    border-radius: 5px;
     margin: 20px;
-  }
+    display: inline-block;
+    text-align: center;
+}
+.continue-schedule input[type = submit]:hover{
+    transition: 0.5s;
+    color: lightgray;
+    background-color: #a80b2d;
+}
+.continue-schedule #print,
+    .continue-schedule #single_semester_submit,
+    #progress{
+    width: 200px;
+}
 
-  /* grid styles */
-  .grid-container {
+/* grid styles for generating the schedule in the 2-column format */
+.grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-  }
-  .grid-item {
+}
+.grid-item {
     border: 3px solid #ccc;
     padding: 10px;
-  }
-  .grid-item:hover {
+}
+.grid-item:hover {
     background-color: #fff7df;
     border: 3px solid #a80b2d;
     transition: 1s;
-  }
+}
 
-  /* styles for BOTH semester-by-semester AND full-schedule */
-  .semester-schedules p {
+/* styles for BOTH semester-by-semester AND full-schedule */
+.semester-schedules p {
     margin: 0;
-  }
-  .scheduler,
-  .full-schedule-scheduler {
+}
+.scheduler,
+.full-schedule-scheduler {
     font-family: "Roboto Condensed", sans-serif;
     font-weight: 300;
-  }
-  .semester-schedules label {
+}
+.semester-schedules label {
     display: inline-block;
     color: #a80b2d;
     width: 120px; /* changes how far away semester, credits are from edge*/
     font-weight: 600;
-  }
-  .semester-schedules ul {
+}
+.semester-schedules ul {
     margin-left: 0;
     padding-left: 0;
-  }
-  .semester-schedules li {
+}
+.semester-schedules li {
     list-style: none;
     padding-left: 0;
     margin-top: 10px;
-  }
-  .course-number, .course-name, .course-credits {
+}
+.course-number, .course-name, .course-credits {
     display: inline-block;
-  }
-  .course-number{
+}
+.course-number{
     font-weight: 400;
     min-width: 15ch;
-  }
-  .course-category {
+}
+.course-category {
     display: inline;
     float: right;
-  }
-  .course-name-and-num {
+}
+.course-name-and-num {
     border: 1px solid lightgray;
     padding: 5px;
-  }
-  .course-name-and-num:hover {
+}
+.course-name-and-num:hover {
     background-color: #a80b2d;
     color: white;
     border: 1px solid black;
     transition: 0.5s;
     font-weight: 600;
-  }
-
-  /* front page re-design with multiple containers */
-  /* form initially does not display*/
-  .second-form{
-    display: none;
-  }
-
-  /* styles for form display when clicked*/
-  .form-container-2{
-    display: inline;
-    color: black;
-    height: 550px;
-    background-color: rgba(255, 255, 255, 0.9);.
-    transition: background-color 1s;
-    border-radius: 20px;
-    padding: 30px;
-    font-family: "Roboto Condensed", sans-serif;
-    width: 420px;
-  }
-
-  /*tooltips on home page*/
-  .tooltip {
-        position: relative;
-        display: inline-block;
-        width: auto;
-    }
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 300px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    text-align: center;
-    border-radius: 20px;
-    position: absolute;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.6s;
-    padding: 20px;
-    border: 3px solid lightgray;
-  }
-
-  .tooltiptext a{
-    color: #c22033;
-    text-decoration: none;
-    border: 1px solid white;
-    border-radius: 5px;
-    padding: 5px;
-    background-color: rgba(255, 255, 255, 0.9);.
-    min-width: 200px;
-
-  }
-  .tooltiptext a:hover{
-    text-decoration: none;
-    border-color: #c22033;
-  }
-  .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-  }
-
-  /*tooltips on scheduler*/
-  .scheduler .tooltip .tooltiptext {
-    right: calc(100% + 10px)
-  }
-
-  /*course list tooltip*/
-  .grad-class-list .tooltip{
-    width: auto;
-  }
-  .credit-category ul{
-    text-align: left;
-  }
-  .counter-bar input[type = submit]{
-    width: auto;
-    padding: 10px;
-  }
-  .grad-class-list .tooltip .tooltiptext {
-    visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
-    text-align: center;
-    border-radius: 20px;
-    opacity: 0;
-    transition: opacity 0.6s;
-    padding: 20px;
-    border: 3px solid lightgray;
-        position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-  }
-
-  .grad-class-list .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-  }
-
-  /* buttons */
-  .buttons{
-    display: flex;
-    justify-content: center;
-  }
-
-  .semester-schedules label a:link, a:visited, a:active, a:focus, a:hover{
-      color: #a80b2d;
-      text-decoration: none;
-      display: inline-block;
-      width: 500px;
-  }
-
-  .semester-schedules label a:hover{
-      text-decoration: underline;
-  }
 }
 
+/* styles for smaller screens */
 @media screen and (max-width: 940px) {
   .grid-container {
     grid-template-columns: 1fr;
@@ -469,53 +109,8 @@ body {
   .semester-schedules li {
     margin-left: 0;
   }
-  .counter-bar{
-    display: block;
-    position: absolute;
-    width: 95vw;
-  }
-
-  .counter-bar label{
-    width: 75%;
-  }
-
-  .center-counter{
-    display: none;
-  }
-
-  .left-counter, .right-counter{
-    width: 95vw;
-    margin: 20px;
-  }
-
-  .left-counter{
-    height: 150px;
-  }
-
-
-  .right-counter{
-    min-height: 125px;
-  }
-    .scheduler .semester-schedules {
+  .scheduler .semester-schedules {
     padding: 0;
     margin-top: 450px;
-  }
-
-  .counter-bar input[type = submit]{
-    width: auto;
-  }
-  .counter-bar input[type = submit]:hover{
-  }
-    /*tooltips on scheduler*/
-  .scheduler .tooltip .tooltiptext {
-    left: calc(100% + 10px)
-  }
-
-  .grad-class-list .tooltip .tooltiptext {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
   }
 }

@@ -1,0 +1,169 @@
+/* basic styles */
+span{
+    display: inline-block;
+    width: 40px;
+    text-align: right;
+}
+/* holds the basic div class with everything for semester-by-semester */
+.scheduler {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+/* the top bar that holds all information: left, center, right*/
+.counter-bar{
+    display: flex;
+    position: fixed;
+    top: 0;
+    min-width: 100vw;
+    align-items: center;
+    border-bottom: 8px solid #a80b2d;
+    background-color: rgba(255, 255, 255, 0.95)
+}
+.counter-bar label {
+    display: inline-block;
+    color: #a80b2d;
+    font-weight: 600;
+    width: 300px;
+}
+.counter-bar label a:link, a:visited, a:active, a:focus, a:hover{
+    color: #a80b2d;
+    text-decoration: none;
+}
+.counter-bar label a:hover{
+    text-decoration: underline;
+}
+.counter-bar input[type = submit]{
+    width: auto;
+    padding: 10px;
+}
+
+/* styles that change for when a reuqirement has been met*/
+.credit-count-success{
+    color: green;
+    font-weight: 600;
+}
+#fail{
+    color: red;
+    font-weight: 600;
+}
+
+/* the three divisions of the counter bar*/
+.left-counter{
+    width: 40%;
+    margin: 40px;
+}
+.center-counter{
+    width: 20%;
+}
+.right-counter{
+    width: 40%;
+    margin: 40px;
+}
+
+/* buttons in the counter bar*/
+.counter-bar input[type = submit]{
+    border: 1px solid black;
+    padding: 10px;
+    font-family: "Roboto Condensed", sans-serif;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+}
+.counter-bar input[type = submit]:hover{
+    transition: 0.5s;
+    color: lightgray;
+    background-color: #a80b2d;
+}
+
+/* UMSL logo */
+.counter-bar img{
+    width: 100%;
+}
+
+/*
+.grad-class-list holds the hover effect for the required courses
+.continue-schedule holds the buttons "print", "continue schedule"
+*/
+.grad-class-list, .continue-schedule{
+    display: flex;
+    justify-content: center;
+}
+
+/* rollover of required course list */
+.grad-class-list p{
+    border: 1px solid black;
+    padding: 10px;
+    font-family: "Roboto Condensed", sans-serif;
+    border-radius: 5px;
+    text-align: center;
+    font-size: small;
+    width: 100%;
+    font-weight: 400;
+    background-color: #f0f0f0;
+}
+.grad-class-list p:hover{
+    transition: 0.5s;
+    color: lightgray;
+    background-color: #a80b2d;
+}
+
+/* the actual grid of classes in grad-class-list*/
+.class-grid {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Three columns */
+    grid-auto-rows: auto; /* Automatically create new rows */
+    grid-gap: 10px;
+    padding: 0;
+}
+.class-grid li {
+    background-color: black;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+.class-grid li{
+    color: white;
+    background-color: red;
+}
+
+/* styles for the actual grid of classes, taken or not taken*/
+#course-taken{
+    color: black;
+    background-color: #66FF00;
+}
+#course-not-taken{
+    color: white;
+    background-color: red;
+}
+
+/* styles for smaller screens */
+@media screen and (max-width: 940px) {
+  .counter-bar{
+    display: block;
+    position: absolute;
+    width: 95vw;
+  }
+  .counter-bar label{
+    width: 75%;
+  }
+  .center-counter{
+    display: none;
+  }
+  .left-counter, .right-counter{
+    width: 95vw;
+    margin: 20px;
+  }
+  .left-counter{
+    height: 150px;
+  }
+  .right-counter{
+    min-height: 125px;
+  }
+  .counter-bar input[type = submit]{
+    width: auto;
+  }
+}
+
