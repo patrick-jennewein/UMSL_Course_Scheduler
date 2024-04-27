@@ -119,5 +119,6 @@ def schedule_generator():
                             number_of_required_courses_taken = render_info['number_of_required_courses_taken'],
                             list_of_required_courses_taken = render_info['list_of_required_courses_taken'],
                             required_courses_tuple_display = render_info["required_courses_tuple_display"],
-                            list_of_required_courses_taken_display = render_info["list_of_required_courses_taken_display"]
+                            list_of_required_courses_taken_display = render_info["list_of_required_courses_taken_display"],
+                            total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"]
     )

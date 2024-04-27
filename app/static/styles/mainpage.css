@@ -237,6 +237,11 @@ body {
     font-weight: 600;
   }
 
+  #fail{
+    color: red;
+    font-weight: 600;
+  }
+
   /*course icon styling*/
   .course-container degree {
     outline: 1px solid #800020;
@@ -271,7 +276,7 @@ body {
   /* END OF HEADER STYLES */
   .scheduler .semester-schedules {
     padding: 20px;
-    margin: 280px 20px 20px 20px;
+    margin: 320px 20px 20px 20px;
   }
 
   /* full-schedule styles */
@@ -411,6 +416,9 @@ body {
   .grad-class-list .tooltip{
     width: auto;
   }
+  .credit-category ul{
+    text-align: left;
+  }
   .counter-bar input[type = submit]{
     width: auto;
     padding: 10px;
@@ -490,7 +498,7 @@ body {
   }
     .scheduler .semester-schedules {
     padding: 0;
-    margin-top: 400px;
+    margin-top: 450px;
   }
 
   .counter-bar input[type = submit]{

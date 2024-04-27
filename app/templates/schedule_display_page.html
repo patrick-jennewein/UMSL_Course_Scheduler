@@ -30,7 +30,7 @@
                                 <br>
                             {% endif %}
                         </div>
-                        <br>
+                        <br><br>
                         <div class = "continue-schedule">
                             <input type="submit" id = "print" name = "Print" value="Print">
                             <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
@@ -65,9 +65,15 @@
                                         &#xf059;
                                     </i>
                                         <span class="tooltiptext">
-                                        Credits earned from Computer Science core classes, Computer Science 3000+ level electives,
-                                        required Mathematics courses, and required English courses. This also includes any required
-                                        courses if a student elects for a certificate.
+                                        Credits earned from the following categories:
+                                            <ul>
+                                                <li>Computer Science core courses</li>
+                                                <li>Required Mathematics courses</li>
+                                                <li>Required English courses</li>
+                                                {% if certificates_display[0] != "None" %}
+                                                    <li>Required courses for the {{ certificates_display[0] }} certificate </li>
+                                                {% endif %}
+                                            </ul>
                                         </span>
                                 </span>
                             </label>
@@ -94,9 +100,51 @@
                         {% if 27 - gen_ed_credits_still_needed >= 27 %}
                                 <span class="credit-count-success">{{ 27 - gen_ed_credits_still_needed }}</span>
                             {% else %}
-                                <span class="credit-count">{{ 27 - gen_ed_credits_still_needed }}</span>
+                                <span class="credit-count" id = "fail">{{ 27 - gen_ed_credits_still_needed }}</span>
                             {% endif %}
                             <span class = "credit-minimum">/ 27</span>
+                    </div>
+
+                    <!-- Certificate Credits-->
+                    <div class = "credit-category">
+                        {% if certificates_display[0] != "None" %}
+                                <label>CS Electives
+                                    <span class="tooltip">
+                                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                                            <span class="tooltiptext">
+                                            Each recipient of the {{ certificates_display[0] }} certificate must
+                                            take a series of {{ total_elective_credits // 3}} classes to satisfy the
+                                            certificate's requirements. <br><br> The other {{ 5 - (total_elective_credits // 3)}}
+                                            elective courses necessary for the BSCS are allocated to the required courses
+                                            of the {{ certificates_display[0] }} certificate and have thus been added to the
+                                            list of required classes provided below.
+                                        </span>
+                                    </span>
+                                </label>
+                                {% if total_elective_credits - (cert_elective_courses_still_needed * 3) >= total_elective_credits %}
+                                    <span class="credit-count-success">{{total_elective_credits - (cert_elective_courses_still_needed * 3) }}</span>
+                                {% else %}
+                                    <span class="credit-count" id = "fail">{{total_elective_credits - (cert_elective_courses_still_needed * 3) }}</span>
+                                {% endif %}
+                                <span class = "credit-minimum">/ {{ total_elective_credits }}</span>
+                        {% else %}
+                                <label>CS Electives
+                                    <span class="tooltip">
+                                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                                            <span class="tooltiptext">
+                                            Credits earned from 5 elective courses needed for the BSCS degree.<br><br>
+                                            Every student must earn 15 additional CMP SCI 3000+ credits, above the required courses
+                                            listed below, to graduate.
+                                        </span>
+                                    </span>
+                                </label>
+                                {% if (15 - (min_3000_course * 3)) >= 15 %}
+                                    <span class="credit-count-success" >{{ 15 - (min_3000_course * 3)}}</span>
+                                {% else %}
+                                    <span class="credit-count" id = "fail">{{ 15 - (min_3000_course * 3)}}</span>
+                                {% endif %}
+                                <span class = "credit-minimum">/ 15</span>
+                        {% endif %}
                     </div>
 
                     <!-- Total Credits-->
@@ -113,14 +161,14 @@
                             {% if total_credits >= 120 %}
                                 <span class="credit-count-success">{{ total_credits }}</span>
                             {% else %}
-                                <span class="credit-count">{{ total_credits }}</span>
+                                <span class="credit-count" id = "fail">{{ total_credits }}</span>
                             {% endif %}
                             <span class = "credit-minimum">/ 120</span>
                     </div>
 
-                        <!-- Graduation Check-->
+                    <!-- Graduation Check-->
                     <div class = "credit-category">
-                        <label>Requirements Met for Graduation
+                        <label>Requirements for Graduation
                             <span class="tooltip">
                                     <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                                         <span class="tooltiptext">
@@ -130,16 +178,19 @@
                                 </span>
                         </label>
                             {% if is_graduated == True %}
-                                <span class="credit-count-success">{{ is_graduated }}</span>
+                                <span class="credit-count-success">Met</span>
                             {% else %}
-                                <span class="credit-count">{{ is_graduated }}</span>
+                                <span class="credit-count" id = "fail">Unmet</span>
                             {% endif %}
                     </div>
 
                         <div class="grad-class-list">
-                            <span class="tooltip"> <p id = "progress">See Progress</p>
+                            <span class="tooltip"> <p id = "progress">Required Course Progress</p>
                                 <span class="tooltiptext">
                                     Required Courses
+                                    {% if certificates_display[0] != "None" %}
+                                         - including {{ certificates_display[0] }} Core Courses
+                                    {% endif %}
                                     <ul class="class-grid">
                                         {% for course in required_courses_tuple_display %}
                                             {%  if course in list_of_required_courses_taken %}
@@ -237,6 +288,7 @@
             </div>
         {% endif %}
         <input type="hidden" name="waived_courses" value="{{ waived_courses }}">
+        <input type="hidden" name="total_elective_credits" value="{{ total_elective_credits }}">
         <input type="hidden" name="current_semester" value="{{ current_semester }}">
         <input type="hidden" id="courses_taken" name="courses_taken" value="{{ courses_taken }}">
         <input type="hidden" name="semesters" value="{{ semesters }}">
