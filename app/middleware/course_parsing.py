@@ -1052,7 +1052,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "semester_number": semester,
         "waived_courses": waived_courses,
         "current_semester": current_semester,
-        "minimum_semester_credits": list(map(lambda x: x, range(3, 22))) if current_semester.lower() != "summer" else list(map(lambda x: x, range(0, 10))),
+        "minimum_semester_credits": list(map(lambda x: x, range(3, 22))) if current_semester.lower() != "summer" else list(map(lambda x: x, range(0, 13))),
         "min_3000_course": min_3000_course_still_needed,
         "include_summer": include_summer,
         "certificate_choice": json.dumps(certificate_choice),
