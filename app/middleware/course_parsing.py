@@ -576,6 +576,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 courses_taken.append("MATH 1030")
             if "MATH 1035" not in courses_taken:
                 courses_taken.append("MATH 1035")
+            courses_taken.append("ALEKS")
 
         # convert required courses dictionary to list for easier processing
         required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
