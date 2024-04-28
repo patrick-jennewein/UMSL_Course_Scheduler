@@ -63,6 +63,8 @@ def build_prerequisites(course: dict) -> list:
                     prereqs_list.append(prereq)
                 elif (prereq.startswith('CMP SCI') or prereq.startswith('MATH')):
                     prereqs_list.append([prereq])
+                elif ("ALEKS" in prereq):
+                    prereqs_list.append(["ALEKS"])
 
     # flatten lists of >1 length to keep consistency
     if len(prereqs_list) == 1 and isinstance(prereqs_list[0], list):
@@ -493,6 +495,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     courses_taken = []
     waived_courses = None
     required_courses_dict_list = []
+    has_passed_math_placement_exam = False
 
     # set up certificate variables
     # certificate_option = False
@@ -514,6 +517,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         if ("courses_taken" in request.form.keys()):
             courses_taken = request.form.getlist("courses_taken")
+
+        if ("aleks_check" in request.form.keys()):
+            has_passed_math_placement_exam = True
 
         # Do we need separate selects for waived/taken courses or should we combine them to one?
         # If they say taken, do we need to add the credits to the total accumulated credits?
@@ -560,6 +566,16 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 del required_courses_dict[course]
             except:
                 print(f"Course: {course} was not found in the required_courses_dict")
+
+        if has_passed_math_placement_exam:
+            if "MATH 1030" in required_courses_dict:
+                del required_courses_dict["MATH 1030"]
+            if "MATH 1035" in required_courses_dict:
+                del required_courses_dict["MATH 1035"]
+            if "MATH 1030" not in courses_taken:
+                courses_taken.append("MATH 1030")
+            if "MATH 1035" not in courses_taken:
+                courses_taken.append("MATH 1035")
 
         # convert required courses dictionary to list for easier processing
         required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
@@ -1030,6 +1046,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     print("Required Courses Taken ", number_of_required_courses_taken)
     print("Min 3000+ courses ", min_3000_course_still_needed)
     print("Required courses taken", list_of_required_courses_taken)
+    print("courses taken", courses_taken)
 
 
     return {
@@ -1039,7 +1056,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "total_credits": total_credits_accumulated,
         "course_schedule": json.dumps(course_schedule),
         "course_schedule_display": course_schedule,
-        "courses_taken": courses_taken,
+        "courses_taken": json.dumps(courses_taken),
         "semester_number": semester,
         "waived_courses": waived_courses,
         "current_semester": current_semester,
