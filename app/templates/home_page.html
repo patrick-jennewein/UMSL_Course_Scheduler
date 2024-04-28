@@ -89,10 +89,9 @@
                     </span>
                 </label>
                 <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
-                <br>
+                <br><br><br>
 
-                <br><br>
-
+                <!-- hidden variables -->
                 <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
                 <input type="hidden" name="semester_number" value="{{ semester_number }}">
                 <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
@@ -110,10 +109,26 @@
                 <input type="hidden" name="is_graduated" value = "{{ is_graduated }}">
                 <input type="hidden" name="required_courses_tuple" value = "{{ required_courses_tuple }}">
                 <input type="hidden" name="number_of_required_courses_taken" value = {{ number_of_required_courses_taken }}>
+
                 <!-- submit buttons-->
                 <div class = "buttons">
-                    <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule (by Semester)">
+                    <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
                     <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+                </div>
+                <br>
+
+                <!-- Tutorial -->
+                <div class = "help">
+                    <span class="tooltip">
+                        <i style="font-size:13px" class="fa" class="fas fa-question-circle">See Tutorial</i>
+                        <span class="tooltiptext">
+                            <h1>Welcome to the USML Scheduling App!</h1>
+                            <h2>What are the features?</h2>
+                            <a href ="https://www.umsl.edu/cmpsci/certificates/undergraduate-certificates.html" target="_blank">
+                                Learn More
+                            </a>
+                        </span>
+                    </span>
                 </div>
             </div>
             <div class="second-form" id = "form-container-2">

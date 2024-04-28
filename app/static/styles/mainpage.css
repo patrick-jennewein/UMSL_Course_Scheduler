@@ -8,7 +8,7 @@ body {
     padding: 20px;
     margin: 320px 20px 20px 20px;
 }
-.semester-schedules label a:link, a:visited, a:active, a:focus, a:hover{
+.semester-schedules label a{
     color: #a80b2d;
     text-decoration: none;
     display: inline-block;
