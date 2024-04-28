@@ -119,74 +119,86 @@
 
                 <!-- Tutorial -->
                 <div class = "help">
-                    <span class="tooltip">
-                        <i style="font-size:13px" class="fa" class="fas fa-question-circle">See Tutorial</i>
-                        <span class="tooltiptext">
-                            <h1>Welcome to the University of Missouri - St. Louis Scheduling App!</h1>
-                            <h3>This tool is to help current and future UMSL Computer Science students plan their program so that they may meet
-                                their course requirements.</h3>
-                            <!-- Features -->
-                            <h2>Features</h2>
-                            <p>On this app, students can input their desired parameters for the completion of the Bachelors of Science in Computer Science. This includes the following:</p>
-                            <ul>
-                                <li><strong>Certificate Options:</strong> Choose between several certificate options, building your schedule around the required and elective courses of this path.</li>
-                                <li><strong>Starting Semester:</strong> Input your desired semester (Fall, Spring, or Summer), and the app will determine the next available semester for you to begin your studies.</li>
-                                <li><strong>Minimum Credits per Semester:</strong> Set your minimum credit requirement for the first semester, and the app will calculate the earliest semester in which you can achieve this, adjusting as necessary.</li>
-                                <li><strong>Summer Semester:</strong> Take advantage of summer classes with our app, which will integrate them into your schedule.</li>
-                                <li><strong>Earned Credit:</strong> Your schedule will be tailored to account for any credits you've already earned, including waived courses, required courses, general electives, and free electives.</li>
-                                <li><strong>Two Schedule Generation Options:</strong> Choose between generating your schedule semester-by-semester or generating a full schedule. Details provided below.</li>
-                                <li><strong>Optimized Course Balance:</strong> Our scheduling algorithm ensures that your generated schedules strike a balance, preventing overloaded semesters with an excessive focus on one discipline. Free electives and general education credits are strategically integrated throughout your schedule.</li>
-                                <li><strong>Easy Printing:</strong> Print your course schedule with ease using the "Print" button located at the top of each schedule generation page.</li>
-                            </ul>
+                    <a href="javascript:void(0)"
+                       onclick="document.getElementById('light').style.display='block';
+                       document.getElementById('fade').style.display='block'">
+                        <p>See Tutorial</p>
+                    </a>
+                    <div id="light" class="tutorial_popup">
+                        <h1>Welcome to the University of Missouri - St. Louis Scheduling App!</h1>
+                        <h3>This tool is to help current and future UMSL Computer Science students plan their program so that they may meet
+                            their course requirements.</h3>
+                        <!-- Features -->
+                        <h2>Features</h2>
+                        <p>On this app, students can input their desired parameters for the completion of the Bachelors of Science in Computer Science. This includes the following:</p>
+                        <ul>
+                            <li><strong>Certificate Options:</strong> Choose between several certificate options, building your schedule around the required and elective courses of this path.</li>
+                            <li><strong>Starting Semester:</strong> Input your desired semester (Fall, Spring, or Summer), and the app will determine the next available semester for you to begin your studies.</li>
+                            <li><strong>Minimum Credits per Semester:</strong> Set your minimum credit requirement for the first semester, and the app will calculate the earliest semester in which you can achieve this, adjusting as necessary.</li>
+                            <li><strong>Summer Semester:</strong> Take advantage of summer classes with our app, which will integrate them into your schedule.</li>
+                            <li><strong>Earned Credit:</strong> Your schedule will be tailored to account for any credits you've already earned, including waived courses, required courses, general electives, and free electives.</li>
+                            <li><strong>Two Schedule Generation Options:</strong> Choose between generating your schedule semester-by-semester or generating a full schedule. Details provided below.</li>
+                            <li><strong>Optimized Course Balance:</strong> Our scheduling algorithm ensures that your generated schedules strike a balance, preventing overloaded semesters with an excessive focus on one discipline. Free electives and general education credits are strategically integrated throughout your schedule.</li>
+                            <li><strong>Easy Printing:</strong> Print your course schedule with ease using the "Print" button located at the top of each schedule generation page.</li>
+                        </ul>
 
-                            <!-- The Two Schedule Types-->
-                            <h2>Create a Schedule Semester-by-Semester</h2>
-                            <p>
-                                Create your schedule step-by-step with our semester-by-semester scheduling feature.
-                                Tailor each semester according to your preferences by selecting the desired number of credits as you progress.
-                                This flexible approach empowers you to craft a personalized schedule that aligns perfectly with your academic and personal commitments,
-                                ensuring a balanced and manageable workload every step of the way.
-                                In addition, a running ticker in the top-right corner will ensure that you are on track with your core courses, general electives, free electives,
-                                total credits, and any other requirements.
-                            </p>
-                            <h2>Create a Full Schedule at Once</h2>
-                            <p>
-                                Streamline your path to graduation with our automatic full schedule generation feature.
-                                Our advanced algorithm meticulously constructs a comprehensive schedule optimized for efficiency,
-                                automatically assigning the least possible number of credits. Help us guide you through your entire program,
-                                ensuring a smooth and efficient schedule.
-                            </p>
+                        <!-- The Two Schedule Types-->
+                        <h2>Create a Schedule Semester-by-Semester</h2>
+                        <p>
+                            Create your schedule step-by-step with our semester-by-semester scheduling feature.
+                            Tailor each semester according to your preferences by selecting the desired number of credits as you progress.
+                            This flexible approach empowers you to craft a personalized schedule that aligns perfectly with your academic and personal commitments,
+                            ensuring a balanced and manageable workload every step of the way.
+                            In addition, a running ticker in the top-right corner will ensure that you are on track with your core courses, general electives, free electives,
+                            total credits, and any other requirements.
+                        </p>
+                        <h2>Create a Full Schedule at Once</h2>
+                        <p>
+                            Streamline your path to graduation with our automatic full schedule generation feature.
+                            Our advanced algorithm meticulously constructs a comprehensive schedule optimized for efficiency,
+                            automatically assigning the least possible number of credits. Help us guide you through your entire program,
+                            ensuring a smooth and efficient schedule.
+                        </p>
 
-                            <!-- Drag and Drop -->
-                            <h2>Refine Your Schedule with Drag-and-Drop</h2>
-                            <p>
-                                Refine your schedule to perfection even after it is generated with our intuitive drag-and-drop feature.
-                                Fine-tune your timetable by effortlessly moving courses around to better suit your preferences and
-                                optimize your schedule.
-                                Should any conflicts arise, our system has you covered – if a course placement is invalid,
-                                a red box will appear around the affected course, accompanied by a clear explanation detailing
-                                why it cannot occupy that particular slot. Enjoy unparalleled flexibility and peace of mind as you
-                                craft the ideal schedule tailored to your needs, backed by our robust error detection system.
-                            </p>
+                        <!-- Drag and Drop -->
+                        <h2>Refine Your Schedule with Drag-and-Drop</h2>
+                        <p>
+                            Refine your schedule to perfection even after it is generated with our intuitive drag-and-drop feature.
+                            Fine-tune your timetable by effortlessly moving courses around to better suit your preferences and
+                            optimize your schedule.
+                            Should any conflicts arise, our system has you covered – if a course placement is invalid,
+                            a red box will appear around the affected course, accompanied by a clear explanation detailing
+                            why it cannot occupy that particular slot. Enjoy unparalleled flexibility and peace of mind as you
+                            craft the ideal schedule tailored to your needs, backed by our robust error detection system.
+                        </p>
 
-                            <!-- Tool Tips-->
-                            <h2>Have Questions? See the Tooltips!</h2>
-                            <p>
-                                Discover more about our scheduling app by simply hovering over the "?" tooltips scattered throughout the interface.
-                                These informative tooltips offer instant clarification on any feature or function you may have questions about.
-                                Whether you're uncertain about a specific term or need additional guidance on using a particular tool,
-                                our tooltips are here to provide the answers you need, right when you need them.
-                            </p>
+                        <!-- Tool Tips-->
+                        <h2>Have Questions? See the Tooltips!</h2>
+                        <p>
+                            Discover more about our scheduling app by simply hovering over the "?" tooltips scattered throughout the interface.
+                            These informative tooltips offer instant clarification on any feature or function you may have questions about.
+                            Whether you're uncertain about a specific term or need additional guidance on using a particular tool,
+                            our tooltips are here to provide the answers you need, right when you need them.
+                        </p>
 
-                            <!-- Disclaimer-->
-                            <h2>Disclaimers</h2>
-                            <ul>
-                                <li><strong>Consult your Academic Advisor!</strong> This course scheduling tool is not an official schedule. Users should consult with academic advisors for guidance on course selection and scheduling.</li>
-                                <li><strong>Register Online!</strong> Selecting courses and sections is for planning purposes only and does not register a student in those courses.</li>
-                            </ul>
-                        </span>
-                    </span>
+                        <!-- Disclaimer-->
+                        <h2>Disclaimers</h2>
+                        <ul>
+                            <li><strong>Consult your Academic Advisor!</strong> This course scheduling tool is not an official schedule. Users should consult with academic advisors for guidance on course selection and scheduling.</li>
+                            <li><strong>Register Online!</strong> Selecting courses and sections is for planning purposes only and does not register a student in those courses.</li>
+                        </ul>
+                        <br><br>
+                        <div class = "close">
+                            <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';
+                            document.getElementById('fade').style.display='none'">
+                                Close this tutorial
+                            </a>
+                        </div>
+                    </div>
+                    <div id="fade" class="black_overlay"></div>
+
                 </div>
+
             </div>
             <div class="second-form" id = "form-container-2">
                 <!-- Select waived courses-->
