@@ -163,3 +163,4 @@ function handleCertSelect(selectedElement) {
 
     mobile_cert_check(cert_value);
 }
+

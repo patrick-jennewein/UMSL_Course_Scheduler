@@ -24,8 +24,7 @@
     border: 1px solid white;
     border-radius: 5px;
     padding: 5px;
-    background-color: rgba(255, 255, 255, 0.9);.
-    min-width: 200px;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 .tooltiptext a:hover{
     text-decoration: none;
@@ -71,6 +70,56 @@
     visibility: visible;
     opacity: 1;
 }
+
+/* tooltip for help*/
+.help .tooltip {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    color: black;
+}
+.help .tooltip .tooltiptext {
+    color: black;
+    visibility: hidden;
+    width: 70vw;
+    background-color: rgba(255, 255, 255, 1);
+    text-align: left;
+    border-radius: 20px;
+    position: fixed;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.6s;
+    padding: 20px;
+    border: 7px solid lightgray;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y:auto
+}
+.help .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.help .tooltip .tooltiptext::-webkit-scrollbar {
+    width: 5px;
+    position: relative;
+}
+.help .tooltip .tooltiptext::-webkit-scrollbar-track {
+    border-radius: 300px;
+}
+.help .tooltip .tooltiptext::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 30px;
+    max-height: 300px;
+    border-color: gray;
+}
+.help .tooltip .tooltiptext::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 
 /* styles for smaller screens */
 @media screen and (max-width: 940px) {
