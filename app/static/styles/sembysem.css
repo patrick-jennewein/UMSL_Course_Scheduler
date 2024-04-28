@@ -91,24 +91,6 @@ span{
     justify-content: center;
 }
 
-/* rollover of required course list */
-.grad-class-list p{
-    border: 1px solid black;
-    padding: 10px;
-    font-family: "Roboto Condensed", sans-serif;
-    border-radius: 5px;
-    text-align: center;
-    font-size: small;
-    width: 100%;
-    font-weight: 400;
-    background-color: #f0f0f0;
-}
-.grad-class-list p:hover{
-    transition: 0.5s;
-    color: lightgray;
-    background-color: #a80b2d;
-}
-
 /* the actual grid of classes in grad-class-list*/
 .class-grid {
     list-style-type: none;
@@ -132,11 +114,11 @@ span{
 /* styles for the actual grid of classes, taken or not taken*/
 #course-taken{
     color: black;
-    background-color: #66FF00;
+    background-color: green;
 }
 #course-not-taken{
     color: white;
-    background-color: red;
+    background-color: #a80b2d;
 }
 
 /* styles for smaller screens */

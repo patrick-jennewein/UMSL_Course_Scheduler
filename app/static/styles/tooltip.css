@@ -40,35 +40,10 @@
     right: calc(100% + 10px)
 }
 
-/* rollover required list tooltips */
-.grad-class-list .tooltip{
-    width: auto;
-}
 
 /* counter bar tooltips */
 .credit-category ul{
     text-align: left;
-}
-
-/* requirements list tooltips */
-.grad-class-list .tooltip .tooltiptext {
-    visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
-    text-align: center;
-    border-radius: 20px;
-    opacity: 0;
-    transition: opacity 0.6s;
-    padding: 20px;
-    border: 3px solid lightgray;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-}
-.grad-class-list .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
 }
 
 /* button to open up tutorial*/
@@ -89,7 +64,7 @@
   background-color: #a80b2d;
 }
 
-/* pop up styles*/
+/* tutorial pop up styles*/
 .black_overlay {
   display: none;
   position: absolute;
@@ -117,6 +92,18 @@
     z-index: 1002;
     overflow: auto;
 }
+.right-counter .tutorial_popup{
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    z-index: 1002;
+    overflow: auto;
+    translate(-50%, -50%)
+    height: auto;
+}
+
+/* close pop up*/
 .close{
     display: flex;
     justify-content: center;
@@ -133,6 +120,46 @@
     transition: 0.5s;
     color: lightgray;
     background-color: #a80b2d;
+}
+
+/* close for required popups*/
+.right-counter .help a{
+    text-decoration: none;
+}
+.right-counter .help a p{
+    border: 1px solid black;
+    padding: 10px;
+    font-family: "Roboto Condensed", sans-serif;
+    border-radius: 5px;
+    text-align: center;
+    font-size: small;
+    width: 100%;
+    font-weight: 400;
+    background-color: #f0f0f0;
+    color: black;
+    text-decoration: none;
+}
+.right-counter .help a p:hover{
+    transition: 0.5s;
+    color: lightgray;
+    background-color: #a80b2d;
+}
+.right-counter .close{
+    display: flex;
+    justify-content: center;
+}
+.right-counter .close a{
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    color: black;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.right-counter .close a:hover{
+    transition: 0.5s;
+    color: lightgray;
 }
 
 /* styles for smaller screens */
@@ -166,4 +193,3 @@
 .help::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-
