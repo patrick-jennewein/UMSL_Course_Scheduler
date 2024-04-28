@@ -192,11 +192,12 @@
                                 <p>Required Courses Progress</p>
                             </a>
                             <div id="light" class="tutorial_popup">
-                                <h1>Required Courses
+                                <h1>Required Courses</h1>
+                                <h3>
                                     {% if certificates_display[0] != "None" %}
-                                         - including {{ certificates_display[0] }} Core Courses
+                                         (Includes {{ certificates_display[0] }} Certificate Core Courses)
                                     {% endif %}
-                                </h1>
+                                </h3>
                                 <!-- List the courses, both taken and not taken-->
                                 <ul class="class-grid">
                                     {% for course in required_courses_tuple_display %}

@@ -113,7 +113,7 @@ span{
 
 /* styles for the actual grid of classes, taken or not taken*/
 #course-taken{
-    color: black;
+    color: white;
     background-color: green;
 }
 #course-not-taken{
