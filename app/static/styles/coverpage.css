@@ -109,3 +109,20 @@
   text-align: center;
   width: 100%;
 }
+
+.help h1, h3{
+  text-align: center;
+}
+
+h1{
+  color: #a80b2d;
+}
+
+h3{
+  color: black;
+}
+
+strong{
+  color: #a80b2d;
+  text-decoration: underline;
+}
