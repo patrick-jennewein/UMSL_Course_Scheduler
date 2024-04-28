@@ -619,11 +619,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         certificate_choice_xml_tag = certificate_choice[1]
         TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = int(request.form["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"])
 
-        # courses_taken is returned as a string (that looks like an array), so we have to convert it to a list
         if ("courses_taken" in request.form.keys()):
-            courses_taken = request.form["courses_taken"][1:-1]  # removes the '[]' from the string
-            courses_taken = courses_taken.replace("'", "")  # removes the string characters around each course
-            courses_taken = courses_taken.split(", ")  # creates a list delimited by commas
+            courses_taken = json.loads(request.form["courses_taken"])
 
         required_courses_tuple = json.loads(request.form["required_courses_tuple"])
         list_of_required_courses_taken = json.loads(request.form["list_of_required_courses_taken"])
@@ -1051,7 +1048,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "total_credits": total_credits_accumulated,
         "course_schedule": json.dumps(course_schedule),
         "course_schedule_display": course_schedule,
-        "courses_taken": courses_taken,
+        "courses_taken": json.dumps(courses_taken),
         "semester_number": semester,
         "waived_courses": waived_courses,
         "current_semester": current_semester,
