@@ -1040,7 +1040,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     print("Required courses taken", list_of_required_courses_taken)
     print("courses taken", courses_taken)
 
-
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(courses_dict_list_unchanged),

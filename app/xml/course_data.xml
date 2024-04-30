@@ -997,6 +997,18 @@
             <prerequisite_description>Prerequisites: MATH 1030 (may be taken concurrently) or a satisfactory score on the UMSL Math Placement Examination obtained at most one year prior to enrollment in this course.</prerequisite_description>
 			<course_description>This course is a study of the trigonometric and inverse trigonometric functions with emphasis on trigonometric identities and equations.</course_description>
 		</course>
+        <course>
+			<subject>MATH</subject>
+			<course_number>1045</course_number>
+			<course_name>Pre-Calculus</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code>D, E, O</time_code>
+			</rotation_term>
+			<credit>5</credit>
+            <prerequisite_description>Prerequisites: A satisfactory score on the UMSL Math Placement Examination, obtained at most one year prior to enrollment in this course.</prerequisite_description>
+			<course_description>This course is intended for students planning to take MATH 1800. It covers a range of topics including polynomials, logarithms, and complex numbers; functions and their graphs; systems of equations and inequalities; trigonometry; and more. fulfills the University's general education mathematics proficiency requirement. This course fulfills the University's general education mathematics proficiency requirement</course_description>
+		</course>
 		<course>
 			<subject>MATH</subject>
 			<course_number>1320</course_number>
