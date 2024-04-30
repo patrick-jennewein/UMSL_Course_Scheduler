@@ -547,10 +547,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         # generate required courses
         required_courses_dict = json.loads(request.form['required_courses_dict'])
 
-        # remove University course - INTDSC 1003 - if user has required credits
-        if total_credits_accumulated >= 24:
-            del required_courses_dict['INTDSC 1003']
-
         # if a certificate was selected, add the required certificate courses to required courses and update counters
         if certificate_core:
             num_courses_in_base_csdeg = len(required_courses_dict)
@@ -561,6 +557,28 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             # update counters according to certificate selection
             min_3000_course_still_needed -= num_3000_replaced_by_cert_core
 
+        # remove University course - INTDSC 1003 - if user has required credits
+        if total_credits_accumulated >= 24:
+            del required_courses_dict['INTDSC 1003']
+        ## Remove optional courses if they are no longer required due to courses already taken
+        if ('ENGLISH 3130' in courses_taken) and ('ENGLISH 1100' not in courses_taken):
+            del required_courses_dict['ENGLISH 1100']
+        if ('MATH 1800' in courses_taken):
+            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in required_courses_dict):
+                del required_courses_dict["MATH 1030"]
+            if ("MATH 1035" in required_courses_dict) and ('MATH 1035' not in courses_taken) and ("MATH 1035" in required_courses_dict):
+                del required_courses_dict["MATH 1035"]
+        if ('MATH 1030' in courses_taken) and ('MATH 1035' in courses_taken) and ('MATH 1045' not in courses_taken) and ("MATH 1045" in required_courses_dict):
+            del required_courses_dict["MATH 1045"]
+        if ('MATH 1045' in courses_taken) and (('MATH 1030' not in courses_taken) or ('MATH 1035' not in courses_taken)):
+            if "MATH 1030" in required_courses_dict:
+                del required_courses_dict["MATH 1030"]
+            if "MATH 1035" in required_courses_dict:
+                del required_courses_dict["MATH 1035"]
+        # MATH 1100 is only required for CMP SCI 4732
+        if ('CMP SCI 4732' not in required_courses_dict.keys()) and ('MATH 1100' not in courses_taken) and ("MATH 1100" in required_courses_dict):
+            del required_courses_dict["MATH 1100"]
+        
         for course in courses_taken:
             try:
                 del required_courses_dict[course]
