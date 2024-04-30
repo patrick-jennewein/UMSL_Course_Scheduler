@@ -1,4 +1,13 @@
 .full-schedule-scheduler .semester-schedules {
     padding: 20px;
     margin: 20px;
+    margin-top: 350px;
+}
+
+@media screen and (max-width: 940px) {
+    .full-schedule-scheduler .semester-schedules {
+        padding: 20px;
+        margin: 20px;
+        margin-top: 400px;
+    }
 }
