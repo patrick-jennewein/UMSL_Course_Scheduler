@@ -201,7 +201,7 @@
                                 <!-- List the courses, both taken and not taken-->
                                 <ul class="class-grid">
                                     {% for course in required_courses_tuple_display %}
-                                        {%  if course in list_of_required_courses_taken %}
+                                        {%  if course in courses_taken %}
                                             <li id = "course-taken">{{ course }}</li>
                                         {% else %}
                                             <li id = "course-not-taken">{{ course }}</li>
@@ -332,7 +332,5 @@
         <input type="hidden" name="fe_taken" value = "{{ fe_taken }}">
         <input type="hidden" name="ge_taken" value = "{{ ge_taken }}">
         <input type = "hidden" name = "required_courses_tuple" value = "{{ required_courses_tuple }}">
-        <input type = "hidden" name = "number_of_required_courses_taken" value = "{{ number_of_required_courses_taken }}">
-        <input type = "hidden" name = "list_of_required_courses_taken" value = "{{ list_of_required_courses_taken }}">
     </form>
 </html>

@@ -51,8 +51,6 @@ def index():
                            fe_taken = 0,
                            is_graduated = False,
                            required_courses_tuple = json.dumps([]),
-                           number_of_required_courses_taken = 0,
-                           list_of_required_courses_taken = json.dumps([]),
                            certificate_choice = json.dumps([])
     )
 
@@ -91,6 +89,7 @@ def schedule_generator():
                             course_schedule=render_info["course_schedule"],
                             course_schedule_display=render_info["course_schedule_display"],
                             courses_taken=render_info["courses_taken"],
+                            list_of_required_courses_taken_display = render_info["list_of_required_courses_taken_display"],
                             semester_number=render_info["semester_number"],
                             waived_courses=render_info["waived_courses"],
                             current_semester=render_info["current_semester"],
@@ -116,9 +115,6 @@ def schedule_generator():
                             fe_taken = render_info['fe_taken'],
                             is_graduated = render_info['is_graduated'],
                             required_courses_tuple = render_info['required_courses_tuple'],
-                            number_of_required_courses_taken = render_info['number_of_required_courses_taken'],
-                            list_of_required_courses_taken = render_info['list_of_required_courses_taken'],
                             required_courses_tuple_display = render_info["required_courses_tuple_display"],
-                            list_of_required_courses_taken_display = render_info["list_of_required_courses_taken_display"],
                             total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"]
     )

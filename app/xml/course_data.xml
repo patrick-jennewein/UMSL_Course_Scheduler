@@ -44,6 +44,7 @@
 			</rotation_term>
 			<course_description>This course is for recently declared undergraduate students majoring in Computer Science or Computing Technology. Topics may include resources that are available on campus and in the department, career opportunities, choosing the right degree, and exploration of concepts, skills and practices that are essential for successful careers. This course should be taken by freshmen and transfers within the first two semesters of declaring the major.</course_description>
             <prerequisite_description>No prerequisites. </prerequisite_description>
+			<required>true</required>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -81,6 +82,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1030 with a B- or better, or MATH 1045 with B- or better, or MATH 1100 (can be taken concurrently), or MATH 1800 (can be taken concurrently), or a 70% on the proctored UMSL Math Placement obtained at most one year prior to enrollment in this course. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -106,6 +108,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisite: CMP SCI 1250. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -134,6 +137,7 @@
 			<concurrent>
 				CMP SCI 2250
 			</concurrent>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -162,6 +166,7 @@
 			<concurrent>
 				CMP SCI 2250
 			</concurrent>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -191,6 +196,7 @@
 			<concurrent>
 				CMP SCI 2700
 			</concurrent>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -219,6 +225,7 @@
 			<concurrent>
 				CMP SCI 2250
 			</concurrent>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -246,6 +253,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2250, MATH 1320, and MATH 3000. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -275,6 +283,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261 and CMP SCI 3010, or graduate standing. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -302,6 +311,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2700, CMP SCI 2750, CMP SCI 3130, and CMP SCI 4250, or graduate standing. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -325,6 +335,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261, CMP SCI 3010, and MATH 3000. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -350,6 +361,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750 and CMP SCI 3130; or graduate standing. </prerequisite_description>
+			<required>true</required>
 		</course>
 	</CoreCourses>
 	<Electives>
@@ -549,6 +561,18 @@
 			</rotation_term>
 			<course_description>This course covers programming using the Python language and related libraries. The course explores problem solving using Python's support of procedural, object-oriented, and functional approaches to programming. Topics may include NumPy arrays, visualization, Pandas DataFrames, and selected functions from statistical and scientific packages.
 			</course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>CMP SCI 1250</and_required>
+					<and_required>MATH 1100</and_required>
+					<and_required>MATH 1320</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>CMP SCI 1250</and_required>
+					<and_required>MATH 1800</and_required>
+					<and_required>MATH 1320</and_required>
+				</or_choice>
+			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 1250 and (MATH 1100 or MATH 1800) and (ANTHRO 3220/SOC 3220 or BIOL 4122 or CRIMIN 2220 or ECON 3100 or MATH 1320 or POL SCI 3000 or PSYCH 2201). </prerequisite_description>
 		</course>
 		<course>
@@ -1029,6 +1053,7 @@
             <prerequisite_description>Prerequisites: MATH 1030 or MATH 1045 or consent of instructor. </prerequisite_description>
 			<paired>MATH 1105</paired>
 			<paired>MATH 1310</paired>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1065,6 +1090,7 @@
 				<additional_preq>a satisfactory ACT Math score along with a satisfactory score on the university\x27s trigonometry examination, or a satisfactory score on both the university\x27s mathematics proficiency examination and the university\x27s trigonometry examination.</additional_preq>
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1030 and MATH 1035, or MATH 1045, or a satisfactory score on the UMSL Math Placement Examination, obtained at most one year prior to enrollment in this course, or consent of instructor. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1090,6 +1116,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisite: MATH 1800. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1118,6 +1145,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisite: MATH 1100 or MATH 1900. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1148,6 +1176,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1800 or MATH 1100, and CMP SCI 1250 or equivalent. </prerequisite_description>
+			<required>true</required>
 		</course>
 	</MathandStatistics>
 	<OtherCourses>
@@ -1211,6 +1240,7 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: ENGL 1100 or equivalent (3-6 hours) and 48 credit hours. </prerequisite_description>
+			<required>true</required>
 		</course>
 	</OtherCourses>
 </CSBSReq>

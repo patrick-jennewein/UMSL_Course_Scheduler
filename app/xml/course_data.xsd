@@ -49,6 +49,7 @@
             <xs:enumeration value="CMP SCI"/>
             <xs:enumeration value="MATH"/>
             <xs:enumeration value="ENGLISH"/>
+            <xs:enumeration value="INTDSC"/>
           </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -72,6 +73,7 @@
       <xs:element type="prerequisiteType" name="prerequisite"/>
       <xs:element type="xs:string" name="concurrent"/>
       <xs:element type="xs:string" name="paired"/>
+      <xs:element type="xs:boolean" name="required"/>
     </xs:choice>
   </xs:complexType>
   <xs:complexType name="or_choiceType" mixed="true">

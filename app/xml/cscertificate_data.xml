@@ -29,6 +29,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2250, MATH 1320, and MATH 3000. </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -51,6 +52,7 @@
                 </prerequisite>
                 <prerequisite_description>The list of topics may include search, planning, knowledge-based reasoning, probabilistic inference, machine learning, natural language processing, and practical applications. Credit cannot be granted for both CMP SCI 4300 and CMP SCI 5300.</prerequisite_description>
                 <paired>CMP SCI 5300</paired>
+                <required>true</required>
             </course>
         </CertCore>
         <CertElectives>
@@ -226,6 +228,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2250.</prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -251,6 +254,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2750 and MATH 1320, or graduate standing. </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -274,6 +278,7 @@
                 </prerequisite>
                 <paired>CMP SCI 5782</paired>
                 <prerequisite_description>Prerequisites: CMP SCI 2750 and, CMP SCI 3702 or INFSYS 3848, or consent of instructor. </prerequisite_description>
+                <required>true</required>
             </course>
         </CertCore>
         <CertElectives>
@@ -519,7 +524,20 @@
                 </rotation_term>
                 <course_description>This course covers programming using the Python language and related libraries. The course explores problem solving using Python's support of procedural, object-oriented, and functional approaches to programming. Topics may include NumPy arrays, visualization, Pandas DataFrames, and selected functions from statistical and scientific packages.
                 </course_description>
+                <prerequisite>
+                    <or_choice>
+                        <and_required>CMP SCI 1250</and_required>
+                        <and_required>MATH 1100</and_required>
+                        <and_required>MATH 1320</and_required>
+                    </or_choice>
+                    <or_choice>
+                        <and_required>CMP SCI 1250</and_required>
+                        <and_required>MATH 1800</and_required>
+                        <and_required>MATH 1320</and_required>
+                    </or_choice>
+                </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 1250 and (MATH 1100 or MATH 1800) and (ANTHRO 3220/SOC 3220 or BIOL 4122 or CRIMIN 2220 or ECON 3100 or MATH 1320 or POL SCI 3000 or PSYCH 2201). </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -546,6 +564,7 @@
                 </prerequisite>
                 <paired>CMP SCI 5340</paired>
                 <prerequisite_description>Prerequisites: CMP SCI 4342, or CMP SCI 2261 and CMP SCI 3130, or consent of instructor. </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -572,6 +591,7 @@
                 </prerequisite>
                 <paired>CMP SCI 5342</paired>
                 <prerequisite_description>Prerequisites: CMP SCI 2261 and CMP SCI 3130, or CMP SCI 4200, or consent of the instructor. </prerequisite_description>
+                <required>true</required>
             </course>
         </CertCore>
         <CertElectives>
@@ -823,6 +843,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2250. </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -841,6 +862,7 @@
                 </prerequisite>
                 <paired>CMP SCI 5020</paired>
                 <prerequisite_description>Prerequisite: CMP SCI 2261.</prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -864,6 +886,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2261 or INFSYS 3806 or graduate standing.</prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -886,6 +909,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2750 and, CMP SCI 3702 OR INFSYS 3848, or consent of instructor. </prerequisite_description>
+                <required>true</required>
             </course>
         </CertCore>
         <CertElectives>
@@ -1027,6 +1051,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2250 (can be taken concurrently) or students with familiarity with basic data structures may enroll with consent of instructor. </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -1056,6 +1081,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 3010 and either CMP SCI 2261 or INFSYS 3806; or graduate standing. </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -1073,6 +1099,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 3010. </prerequisite_description>
+                <required>true</required>
             </course>
             <course>
                 <subject>CMP SCI</subject>
@@ -1091,6 +1118,7 @@
                     </or_choice>
                 </prerequisite>
                 <prerequisite_description>Prerequisites: CMP SCI 2261 and CMP SCI 3010. </prerequisite_description>
+                <required>true</required>
             </course>
         </CertCore>
         <CertElectives>
