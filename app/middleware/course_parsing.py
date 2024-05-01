@@ -487,6 +487,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     waived_courses = None
     required_courses_dict_list = []
     has_passed_math_placement_exam = False
+    is_graduated = False
 
     # set up certificate variables
     # certificate_option = False
@@ -622,6 +623,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         user_semesters = request.form["semesters"]
         include_summer = True if request.form["include_summer"] == "True" else False
         temp_min_credits_per_semester = int(request.form["saved_minimum_credits_selection"])
+        is_graduated = True if request.form["is_graduated"] == "True" else False
 
         certificate_choice = json.loads(request.form["certificate_choice"])
         certificate_choice_name = certificate_choice[0]
@@ -651,7 +653,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     current_semester_cs_math_credits_per_semester = 0
     current_CS_elective_credits_per_semester = 0
     is_course_generation_complete = False
-    is_graduated = False
 
     # create header for console
     if(generate_complete_schedule):
@@ -662,344 +663,371 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     print(f"Status:\t{'Num:':<15}{'Course Name:':<40} "
           f"{'Cr of Min:':<5}"
           f"{'Total':>15}/{TOTAL_CREDITS_FOR_GRADUATION}:")
+    
 
-    # loop through to generate a semester or a whole schedule
-    while (not is_course_generation_complete):
-        course_added = False
 
-        # first, attempt to add a required course
-        for index, x in enumerate(required_courses_dict_list):
-            course: str = x[0]  # holds course subject + number
-            course_info: dict = x[1]  # holds all other information about course
-            concurrent = None
-            if "concurrent" in course_info.keys():
-                concurrent = course_info["concurrent"]
+    if not is_graduated:
+        # loop through to generate a semester or a whole schedule
+        while (not is_course_generation_complete):
+            course_added = False
 
-            # add course to schedule if not already added AND current semester doesn't have too many core credits
-            if (course not in courses_taken and current_semester_credits < max_core_credits_per_semester):
+            # first, attempt to add a required course
+            for index, x in enumerate(required_courses_dict_list):
+                course: str = x[0]  # holds course subject + number
+                course_info: dict = x[1]  # holds all other information about course
+                concurrent = None
+                if "concurrent" in course_info.keys():
+                    concurrent = course_info["concurrent"]
 
-                # if the course has no pre-requisites
-                if len(course_info["prerequisite"]) == 0:
-                    course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
-                        = add_course(
-                        current_semester, course_info, current_semester_classes, course, courses_taken,
-                        total_credits_accumulated, current_semester_credits, course_categories['R'])
+                # add course to schedule if not already added AND current semester doesn't have too many core credits
+                if (course not in courses_taken and current_semester_credits < max_core_credits_per_semester):
 
-                # if the course has at least one pre-requisite
-                else:
-                    # look up list of pre-requisites for current course
-                    course_added = False
-                    prereqs = course_info["prerequisite"]
+                    # if the course has no pre-requisites
+                    if len(course_info["prerequisite"]) == 0:
+                        course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
+                            = add_course(
+                            current_semester, course_info, current_semester_classes, course, courses_taken,
+                            total_credits_accumulated, current_semester_credits, course_categories['R'])
 
-                    # iterate through pre-requisites for the current course
-                    required_courses_taken = False
-                    for prereqs in course_info["prerequisite"]:
-                        # if there is only one pre-requisite (a string)
-                        if isinstance(prereqs, str):
-                            # ENGLISH 3130 has a special prerequisite of at least 56 credit hours before the class can be taken
-                            if (course == "ENGLISH 3130"):
-                                if (total_credits_accumulated >= 56) and (prereqs in courses_taken):
-                                    course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
-                                        = add_course(
-                                        current_semester, course_info, current_semester_classes, course, courses_taken,
-                                        total_credits_accumulated, current_semester_credits, course_categories['R']
-                                    )
-                                    break
+                    # if the course has at least one pre-requisite
+                    else:
+                        # look up list of pre-requisites for current course
+                        course_added = False
+                        prereqs = course_info["prerequisite"]
 
-                            # add the current course because pre-requisite has already been taken
-                            elif (prereqs in courses_taken) and (
-                                    # `not any(current...)` verifies the prereq is not in the current semester class list of dictionaries
-                                    (not any(current['course'] == prereqs for current in current_semester_classes)) or (prereqs == concurrent)):
-                                required_courses_taken = True
-                            else:
-                                required_courses_taken = False
-
-                        # if there is a list of pre-requisites
-                        else:
-                            # if there is only one pre-requisite
-                            if (len(prereqs) == 1):
-
-                                # add the current course because pre-requisite has already been taken
-                                if (prereqs[0] in courses_taken) and (
-                                        (not any(current['course'] == prereqs[0] for current in current_semester_classes))
-                                        or (prereqs[0] == concurrent)):
-                                    course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
-                                        current_semester, course_info, current_semester_classes, course, courses_taken,
-                                        total_credits_accumulated, current_semester_credits, course_categories['R']
-                                    )
-                                    break
-
-                            # if there is >1 pre-requisite
-                            else:
-                                # iterate through each pre-requisite
-                                for prereq in prereqs:
-                                    if (prereq in courses_taken) and (
-                                            # `not any(current...)` verifies the prereq is not in the current semester class list of dictionaries
-                                            (not any(current['course'] == prereq for current in current_semester_classes)) or (prereq == concurrent)):
-                                        required_courses_taken = True
-                                    else:
-                                        required_courses_taken = False
-                                    if not required_courses_taken:
+                        # iterate through pre-requisites for the current course
+                        required_courses_taken = False
+                        for prereqs in course_info["prerequisite"]:
+                            # if there is only one pre-requisite (a string)
+                            if isinstance(prereqs, str):
+                                # ENGLISH 3130 has a special prerequisite of at least 56 credit hours before the class can be taken
+                                if (course == "ENGLISH 3130"):
+                                    if (total_credits_accumulated >= 56) and (prereqs in courses_taken):
+                                        course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
+                                            = add_course(
+                                            current_semester, course_info, current_semester_classes, course, courses_taken,
+                                            total_credits_accumulated, current_semester_credits, course_categories['R']
+                                        )
                                         break
 
                                 # add the current course because pre-requisite has already been taken
-                                if required_courses_taken:
-                                    course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
-                                        current_semester, course_info, current_semester_classes, course, courses_taken,
-                                        total_credits_accumulated, current_semester_credits, course_categories['R']
-                                    )
+                                elif (prereqs in courses_taken) and (
+                                        # `not any(current...)` verifies the prereq is not in the current semester class list of dictionaries
+                                        (not any(current['course'] == prereqs for current in current_semester_classes)) or (prereqs == concurrent)):
+                                    required_courses_taken = True
+                                else:
                                     required_courses_taken = False
-                                    break
-                    if required_courses_taken:
-                        course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
-                            current_semester, course_info, current_semester_classes, course, courses_taken,
-                            total_credits_accumulated, current_semester_credits, course_categories['R']
-                        )
 
-                # if the course was added, update semester info
-                if course_added:
-                    current_semester_cs_math_credits_per_semester += int(course_info['credit'])
-                    print(f"Added: \t{course:<15}{course_info['course_name'][:40]:<40} "
-                          f"{current_semester_credits:<2} of {min_credits_per_semester:<2}"
-                          f"{total_credits_accumulated:>15}")
-                    
-                    is_graduated = graduation_check(
-                            total_credits_accumulated, required_courses_tuple,
-                            courses_taken, min_3000_course_still_needed,
-                            cert_elective_courses_still_needed, gen_ed_credits_still_needed)
+                            # if there is a list of pre-requisites
+                            else:
+                                # if there is only one pre-requisite
+                                if (len(prereqs) == 1):
 
-                    # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
-                    if (current_semester_credits >= min_credits_per_semester) or (generate_complete_schedule and is_graduated):
-                        current_semester_info = {
-                            'semester': current_semester,
-                            'semester_number': semester,
-                            'credits': current_semester_credits,
-                            'schedule': current_semester_classes,
-                            'year': semester_years[current_semester]
-                        }
-                        course_schedule.append(current_semester_info)
+                                    # add the current course because pre-requisite has already been taken
+                                    if (prereqs[0] in courses_taken) and (
+                                            (not any(current['course'] == prereqs[0] for current in current_semester_classes))
+                                            or (prereqs[0] == concurrent)):
+                                        course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
+                                            current_semester, course_info, current_semester_classes, course, courses_taken,
+                                            total_credits_accumulated, current_semester_credits, course_categories['R']
+                                        )
+                                        break
 
-                        # if only generating a semester stop here
-                        if not generate_complete_schedule:
-                            is_course_generation_complete = True
+                                # if there is >1 pre-requisite
+                                else:
+                                    # iterate through each pre-requisite
+                                    for prereq in prereqs:
+                                        if (prereq in courses_taken) and (
+                                                # `not any(current...)` verifies the prereq is not in the current semester class list of dictionaries
+                                                (not any(current['course'] == prereq for current in current_semester_classes)) or (prereq == concurrent)):
+                                            required_courses_taken = True
+                                        else:
+                                            required_courses_taken = False
+                                        if not required_courses_taken:
+                                            break
 
-                        # reset semester info
-                        current_semester_credits = 0
-                        current_semester_classes = []
-                        semester += 1
-                        current_semester_cs_math_credits_per_semester = 0
-                        current_CS_elective_credits_per_semester = 0
-                        current_semester = update_semester(current_semester, include_summer)
+                                    # add the current course because pre-requisite has already been taken
+                                    if required_courses_taken:
+                                        course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
+                                            current_semester, course_info, current_semester_classes, course, courses_taken,
+                                            total_credits_accumulated, current_semester_credits, course_categories['R']
+                                        )
+                                        required_courses_taken = False
+                                        break
+                        if required_courses_taken:
+                            course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
+                                current_semester, course_info, current_semester_classes, course, courses_taken,
+                                total_credits_accumulated, current_semester_credits, course_categories['R']
+                            )
 
-                        if is_graduated and generate_complete_schedule:
-                            is_course_generation_complete = True
-                            break
-                        else:
-                            if(current_semester == first_semester):
-                                semester_years = {key: value + 1 for key, value in semester_years.items()}
-                                print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
-                            # ensure summer credit hours are not F/Sp credit hours
-                            if (current_semester == "Summer" and generate_complete_schedule):
-                                min_credits_per_semester = summer_credit_count
-                            elif (current_semester != "Summer" and generate_complete_schedule):
-                                min_credits_per_semester = temp_min_credits_per_semester
+                    # if the course was added, update semester info
+                    if course_added:
+                        current_semester_cs_math_credits_per_semester += int(course_info['credit'])
+                        print(f"Added: \t{course:<15}{course_info['course_name'][:40]:<40} "
+                            f"{current_semester_credits:<2} of {min_credits_per_semester:<2}"
+                            f"{total_credits_accumulated:>15}")
+                        
+                        is_graduated = graduation_check(
+                                total_credits_accumulated, required_courses_tuple,
+                                courses_taken, min_3000_course_still_needed,
+                                cert_elective_courses_still_needed, gen_ed_credits_still_needed)
 
-                    required_courses_dict_list.pop(index)
-                    break
+                        # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
+                        if (current_semester_credits >= min_credits_per_semester) or (generate_complete_schedule and is_graduated):
+                            current_semester_info = {
+                                'semester': current_semester,
+                                'semester_number': semester,
+                                'credits': current_semester_credits,
+                                'schedule': current_semester_classes,
+                                'year': semester_years[current_semester]
+                            }
+                            course_schedule.append(current_semester_info)
 
-        # second, if a required course was NOT added above, add some kind of elective
-        if (not course_added):
+                            # if only generating a semester stop here
+                            if not generate_complete_schedule:
+                                is_course_generation_complete = True
 
-            # if user CANNOT take 3000+ level class, due to needing more credit
-            if total_credits_accumulated < credits_for_3000_level:
-                if gen_ed_credits_still_needed >= DEFAULT_CREDIT_HOURS:
-                    current_semester_classes.append(add_gen_ed_elective())
-                    gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
-                    print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
-                          f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                          f"{total_credits_accumulated + 3:>15}")
+                            # reset semester info
+                            current_semester_credits = 0
+                            current_semester_classes = []
+                            semester += 1
+                            current_semester_cs_math_credits_per_semester = 0
+                            current_CS_elective_credits_per_semester = 0
+                            current_semester = update_semester(current_semester, include_summer)
+
+                            if is_graduated and generate_complete_schedule:
+                                is_course_generation_complete = True
+                                break
+                            else:
+                                if(current_semester == first_semester):
+                                    semester_years = {key: value + 1 for key, value in semester_years.items()}
+                                    print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
+                                # ensure summer credit hours are not F/Sp credit hours
+                                if (current_semester == "Summer" and generate_complete_schedule):
+                                    min_credits_per_semester = summer_credit_count
+                                elif (current_semester != "Summer" and generate_complete_schedule):
+                                    min_credits_per_semester = temp_min_credits_per_semester
+
+                        required_courses_dict_list.pop(index)
+                        break
+
+            # second, if a required course was NOT added above, add some kind of elective
+            if (not course_added):
+                # if user CANNOT take 3000+ level class, due to needing more credit
+                if total_credits_accumulated < credits_for_3000_level:
+                    if gen_ed_credits_still_needed >= DEFAULT_CREDIT_HOURS:
+                        current_semester_classes.append(add_gen_ed_elective())
+                        gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
+                        print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
+                            f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                            f"{total_credits_accumulated + 3:>15}")
+                    else:
+                        current_semester_classes.append(add_free_elective())
+                        free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
+                        print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} "
+                            f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                            f"{total_credits_accumulated + 3:>15}")
+                # if user CAN take 3000+ level classes
                 else:
-                    current_semester_classes.append(add_free_elective())
-                    free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
-                    print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} "
-                          f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                          f"{total_credits_accumulated + 3:>15}")
+                    # user elects for a certificate
+                    if certificate_choice_xml_tag != "":
+                        """
+                        check to ensure enough room is in schedule for another CMP SCI class based on 4 conditions:
+                            1. The amount of CMP SCI 3000 elective credit is less than pre-determined maximum
+                            2. Total credit count of CS/MATH is less than pre-determined maximum 
+                            3. There are still CMP SCI 3000 electives to take
+                            4. There are still certificate electives to take
 
-            # if user CAN take 3000+ level classes
-            else:
-                # user elects for a certificate
-                if certificate_choice_xml_tag != "":
-                    """
-                    check to ensure enough room is in schedule for another CMP SCI class based on 4 conditions:
-                        1. The amount of CMP SCI 3000 elective credit is less than pre-determined maximum
-                        2. Total credit count of CS/MATH is less than pre-determined maximum 
-                        3. There are still CMP SCI 3000 electives to take
-                        4. There are still certificate electives to take
+                        if all 4 four conditions fail, add a General Education elective or Free Elective
+                        """
+                        # condition 1 and 2
+                        if (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
+                                current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3):
+                            # condition 3: if non-elective 3000-level courses are still needed, add these primarily
+                            if min_3000_course_still_needed > 0:
+                                current_semester_classes.append({
+                                        'course': "CMP SCI 3000+",
+                                        'name': '[User Selects]',
+                                        'description': '',
+                                        'credits': 3,
+                                        'category': 'CS Elective',
+                                        'passed_validation': True
+                                    })
 
-                    if all 4 four conditions fail, add a General Education elective or Free Elective
-                    """
-                    # condition 1 and 2
-                    if (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
-                            current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3):
-                        # condition 3: if non-elective 3000-level courses are still needed, add these primarily
-                        if min_3000_course_still_needed > 0:
+                                # increment current semester credits, decrement courses needed
+                                current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
+                                current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
+                                min_3000_course_still_needed -= 1
+                                print(f"Added: \t{'COMP SCI 3000+':<15}{'[User Selects]':<40} "
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                    f"{total_credits_accumulated + 3:>15}")
+
+                            # condition 4: if elective 3000-level courses are still needed, add these secondarily
+                            elif cert_elective_courses_still_needed > 0:
+                                current_semester_classes.append({
+                                        'course': f"CMP SCI {certificate_choice_name} Elective",
+                                        'name': '[User Selects]',
+                                        'description': '',
+                                        'credits': 3,
+                                        'category': course_categories['C'],
+                                        'passed_validation': True
+                                    })
+
+                                # increment current semester credits, decrement courses needed
+                                current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
+                                current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
+                                cert_elective_courses_still_needed -= 1
+                                print(f"Added: \t{'CMP SCI CERT':<15}{'[User Selects]':<40} "
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                    f"{total_credits_accumulated + 3:>15}")
+
+                            # all 4 conditions fail.
+                            # add a general education elective
+                            elif gen_ed_credits_still_needed > 0:
+                                current_semester_classes.append(add_gen_ed_elective())
+                                print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                    f"{total_credits_accumulated + 3:>15}")
+                                gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
+                            # add a free elective
+                            else:
+                                current_semester_classes.append(add_free_elective())
+                                free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
+                                print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} " 
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}" 
+                                    f"{total_credits_accumulated + 3:>15}")
+
+                        # if condition 1 or 2 fail, add a type of elective for balance
+                        else:
+                            if gen_ed_credits_still_needed > 0:
+                                current_semester_classes.append(add_gen_ed_elective())
+                                gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
+                                print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                    f"{total_credits_accumulated + 3:>15}")
+                            else:
+                                current_semester_classes.append(add_free_elective())
+                                free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
+                                print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} "
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                    f"{total_credits_accumulated + 3:>15}")
+
+
+                    # user does NOT elect for a certificate
+                    elif certificate_choice_xml_tag == "":
+                        """
+                        check to ensure enough room is in schedule for another CMP SCI class based on 3 conditions:
+                            1. There are still CMP SCI 3000 electives to take
+                            2. The amount of CMP SCI 3000 elective credit is less than pre-determined maximum
+                            3. Total credit count of CS/MATH is less than pre-determined maximum 
+                        """
+                        # condition 1, 2, and 3
+                        if min_3000_course_still_needed > 0 and \
+                                (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
+                                current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3):
                             current_semester_classes.append({
-                                    'course': "CMP SCI 3000+",
-                                    'name': '[User Selects]',
-                                    'description': '',
-                                    'credits': 3,
-                                    'category': 'CS Elective',
-                                    'passed_validation': True
-                                })
-
-                            # increment current semester credits, decrement courses needed
+                                'course': "CMP SCI 3000+",
+                                'name': '[User Selects]',
+                                'description': '',
+                                'credits': 3,
+                                'category': course_categories['E'],
+                                'passed_validation': True
+                            })
                             current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
                             current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
                             min_3000_course_still_needed -= 1
-                            print(f"Added: \t{'COMP SCI 3000+':<15}{'[User Selects]':<40} "
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                  f"{total_credits_accumulated + 3:>15}")
+                            print(f"Added: \t{'CMP SCI 3000+':<15}{'[User Selects]':<40} "
+                                f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                f"{total_credits_accumulated + 3:>15}")
 
-                        # condition 4: if elective 3000-level courses are still needed, add these secondarily
-                        elif cert_elective_courses_still_needed > 0:
-                            current_semester_classes.append({
-                                    'course': f"CMP SCI {certificate_choice_name} Elective",
-                                    'name': '[User Selects]',
-                                    'description': '',
-                                    'credits': 3,
-                                    'category': course_categories['C'],
-                                    'passed_validation': True
-                                })
-
-                            # increment current semester credits, decrement courses needed
-                            current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
-                            current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
-                            cert_elective_courses_still_needed -= 1
-                            print(f"Added: \t{'CMP SCI CERT':<15}{'[User Selects]':<40} "
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                  f"{total_credits_accumulated + 3:>15}")
-
-                        # all 4 conditions fail.
-                        # add a general education elective
-                        elif gen_ed_credits_still_needed > 0:
-                            current_semester_classes.append(add_gen_ed_elective())
-                            print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                  f"{total_credits_accumulated + 3:>15}")
-                            gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
-                        # add a free elective
+                        # if condition 1, 2, or 3 fail, add a type of elective for balance
                         else:
-                            current_semester_classes.append(add_free_elective())
-                            free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
-                            print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} " 
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}" 
-                                  f"{total_credits_accumulated + 3:>15}")
+                            if gen_ed_credits_still_needed > 0:
+                                current_semester_classes.append(add_gen_ed_elective())
+                                gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
+                                print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                    f"{total_credits_accumulated + 3:>15}")
+                            else:
+                                current_semester_classes.append(add_free_elective())
+                                free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
+                                print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} "
+                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                    f"{total_credits_accumulated + 3:>15}")
 
-                    # if condition 1 or 2 fail, add a type of elective for balance
+                # regardless of the type of elective, add the credits
+                total_credits_accumulated = total_credits_accumulated + DEFAULT_CREDIT_HOURS
+                current_semester_credits = current_semester_credits + DEFAULT_CREDIT_HOURS
+
+                is_graduated = graduation_check(
+                                total_credits_accumulated, required_courses_tuple,
+                                courses_taken, min_3000_course_still_needed,
+                                cert_elective_courses_still_needed, gen_ed_credits_still_needed)
+
+                # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
+                if (current_semester_credits >= min_credits_per_semester) or (generate_complete_schedule and is_graduated):
+                    current_semester_info = {
+                        'semester': current_semester,
+                        'semester_number': semester,
+                        'credits': current_semester_credits,
+                        'schedule': current_semester_classes,
+                        'year': semester_years[current_semester]
+                    }
+                    course_schedule.append(current_semester_info)
+
+                    # if only generating a semester stop here
+                    if not generate_complete_schedule:
+                        is_course_generation_complete = True
+
+                    # reset semester info
+                    current_semester_credits = 0
+                    current_semester_classes = []
+                    semester += 1
+                    current_semester_cs_math_credits_per_semester = 0
+                    current_CS_elective_credits_per_semester = 0
+                    current_semester = update_semester(current_semester, include_summer)
+
+                    if is_graduated and generate_complete_schedule:
+                        is_course_generation_complete = True
+                        break
                     else:
-                        if gen_ed_credits_still_needed > 0:
-                            current_semester_classes.append(add_gen_ed_elective())
-                            gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
-                            print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                  f"{total_credits_accumulated + 3:>15}")
-                        else:
-                            current_semester_classes.append(add_free_elective())
-                            free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
-                            print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} "
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                  f"{total_credits_accumulated + 3:>15}")
+                        if(current_semester == first_semester):
+                            semester_years = {key: value + 1 for key, value in semester_years.items()}
+                            print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
+                        # ensure summer credit hours are not F/Sp credit hours
+                        if (current_semester == "Summer" and generate_complete_schedule):
+                            min_credits_per_semester = summer_credit_count
+                        elif (current_semester != "Summer" and generate_complete_schedule):
+                            min_credits_per_semester = temp_min_credits_per_semester
+    else:
+        # If generating new semester after graduation requirements complete, generate empty semester
+        current_semester_info = {
+            'semester': current_semester,
+            'semester_number': semester,
+            'credits': current_semester_credits,
+            'schedule': current_semester_classes,
+            'year': semester_years[current_semester]
+        }
+        course_schedule.append(current_semester_info)
 
+        semester += 1
+        current_semester = update_semester(current_semester, include_summer)
 
-                # user does NOT elect for a certificate
-                elif certificate_choice_xml_tag == "":
-                    """
-                    check to ensure enough room is in schedule for another CMP SCI class based on 3 conditions:
-                        1. There are still CMP SCI 3000 electives to take
-                        2. The amount of CMP SCI 3000 elective credit is less than pre-determined maximum
-                        3. Total credit count of CS/MATH is less than pre-determined maximum 
-                    """
-                    # condition 1, 2, and 3
-                    if min_3000_course_still_needed > 0 and \
-                            (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
-                            current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3):
-                        current_semester_classes.append({
-                            'course': "CMP SCI 3000+",
-                            'name': '[User Selects]',
-                            'description': '',
-                            'credits': 3,
-                            'category': course_categories['E'],
-                            'passed_validation': True
-                        })
-                        current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
-                        current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
-                        min_3000_course_still_needed -= 1
-                        print(f"Added: \t{'CMP SCI 3000+':<15}{'[User Selects]':<40} "
-                              f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                              f"{total_credits_accumulated + 3:>15}")
-
-                    # if condition 1, 2, or 3 fail, add a type of elective for balance
-                    else:
-                        if gen_ed_credits_still_needed > 0:
-                            current_semester_classes.append(add_gen_ed_elective())
-                            gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
-                            print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                  f"{total_credits_accumulated + 3:>15}")
-                        else:
-                            current_semester_classes.append(add_free_elective())
-                            free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
-                            print(f"Added: \t{'FREE ELEC':<15}{'[User Selects]':<40} "
-                                  f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                  f"{total_credits_accumulated + 3:>15}")
-
-            # regardless of the type of elective, add the credits
-            total_credits_accumulated = total_credits_accumulated + DEFAULT_CREDIT_HOURS
-            current_semester_credits = current_semester_credits + DEFAULT_CREDIT_HOURS
-
-            is_graduated = graduation_check(
-                            total_credits_accumulated, required_courses_tuple,
-                            courses_taken, min_3000_course_still_needed,
-                            cert_elective_courses_still_needed, gen_ed_credits_still_needed)
-
-            # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
-            if (current_semester_credits >= min_credits_per_semester) or (generate_complete_schedule and is_graduated):
-                current_semester_info = {
-                    'semester': current_semester,
-                    'semester_number': semester,
-                    'credits': current_semester_credits,
-                    'schedule': current_semester_classes,
-                    'year': semester_years[current_semester]
-                }
-                course_schedule.append(current_semester_info)
-
-                # if only generating a semester stop here
-                if not generate_complete_schedule:
-                    is_course_generation_complete = True
-
-                # reset semester info
-                current_semester_credits = 0
-                current_semester_classes = []
-                semester += 1
-                current_semester_cs_math_credits_per_semester = 0
-                current_CS_elective_credits_per_semester = 0
-                current_semester = update_semester(current_semester, include_summer)
-
-                if is_graduated and generate_complete_schedule:
-                    is_course_generation_complete = True
-                    break
-                else:
-                    if(current_semester == first_semester):
-                        semester_years = {key: value + 1 for key, value in semester_years.items()}
-                        print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
-                    # ensure summer credit hours are not F/Sp credit hours
-                    if (current_semester == "Summer" and generate_complete_schedule):
-                        min_credits_per_semester = summer_credit_count
-                    elif (current_semester != "Summer" and generate_complete_schedule):
-                        min_credits_per_semester = temp_min_credits_per_semester
+        if(current_semester == first_semester):
+                            semester_years = {key: value + 1 for key, value in semester_years.items()}
+                            print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
 
     if (current_semester != "Summer" and not generate_complete_schedule):
         min_credits_per_semester = temp_min_credits_per_semester
+
+    minimum_semester_credits = None
+
+    if is_graduated:
+        minimum_semester_credits = list(map(lambda x: x, range(0, 1)))
+    elif current_semester == "Summer":
+        minimum_semester_credits = list(map(lambda x: x, range(0, 13)))
+    else:
+        minimum_semester_credits = list(map(lambda x: x, range(3, 22)))
     
     print()
     print()
@@ -1056,7 +1084,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "semester_number": semester,
         "waived_courses": waived_courses,
         "current_semester": current_semester,
-        "minimum_semester_credits": list(map(lambda x: x, range(3, 22))) if current_semester.lower() != "summer" else list(map(lambda x: x, range(0, 13))),
+        "minimum_semester_credits": minimum_semester_credits,
         "min_3000_course": min_3000_course_still_needed,
         "include_summer": include_summer,
         "certificate_choice": json.dumps(certificate_choice),
