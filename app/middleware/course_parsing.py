@@ -566,23 +566,24 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 del required_courses_dict["MATH 1030"]
             if "MATH 1035" in required_courses_dict:
                 del required_courses_dict["MATH 1035"]
+        # MATH 1045 is redundant if MATH 1030 and MATH 1035 are going to be courses used
+        if ('MATH 1045' not in courses_taken) and ('MATH 1030' in required_courses_dict) and ('MATH 1035' in required_courses_dict) and ("MATH 1045" in required_courses_dict):
+            del required_courses_dict["MATH 1045"]
         # MATH 1100 is only required for CMP SCI 4732
         if ('CMP SCI 4732' not in required_courses_dict.keys()) and ('MATH 1100' not in courses_taken) and ("MATH 1100" in required_courses_dict):
             del required_courses_dict["MATH 1100"]
-
+        if has_passed_math_placement_exam:
+            if "MATH 1035" in required_courses_dict:
+                del required_courses_dict["MATH 1035"]
+            if "MATH 1045" in required_courses_dict:
+                del required_courses_dict["MATH 1045"]
+            courses_taken.append("ALEKS")
         # filter out all non-required courses and then return a just the course numbers as a list and convert that list to a tuple
         required_courses_tuple = tuple(sorted(({k:v for (k,v) in required_courses_dict.items() if "required" in v.keys() and v['required'] == 'true'}).keys()))
         
         for course in courses_taken:
-            try:
+            if course in required_courses_dict.keys():
                 del required_courses_dict[course]
-            except:
-                print(f"Course: {course} was not found in the required_courses_dict")
-
-        if has_passed_math_placement_exam:
-            if "MATH 1035" in required_courses_dict:
-                del required_courses_dict["MATH 1035"]
-            courses_taken.append("ALEKS")
 
         # convert required courses dictionary to list for easier processing
         required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
