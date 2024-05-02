@@ -479,6 +479,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # user enters credits for upcoming semester
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
+    summer_credit_count = int(request.form["minimum_summer_credits"])
     temp_min_credits_per_semester = None
 
     # set up scheduler variables, overwritten below
@@ -503,6 +504,10 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     if semester == 0:
         temp_min_credits_per_semester = min_credits_per_semester
         first_semester = request.form["current_semester"]
+
+        if (first_semester == "Summer"):
+            min_credits_per_semester = summer_credit_count
+
         semester_years = get_semester_years(first_semester)
         if "include_summer" in request.form.keys():
             include_summer = True if request.form["include_summer"] == "on" else False
@@ -552,16 +557,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         # remove University course - INTDSC 1003 - if user has required credits
         if total_credits_accumulated >= 24:
             del required_courses_dict['INTDSC 1003']
-        ## Remove optional courses if they are no longer required due to courses already taken
-        if ('ENGLISH 3130' in courses_taken) and ('ENGLISH 1100' not in courses_taken):
-            del required_courses_dict['ENGLISH 1100']
-        if ('MATH 1800' in courses_taken):
-            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in required_courses_dict):
-                del required_courses_dict["MATH 1030"]
-            if ("MATH 1035" in required_courses_dict) and ('MATH 1035' not in courses_taken) and ("MATH 1035" in required_courses_dict):
-                del required_courses_dict["MATH 1035"]
-        if ('MATH 1030' in courses_taken) and ('MATH 1035' in courses_taken) and ('MATH 1045' not in courses_taken) and ("MATH 1045" in required_courses_dict):
-            del required_courses_dict["MATH 1045"]
+        ## Handle MATH 1045 checks first because it's an unnecessary course if MATH 1030 and MATH 1035 exist
         if ('MATH 1045' in courses_taken) and (('MATH 1030' not in courses_taken) or ('MATH 1035' not in courses_taken)):
             if "MATH 1030" in required_courses_dict:
                 del required_courses_dict["MATH 1030"]
@@ -570,10 +566,20 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         # MATH 1045 is redundant if MATH 1030 and MATH 1035 are going to be courses used
         if ('MATH 1045' not in courses_taken) and ('MATH 1030' in required_courses_dict) and ('MATH 1035' in required_courses_dict) and ("MATH 1045" in required_courses_dict):
             del required_courses_dict["MATH 1045"]
+        ## Remove optional courses if they are no longer required due to courses already taken
+        if ('ENGLISH 3130' in courses_taken) and ('ENGLISH 1100' not in courses_taken) and ('ENGLISH 1100' in required_courses_dict):
+            del required_courses_dict['ENGLISH 1100']
+        if ('MATH 1800' in courses_taken):
+            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in required_courses_dict):
+                del required_courses_dict["MATH 1030"]
+            if ("MATH 1035" in required_courses_dict) and ('MATH 1035' not in courses_taken) and ("MATH 1035" in required_courses_dict):
+                del required_courses_dict["MATH 1035"]
         # MATH 1100 is only required for CMP SCI 4732
         if ('CMP SCI 4732' not in required_courses_dict.keys()) and ('MATH 1100' not in courses_taken) and ("MATH 1100" in required_courses_dict):
             del required_courses_dict["MATH 1100"]
         if has_passed_math_placement_exam:
+            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in required_courses_dict):
+                del required_courses_dict["MATH 1030"]
             if "MATH 1035" in required_courses_dict:
                 del required_courses_dict["MATH 1035"]
             if "MATH 1045" in required_courses_dict:
@@ -636,7 +642,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         required_courses_tuple = json.loads(request.form["required_courses_tuple"])
 
     # user enters credits for upcoming semester
-    min_credits_per_semester = int(request.form["minimum_semester_credits"])
+    # min_credits_per_semester = int(request.form["minimum_semester_credits"])
 
     # adjust credit ratios for scheduling
     max_core_credits_per_semester = math.ceil(min_credits_per_semester * 2/3)
@@ -645,7 +651,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # adjust credit parameters for scheduling
     credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
-    summer_credit_count = int(request.form["minimum_summer_credits"])
 
     # start with a blank semester
     current_semester_credits = 0
