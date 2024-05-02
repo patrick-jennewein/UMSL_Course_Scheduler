@@ -844,7 +844,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         """
                         # condition 1 and 2
                         if (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
-                                current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3):
+                                (current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3) or \
+                                 (max_CS_math_total_credits - 3) <= 0):
                             # condition 3: if non-elective 3000-level courses are still needed, add these primarily
                             if min_3000_course_still_needed > 0:
                                 current_semester_classes.append({
@@ -926,7 +927,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         # condition 1, 2, and 3
                         if min_3000_course_still_needed > 0 and \
                                 (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
-                                current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3):
+                                (current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3) or \
+                                 (max_CS_math_total_credits - 3) <= 0):
                             current_semester_classes.append({
                                 'course': "CMP SCI 3000+",
                                 'name': '[User Selects]',
@@ -1030,15 +1032,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         minimum_semester_credits = list(map(lambda x: x, range(0, 13)))
     else:
         minimum_semester_credits = list(map(lambda x: x, range(3, 22)))
-    
-    print()
-    print()
-    print(f"{current_semester=}")
-    print(f"{min_credits_per_semester=}")
-    print(f"{temp_min_credits_per_semester=}")
-    print(f"{summer_credit_count=}")
-    print()
-    print()
 
     print(f'{certificate_choice=}')
     #print(f'{certificate_option=}')
