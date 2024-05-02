@@ -641,14 +641,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         required_courses_tuple = json.loads(request.form["required_courses_tuple"])
 
-    # user enters credits for upcoming semester
-    # min_credits_per_semester = int(request.form["minimum_semester_credits"])
-
-    # adjust credit ratios for scheduling
-    max_core_credits_per_semester = math.ceil(min_credits_per_semester * 2/3)
-    max_CS_math_total_credits = min_credits_per_semester - 3
-    max_CS_elective_credits_per_semester = 6
-
     # adjust credit parameters for scheduling
     credits_for_3000_level = 60  # 3000+ level credits will not be taken before this many credits earned
 
@@ -675,6 +667,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         # loop through to generate a semester or a whole schedule
         while (not is_course_generation_complete):
             course_added = False
+
+            # adjust credit ratios for scheduling
+            max_core_credits_per_semester = math.ceil(min_credits_per_semester * 2/3)
+            max_CS_math_total_credits = min_credits_per_semester - 3
+            max_CS_elective_credits_per_semester = 6
 
             # first, attempt to add a required course
             for index, x in enumerate(required_courses_dict_list):
