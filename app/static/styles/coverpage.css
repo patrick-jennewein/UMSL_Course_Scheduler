@@ -146,6 +146,7 @@ strong{
   .form-container input[type = "text"]{
     display: inline-block;
     width: 140px;
+    font-size: 11px;
   }
   .form-container label, .form-container-2 label {
     display: inline-block;
