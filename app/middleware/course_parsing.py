@@ -702,9 +702,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         for prereqs in course_info["prerequisite"]:
                             # if there is only one pre-requisite (a string)
                             if isinstance(prereqs, str):
-                                # ENGLISH 3130 has a special prerequisite of at least 56 credit hours before the class can be taken
+                                # ENGLISH 3130 has a special prerequisite of at least 48 credit hours before the class can be taken
                                 if (course == "ENGLISH 3130"):
-                                    if (total_credits_accumulated >= 56) and (prereqs in courses_taken):
+                                    if (total_credits_accumulated >= 48) and (prereqs in courses_taken):
                                         course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
                                             = add_course(
                                             current_semester, course_info, current_semester_classes, course, courses_taken,

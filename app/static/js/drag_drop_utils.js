@@ -62,7 +62,7 @@ function dropFailedElementUpdate (should_add_warning, li_to_update, msg, course_
     }
 }
 
-function prereqVerification(course_info, course_num, semester_num, li_to_move, course_name, course_schedule, is_prereq_for_check = false, orig_course_num, orig_semester_num) {
+function prereqVerification(course_info, course_num, semester_num, li_to_move, required_courses_list, course_schedule, is_prereq_for_check = false, orig_course_num, orig_semester_num) {
     let li_to_update = li_to_move;
 
     let required_courses_taken = false;
@@ -168,7 +168,9 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
                             required_courses_taken = true;
                             return true;
                     } else {
-                        failed_message = `${course_num} prerequisite (${prereq[0]}) has to be completed prior to the selected semester!`;
+                        if (required_courses_list.includes(prereq[0])) {
+                            failed_message = `${course_num} prerequisite (${prereq[0]}) has to be completed prior to the selected semester!`;
+                        }
                         required_courses_taken = false;
                     }
                 } else {
@@ -179,7 +181,9 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
                             (new_semester_current_courses.includes(prereq_course) && (prereq_course === concurrent))) {
                                 required_courses_taken = true;
                         } else {
-                            failed_message = `${course_num} prerequisite (${prereq_course}) has to be completed prior to the selected semester!`;
+                            if (required_courses_list.includes(prereq_course)) {
+                                failed_message = `${course_num} prerequisite (${prereq_course}) has to be completed prior to the selected semester!`;
+                            }
                             required_courses_taken = false;
                         }
                         if (!required_courses_taken) {
@@ -193,11 +197,13 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
                 }
             } else {
                 if (course_num === "ENGLISH 3130") {
-                    if (!(credits_total_for_new_semester >= 56)) {
-                        failed_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 56 credit hours for the selected semester!";
+                    if (!(credits_total_for_new_semester >= 48)) {
+                        failed_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 48 credit hours for the selected semester!";
                         required_courses_taken = false;
                     } else if (!courses_taken_before_new_semester.includes(prereq)) {
-                        failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                        if (required_courses_list.includes(prereq)) {
+                            failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                        }
                         required_courses_taken = false;
                     } else {
                         required_courses_taken = true;
@@ -207,7 +213,9 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, c
                     (new_semester_current_courses.includes(prereq) && (prereq === concurrent)))) {
                         required_courses_taken = true;
                 } else {
-                    failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                    if (required_courses_list.includes(prereq)) {
+                        failed_message = `${course_num} prerequisite (${prereq}) has to be completed prior to the selected semester!`;
+                    }
                     required_courses_taken = false
                 }
             }
@@ -280,11 +288,17 @@ function drop(ev, course_element) {
 
             const required_courses_dict_list = JSON.parse(document.getElementById("required_courses_dict_list_unchanged").value);
 
-            required_courses_dict_list.some((course_array) => {
+            const required_courses_list = [];
+
+            required_courses_dict_list.forEach(course_and_info => {
+                required_courses_list.push(course_and_info[0])
+            });
+
+            required_courses_dict_list.forEach((course_array) => {
                 if (course_array[0] === course_num) {
                     course_info = course_array[1];
-                    return true;
                 }
+                required_courses_list.push(course_array[0])
             });
 
             let should_validate_prereqs = true;
@@ -298,7 +312,7 @@ function drop(ev, course_element) {
             }
 
             if ((course_info["prerequisite"].length != 0) && should_validate_prereqs) {
-                course_schedule = prereqVerification(course_info, course_num, semester_num, li_to_move, course_name, course_schedule, false, null, orig_semester_num);
+                course_schedule = prereqVerification(course_info, course_num, semester_num, li_to_move, required_courses_list, course_schedule, false, null, orig_semester_num);
             }
 
             course_prereqs_for = JSON.parse(document.getElementById("course_prereqs_for").value);
@@ -313,7 +327,7 @@ function drop(ev, course_element) {
                             return true;
                         }
                     });
-                    course_schedule = prereqVerification(prereq_for_course_info, prereq, semester_num, li_to_move, null, course_schedule, true, course_num, orig_semester_num);
+                    course_schedule = prereqVerification(prereq_for_course_info, prereq, semester_num, li_to_move, required_courses_list, course_schedule, true, course_num, orig_semester_num);
                 })
             }
         }        
