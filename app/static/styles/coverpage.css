@@ -142,6 +142,7 @@ strong{
     margin: 0 auto;
     text-align: center;
     width: 45%;
+    font-size: 11px;
   }
   .form-container input[type = "text"]{
     display: inline-block;
@@ -168,7 +169,7 @@ strong{
     font-size: 11px;
   }
   .cover-page-background .form-container .help a p{
-    font-size: 13px;
+    font-size: 11px;
     padding: 4px;
   }
 }

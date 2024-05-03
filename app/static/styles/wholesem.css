@@ -11,3 +11,9 @@
         margin-top: 400px;
     }
 }
+
+@media screen and (max-height: 1081px){
+    .full-schedule-scheduler .semester-schedules {
+        margin-top: 250px;
+    }
+}

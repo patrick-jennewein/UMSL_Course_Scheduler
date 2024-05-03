@@ -149,3 +149,44 @@ span{
   }
 }
 
+@media screen and (max-height: 1081px){
+    .counter-bar{
+        display: flex;
+        position: absolute;
+        top: 0;
+        align-items: center;
+        border: 8px solid #a80b2d;
+        background-color: rgba(255, 255, 255, 0.95);
+        font-size: 11px;
+        min-width: 0vw;
+    }
+    .counter-bar label {
+        width: 150px;
+    }
+    .counter-bar input[type = submit]{
+        padding: 4px;
+    }
+    .left-counter, .right-counter{
+        margin: 5px;
+    }
+    span{
+        display: inline-block;
+        width: 40px;
+        text-align: right;
+    }
+
+    /* buttons in the counter bar*/
+    .counter-bar input[type = submit]{
+        padding: 5px;
+        border-radius: 5px;
+        margin: 0 auto;
+        font-size: 11px;
+    }
+    .counter-bar label {
+        display: inline-block;
+        color: #a80b2d;
+        font-weight: 600;
+        width: 300px;
+    }
+}
+
