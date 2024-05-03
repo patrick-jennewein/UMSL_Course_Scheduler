@@ -97,7 +97,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .help i{
   font-family: "Roboto Condensed", sans-serif;
   border: 1px solid black;
@@ -108,20 +107,67 @@
   text-align: center;
   width: 100%;
 }
-
 .help h1, h3{
   text-align: center;
 }
-
 h1{
   color: #a80b2d;
 }
-
 h3{
   color: black;
 }
-
 strong{
   color: #a80b2d;
   text-decoration: underline;
+}
+
+/* styles for smaller screens*/
+@media screen and (max-height: 1081px) {
+  .form-container {
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px;
+    height: 450px;
+    font-size: 11px;
+  }
+  .form-container img {
+    width: 150px;
+    display: block;
+    margin: auto;
+  }
+  .form-container input[type = submit]{
+    border: 1px solid black;
+    padding: 4px;
+    border-radius: 5px;
+    margin: 0 auto;
+    text-align: center;
+    width: 45%;
+  }
+  .form-container input[type = "text"]{
+    display: inline-block;
+    width: 140px;
+  }
+  .form-container label, .form-container-2 label {
+    display: inline-block;
+    width: 250px;
+  }
+  .form-container select, .form-container-2 select {
+    display: inline-block;
+    width: 150px;
+    font-size: 11px;
+  }
+
+  /* styles for form display when clicked*/
+  .form-container-2{
+    display: inline;
+    height: 450px;
+    border-radius: 20px;
+    padding: 30px;
+    width: 420px;
+    font-size: 11px;
+  }
+  .cover-page-background .form-container .help a p{
+    font-size: 13px;
+    padding: 4px;
+  }
 }
