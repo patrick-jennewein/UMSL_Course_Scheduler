@@ -98,7 +98,9 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, r
                     }
                 }
             });
-            credits_total_for_new_semester = credits_total_for_new_semester + semester.credits;
+            if (semester.semester_number <= semester_num) {
+                credits_total_for_new_semester = credits_total_for_new_semester + semester.credits;
+            }
         });
     } else {
         li_to_update = document.getElementById(course_num)
@@ -139,7 +141,9 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, r
                         credits_to_remove = course_information.credits;
                     }
                 });
-                credits_total_for_new_semester = credits_total_for_new_semester + semester.credits - credits_to_remove;
+                if (semester.semester_number <= semester_num) {
+                    credits_total_for_new_semester = credits_total_for_new_semester + semester.credits - credits_to_remove;
+                }
                 if (semester_of_prereq_course) {
                     return true;
                 }
@@ -198,7 +202,7 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, r
             } else {
                 if (course_num === "ENGLISH 3130") {
                     if (!(credits_total_for_new_semester >= 48)) {
-                        failed_message = "ENGLISH 3130 does not meet it's criteria of a minimum of 48 credit hours for the selected semester!";
+                        failed_message = `ENGLISH 3130 does not meet it's criteria of a minimum of 48 credit hours for the selected semester! Currently at ${credits_total_for_new_semester} credits.`;
                         required_courses_taken = false;
                     } else if (!courses_taken_before_new_semester.includes(prereq)) {
                         if (required_courses_list.includes(prereq)) {
