@@ -18,7 +18,7 @@ span{
     min-width: 100vw;
     align-items: center;
     border-bottom: 8px solid #a80b2d;
-    background-color: rgba(255, 255, 255, 0.95)
+    background-color: rgba(255, 255, 255, 0.95);
 }
 .counter-bar label {
     display: inline-block;
@@ -135,7 +135,6 @@ span{
     display: none;
   }
   .left-counter, .right-counter{
-    width: 95vw;
     margin: 20px;
   }
   .left-counter{
@@ -149,7 +148,7 @@ span{
   }
 }
 
-@media screen and (max-height: 1081px){
+@media screen and (max-height: 900px){
     .counter-bar{
         display: flex;
         position: absolute;

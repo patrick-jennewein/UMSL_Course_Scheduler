@@ -122,7 +122,7 @@ strong{
 }
 
 /* styles for smaller screens*/
-@media screen and (max-height: 1081px) {
+@media screen and (max-height: 900px) {
   .form-container {
     border-radius: 20px;
     padding: 30px;

@@ -6,7 +6,7 @@ body {
 /* styles for both types of schedules*/
 .scheduler .semester-schedules {
     padding: 20px;
-    margin: 320px 20px 20px 20px;
+    margin-top: 320px;
 }
 .semester-schedules label a{
     color: #a80b2d;
@@ -113,8 +113,5 @@ body {
     padding: 0;
     margin-top: 450px;
   }
-}
-
-@media screen and (max-height: 1081px) {
 }
 
