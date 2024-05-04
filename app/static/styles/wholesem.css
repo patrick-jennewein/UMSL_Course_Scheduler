@@ -8,12 +8,12 @@
     .full-schedule-scheduler .semester-schedules {
         padding: 20px;
         margin: 20px;
-        margin-top: 400px;
+        margin-top: 175px;
     }
 }
 
 @media screen and (max-height: 900px){
     .full-schedule-scheduler .semester-schedules {
-        margin-top: 250px;
+        margin-top: 175px;
     }
 }

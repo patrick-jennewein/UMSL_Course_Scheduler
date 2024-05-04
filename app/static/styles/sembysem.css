@@ -149,12 +149,15 @@ span{
 }
 
 @media screen and (max-height: 900px){
+    .counter-bar select{
+        font-size: 11px;
+    }
     .counter-bar{
         display: flex;
         position: absolute;
         top: 0;
         align-items: center;
-        border: 8px solid #a80b2d;
+        border-bottom: 8px solid #a80b2d;
         background-color: rgba(255, 255, 255, 0.95);
         font-size: 11px;
         min-width: 0vw;
@@ -166,7 +169,7 @@ span{
         padding: 4px;
     }
     .left-counter, .right-counter{
-        margin: 5px;
+        margin: 20px;
     }
     span{
         display: inline-block;
@@ -186,6 +189,10 @@ span{
         color: #a80b2d;
         font-weight: 600;
         width: 300px;
+    }
+
+    .semester-schedules{
+        font-size: 11px;
     }
 }
 

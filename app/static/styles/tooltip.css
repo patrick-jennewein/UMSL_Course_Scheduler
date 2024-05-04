@@ -133,12 +133,12 @@
     font-family: "Roboto Condensed", sans-serif;
     border-radius: 5px;
     text-align: center;
-    font-size: small;
     width: 100%;
     font-weight: 400;
     background-color: #f0f0f0;
     color: black;
     text-decoration: none;
+    font-size: small;
 }
 .right-counter .help a p:hover{
     transition: 0.5s;
@@ -177,20 +177,13 @@
   }
 }
 
-/* scrollbar (no longer work, but saved for later use)*/
-.help::-webkit-scrollbar {
-    width: 5px;
-    position: relative;
-}
-.help::-webkit-scrollbar-track {
-    border-radius: 300px;
-}
-.help::-webkit-scrollbar-thumb {
-    background: gray;
-    border-radius: 30px;
-    max-height: 300px;
-    border-color: gray;
-}
-.help::-webkit-scrollbar-thumb:hover {
-    background: #555;
+@media screen and (max-height: 900px) {
+    .right-counter .help a p {
+        font-size: 11px;
+        padding: 5px;
+    }
+    .black_overlay {
+        width: 0;
+        height: 0;
+    }
 }
