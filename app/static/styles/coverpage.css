@@ -1,3 +1,7 @@
+/* styles for the front-page*/
+/* styles for the 'see tutorial' button*/
+/* styles for the 'required courses' button, re-used from the 'see tutorial' button*/
+
 .cover-page-background {
   display: flex;
   justify-content: center;
@@ -91,7 +95,8 @@
   display: none;
 }
 
-/* help */
+/* styles for the 'see tutorial' button*/
+/* this was reused for the 'required courses progress' button as well*/
 .help{
   display: flex;
   justify-content: center;
@@ -168,6 +173,9 @@ strong{
     width: 420px;
     font-size: 11px;
   }
+
+  /* styles for the 'see tutorial' button*/
+  /* this was reused for the 'required courses progress' button as well*/
   .cover-page-background .form-container .help a p{
     font-size: 11px;
     padding: 4px;
