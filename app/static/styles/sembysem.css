@@ -1,15 +1,24 @@
+/* styles relevant to the toolbar at the top of the page */
+/* styles relevant to only the semester-by-semester schedule generation */
+
 /* basic styles */
 span{
     display: inline-block;
     width: 40px;
     text-align: right;
 }
+
 /* holds the basic div class with everything for semester-by-semester */
 .scheduler {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
 }
+.scheduler .semester-schedules {
+    padding: 20px;
+    margin-top: 320px;
+}
+
 /* the top bar that holds all information: left, center, right*/
 .counter-bar{
     display: flex;
@@ -18,7 +27,7 @@ span{
     min-width: 100vw;
     align-items: center;
     border-bottom: 8px solid #a80b2d;
-    background-color: rgba(255, 255, 255, 0.95)
+    background-color: rgba(255, 255, 255, 0.95);
 }
 .counter-bar label {
     display: inline-block;
@@ -38,7 +47,7 @@ span{
     padding: 10px;
 }
 
-/* styles that change for when a reuqirement has been met*/
+/* styles that change for when a requirement has been met*/
 .credit-count-success{
     color: green;
     font-weight: 600;
@@ -76,22 +85,17 @@ span{
     color: lightgray;
     background-color: #a80b2d;
 }
+.grad-class-list, .continue-schedule{
+    display: flex;
+    justify-content: center;
+}
 
 /* UMSL logo */
 .counter-bar img{
     width: 100%;
 }
 
-/*
-.grad-class-list holds the hover effect for the required courses
-.continue-schedule holds the buttons "print", "continue schedule"
-*/
-.grad-class-list, .continue-schedule{
-    display: flex;
-    justify-content: center;
-}
-
-/* the actual grid of classes in grad-class-list*/
+/* the actual grid of classes in required-list of class*/
 .class-grid {
     list-style-type: none;
     display: grid;
@@ -135,7 +139,6 @@ span{
     display: none;
   }
   .left-counter, .right-counter{
-    width: 95vw;
     margin: 20px;
   }
   .left-counter{
@@ -147,5 +150,51 @@ span{
   .counter-bar input[type = submit]{
     width: auto;
   }
+}
+@media screen and (max-height: 900px){
+    .counter-bar select{
+        font-size: 11px;
+    }
+    .counter-bar{
+        display: flex;
+        position: absolute;
+        top: 0;
+        align-items: center;
+        border-bottom: 8px solid #a80b2d;
+        background-color: rgba(255, 255, 255, 0.95);
+        font-size: 11px;
+        min-width: 0vw;
+    }
+    .counter-bar label {
+        width: 150px;
+    }
+    .counter-bar input[type = submit]{
+        padding: 4px;
+    }
+    .left-counter, .right-counter{
+        margin: 20px;
+    }
+    span{
+        display: inline-block;
+        width: 40px;
+        text-align: right;
+    }
+
+    /* buttons in the counter bar*/
+    .counter-bar input[type = submit]{
+        padding: 5px;
+        border-radius: 5px;
+        margin: 0 auto;
+        font-size: 11px;
+    }
+    .counter-bar label {
+        display: inline-block;
+        color: #a80b2d;
+        font-weight: 600;
+        width: 300px;
+    }
+    .semester-schedules{
+        font-size: 11px;
+    }
 }
 

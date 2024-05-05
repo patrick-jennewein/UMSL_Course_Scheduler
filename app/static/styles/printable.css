@@ -1,3 +1,6 @@
+/* styles relevant ONLY to printable page*/
+/* no other styles are imported */
+
 h1{
     font-family: Arial;
     margin: 0;
