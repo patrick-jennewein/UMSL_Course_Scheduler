@@ -991,18 +991,18 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     current_CS_elective_credits_per_semester = 0
                     current_semester = update_semester(current_semester, include_summer)
 
+                    if(current_semester == first_semester):
+                        semester_years = {key: value + 1 for key, value in semester_years.items()}
+                        print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
+                    # ensure summer credit hours are not F/Sp credit hours
+                    if (current_semester == "Summer" and generate_complete_schedule):
+                        min_credits_per_semester = summer_credit_count
+                    elif (current_semester != "Summer" and generate_complete_schedule):
+                        min_credits_per_semester = temp_min_credits_per_semester
+
                     if is_graduated and generate_complete_schedule:
                         is_course_generation_complete = True
                         break
-                    else:
-                        if(current_semester == first_semester):
-                            semester_years = {key: value + 1 for key, value in semester_years.items()}
-                            print(f"\nNext Semester, {current_semester} {semester_years[current_semester]}")
-                        # ensure summer credit hours are not F/Sp credit hours
-                        if (current_semester == "Summer" and generate_complete_schedule):
-                            min_credits_per_semester = summer_credit_count
-                        elif (current_semester != "Summer" and generate_complete_schedule):
-                            min_credits_per_semester = temp_min_credits_per_semester
     else:
         # If generating new semester after graduation requirements complete, generate empty semester
         current_semester_info = {
