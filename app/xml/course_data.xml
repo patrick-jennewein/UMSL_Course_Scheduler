@@ -1207,6 +1207,7 @@
 				<time_code>D, E, O</time_code>
 			</rotation_term>
             <prerequisite_description>No prerequisites. </prerequisite_description>
+			<required>true</required>
 		</course>
 		<course>
 			<subject>ENGLISH</subject>
