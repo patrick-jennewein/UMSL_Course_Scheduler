@@ -10,33 +10,34 @@ def index():
     #num_3000_replaced_by_cert_core=0
     #cert_elective_courses_still_needed=0
     # create dictionaries for each course type
-    core_courses, elective_courses = parse_courses()
+    all_courses = parse_courses()
 
-    required_courses_list = []
-    for course in core_courses.items():
+    all_courses_list = []
+    for course in all_courses.items():
+        prerequisite_description = ""
+        if "prerequisite_description" in course[1].keys():
+            prerequisite_description = course[1]["prerequisite_description"]
         course_info = {
             "course": course[0],
             "credits": course[1]["credit"],
             "course_number": course[1]["course_number"],
-            "prerequisite_description": course[1]["prerequisite_description"]
+            "prerequisite_description": prerequisite_description
         }
-        required_courses_list.append(course_info)
+        all_courses_list.append(course_info)
     # sort required courses by course number
-    # required_courses_list = sorted(required_courses_list, key=lambda d: d["course_number"])
-    # required_courses_list = sorted(list(core_courses.keys()))
+    all_courses_list = sorted(all_courses_list, key=lambda d: d["course"])
 
     return render_template('index.html',
                            initial_load=True,
-                           required_courses=required_courses_list,
-                           required_courses_dict=json.dumps(core_courses),
-                           json_required_courses=json.dumps(required_courses_list),
+                           required_courses=all_courses_list,
+                           required_courses_dict=json.dumps(all_courses),
+                           json_required_courses=json.dumps(all_courses_list),
                            semesters=semesters,
                            certificates=certificates,
                            num_3000_replaced_by_cert_core=0,
                            cert_elective_courses_still_needed=0,
                            total_credits=0,
                            course_schedule=json.dumps([]),
-                           elective_courses=json.dumps(elective_courses),
                            include_summer=False,
                            semester_number=0,
                            minimum_semester_credits=list(map(lambda x: x, range(3, 22))), # create list for minimum credits dropdown
@@ -102,7 +103,6 @@ def schedule_generator():
                             cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"],
                             TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES=render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
                             saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
-                            elective_courses=render_info["elective_courses"],
                             gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
                             full_schedule_generation=render_info['full_schedule_generation'],
                             minimum_summer_credits=render_info['minimum_summer_credits'],

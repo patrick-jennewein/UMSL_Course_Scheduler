@@ -165,17 +165,13 @@ def parse_courses() -> dict:
     # create a dictionary with course information to further parse
     csbs_req = doc["CSBSReq"]
 
-    core_courses = build_dictionary(csbs_req["CoreCourses"]["course"])
-    math_courses = build_dictionary(csbs_req["MathandStatistics"]["course"])
-    other_courses = build_dictionary(csbs_req["OtherCourses"]["course"])
-    elective_courses = build_dictionary(csbs_req["Electives"]["course"])
-
-    # add math and other courses to core courses so that all BSCS requirements are included
-    core_courses.update(math_courses)
-    core_courses.update(other_courses)
+    all_courses = build_dictionary(csbs_req["Electives"]["course"])
+    all_courses.update(build_dictionary(csbs_req["OtherCourses"]["course"]))
+    all_courses.update(build_dictionary(csbs_req["MathandStatistics"]["course"]))
+    all_courses.update(build_dictionary(csbs_req["CoreCourses"]["course"]))
 
     # return finalized dictionary of the course type
-    return core_courses, elective_courses
+    return all_courses
 
 def parse_certificate(certificate_name) -> dict:
     """
@@ -465,7 +461,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     course_schedule = json.loads(request.form["course_schedule"])
     current_semester = request.form["current_semester"]
     semester = int(request.form["semester_number"])
-    elective_courses = json.loads(request.form["elective_courses"])
     generate_complete_schedule = True if "generate_complete_schedule" in request.form.keys() else False
     num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])  # default is 0
     first_semester = request.form["first_semester"]
@@ -568,13 +563,13 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         user_semesters = build_semester_list(current_semester, include_summer)
 
         # generate required courses
-        required_courses_dict = json.loads(request.form['required_courses_dict'])
+        all_courses_dict = json.loads(request.form['required_courses_dict'])
 
         # if a certificate was selected, add the required certificate courses to required courses and update counters
         if certificate_core:
-            num_courses_in_base_csdeg = len(required_courses_dict)
-            required_courses_dict.update(certificate_core)
-            num_3000_replaced_by_cert_core = len(required_courses_dict) - num_courses_in_base_csdeg
+            num_courses_in_base_csdeg = len(all_courses_dict)
+            all_courses_dict.update(certificate_core)
+            num_3000_replaced_by_cert_core = len(all_courses_dict) - num_courses_in_base_csdeg
             # print(f"{'3000+ Electives Used in Certificate':<40}{num_3000_replaced_by_cert_core}")
 
             # update counters according to certificate selection
@@ -583,16 +578,17 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         ############################################################################
         ### Note to self: after 'if' statements of course rules, loop through list to build course dictionary
         # filter out all non-required courses and then return a just the course numbers as a list and convert that list to a tuple
-        courses_for_graduation = sorted(({k:v for (k,v) in required_courses_dict.items() if "required" in v.keys() and v['required'] == 'true'}).keys())
+        courses_for_graduation = sorted(({k:v for (k,v) in all_courses_dict.items() if "required" in v.keys() and v['required'] == 'true'}).keys())
         required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
 
-        courses_to_add = []
+        print(f"{courses_for_graduation=}")
+
         for course in required_courses_tuple:
-            should_add_prereqs = initial_prerequisite_check(required_courses_dict, course, courses_taken, courses_for_graduation)
+            should_add_prereqs = initial_prerequisite_check(all_courses_dict, course, courses_taken, courses_for_graduation)
             temp_courses_to_add = []
             if should_add_prereqs:
                 print(f"{course=}")
-                for prereqs in required_courses_dict[course]["prerequisite"]:
+                for prereqs in all_courses_dict[course]["prerequisite"]:
                     required_courses_taken = False
                     if isinstance(prereqs, str):
                         if (prereqs not in courses_for_graduation) and (prereqs not in courses_taken):
@@ -607,7 +603,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     else:
                         # Potential improvement: Decide a better way to add prerequisites instead of just taking first pre
                         for prereq in prereqs:
-                            if (prereq not in required_courses_dict.keys()):
+                            if (prereq not in all_courses_dict.keys()):
                                 temp_courses_to_add = []
                                 break
                             if ((prereq not in courses_for_graduation) and (prereq not in courses_taken)):
@@ -619,68 +615,47 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # remove University course - INTDSC 1003 - if user has required credits
         if total_credits_accumulated >= 24:
-            del required_courses_dict['INTDSC 1003']
             courses_for_graduation.remove('INTDSC 1003') 
         ## Handle MATH 1045 checks first because it's an unnecessary course if MATH 1030 and MATH 1035 exist
         if ('MATH 1045' in courses_taken) and (('MATH 1030' not in courses_taken) or ('MATH 1035' not in courses_taken)):
-            if "MATH 1030" in required_courses_dict:
-                del required_courses_dict["MATH 1030"]
             if "MATH 1030" in courses_for_graduation:
                 courses_for_graduation.remove('MATH 1030')
-            if "MATH 1035" in required_courses_dict:
-                del required_courses_dict["MATH 1035"]
             if "MATH 1035" in courses_for_graduation:
                 courses_for_graduation.remove('MATH 1035')
         # MATH 1045 is redundant if MATH 1030 and MATH 1035 are going to be courses used
-        if ('MATH 1045' not in courses_taken) and ('MATH 1030' in required_courses_dict) and ('MATH 1035' in required_courses_dict) and ("MATH 1045" in required_courses_dict):
-            del required_courses_dict["MATH 1045"]
+        if ('MATH 1045' not in courses_taken) and ('MATH 1030' in courses_for_graduation) and ('MATH 1035' in courses_for_graduation) and ("MATH 1045" in courses_for_graduation):
+            courses_for_graduation.remove('MATH 1045')
+        ## Remove optional courses if they are no longer required due to courses already taken
+        if ('ENGLISH 3130' in courses_taken) and ('ENGLISH 1100' not in courses_taken) and ('ENGLISH 1100' in courses_for_graduation):
+            courses_for_graduation.remove('ENGLISH 1100')
+        if ('MATH 1800' in courses_taken):
+            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in courses_for_graduation):
+                courses_for_graduation.remove('MATH 1030')
+            if ("MATH 1035" in courses_for_graduation) and ('MATH 1035' not in courses_taken) and ("MATH 1035" in courses_for_graduation):
+                courses_for_graduation.remove('MATH 1035')
+        # MATH 1100 is only required for CMP SCI 4732
+        if ('CMP SCI 4732' not in courses_for_graduation) and ('MATH 1100' not in courses_taken) and ("MATH 1100" in courses_for_graduation):
+            courses_for_graduation.remove('MATH 1100')
+        if has_passed_math_placement_exam:
+            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in courses_for_graduation):
+                courses_for_graduation.remove('MATH 1030')
+            if "MATH 1035" in courses_for_graduation:
+                courses_for_graduation.remove('MATH 1035')
             if "MATH 1045" in courses_for_graduation:
                 courses_for_graduation.remove('MATH 1045')
-        ## Remove optional courses if they are no longer required due to courses already taken
-        if ('ENGLISH 3130' in courses_taken) and ('ENGLISH 1100' not in courses_taken) and ('ENGLISH 1100' in required_courses_dict):
-            del required_courses_dict['ENGLISH 1100']
-            if "ENGLISH 1100" in courses_for_graduation:
-                courses_for_graduation.remove('ENGLISH 1100')
-        if ('MATH 1800' in courses_taken):
-            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in required_courses_dict):
-                del required_courses_dict["MATH 1030"]
-                if "MATH 1030" in courses_for_graduation:
-                    courses_for_graduation.remove('MATH 1030')
-            if ("MATH 1035" in required_courses_dict) and ('MATH 1035' not in courses_taken) and ("MATH 1035" in required_courses_dict):
-                del required_courses_dict["MATH 1035"]
-                if "MATH 1035" in courses_for_graduation:
-                    courses_for_graduation.remove('MATH 1035')
-        # MATH 1100 is only required for CMP SCI 4732
-        if ('CMP SCI 4732' not in required_courses_dict.keys()) and ('MATH 1100' not in courses_taken) and ("MATH 1100" in required_courses_dict):
-            del required_courses_dict["MATH 1100"]
-            if "MATH 1100" in courses_for_graduation:
-                courses_for_graduation.remove('MATH 1100')
-        if has_passed_math_placement_exam:
-            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in required_courses_dict):
-                del required_courses_dict["MATH 1030"]
-                if "MATH 1030" in courses_for_graduation:
-                    courses_for_graduation.remove('MATH 1030')
-            if "MATH 1035" in required_courses_dict:
-                del required_courses_dict["MATH 1035"]
-                if "MATH 1035" in courses_for_graduation:
-                    courses_for_graduation.remove('MATH 1035')
-            if "MATH 1045" in required_courses_dict:
-                del required_courses_dict["MATH 1045"]
-                if "MATH 1045" in courses_for_graduation:
-                    courses_for_graduation.remove('MATH 1045')
             courses_taken.append("ALEKS")
-
-        print(f'{sorted(courses_for_graduation)=}')
-        print(f'{len(courses_for_graduation)=}')
-        print()
-        print()
-        print(f'{sorted(required_courses_dict.keys())=}')
-        print(f'{len(required_courses_dict.keys())=}')
         
         for course in courses_taken:
-            if course in required_courses_dict.keys():
-                del required_courses_dict[course]
+            if course in courses_for_graduation:
+                courses_for_graduation.remove(course)
 
+        required_courses_dict = {}
+        for course in courses_for_graduation:
+            course_dict = {
+                course: all_courses_dict[course]
+            }
+            required_courses_dict.update(course_dict)
+        
         # convert required courses dictionary to list for easier processing
         required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
         courses_dict_list_unchanged = copy.deepcopy(required_courses_dict_list)
@@ -1177,7 +1152,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "cert_elective_courses_still_needed": cert_elective_courses_still_needed,
         "TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES": TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES,
         "saved_minimum_credits_selection": min_credits_per_semester,
-        "elective_courses": json.dumps(elective_courses),
         "gen_ed_credits_still_needed": gen_ed_credits_still_needed,
         "full_schedule_generation": generate_complete_schedule,
         "minimum_summer_credits": summer_credit_count,
