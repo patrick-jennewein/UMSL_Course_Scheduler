@@ -1,1 +1,0 @@
-# UMSL_Course_Scheduler
