@@ -1,0 +1,347 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <form id="form" action="/schedule" method="post">
+        <div class="cover-page-background">
+            <!-- Menu -->
+            <div class="form-container">
+                <!-- Display logo-->
+                <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
+                <br><br>
+
+                <label for="user_name">Name</label>
+                <input type="text" id="user_name" name="user_name">
+                <br><br>
+
+                <!-- Select certificate option -->
+                <label for="certificate">
+                    Certificate Option
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Enhance your expertise with our undergraduate certificate programs tailored to complement your degree.
+                            These focused curricula offer specialized training in areas, providing valuable skills to bolster
+                            your resume and advance your career.<br><br>
+                            <a href ="https://www.umsl.edu/cmpsci/certificates/undergraduate-certificates.html" target="_blank">
+                                Learn More
+                            </a>
+                        </span>
+                    </span>
+                </label>
+                <select id="certificate" name="certificate_choice" onchange="handleCertSelect(this)">
+                    {% for certificate, certificate_value in certificates %}
+                    <option value="{{certificate}},{{certificate_value}}">{{ certificate }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <!-- Select starting semester-->
+                <label for="current_semester">Starting Semester</label>
+                <select name="current_semester" id="starting_semester">
+                    {% for semester in semesters %}
+                    <option value="{{semester}}">{{ semester }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <!-- Select minimum credits for 1st semester-->
+                <label for="initial_minimum_semester_credits">Minimum Credits for First Semester</label>
+                <select name="minimum_semester_credits" id="initial_minimum_credits">
+                    {% for credits in minimum_semester_credits %}
+                    {% if credits == 15 %}
+                    <option selected value="{{credits}}">{{ credits }}</option>
+                    {% else %}
+                    <option value="{{credits}}">{{ credits }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <!-- Select summer semester boolean -->
+                <label for="summer">Summer Semester</label>
+                <input type="checkbox" id="summer" name="include_summer" onClick="handleSummerCheckboxClick(this)"><br>
+                <br>
+
+                <!-- Ask user for number of credits for summer-->
+                <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">Minimum Credits for Summer</label>
+                <select style="visibility: hidden;" id="summer_credits_select" name="minimum_summer_credits">
+                    {% for credits in minimum_summer_credits %}
+                    {% if credits == 0 %}
+                        <option selected value="{{credits}}">{{ credits }}</option>
+                    {% else %}
+                        <option value="{{credits}}">{{ credits }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <br>
+                <br>
+
+                <!-- Earned credit boolean -->
+                <label for="earned_credit">
+                    Earned Credit
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            If you have already earned credits — be it through waived, transferred, or already completed courses at UMSL —
+                            check this box to bring you to a form for more information.
+                        </span>
+                    </span>
+                </label>
+                <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
+                <br><br><br>
+
+                <!-- hidden variables -->
+                <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
+                <input type="hidden" name="semester_number" value="{{ semester_number }}">
+                <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
+                <input type="hidden" name="include_summer" value="{{ include_summer }}">
+                <input type="hidden" id="json_required_courses" name="json_required_courses"
+                    value="{{ json_required_courses }}">
+                <input type="hidden" name="num_3000_replaced_by_cert_core" value="{{ num_3000_replaced_by_cert_core }}">
+                <input type="hidden" name="cert_elective_courses_still_needed"
+                    value="{{ cert_elective_courses_still_needed }}">
+                <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
+                <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
+                <input type="hidden" name="first_semester" value="{{ first_semester }}">
+                <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
+                <input type="hidden" name="semester_years" value="{{ semester_years }}">
+                <input type="hidden" name="required_courses_tuple" value = "{{ required_courses_tuple }}">
+
+                <!-- submit buttons-->
+                <div class = "buttons">
+                    <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
+                    <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+                </div>
+                <br>
+
+                <!-- Tutorial -->
+                <div class = "help">
+                    <a href="javascript:void(0)"
+                       onclick="document.getElementById('light').style.display='block';
+                       document.getElementById('fade').style.display='block'">
+                        <p>See Tutorial</p>
+                    </a>
+                    <div id="light" class="tutorial_popup">
+                        <h1>Welcome to the University of Missouri - St. Louis Scheduling App!</h1>
+                        <h3>This tool is to help current and future UMSL Computer Science students plan their program so that they may meet
+                            their course requirements.</h3>
+                        <!-- Features -->
+                        <h2>Features</h2>
+                        <p>On this app, students can input their desired parameters for the completion of the Bachelors of Science in Computer Science. This includes the following:</p>
+                        <ul>
+                            <li><strong>Certificate Options:</strong> Choose between several certificate options, building your schedule around the required and elective courses of this path.</li>
+                            <li><strong>Starting Semester:</strong> Input your desired semester (Fall, Spring, or Summer), and the app will determine the next available semester for you to begin your studies.</li>
+                            <li><strong>Minimum Credits per Semester:</strong> Set your minimum credit requirement for the first semester, and the app will calculate the earliest semester in which you can achieve this, adjusting as necessary.</li>
+                            <li><strong>Summer Semester:</strong> Take advantage of summer classes with our app, which will integrate them into your schedule.</li>
+                            <li><strong>Earned Credit:</strong> Your schedule will be tailored to account for any credits you've already earned, including waived courses, required courses, general electives, and free electives.</li>
+                            <li><strong>Two Schedule Generation Options:</strong> Choose between generating your schedule semester-by-semester or generating a full schedule. Details provided below.</li>
+                            <li><strong>Optimized Course Balance:</strong> Our scheduling algorithm ensures that your generated schedules strike a balance, preventing overloaded semesters with an excessive focus on one discipline. Free electives and general education credits are strategically integrated throughout your schedule.</li>
+                            <li><strong>Easy Printing:</strong> Print your course schedule with ease using the "Print" button located at the top of each schedule generation page.</li>
+                        </ul>
+
+                        <!-- The Two Schedule Types-->
+                        <h2>Create a Schedule Semester-by-Semester</h2>
+                        <p>
+                            Create your schedule step-by-step with our semester-by-semester scheduling feature.
+                            Tailor each semester according to your preferences by selecting the desired number of credits as you progress.
+                            This flexible approach empowers you to craft a personalized schedule that aligns perfectly with your academic and personal commitments,
+                            ensuring a balanced and manageable workload every step of the way.
+                            In addition, a running ticker in the top-right corner will ensure that you are on track with your core courses, general electives, free electives,
+                            total credits, and any other requirements.
+                        </p>
+                        <h2>Create a Full Schedule at Once</h2>
+                        <p>
+                            Streamline your path to graduation with our automatic full schedule generation feature.
+                            Our advanced algorithm meticulously constructs a comprehensive schedule optimized for efficiency,
+                            automatically assigning the least possible number of credits. Help us guide you through your entire program,
+                            ensuring a smooth and efficient schedule.
+                        </p>
+
+                        <!-- Drag and Drop -->
+                        <h2>Refine Your Schedule with Drag-and-Drop</h2>
+                        <p>
+                            Refine your schedule to perfection even after it is generated with our intuitive drag-and-drop feature.
+                            Fine-tune your timetable by effortlessly moving courses around to better suit your preferences and
+                            optimize your schedule.
+                            Should any conflicts arise, our system has you covered – if a course placement is invalid,
+                            a red box will appear around the affected course, accompanied by a clear explanation detailing
+                            why it cannot occupy that particular slot. Enjoy unparalleled flexibility and peace of mind as you
+                            craft the ideal schedule tailored to your needs, backed by our robust error detection system.
+                        </p>
+
+                        <!-- Tool Tips-->
+                        <h2>Have Questions? See the Tooltips!</h2>
+                        <p>
+                            Discover more about our scheduling app by simply hovering over the "?" tooltips scattered throughout the interface.
+                            These informative tooltips offer instant clarification on any feature or function you may have questions about.
+                            Whether you're uncertain about a specific term or need additional guidance on using a particular tool,
+                            our tooltips are here to provide the answers you need, right when you need them.
+                        </p>
+
+                        <!-- Disclaimer-->
+                        <h2>Disclaimers</h2>
+                        <ul>
+                            <li><strong>Consult your Academic Advisor!</strong> This course scheduling tool is not an official schedule. Users should consult with academic advisors for guidance on course selection and scheduling.</li>
+                            <li><strong>Register Online!</strong> Selecting courses and sections is for planning purposes only and does not register a student in those courses.</li>
+                        </ul>
+                        <br><br>
+                        <div class = "close">
+                            <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';
+                            document.getElementById('fade').style.display='none'">
+                                Close this tutorial
+                            </a>
+                        </div>
+                    </div>
+                    <div id="fade" class="black_overlay"></div>
+
+                </div>
+
+            </div>
+            <div class="second-form" id = "form-container-2">
+                <!-- Select waived courses-->
+                <label for="waived_courses">
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            A waived course is one in which a student is exempt from completing due to previous academic
+                            achievements or demonstrated proficiency. If a course waived, the student <em>cannot</em> claim
+                            credit for that course, and it does not count towards minimum credit requirements.<br><br>
+
+                            Unsure if a course is waived?<br><br>
+                            <a href ="https://www.umsl.edu/~academicadvising/index.html" target="_blank">
+                                Academic Advising Office
+                            </a>
+                        </span>
+                    </span>
+                    Waived Core Courses
+                </label>
+                <select name="waived_courses" id="waived_courses" multiple onchange="updateWaivedTakenDropdown(this)"
+                onfocus='this.size=10;' onblur='this.size=10;'
+                onchange='this.size=10;'>
+                    {% for required_course in required_courses %}
+                    <option value="{{required_course.course}}">{{ required_course.course }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <!-- Select courses taken -->
+                <label for="courses_taken">
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Select any courses from the dropdown that you have earned,
+                            either previously at UMSL or transferred in from another institution.<br><br>
+
+                            Unsure if a course transfers?<br><br>
+                            <a href ="https://www.umsl.edu/admissions/transfer/transfer-credit-evaluation.html"
+                            target="_blank">
+                                Visit the Transfer Portal
+                            </a>
+                        </span>
+                    </span>
+                    Completed Core Courses
+                </label>
+                <select name="courses_taken" id="taken_courses" multiple onChange="handleTakenCourseSelect(this)"
+                onfocus='this.size=10;' onblur='this.size=10;'
+                onchange='this.size=10;'>
+                    {% for required_course in required_courses %}
+                    <option value="{{required_course.course}}" credits="{{required_course.credits}}">{{
+                        required_course.course }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <!-- Select general education taken -->
+                <label for="ge_taken">
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Select the credits from the dropdown that you have earned,
+                            either previously at UMSL or transferred in from another institution, that
+                            count for General Education requirements.<br><br>
+
+                            Want to learn more about the General Education Requirements?<br><br>
+                            <a href ="https://bulletin.umsl.edu/generaleducationrequirements/"
+                            target="_blank">
+                                Learn More</a><br><br>
+                            Unsure if a course transfers?<br><br>
+                            <a href ="https://www.umsl.edu/admissions/transfer/transfer-credit-evaluation.html"
+                            target="_blank">
+                                Visit the Transfer Portal
+                            </a>
+                        </span>
+                    </span>
+                    General Education Credits Earned
+                </label>
+                <select name="ge_taken" id="ge_taken_id">
+                    {% for i in range(0, 61) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <!-- Select free electives taken -->
+                <label for="fe_taken">
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Select the credits from the dropdown that you have earned,
+                            either previously at UMSL or transferred in from another institution, that
+                            count for credit, but not General Education or BSCS required courses.<br><br>
+
+                            Unsure if a course transfers?<br><br>
+                            <a href ="https://www.umsl.edu/admissions/transfer/transfer-credit-evaluation.html"
+                            target="_blank">
+                                Visit the Transfer Portal
+                            </a>
+
+                        </span>
+                    </span>
+                    Free Elective Credits Earned
+                </label>
+                <select name="fe_taken" id="free_taken_id">
+                    {% for i in range(0, 61) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+
+                <!-- Select if successfully passed proctored math exam -->
+                <label for="aleks">
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Received 70% or higher on the proctored UMSL Math Placement (ALEKS) within the past year.
+                        </span>
+                    </span>
+                    70% on UMSL Math Placement
+                </label>
+                <input type="checkbox" id="aleks" name="aleks_check"><br>
+                <br><br>
+
+                <!-- Select number of credits already earned -->
+                <label for="total_credits" id = "total_credits_id">
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">This is the total amount of credits earned
+                        from Computer Science, Mathematics, General Education courses, Free Electives,
+                        and other BSCS core. These credits will go to the 120-credit graduation requirements.</span>
+                    </span>
+                    Current Credits Earned
+                </label>
+                <select name="total_credits" id="starting_credits">
+                    {% for credits in starting_credits %}
+                    <option value="{{credits}}">{{ credits }}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" name="required_courses_dict" value="{{ required_courses_dict }}">
+                <br><br>
+
+                <!-- Disclaimer -->
+                <small>This course scheduling tool is not an official schedule.
+                Users should consult with academic advisors for guidance on course selection and scheduling.</small>
+            </div>
+        </div>
+    </form>
+</html>
