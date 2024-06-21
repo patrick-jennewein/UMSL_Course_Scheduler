@@ -8,7 +8,6 @@ from itertools import chain
 import os
 import copy
 
-
 def print_dictionary(course_dictionary: dict) -> None:
     """
     prints a dictionary in readable format.
@@ -165,10 +164,10 @@ def parse_courses() -> dict:
     # create a dictionary with course information to further parse
     csbs_req = doc["CSBSReq"]
 
-    all_courses = build_dictionary(csbs_req["Electives"]["course"])
-    all_courses.update(build_dictionary(csbs_req["OtherCourses"]["course"]))
+    all_courses = build_dictionary(csbs_req["ComputerScience"]["course"])
     all_courses.update(build_dictionary(csbs_req["MathandStatistics"]["course"]))
-    all_courses.update(build_dictionary(csbs_req["CoreCourses"]["course"]))
+    all_courses.update(build_dictionary(csbs_req["OtherCourses"]["course"]))
+
 
     # return finalized dictionary of the course type
     return all_courses
@@ -578,9 +577,21 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         ############################################################################
         ### Note to self: after 'if' statements of course rules, loop through list to build course dictionary
         # filter out all non-required courses and then return a just the course numbers as a list and convert that list to a tuple
-        courses_for_graduation = sorted(({k:v for (k,v) in all_courses_dict.items() if "required" in v.keys() and v['required'] == 'true'}).keys())
-        required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
 
+        #courses_for_graduation = sorted(({k:v for (k,v) in all_courses_dict.items() if "required" in v.keys() and v['required'] == 'true'}).keys())
+
+        courses_for_graduation = []
+        for k, v in all_courses_dict.items():
+            if "required" in v:
+                major_or_cert = v['required']['major_or_cert']
+                if not isinstance(major_or_cert, list):
+                    major_or_cert = [major_or_cert]
+                for item in major_or_cert:
+                    if item == "BSComputerScience":
+                        print(f"{k}: {item}")
+                        courses_for_graduation.append(k)
+
+        required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
         print(f"{courses_for_graduation=}")
 
         for course in required_courses_tuple:

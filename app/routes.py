@@ -1,17 +1,17 @@
 from flask import render_template, request, json
 from app import app
 from app.middleware.course_parsing import parse_courses, generate_semester
+from pprint import pprint
 
 @app.route('/')
 @app.route('/index')
 def index():
+    # set up defaults
     semesters = ["Fall", "Spring"]
     certificates = [("None", ""), ("Artificial Intelligence", "AICERTReq"), ("Cybersecurity", "CYBERCERTReq"), ("Data Science", "DATACERTReq"), ("Mobile Apps and Computing", "MOBILECERTReq"), ("Internet and Web", "WEBCERTReq")]
-    #num_3000_replaced_by_cert_core=0
-    #cert_elective_courses_still_needed=0
-    # create dictionaries for each course type
-    all_courses = parse_courses()
 
+    # create a list of all courses
+    all_courses = parse_courses()
     all_courses_list = []
     for course in all_courses.items():
         prerequisite_description = ""
@@ -24,7 +24,6 @@ def index():
             "prerequisite_description": prerequisite_description
         }
         all_courses_list.append(course_info)
-    # sort required courses by course number
     all_courses_list = sorted(all_courses_list, key=lambda d: d["course"])
 
     return render_template('index.html',
