@@ -256,6 +256,7 @@
                 <major_or_cert>BSComputingTechnology</major_or_cert>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
                 <major_or_cert>BSDataScience</major_or_cert> <!--choose 3-->
+				<major_or_cert>WEBCERTReq</major_or_cert>
             </required>
 		</course>
 		<course>
@@ -288,6 +289,7 @@
                 <major_or_cert>BSComputerScience</major_or_cert>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
                 <major_or_cert>BSDataScience</major_or_cert>
+				<major_or_cert>AICERTReq</major_or_cert>
             </required>
 		</course>
 		<course>
@@ -452,6 +454,8 @@
                 <major_or_cert>BSComputingTechnology</major_or_cert>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
                 <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
+				<major_or_cert>CYBERCERTReq</major_or_cert>
+				<major_or_cert>MOBILECERTReq</major_or_cert>
             </required>
         </course>
 		<course>
@@ -526,6 +530,7 @@
             <prerequisite_description>Prerequisites: CMP SCI 3010 and either CMP SCI 2261 or INFSYS 3806; or graduate standing. </prerequisite_description>
             <required>
                 <major_or_cert>BSComputingTechnology</major_or_cert>
+				<major_or_cert>WEBCERTReq</major_or_cert>
             </required>
         </course>
 		<course>
@@ -544,6 +549,9 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 3010. </prerequisite_description>
 			<course_description>This course provides a comprehensive overview of website development using the modern MEAN (MongoDB, Express.js, Angular, Node.js) stack architecture. Students will create web applications that make use of today's modern JavaScript engine. Other topics may include React, Sass (Syntactically awesome style sheets), and Pug template engine.</course_description>
+			<required>
+				<major_or_cert>WEBCERTReq</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -562,6 +570,9 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261 and CMP SCI 3010. </prerequisite_description>
 			<course_description>This is a hands-on course providing students with an understanding of microservices and related technologies, with enough scope and depth to make the students ready to participate in real-world microservice application developments. Emphasis is placed on practical and effective knowledge and an in-depth technical learning experience suitable for any developer. The target audience is students who want to be involved in microservice application development. </course_description>
+			<required>
+				<major_or_cert>WEBCERTReq</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -602,6 +613,9 @@
             <prerequisite_description>Prerequisite: CMP SCI 2261. </prerequisite_description>
 			<paired>CMP SCI 5020</paired>
 			<course_description>This course covers the fundamental programming principles, software architecture, and user experience considerations underlying handheld software applications and their development environments. The course involves in-depth, hands-on examples that are implemented on the Android Platform, along with discussions of security.</course_description>
+			<required>
+                <major_or_cert>MOBILECERTReq</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -637,6 +651,7 @@
             <prerequisite_description>Prerequisites: CMP SCI 1250 and (MATH 1100 or MATH 1800) and (ANTHRO 3220/SOC 3220 or BIOL 4122 or CRIMIN 2220 or ECON 3100 or MATH 1320 or POL SCI 3000 or PSYCH 2201). </prerequisite_description>
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
+				<major_or_cert>DATACERTReq</major_or_cert>
             </required>
         </course>
 		<course>
@@ -661,6 +676,9 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261 or INFSYS 3806 or graduate standing. </prerequisite_description>
+			<required>
+                <major_or_cert>MOBILECERTReq</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -685,6 +703,7 @@
             <prerequisite_description>Prerequisites: CMP SCI 3130. </prerequisite_description>
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
+				<major_or_cert>AICERTReq</major_or_cert>
             </required>
 		</course>
 		<course>
@@ -736,6 +755,7 @@
 			<paired>CMP SCI 5340</paired>
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
+				<major_or_cert>DATACERTReq</major_or_cert>
             </required>
 		</course>
 		<course>
@@ -765,6 +785,7 @@
 			<paired>CMP SCI 5342</paired>
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
+				<major_or_cert>DATACERTReq</major_or_cert>
             </required>
 		</course>
 		<course>
@@ -928,6 +949,7 @@
             <prerequisite_description>Prerequisites: CMP SCI 2750 and MATH 1320, or graduate standing. </prerequisite_description>
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
+				<major_or_cert>CYBERCERTReq</major_or_cert>
             </required>
         </course>
 		<course>
@@ -996,6 +1018,7 @@
 			<paired>CMP SCI 5782</paired>
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
+				<major_or_cert>CYBERCERTReq</major_or_cert>
             </required>
 		</course>
 		<course>
@@ -1019,6 +1042,9 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750 and, CMP SCI 3702 OR INFSYS 3848, or consent of instructor. </prerequisite_description>
+			<required>
+                <major_or_cert>MOBILECERTReq</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>

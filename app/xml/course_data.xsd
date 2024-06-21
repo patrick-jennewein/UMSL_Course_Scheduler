@@ -73,12 +73,17 @@
       <xs:element type="prerequisiteType" name="prerequisite"/>
       <xs:element type="xs:string" name="concurrent"/>
       <xs:element type="xs:string" name="paired"/>
-      <xs:element type="xs:boolean" name="required"/>
+      <xs:element type="requiredType" name="required"/>
     </xs:choice>
   </xs:complexType>
   <xs:complexType name="or_choiceType" mixed="true">
     <xs:sequence>
       <xs:element type="xs:string" name="and_required" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requiredType" mixed="true">
+    <xs:sequence>
+      <xs:element type="xs:string" name="major_or_cert" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="prerequisiteType">
@@ -87,7 +92,7 @@
       <xs:element type="xs:string" name="additional_preq" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="CoreCoursesType">
+  <xs:complexType name="ComputerScienceType">
     <xs:sequence>
       <xs:element type="courseType" name="course" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
@@ -109,7 +114,7 @@
   </xs:complexType>
   <xs:complexType name="CSBSReqType">
     <xs:sequence>
-      <xs:element type="CoreCoursesType" name="CoreCourses"/>
+      <xs:element type="ComputerScienceType" name="ComputerScience"/>
       <xs:element type="ElectivesType" name="Electives"/>
       <xs:element type="MathandStatisticsType" name="MathandStatistics"/>
       <xs:element type="OtherCoursesType" name="OtherCourses"/>
