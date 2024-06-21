@@ -1347,9 +1347,6 @@
 					<and_required>MATH 1320</and_required>
                     <and_required>MATH 1100</and_required>
 				</or_choice>
-				<or_choice>
-					<and_required></and_required>
-				</or_choice>
 			</prerequisite>
             <prerequisite_description>
                 Prerequisites: (MATH 1100 or MATH 1800) and (ANTHRO 3220/SOC 3220 or BIOL 4122 or CRIMIN 2220 or ECON 3100 or MATH 1320 or POL SCI 3000 or PSYCH 2201). </prerequisite_description>
@@ -1495,33 +1492,6 @@
 			<paired>INFSYS 6878</paired>
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
-            </required>
-        </course>
-        <course>
-            <subject></subject>
-			<course_number></course_number>
-			<course_name></course_name>
-			<rotation_term>
-				<term></term>
-				<time_code></time_code>
-			</rotation_term>
-			<credit></credit>
-			<course_description></course_description>
-			<prerequisite>
-				<or_choice>
-					<and_required></and_required>
-				</or_choice>
-				<or_choice>
-					<and_required></and_required>
-				</or_choice>
-				<or_choice>
-					<and_required></and_required>
-				</or_choice>
-			</prerequisite>
-            <prerequisite_description></prerequisite_description>
-			<paired></paired>
-            <required>
-                <major_or_cert></major_or_cert>
             </required>
         </course>
     </InformationSystems>
