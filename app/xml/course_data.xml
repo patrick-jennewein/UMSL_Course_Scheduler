@@ -683,6 +683,9 @@
 			</prerequisite>
 			<paired>CMP SCI 5300</paired>
             <prerequisite_description>Prerequisites: CMP SCI 3130. </prerequisite_description>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1111,6 +1114,42 @@
             <prerequisite_description>Prerequisites: A satisfactory score on the UMSL Math Placement Examination, obtained at most one year prior to enrollment in this course.</prerequisite_description>
 			<course_description>This course is intended for students planning to take MATH 1800. It covers a range of topics including polynomials, logarithms, and complex numbers; functions and their graphs; systems of equations and inequalities; trigonometry; and more. fulfills the University's general education mathematics proficiency requirement. This course fulfills the University's general education mathematics proficiency requirement</course_description>
 		</course>
+        <course>
+            <subject>MATH</subject>
+			<course_number>1100</course_number>
+			<course_name>Basic Calculus</course_name>
+			<rotation_term>
+				<term>Summer</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course introduces plane analytic geometry and basic differential and integral calculus with applications to various areas. </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>MATH 1030</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>MATH 1045</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>A satisfactory score on the UMSL ALEKS Math Placement Examination, obtained at most one year prior to enrollment in this course.</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: MATH 1030 or MATH 1045 or a satisfactory score on the UMSL Math Placement Examination obtained at most one year prior to enrollment in this course. </prerequisite_description>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>MATH</subject>
 			<course_number>1320</course_number>
@@ -1289,7 +1328,203 @@
                 <major_or_cert>BSDataScience</major_or_cert>
             </required>
 		</course>
+        <course>
+            <subject>MATH</subject>
+			<course_number>4005</course_number>
+			<course_name>Exploratory Data Analysis with R</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course covers data analysis methods with R. It introduces the basic goals and techniques of the data science process, methods of characterizing and visualizing data and building predictive and inferential models. R will be introduced at the beginning of the class and then used throughout the rest of the class.</course_description>
+			<prerequisite>
+				<or_choice>
+                    <and_required>MATH 1320</and_required>
+					<and_required>MATH 1800</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>MATH 1320</and_required>
+                    <and_required>MATH 1100</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required></and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>
+                Prerequisites: (MATH 1100 or MATH 1800) and (ANTHRO 3220/SOC 3220 or BIOL 4122 or CRIMIN 2220 or ECON 3100 or MATH 1320 or POL SCI 3000 or PSYCH 2201). </prerequisite_description>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
+        </course>
 	</MathandStatistics>
+    <InformationSystems>
+        <course>
+            <subject>INFSYS</subject>
+			<course_number>3820</course_number>
+			<course_name>Introduction to Systems Administration</course_name>
+			<rotation_term>
+				<term>Summer</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course provides an overview of modern Information Technology (IT) infrastructure components and focuses on systems administration in Linux and Windows server environments. Students will learn to install, configure, operate, maintain, and secure servers. Topics include user management and policies, file systems, backup and recovery, network configuration, and host security among others. Virtualization and cloud environments are introduced. Basic foundations of automation and configuration management using shells and other contemporary tools are provided. Credit cannot be granted for both INFSYS 3820 and INFSYS 6820.
+            </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>INFSYS 2800</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>CMP SCI 1250</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: INFSYS 2800 or CMP SCI 1250 or permission of Information Systems department chair. </prerequisite_description>
+			<paired>INFSYS 6820</paired>
+            <required>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+            </required>
+        </course>
+        <course>
+            <subject>INFSYS</subject>
+			<course_number>3844</course_number>
+			<course_name>Developing Business Applications in .NET</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course will enable students to design, implement, and debug object-oriented and data driven business applications in C#.NET. Students will learn application design choices, object-oriented design principles, event-driven programming, user interface programming, user interface controls, data binding and database access, exception handling, debugging and effective ways of working with C#.NET.
+            </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>INFSYS 2800</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>CMP SCI 2250</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: INFSYS 2800 or CMP SCI 2250, and a minimum campus GPA of 2.0. </prerequisite_description>
+            <required>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+            </required>
+        </course>
+        <course>
+            <subject>INFSYS</subject>
+			<course_number>3848</course_number>
+			<course_name>Introduction to Information Security</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course provides an introductory survey of the vast field of Information Security (InfoSec). It intersects both management and technical aspects of security as relevant to organizations, governments, individuals, and society. Topics include fundamental principles of InfoSec and cyber defense, the threat environment, management of InfoSec in organizations, technologies and tools in InfoSec, cryptology/cryptography, web application security, and current issues. Hands-on labs expose students to basics of penetration testing, applications of cryptography, and vulnerability management. Course is open to all majors.</course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>INFSYS 2800</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>CMP SCI 2250</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: INFSYS 2800 or CMP SCI 2250 or consent of instructor and a minimum campus GPA of 2.0. </prerequisite_description>
+			<paired>INFSYS 6828</paired>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
+        <course>
+            <subject>INFSYS</subject>
+			<course_number>3868</course_number>
+			<course_name>Secure Software Development</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course covers the concepts of software assurance and the fundamentals of the secure software lifecycle as it relates to software development. Students will experience the secure software lifecycle process by developing concrete artifacts and practicing in a lab environment. </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>INFSYS 3806</and_required>
+				</or_choice>
+				<or_choice>
+					<and_required>CMP SCI 2250</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: A first course in programming such as INFSYS 3806 or CMP SCI 2250 or consent of instructor. </prerequisite_description>
+			<paired>INFSYS 6868</paired>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
+        <course>
+            <subject>INFSYS</subject>
+			<course_number>3878</course_number>
+			<course_name>Information Security Risk Management and Business Continuity</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course provides students the tools and concepts necessary to plan for, prevent, and when needed successfully respond to disruptions in business operations. Topics covered include security policies, frameworks, information and materials management, risk management, and regulatory compliance. </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>INFSYS 3848</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: INFSYS 3848 or consent of Instructor.</prerequisite_description>
+			<paired>INFSYS 6878</paired>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
+        <course>
+            <subject></subject>
+			<course_number></course_number>
+			<course_name></course_name>
+			<rotation_term>
+				<term></term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit></credit>
+			<course_description></course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required></and_required>
+				</or_choice>
+				<or_choice>
+					<and_required></and_required>
+				</or_choice>
+				<or_choice>
+					<and_required></and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description></prerequisite_description>
+			<paired></paired>
+            <required>
+                <major_or_cert></major_or_cert>
+            </required>
+        </course>
+    </InformationSystems>
 	<OtherCourses>
         <course>
 			<subject>INTDSC</subject>
@@ -1333,6 +1568,34 @@
 			</rotation_term>
             <prerequisite_description>No prerequisites. </prerequisite_description>
 		</course>
+        <course>
+            <subject>ENGL</subject>
+			<course_number>3120</course_number>
+			<course_name>Business Writing</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Summer</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course further develops the experienced writer's style and analytical capabilities to the level of sophistication necessary for business and professional settings. Writing assignments may include business correspondence, reports, resumes, proposals, analyses, presentations, marketing, promotional, and multi-modal materials, discussion postings and blogs, articles for in-house publications, and research and documentation. The course fulfills the University's junior-level writing requirement and may not be taken on a satisfactory/unsatisfactory basis.</course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>ENGL 1100</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: ENGL 1100 or equivalent (3-6 hours) and 48 credit hours. </prerequisite_description>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>ENGLISH</subject>
 			<course_number>3130</course_number>
