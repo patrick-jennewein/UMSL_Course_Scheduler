@@ -6,7 +6,13 @@ from app.middleware.course_parsing import parse_courses, generate_semester
 @app.route('/index')
 def index():
     semesters = ["Fall", "Spring"]
-    certificates = [("None", ""), ("Artificial Intelligence", "AICERTReq"), ("Cybersecurity", "CYBERCERTReq"), ("Data Science", "DATACERTReq"), ("Mobile Apps and Computing", "MOBILECERTReq"), ("Internet and Web", "WEBCERTReq")]
+    certificates = [
+        ("Artificial Intelligence", "AICERTReq"),
+        ("Cybersecurity", "CYBERCERTReq"),
+        ("Data Science", "DATACERTReq"),
+        ("Mobile Apps and Computing", "MOBILECERTReq"),
+        ("Internet and Web", "WEBCERTReq")
+    ]
     #num_3000_replaced_by_cert_core=0
     #cert_elective_courses_still_needed=0
     # create dictionaries for each course type
@@ -52,7 +58,8 @@ def index():
                            fe_taken = 0,
                            is_graduated = False,
                            required_courses_tuple = json.dumps([]),
-                           certificate_choice = json.dumps([])
+                           certificate_choice = json.dumps([]),
+                           selected_certificates = json.dumps([])
     )
 
 @app.route('/schedule', methods=["POST"])

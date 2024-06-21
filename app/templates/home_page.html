@@ -29,7 +29,7 @@
                         </span>
                     </span>
                 </label>
-                <select id="certificate" name="certificate_choice" onchange="handleCertSelect(this)">
+                <select name="certificate_choice" id="certificate" multiple onchange="handleCertSelect(this)">
                     {% for certificate, certificate_value in certificates %}
                     <option value="{{certificate}},{{certificate_value}}">{{ certificate }}</option>
                     {% endfor %}
@@ -107,6 +107,7 @@
                 <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
                 <input type="hidden" name="semester_years" value="{{ semester_years }}">
                 <input type="hidden" name="required_courses_tuple" value = "{{ required_courses_tuple }}">
+                <input type="hidden" id="selected_certificates" name="selected_certificates" value="{{ selected_certificates }}">
 
                 <!-- submit buttons-->
                 <div class = "buttons">
