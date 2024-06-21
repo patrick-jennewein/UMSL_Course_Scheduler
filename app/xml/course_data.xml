@@ -24,7 +24,7 @@
 -->
 <CSBSReq
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="course_data.xsd">
-	<CoreCourses>
+	<ComputerScience>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>1000</course_number>
@@ -43,8 +43,11 @@
 				<time_code>O</time_code>
 			</rotation_term>
 			<course_description>This course is for recently declared undergraduate students majoring in Computer Science or Computing Technology. Topics may include resources that are available on campus and in the department, career opportunities, choosing the right degree, and exploration of concepts, skills and practices that are essential for successful careers. This course should be taken by freshmen and transfers within the first two semesters of declaring the major.</course_description>
-            <prerequisite_description>No prerequisites. </prerequisite_description>
-			<required>true</required>
+            <prerequisite_description>No prerequisites.</prerequisite_description>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+            </required>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -82,7 +85,12 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1030 with a B- or better, or MATH 1045 with B- or better, or MATH 1100 (can be taken concurrently), or MATH 1800 (can be taken concurrently), or a 70% on the proctored UMSL Math Placement obtained at most one year prior to enrollment in this course. </prerequisite_description>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -108,7 +116,12 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisite: CMP SCI 1250. </prerequisite_description>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -137,7 +150,12 @@
 			<concurrent>
 				CMP SCI 2250
 			</concurrent>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -166,7 +184,11 @@
 			<concurrent>
 				CMP SCI 2250
 			</concurrent>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -196,7 +218,11 @@
 			<concurrent>
 				CMP SCI 2700
 			</concurrent>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -225,7 +251,12 @@
 			<concurrent>
 				CMP SCI 2250
 			</concurrent>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert> <!--choose 3-->
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -253,7 +284,11 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2250, MATH 1320, and MATH 3000. </prerequisite_description>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -283,7 +318,9 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261 and CMP SCI 3010, or graduate standing. </prerequisite_description>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -311,7 +348,9 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2700, CMP SCI 2750, CMP SCI 3130, and CMP SCI 4250, or graduate standing. </prerequisite_description>
-			<required>true</required>
+		    <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -335,7 +374,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261, CMP SCI 3010, and MATH 3000. </prerequisite_description>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -361,10 +403,11 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750 and CMP SCI 3130; or graduate standing. </prerequisite_description>
-			<required>true</required>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
 		</course>
-	</CoreCourses>
-	<Electives>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>3411</course_number>
@@ -381,7 +424,10 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 1250. </prerequisite_description>
 			<course_description>This course introduces students to the principles of effective data visualization. The course includes an introduction to data cleaning and analysis. Plotting tools such as Tableau, Matplotlib, and D3.js are also introduced. Topics covered may include graphical excellence, log scale, color, heat maps, network visualization, plotting scientific data, interactive plots, and plotting live stream of data. </course_description>
-		</course>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>3702</course_number>
@@ -402,7 +448,12 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2250. </prerequisite_description>
 			<course_description>This course introduces the importance of cybersecurity and covers its various components. Topics may include different types of malware, phishing, password attacks, spoofing, efficient encryption algorithms, firewalls, intrusion prevention/detection systems, and honeypots. </course_description>
-		</course>
+            <required>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>3780</course_number>
@@ -421,7 +472,11 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261, CMP SCI 2750, and CMP SCI 3010. </prerequisite_description>
 			<course_description>This course introduces the basic software security principles and pitfalls, including topics such as buffer, integer and string problems, runtime errors, SQL and command injection. Additional topics may include data protection, secure file access, password and network security.</course_description>
-		</course>
+            <required>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>3990</course_number>
@@ -469,7 +524,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 3010 and either CMP SCI 2261 or INFSYS 3806; or graduate standing. </prerequisite_description>
-		</course>
+            <required>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4011</course_number>
@@ -523,7 +581,10 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 1250, MATH 1900, and an introductory statistics course (ANTHRO 3220/SOC 3220, BIOL 4122, CRIMIN 2220, ECON 3100, MATH 1320, POL SCI 3000, or PSYCH 2201). </prerequisite_description>
 			<course_description>This course covers statistical inference with emphasis on applications and computer simulation. Topics may include multivariate distributions, transformations and combinations of random variables, sampling distributions, maximum likelihood, bootstrap, order statistics, hypothesis testing, likelihood ratio tests, Monte Carlo methods, Bayesian inference, and sufficient statistics. </course_description>
-		</course>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4020</course_number>
@@ -574,7 +635,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 1250 and (MATH 1100 or MATH 1800) and (ANTHRO 3220/SOC 3220 or BIOL 4122 or CRIMIN 2220 or ECON 3100 or MATH 1320 or POL SCI 3000 or PSYCH 2201). </prerequisite_description>
-		</course>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4220</course_number>
@@ -638,7 +702,10 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261, CMP SCI 2750 and CMP SCI 3130. </prerequisite_description>
 			<course_description>This course introduces the concepts of nature-inspired problem solving with artificial evolution using selection, crossover, mutation and inheritance. It discusses applications of evolutionary algorithms, overviews the existing models and instances, and analyzes specific instances such as genetic algorithms, evolutionary programming, evolution strategies, and genetic programming. </course_description>
-		</course>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4340</course_number>
@@ -664,6 +731,9 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 4342, or CMP SCI 2261 and CMP SCI 3130, or consent of instructor. </prerequisite_description>
 			<paired>CMP SCI 5340</paired>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -690,6 +760,9 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261 and CMP SCI 3130, or CMP SCI 4200, or consent of the instructor. </prerequisite_description>
 			<paired>CMP SCI 5342</paired>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -707,7 +780,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 3130 or consent of instructor. </prerequisite_description>
-		</course>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4390</course_number>
@@ -724,7 +800,10 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 3130 or consent of instructor. </prerequisite_description>
 			<course_description>This course introduces mathematical foundations for deep learning, and follows with practical applications using selected domains such as image classification or protein predictions. It also covers dense neural networks, convolutional neural networks, recurrent neural networks, and other state-of-the-art networks. </course_description>
-		</course>
+            <required>
+                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4410</course_number>
@@ -770,29 +849,6 @@
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
-			<course_number>4500</course_number>
-			<course_name>Introduction to the Software Profession</course_name>
-			<credit>3</credit>
-			<rotation_term>
-				<term>Spring</term>
-				<time_code>O</time_code>
-			</rotation_term>
-			<rotation_term>
-				<term>Fall</term>
-				<time_code>O</time_code>
-			</rotation_term>
-			<course_description>This course focuses on software development and on the skills required for success in the software profession. Topics related to software development may include software process, models and views, software architectures, documentation, and testing strategies. Topics related to the profession may include ethics, licensing, copyright, trademarks, and professional conduct. Individual and group projects, research, and presentations may be required in this capstone course.</course_description>
-			<prerequisite>
-				<or_choice>
-					<and_required>CMP SCI 2261</and_required>
-					<and_required>CMP SCI 3010</and_required>
-					<and_required>MATH 3000</and_required>
-				</or_choice>
-			</prerequisite>
-            <prerequisite_description>Prerequisites: CMP SCI 2261, CMP SCI 3010, and MATH 3000. </prerequisite_description>
-		</course>
-		<course>
-			<subject>CMP SCI</subject>
 			<course_number>4610</course_number>
 			<course_name>Database Management Systems</course_name>
 			<rotation_term>
@@ -815,7 +871,11 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 3010 and MATH 3000; or graduate standing. </prerequisite_description>
-		</course>
+            <required>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4700</course_number>
@@ -835,7 +895,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750 or graduate standing. </prerequisite_description>
-		</course>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4730</course_number>
@@ -860,7 +923,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750 and MATH 1320, or graduate standing. </prerequisite_description>
-		</course>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4732</course_number>
@@ -878,7 +944,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1100 or MATH 1800 or consent of instructor. </prerequisite_description>
-		</course>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4750</course_number>
@@ -896,6 +965,9 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750. </prerequisite_description>
 			<paired>CMP SCI 5750</paired>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -919,6 +991,9 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750 and, CMP SCI 3702 or INFSYS 3848, or consent of instructor. </prerequisite_description>
 			<paired>CMP SCI 5782</paired>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -958,7 +1033,10 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 4730 or consent of instructor. </prerequisite_description>
 			<course_description>This course covers the cutting-edge techniques on the emerging edge cloud and wireless/mobile Internet of Things (IoT) systems. It covers the IoT reference architecture, integrated IoT security architecture, major threats and vulnerabilities with the IoT devices and edge cloud, and defense mechanisms. It includes hands-on labs on both the vulnerabilities and defense of the systems. </course_description>
-		</course>
+            <required>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4880</course_number>
@@ -979,7 +1057,7 @@
 			</rotation_term>
             <prerequisite_description>Prerequisites: Consent of instructor. </prerequisite_description>
 		</course>
-	</Electives>
+    </ComputerScience>
 	<MathandStatistics>
 		<course>
 			<subject>MATH</subject>
@@ -1065,7 +1143,12 @@
             <prerequisite_description>Prerequisites: MATH 1030 or MATH 1045 or consent of instructor. </prerequisite_description>
 			<paired>MATH 1105</paired>
 			<paired>MATH 1310</paired>
-			<required>true</required>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 1 -->
+            </required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1102,7 +1185,12 @@
 				<additional_preq>a satisfactory ACT Math score along with a satisfactory score on the university\x27s trigonometry examination, or a satisfactory score on both the university\x27s mathematics proficiency examination and the university\x27s trigonometry examination.</additional_preq>
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1030 and MATH 1035, or MATH 1045, or a satisfactory score on the UMSL Math Placement Examination, obtained at most one year prior to enrollment in this course, or consent of instructor. </prerequisite_description>
-			<required>true</required>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1128,7 +1216,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisite: MATH 1800. </prerequisite_description>
-			<required>true</required>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1157,7 +1248,10 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisite: MATH 1100 or MATH 1900. </prerequisite_description>
-			<required>true</required>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
+            </required>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1188,7 +1282,12 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1800 or MATH 1100, and CMP SCI 1250 or equivalent. </prerequisite_description>
-			<required>true</required>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 	</MathandStatistics>
 	<OtherCourses>
@@ -1207,7 +1306,12 @@
 				<time_code>D, E, O</time_code>
 			</rotation_term>
             <prerequisite_description>No prerequisites. </prerequisite_description>
-			<required>true</required>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
 		<course>
 			<subject>ENGLISH</subject>
@@ -1253,7 +1357,11 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: ENGL 1100 or equivalent (3-6 hours) and 48 credit hours. </prerequisite_description>
-			<required>true</required>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+            </required>
 		</course>
 	</OtherCourses>
 </CSBSReq>
