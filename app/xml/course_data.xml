@@ -699,7 +699,6 @@
 			<prerequisite>
 				<or_choice>
 					<and_required>CMP SCI 2261</and_required>
-					<and_required>CMP SCI 2750</and_required>
 					<and_required>CMP SCI 3130</and_required>
 				</or_choice>
 			</prerequisite>
@@ -1558,7 +1557,7 @@
 			<course_description>This course further develops the experienced writer's style and analytical capabilities to the level of sophistication necessary for business and professional settings. Writing assignments may include business correspondence, reports, resumes, proposals, analyses, presentations, marketing, promotional, and multi-modal materials, discussion postings and blogs, articles for in-house publications, and research and documentation. The course fulfills the University's junior-level writing requirement and may not be taken on a satisfactory/unsatisfactory basis.</course_description>
 			<prerequisite>
 				<or_choice>
-					<and_required>ENGL 1100</and_required>
+					<and_required>ENGLISH 1100</and_required>
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: ENGL 1100 or equivalent (3-6 hours) and 48 credit hours. </prerequisite_description>

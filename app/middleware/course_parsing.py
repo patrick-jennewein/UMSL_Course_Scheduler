@@ -57,11 +57,11 @@ def build_prerequisites(course: dict) -> list:
         # prerequisite is a list of dictionaries (i.e. multiple pre-requisites exist)
         else:
             for prereq in prereqs:
-                # Checks if the prerequisite is an array or a comp sci/math class prerequisite
+                # Checks if the prerequisite is an array or a comp sci/math/infsys class prerequisite
                 prereq = prereq['and_required']
                 if isinstance(prereq, list):
                     prereqs_list.append(prereq)
-                elif (prereq.startswith('CMP SCI') or prereq.startswith('MATH')):
+                elif (prereq.startswith('CMP SCI') or prereq.startswith('MATH') or prereq.startswith('INFSYS')):
                     prereqs_list.append([prereq])
                 elif ("ALEKS" in prereq):
                     prereqs_list.append(["ALEKS"])
@@ -165,6 +165,7 @@ def parse_courses() -> dict:
     csbs_req = doc["CSBSReq"]
 
     all_courses = build_dictionary(csbs_req["ComputerScience"]["course"])
+    all_courses.update(build_dictionary(csbs_req["InformationSystems"]["course"]))
     all_courses.update(build_dictionary(csbs_req["MathandStatistics"]["course"]))
     all_courses.update(build_dictionary(csbs_req["OtherCourses"]["course"]))
 
@@ -456,6 +457,11 @@ def get_semester_years(selected_season) -> dict:
 
 
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
+    #degree_choice = "BSComputerScience"
+    #degree_choice = "BSComputingTechnology"
+    degree_choice = "BSCyberSecurity"
+    #degree_choice = "BSDataScience"
+
     # get information from user form, routes.py
     course_schedule = json.loads(request.form["course_schedule"])
     current_semester = request.form["current_semester"]
@@ -474,12 +480,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])  # default is 0
     min_3000_course_still_needed = int(request.form["min_3000_course"]) # default is 5
     total_credits_accumulated = int(request.form["total_credits"]) if semester != 0 else int(request.form["total_credits"]) + ge_taken + free_elective_credits_accumulated
-
-    # print out student information
-    # print(f"{'Student:':<40}{user_name}")
-    # print(f"{'General Education Credits Earned:':<40}{27 - gen_ed_credits_still_needed}")
-    # print(f"{'Free Elective Credits Earned:':<40}{free_elective_credits_accumulated}")
-    # print(f"{'Total Credits Incoming:':<40}{total_credits_accumulated}")
 
     # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_GRADUATION = 120
@@ -518,7 +518,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     certificate_choice_name = ""
 
     course_prereqs_for = None
-
 
     # if the first semester, overwrite schedular variables from above
     if semester == 0:
@@ -581,24 +580,24 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         #courses_for_graduation = sorted(({k:v for (k,v) in all_courses_dict.items() if "required" in v.keys() and v['required'] == 'true'}).keys())
 
         courses_for_graduation = []
+        print(f"All courses for {degree_choice}:")
         for k, v in all_courses_dict.items():
             if "required" in v:
                 major_or_cert = v['required']['major_or_cert']
                 if not isinstance(major_or_cert, list):
                     major_or_cert = [major_or_cert]
                 for item in major_or_cert:
-                    if item == "BSComputerScience":
-                        print(f"{k}: {item}")
+                    if item == degree_choice:
+                        print(f"\t{k}: {item}")
                         courses_for_graduation.append(k)
 
         required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
-        print(f"{courses_for_graduation=}")
+        print(f"Courses for Graduation: {courses_for_graduation}")
 
         for course in required_courses_tuple:
             should_add_prereqs = initial_prerequisite_check(all_courses_dict, course, courses_taken, courses_for_graduation)
             temp_courses_to_add = []
             if should_add_prereqs:
-                print(f"{course=}")
                 for prereqs in all_courses_dict[course]["prerequisite"]:
                     required_courses_taken = False
                     if isinstance(prereqs, str):
@@ -623,7 +622,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             courses_for_graduation.extend(temp_courses_to_add)
                             break
         ############################################################################
-
         # remove University course - INTDSC 1003 - if user has required credits
         if total_credits_accumulated >= 24:
             courses_for_graduation.remove('INTDSC 1003') 
@@ -645,8 +643,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             if ("MATH 1035" in courses_for_graduation) and ('MATH 1035' not in courses_taken) and ("MATH 1035" in courses_for_graduation):
                 courses_for_graduation.remove('MATH 1035')
         # MATH 1100 is only required for CMP SCI 4732
-        if ('CMP SCI 4732' not in courses_for_graduation) and ('MATH 1100' not in courses_taken) and ("MATH 1100" in courses_for_graduation):
-            courses_for_graduation.remove('MATH 1100')
+        #if ('CMP SCI 4732' not in courses_for_graduation) and ('MATH 1100' not in courses_taken) and ("MATH 1100" in courses_for_graduation):
+            #courses_for_graduation.remove('MATH 1100')
         if has_passed_math_placement_exam:
             if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in courses_for_graduation):
                 courses_for_graduation.remove('MATH 1030')
@@ -655,7 +653,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             if "MATH 1045" in courses_for_graduation:
                 courses_for_graduation.remove('MATH 1045')
             courses_taken.append("ALEKS")
-        
         for course in courses_taken:
             if course in courses_for_graduation:
                 courses_for_graduation.remove(course)
@@ -670,8 +667,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         # convert required courses dictionary to list for easier processing
         required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
         courses_dict_list_unchanged = copy.deepcopy(required_courses_dict_list)
-
         prereqs_for_dict = {}
+
+        print("These are all the courses that will be added to the schedule:")
+        for course in required_courses_dict_list:
+            print(course[0])
 
         for course_data in required_courses_dict.items():
             prereq_for_list = []
@@ -1024,9 +1024,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             if gen_ed_credits_still_needed > 0:
                                 current_semester_classes.append(add_gen_ed_elective())
                                 gen_ed_credits_still_needed -= DEFAULT_CREDIT_HOURS
-                                print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
-                                    f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
-                                    f"{total_credits_accumulated + 3:>15}")
+                                # print(f"Added: \t{'GEN ED':<15}{'[User Selects]':<40} "
+                                #     f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
+                                #     f"{total_credits_accumulated + 3:>15}")
                             else:
                                 current_semester_classes.append(add_free_elective())
                                 free_elective_credits_accumulated += DEFAULT_CREDIT_HOURS
