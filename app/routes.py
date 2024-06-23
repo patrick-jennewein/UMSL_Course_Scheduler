@@ -8,7 +8,13 @@ from pprint import pprint
 def index():
     # set up defaults
     semesters = ["Fall", "Spring"]
-    certificates = [("None", ""), ("Artificial Intelligence", "AICERTReq"), ("Cybersecurity", "CYBERCERTReq"), ("Data Science", "DATACERTReq"), ("Mobile Apps and Computing", "MOBILECERTReq"), ("Internet and Web", "WEBCERTReq")]
+    certificates = [
+        ("Artificial Intelligence", "AICERTReq"),
+        ("Cybersecurity", "CYBERCERTReq"),
+        ("Data Science", "DATACERTReq"),
+        ("Mobile Apps and Computing", "MOBILECERTReq"),
+        ("Internet and Web", "WEBCERTReq")
+    ]
 
     # create a list of all courses
     all_courses = parse_courses()
@@ -52,7 +58,8 @@ def index():
                            degree_choice = "BSComputerScience",
                            is_graduated = False,
                            required_courses_tuple = json.dumps([]),
-                           certificate_choice = json.dumps([])
+                           certificate_choice = json.dumps([]),
+                           selected_certificates = json.dumps([])
     )
 
 @app.route('/schedule', methods=["POST"])

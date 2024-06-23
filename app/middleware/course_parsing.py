@@ -127,10 +127,18 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
             for term in course['rotation_term']:
                 course["semesters_offered"].append(term['term'])
         else:
-            course["semesters_offered"] = course['rotation_term']['term']
+            course["semesters_offered"].append(course['rotation_term']['term'])
 
         if 'prerequisite_description' in course:
             course['prerequisite_description'] = course['prerequisite_description']
+
+        course["required_by_major_cert"] = []
+        if ('required' in course) and ('major_or_cert' in course['required']):
+            if isinstance(course['required']['major_or_cert'], list):
+                course["required_by_major_cert"] = course['required']['major_or_cert']
+            else:
+                course["required_by_major_cert"].append(course['required']['major_or_cert'])
+
         # make final update to course dictionary
         updated_course_dict.update(course_dict)
 
@@ -482,6 +490,12 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     min_3000_course_still_needed = int(request.form["min_3000_course"]) # default is 5
     total_credits_accumulated = int(request.form["total_credits"]) if semester != 0 else int(request.form["total_credits"]) + ge_taken + free_elective_credits_accumulated
 
+    # print out student information
+    # print(f"{'Student:':<40}{user_name}")
+    # print(f"{'General Education Credits Earned:':<40}{27 - gen_ed_credits_still_needed}")
+    # print(f"{'Free Elective Credits Earned:':<40}{free_elective_credits_accumulated}")
+    # print(f"{'Total Credits Incoming:':<40}{total_credits_accumulated}")
+
     # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_GRADUATION = 120
     TOTAL_CREDITS_FOR_BSCS = 71
@@ -546,17 +560,17 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             courses_taken = list(dict.fromkeys(courses_taken))
 
         # if user elects to complete a certificate, get course data for that certificate and decrease electives accordingly
-        certificate_choice = request.form["certificate_choice"].split(",")
-        certificate_choice_name = certificate_choice[0]
-        certificate_choice_xml_tag = certificate_choice[1]
+        # certificate_choice = request.form["certificate_choice"].split(",")
+        # certificate_choice_name = certificate_choice[0]
+        # certificate_choice_xml_tag = certificate_choice[1]
 
-        if (certificate_choice_xml_tag != ""):
-            certificate_core, certificate_electives, cert_elective_courses_still_needed = parse_certificate(certificate_choice_xml_tag)
+        # if (certificate_choice_xml_tag != ""):
+        #     certificate_core, certificate_electives, cert_elective_courses_still_needed = parse_certificate(certificate_choice_xml_tag)
 
-            # Update counters according to certificate addition
-            min_3000_course_still_needed -= cert_elective_courses_still_needed
-            TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = cert_elective_courses_still_needed * DEFAULT_CREDIT_HOURS
-            #certificate_option = True
+        #     # Update counters according to certificate addition
+        #     min_3000_course_still_needed -= cert_elective_courses_still_needed
+        #     TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = cert_elective_courses_still_needed * DEFAULT_CREDIT_HOURS
+        #     #certificate_option = True
 
         # determine the semesters that user will be enrolled in
         user_semesters = build_semester_list(current_semester, include_summer)
@@ -564,15 +578,28 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         # generate required courses
         all_courses_dict = json.loads(request.form['required_courses_dict'])
 
-        # if a certificate was selected, add the required certificate courses to required courses and update counters
-        if certificate_core:
-            num_courses_in_base_csdeg = len(all_courses_dict)
-            all_courses_dict.update(certificate_core)
-            num_3000_replaced_by_cert_core = len(all_courses_dict) - num_courses_in_base_csdeg
-            # print(f"{'3000+ Electives Used in Certificate':<40}{num_3000_replaced_by_cert_core}")
+        certs_selected = json.loads(request.form["selected_certificates"])
 
-            # update counters according to certificate selection
-            min_3000_course_still_needed -= num_3000_replaced_by_cert_core
+        certificate_choice = ""
+        # certificate_choice_name = certificate_choice[0]
+        # certificate_choice_xml_tag = certificate_choice[1]
+        cert_xml_tag_list = []
+
+        for cert in certs_selected:
+            certificate_choice = cert.split(",")
+            certificate_choice_name = certificate_choice[0]
+            certificate_choice_xml_tag = certificate_choice[1]
+            cert_xml_tag_list.append(certificate_choice_xml_tag)
+
+        # if a certificate was selected, add the required certificate courses to required courses and update counters
+        # if (len(certs_selected)):
+        #     num_courses_in_base_csdeg = len(all_courses_dict)
+        #     all_courses_dict.update(certificate_core)
+        #     num_3000_replaced_by_cert_core = len(all_courses_dict) - num_courses_in_base_csdeg
+        #     # print(f"{'3000+ Electives Used in Certificate':<40}{num_3000_replaced_by_cert_core}")
+
+        #     # update counters according to certificate selection
+        #     min_3000_course_still_needed -= num_3000_replaced_by_cert_core
 
         ############################################################################
         ### Note to self: after 'if' statements of course rules, loop through list to build course dictionary

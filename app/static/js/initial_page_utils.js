@@ -157,10 +157,24 @@ function updateWaivedTakenDropdown(sel, is_taken_courses) {
     }
 }
 
-function handleCertSelect(selectedElement) {
-    index_of_cert_value = selectedElement.value.indexOf(',') + 1; // Index will be after comma
-    cert_value = selectedElement.value.substring(index_of_cert_value)
+function handleCertSelect(selectElement) {
+    selected_certs_element = document.getElementById("selected_certificates");
+    selected_certs_array = [];
 
-    mobile_cert_check(cert_value);
+    for (var i = 0; i < selectElement.options.length; i++) {
+        opt = selectElement.options[i];
+
+        if (opt.selected) {
+            selected_certs_array.push(opt.value)
+        }
+    }
+
+    selected_certs_element.value = JSON.stringify(selected_certs_array)
+
+    if (selected_certs_array.includes('Mobile Apps and Computing,MOBILECERTReq')) { 
+        mobile_cert_check('MOBILECERTReq');
+    } else {
+        mobile_cert_check('');
+    }
 }
 
