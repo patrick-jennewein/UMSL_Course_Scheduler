@@ -459,7 +459,7 @@ def get_semester_years(selected_season) -> dict:
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     #degree_choice = "BSComputerScience"
     #degree_choice = "BSComputingTechnology"
-    degree_choice = "BSCyberSecurity"
+    #degree_choice = "BSCyberSecurity"
     #degree_choice = "BSDataScience"
 
     # get information from user form, routes.py
