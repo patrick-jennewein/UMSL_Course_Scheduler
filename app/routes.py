@@ -49,6 +49,7 @@ def index():
                            user_name = "Student",
                            ge_taken = 0,
                            fe_taken = 0,
+                           degree_choice = "BSComputerScience",
                            is_graduated = False,
                            required_courses_tuple = json.dumps([]),
                            certificate_choice = json.dumps([])
@@ -64,6 +65,7 @@ def schedule_generator():
         cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])
         ge_taken = 27 - int(request.form["gen_ed_credits_still_needed"])
         fe_taken = int(request.form["fe_taken"])
+        degree_choice = str(request.form["degree_choice"])
         c = json.loads(request.form["certificate_choice"])
         user_name = request.form["user_name"]
         certificate = c[0]
@@ -76,6 +78,7 @@ def schedule_generator():
                            cert_elective_courses_still_needed = cert_elective_courses_still_needed,
                            ge_taken = ge_taken,
                            fe_taken = fe_taken,
+                           degree_choice = degree_choice,
                            certificate = certificate,
                            total_elective_credits = total_elective_credits,
                            user_name = user_name)
@@ -112,6 +115,7 @@ def schedule_generator():
                             user_name = render_info['user_name'],
                             ge_taken = render_info['ge_taken'],
                             fe_taken = render_info['fe_taken'],
+                            degree_choice = render_info['degree_choice'],
                             is_graduated = render_info['is_graduated'],
                             required_courses_tuple = render_info['required_courses_tuple'],
                             required_courses_tuple_display = render_info["required_courses_tuple_display"],

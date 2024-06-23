@@ -457,6 +457,7 @@ def get_semester_years(selected_season) -> dict:
 
 
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
+    degree_choice = str(request.form["degree_choice"])
     #degree_choice = "BSComputerScience"
     #degree_choice = "BSComputingTechnology"
     #degree_choice = "BSCyberSecurity"
@@ -1173,6 +1174,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "user_name": user_name,
         "fe_taken": free_elective_credits_accumulated,
         "ge_taken": ge_taken,
+        "degree_choice": degree_choice,
         "is_graduated": is_graduated,
         "required_courses_tuple": json.dumps(required_courses_tuple),
         "required_courses_tuple_display": required_courses_tuple
