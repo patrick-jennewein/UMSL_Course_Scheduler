@@ -22,7 +22,7 @@
                             {% endif %}
                             {% endfor %}
                         </select><br>
-                        <label>Bachelor of Science in Computer Science </label><br>
+                        <label>{{ degree_choice }} </label><br>
                         <div class = "credit-category">
                             {% if certificates_display[0] != "None" %}
                                 <label>{{ certificates_display[0]}} Certificate</label>
@@ -289,7 +289,7 @@
                                 {% endif %}
                                 {% endfor %}
                             </select><br>
-                            <label>Bachelor of Science in Computer Science </label><br>
+                            <label>{{ degree_choice }} </label><br>
                             <div class = "credit-category">
                                 {% if certificates_display[0] != "None" %}
                                     <label>{{ certificates_display[0]}} Certificate</label>

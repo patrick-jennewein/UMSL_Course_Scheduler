@@ -466,10 +466,6 @@ def get_semester_years(selected_season) -> dict:
 
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     degree_choice = str(request.form["degree_choice"])
-    #degree_choice = "BSComputerScience"
-    #degree_choice = "BSComputingTechnology"
-    #degree_choice = "BSCyberSecurity"
-    #degree_choice = "BSDataScience"
 
     # get information from user form, routes.py
     course_schedule = json.loads(request.form["course_schedule"])
@@ -615,7 +611,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 if not isinstance(major_or_cert, list):
                     major_or_cert = [major_or_cert]
                 for item in major_or_cert:
-                    if item == degree_choice:
+                    if item == degree_choice or len(set(cert_xml_tag_list).intersection(v['required_by_major_cert'])):
                         print(f"\t{k}: {item}")
                         courses_for_graduation.append(k)
 
