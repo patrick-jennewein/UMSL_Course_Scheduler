@@ -463,6 +463,40 @@ def get_semester_years(selected_season) -> dict:
     print()
     return semester_years
 
+def build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_graduation, courses_list):
+    added_courses = []
+    for course in courses_list:
+        should_add_prereqs = initial_prerequisite_check(all_courses_dict, course, courses_taken, courses_for_graduation)
+        temp_courses_to_add = []
+        if should_add_prereqs:
+            for prereqs in all_courses_dict[course]["prerequisite"]:
+                if isinstance(prereqs, str):
+                    if (prereqs not in courses_for_graduation) and (prereqs not in courses_taken):
+                        courses_for_graduation.append(prereqs)
+                        print(f'Missing course: {prereqs}')
+                        added_courses.append(prereqs)
+                        break
+                elif (len(prereqs) == 1):
+                    if (prereqs[0] not in courses_for_graduation) and (prereqs[0] not in courses_taken):
+                        courses_for_graduation.append(prereqs[0])
+                        print(f'Missing course: {prereqs[0]}')
+                        added_courses.append(prereqs[0])
+                        break
+                else:
+                    # Potential improvement: Decide a better way to add prerequisites instead of just taking first pre
+                    for prereq in prereqs:
+                        if (prereq not in all_courses_dict.keys()):
+                            temp_courses_to_add = []
+                            break
+                        if ((prereq not in courses_for_graduation) and (prereq not in courses_taken)):
+                            temp_courses_to_add.append(prereq)
+                    if (len(temp_courses_to_add) > 0):
+                        courses_for_graduation.extend(temp_courses_to_add)
+                        added_courses.extend(temp_courses_to_add)
+                        break
+    # If new courses were added, then we need to check if they need any prereqs as well
+    if (len(added_courses)):
+        build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_graduation, added_courses)
 
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     degree_choice = str(request.form["degree_choice"])
@@ -618,33 +652,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
         print(f"Courses for Graduation: {courses_for_graduation}")
 
-        for course in required_courses_tuple:
-            should_add_prereqs = initial_prerequisite_check(all_courses_dict, course, courses_taken, courses_for_graduation)
-            temp_courses_to_add = []
-            if should_add_prereqs:
-                for prereqs in all_courses_dict[course]["prerequisite"]:
-                    required_courses_taken = False
-                    if isinstance(prereqs, str):
-                        if (prereqs not in courses_for_graduation) and (prereqs not in courses_taken):
-                            courses_for_graduation.append(prereqs)
-                            print(f'Missing course: {prereqs}')
-                            break
-                    elif (len(prereqs) == 1):
-                        if (prereqs[0] not in courses_for_graduation) and (prereqs[0] not in courses_taken):
-                            courses_for_graduation.append(prereqs[0])
-                            print(f'Missing course: {prereqs[0]}')
-                            break
-                    else:
-                        # Potential improvement: Decide a better way to add prerequisites instead of just taking first pre
-                        for prereq in prereqs:
-                            if (prereq not in all_courses_dict.keys()):
-                                temp_courses_to_add = []
-                                break
-                            if ((prereq not in courses_for_graduation) and (prereq not in courses_taken)):
-                                temp_courses_to_add.append(prereq)
-                        if (len(temp_courses_to_add) > 0):
-                            courses_for_graduation.extend(temp_courses_to_add)
-                            break
+        build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_graduation, required_courses_tuple)
+
         ############################################################################
         # remove University course - INTDSC 1003 - if user has required credits
         if total_credits_accumulated >= 24:
@@ -776,6 +785,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             for index, x in enumerate(required_courses_dict_list):
                 course: str = x[0]  # holds course subject + number
                 course_info: dict = x[1]  # holds all other information about course
+                # print(f"{course=}")
+                # print(f"{course_info['prerequisite']=}")
+                # print(f"{courses_taken=}")
                 concurrent = None
                 if "concurrent" in course_info.keys():
                     concurrent = course_info["concurrent"]
