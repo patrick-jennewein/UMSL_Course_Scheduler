@@ -561,6 +561,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
     # if the first semester, overwrite schedular variables from above
     if semester == 0:
+        courses_for_graduation = []
+        course_choices_for_graduation = []
         temp_min_credits_per_semester = min_credits_per_semester
 
         # set up semesters list
@@ -596,9 +598,19 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             certificate_choice_xml_tag = certificate_choice[1]
             cert_xml_tag_list.append(certificate_choice_xml_tag)
 
+        for k, v in all_courses_dict.items():
+            # create list of courses in which user makes a selection from a set
+            print(k)
+            if "selection_group" in v.keys():
+                for program in v["selection_group"]["program"]:
+                    if program['major_or_cert'] == degree_choice:
+                        course_set = set(program["course_options"]["option"])
+                        num_of_choices = program["choose"]
+                        course_tuple = (num_of_choices, course_set)
+                        if(course_tuple not in course_choices_for_graduation):
+                            course_choices_for_graduation.append(course_tuple)
+
         # search .xml document for required courses and build user schedule
-        courses_for_graduation = []
-        course_choices_for_graduation = []
         print(f"All courses for {degree_choice}:")
         for k, v in all_courses_dict.items():
             # append all required courses
@@ -610,16 +622,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     if item == degree_choice or len(set(cert_xml_tag_list).intersection(v['required_by_major_cert'])):
                         print(f"\t{k}: {item}")
                         courses_for_graduation.append(k)
-            # create list of courses in which user makes a selection from a set
-            print(k)
-            if "selection_group" in v.keys():
-                for program in v["selection_group"]["program"]:
-                    if program['major_or_cert'] == degree_choice:
-                        course_set = set(program["course_options"]["option"])
-                        num_of_choices = program["choose"]
-                        course_tuple = (num_of_choices, course_set)
-                        if(course_tuple not in course_choices_for_graduation):
-                            course_choices_for_graduation.append(course_tuple)
         # select courses
         for choices in course_choices_for_graduation:
             print(f"Choose {choices[0]} course(s) from {choices[1]}")
