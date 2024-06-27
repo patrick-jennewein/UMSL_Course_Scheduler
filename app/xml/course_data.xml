@@ -451,12 +451,28 @@
             <prerequisite_description>Prerequisites: CMP SCI 2250. </prerequisite_description>
 			<course_description>This course introduces the importance of cybersecurity and covers its various components. Topics may include different types of malware, phishing, password attacks, spoofing, efficient encryption algorithms, firewalls, intrusion prevention/detection systems, and honeypots. </course_description>
             <required>
-                <major_or_cert>BSComputingTechnology</major_or_cert>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
                 <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
 				<major_or_cert>CYBERCERTReq</major_or_cert>
 				<major_or_cert>MOBILECERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSComputingTechnology</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 3780</option>
+                        <option>CMP SCI 3702</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 3702</option>
+                        <option>INFSYS 3848</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -477,9 +493,18 @@
             <prerequisite_description>Prerequisites: CMP SCI 2261, CMP SCI 2750, and CMP SCI 3010. </prerequisite_description>
 			<course_description>This course introduces the basic software security principles and pitfalls, including topics such as buffer, integer and string problems, runtime errors, SQL and command injection. Additional topics may include data protection, secure file access, password and network security.</course_description>
             <required>
-                <major_or_cert>BSComputingTechnology</major_or_cert>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSComputingTechnology</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 3780</option>
+                        <option>CMP SCI 3702</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1171,9 +1196,28 @@
             <prerequisite_description>Prerequisites: MATH 1030 or MATH 1045 or a satisfactory score on the UMSL Math Placement Examination obtained at most one year prior to enrollment in this course. </prerequisite_description>
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
-                <major_or_cert>BSComputingTechnology</major_or_cert>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSComputingTechnology</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>MATH 1100</option>
+                        <option>MATH 1800</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>MATH 1100</option>
+                        <option>MATH 1800</option>
+                    </course_options>
+                </program>
+            </selection_group>
+            <selection_group>
+
+            </selection_group>
         </course>
 		<course>
 			<subject>MATH</subject>
@@ -1251,10 +1295,19 @@
             <prerequisite_description>Prerequisites: MATH 1030 and MATH 1035, or MATH 1045, or a satisfactory score on the UMSL Math Placement Examination, obtained at most one year prior to enrollment in this course, or consent of instructor. </prerequisite_description>
             <required>
                 <major_or_cert>BSComputerScience</major_or_cert>
-                <major_or_cert>BSComputingTechnology</major_or_cert>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
                 <major_or_cert>BSDataScience</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSComputingTechnology</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>MATH 1100</option>
+                        <option>MATH 1800</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1462,9 +1515,16 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: INFSYS 2800 or CMP SCI 2250 or consent of instructor and a minimum campus GPA of 2.0. </prerequisite_description>
 			<paired>INFSYS 6828</paired>
-            <required>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
-            </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 3702</option>
+                        <option>INFSYS 3848</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
         <course>
             <subject>INFSYS</subject>
@@ -1590,6 +1650,16 @@
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>ENGLISH 3120</option>
+                        <option>ENGLISH 3130</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>ENGLISH</subject>
@@ -1618,8 +1688,17 @@
             <required>
                 <major_or_cert>BSComputerScience</major_or_cert>
                 <major_or_cert>BSComputingTechnology</major_or_cert>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>ENGLISH 3120</option>
+                        <option>ENGLISH 3130</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 	</OtherCourses>
 </CSBSReq>
