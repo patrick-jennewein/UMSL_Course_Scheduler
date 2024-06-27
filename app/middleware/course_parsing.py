@@ -138,6 +138,10 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
                 course["required_by_major_cert"] = course['required']['major_or_cert']
             else:
                 course["required_by_major_cert"].append(course['required']['major_or_cert'])
+        if "selection_group" in course:
+            if not isinstance(course["selection_group"]["program"], list):
+                course["selection_group"]["program"] = [course["selection_group"]["program"]]
+            print(f'{course["selection_group"]["program"]=}')
 
         # make final update to course dictionary
         updated_course_dict.update(course_dict)
@@ -608,11 +612,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         courses_for_graduation.append(k)
             # create list of courses in which user makes a selection from a set
             print(k)
-            if "selection_group" in v:
-                for item in major_or_cert:
-                    if (v["selection_group"]['program']['major_or_cert'] == degree_choice):
-                        course_set = set(v["selection_group"]["program"]["course_options"]["option"])
-                        num_of_choices = v["selection_group"]["program"]["choose"]
+            if "selection_group" in v.keys():
+                for program in v["selection_group"]["program"]:
+                    if program['major_or_cert'] == degree_choice:
+                        course_set = set(program["course_options"]["option"])
+                        num_of_choices = program["choose"]
                         course_tuple = (num_of_choices, course_set)
                         if(course_tuple not in course_choices_for_graduation):
                             course_choices_for_graduation.append(course_tuple)
