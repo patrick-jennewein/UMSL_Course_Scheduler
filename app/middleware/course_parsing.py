@@ -716,8 +716,12 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         temp_min_credits_per_semester = int(request.form["saved_minimum_credits_selection"])
         is_graduated = True if request.form["is_graduated"] == "True" else False
         certificate_choice = json.loads(request.form["certificate_choice"])
-        certificate_choice_name = certificate_choice[0]
-        certificate_choice_xml_tag = certificate_choice[1]
+        if(certificate_choice_name == ""):
+            certificate_choice_name = " "
+            certificate_choice_xml_tag = " "
+        else:
+            certificate_choice_name = certificate_choice[0]
+            certificate_choice_xml_tag = certificate_choice[1]
         TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = int(request.form["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"])
         if ("courses_taken" in request.form.keys()):
             courses_taken = json.loads(request.form["courses_taken"])

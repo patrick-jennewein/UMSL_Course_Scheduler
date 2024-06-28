@@ -75,7 +75,10 @@ def schedule_generator():
         degree_choice = str(request.form["degree_choice"])
         c = json.loads(request.form["certificate_choice"])
         user_name = request.form["user_name"]
-        certificate = c[0]
+        if(c != ""):
+            certificate = c[0]
+        else:
+            certificate = ""
         total_elective_credits = int(request.form["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"])
         return render_template('printable.html',
                             course_schedule_display=course_schedule_display,
