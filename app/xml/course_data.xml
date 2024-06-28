@@ -255,9 +255,24 @@
                 <major_or_cert>BSComputerScience</major_or_cert>
                 <major_or_cert>BSComputingTechnology</major_or_cert>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
-                <major_or_cert>BSDataScience</major_or_cert> <!--choose 3-->
 				<major_or_cert>WEBCERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -451,7 +466,6 @@
             <prerequisite_description>Prerequisites: CMP SCI 2250. </prerequisite_description>
 			<course_description>This course introduces the importance of cybersecurity and covers its various components. Topics may include different types of malware, phishing, password attacks, spoofing, efficient encryption algorithms, firewalls, intrusion prevention/detection systems, and honeypots. </course_description>
             <required>
-                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
 				<major_or_cert>CYBERCERTReq</major_or_cert>
 				<major_or_cert>MOBILECERTReq</major_or_cert>
             </required>
@@ -470,6 +484,20 @@
                     <course_options>
                         <option>CMP SCI 3702</option>
                         <option>INFSYS 3848</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -727,9 +755,24 @@
 			<paired>CMP SCI 5300</paired>
             <prerequisite_description>Prerequisites: CMP SCI 3130. </prerequisite_description>
             <required>
-                <major_or_cert>BSDataScience</major_or_cert>
 				<major_or_cert>AICERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -748,9 +791,22 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2261, CMP SCI 2750 and CMP SCI 3130. </prerequisite_description>
 			<course_description>This course introduces the concepts of nature-inspired problem solving with artificial evolution using selection, crossover, mutation and inheritance. It discusses applications of evolutionary algorithms, overviews the existing models and instances, and analyzes specific instances such as genetic algorithms, evolutionary programming, evolution strategies, and genetic programming. </course_description>
-            <required>
-                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
-            </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -828,9 +884,22 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 3130 or consent of instructor. </prerequisite_description>
-            <required>
-                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
-            </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -848,9 +917,22 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 3130 or consent of instructor. </prerequisite_description>
 			<course_description>This course introduces mathematical foundations for deep learning, and follows with practical applications using selected domains such as image classification or protein predictions. It also covers dense neural networks, convolutional neural networks, recurrent neural networks, and other state-of-the-art networks. </course_description>
-            <required>
-                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
-            </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -921,8 +1003,23 @@
             <prerequisite_description>Prerequisites: CMP SCI 3010 and MATH 3000; or graduate standing. </prerequisite_description>
             <required>
                 <major_or_cert>BSComputingTechnology</major_or_cert>
-                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1214,6 +1311,14 @@
                         <option>MATH 1800</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>MATH 1800</option>
+                        <option>MATH 1100</option>
+                    </course_options>
+                </program>
             </selection_group>
         </course>
 		<course>
@@ -1292,7 +1397,6 @@
             <prerequisite_description>Prerequisites: MATH 1030 and MATH 1035, or MATH 1045, or a satisfactory score on the UMSL Math Placement Examination, obtained at most one year prior to enrollment in this course, or consent of instructor. </prerequisite_description>
             <required>
                 <major_or_cert>BSComputerScience</major_or_cert>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
                 <major_or_cert>BSDataScience</major_or_cert>
             </required>
             <selection_group>
@@ -1302,6 +1406,22 @@
                     <course_options>
                         <option>MATH 1100</option>
                         <option>MATH 1800</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>MATH 1800</option>
+                        <option>MATH 1100</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>MATH 1800</option>
+                        <option>MATH 1100</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -1364,8 +1484,23 @@
             <prerequisite_description>Prerequisite: MATH 1100 or MATH 1900. </prerequisite_description>
             <required>
                 <major_or_cert>BSComputerScience</major_or_cert>
-                <major_or_cert>BSDataScience</major_or_cert> <!-- choose 3 -->
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSDataScience</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 3010</option>
+                        <option>CMP SCI 3702</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4610</option>
+                        <option>MATH 2450</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>MATH</subject>
@@ -1621,7 +1756,7 @@
             <prerequisite_description>No prerequisites. </prerequisite_description>
 		</course>
         <course>
-            <subject>ENGL</subject>
+            <subject>ENGLISH</subject>
 			<course_number>3120</course_number>
 			<course_name>Business Writing</course_name>
 			<rotation_term>
@@ -1644,9 +1779,6 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: ENGL 1100 or equivalent (3-6 hours) and 48 credit hours. </prerequisite_description>
-            <required>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
-            </required>
             <selection_group>
                 <program>
                     <major_or_cert>BSCyberSecurity</major_or_cert>

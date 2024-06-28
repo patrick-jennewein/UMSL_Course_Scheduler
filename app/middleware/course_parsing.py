@@ -598,8 +598,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             certificate_choice_xml_tag = certificate_choice[1]
             cert_xml_tag_list.append(certificate_choice_xml_tag)
 
+        # create list of courses in which user makes a selection from a set
         for k, v in all_courses_dict.items():
-            # create list of courses in which user makes a selection from a set
             print(k)
             if "selection_group" in v.keys():
                 for program in v["selection_group"]["program"]:
@@ -609,6 +609,14 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         course_tuple = (num_of_choices, course_set)
                         if(course_tuple not in course_choices_for_graduation):
                             course_choices_for_graduation.append(course_tuple)
+        print(f"Course choices to make: {course_choices_for_graduation}")
+        # iterate through the number of course choices
+        student_selections = []
+        for course_choice in course_choices_for_graduation:
+            for i in range(int(course_choice[0])):
+                print(f"choose {course_choice[0]} from {course_choice[1]}: ")
+                student_selection = str(input("Selection: "))
+                student_selections.append(student_selection)
 
         # search .xml document for required courses and build user schedule
         print(f"All courses for {degree_choice}:")
@@ -622,6 +630,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     if item == degree_choice or len(set(cert_xml_tag_list).intersection(v['required_by_major_cert'])):
                         print(f"\t{k}: {item}")
                         courses_for_graduation.append(k)
+            # append courses that user has chosen
+            if(k in student_selections):
+                courses_for_graduation.append(k)
         # select courses
         for choices in course_choices_for_graduation:
             print(f"Choose {choices[0]} course(s) from {choices[1]}")
