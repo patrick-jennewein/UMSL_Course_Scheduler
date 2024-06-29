@@ -36,8 +36,6 @@
                 </select>
                 <br><br>
 
-
-
                 <!-- Select certificate option -->
                 <label for="certificate">
                     Certificate Option
@@ -115,30 +113,34 @@
                 <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
                 <br><br><br>
 
-                <!-- hidden variables -->
-                <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
-                <input type="hidden" name="semester_number" value="{{ semester_number }}">
-                <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
-                <input type="hidden" name="include_summer" value="{{ include_summer }}">
-                <input type="hidden" id="json_required_courses" name="json_required_courses"
-                    value="{{ json_required_courses }}">
-                <input type="hidden" name="num_3000_replaced_by_cert_core" value="{{ num_3000_replaced_by_cert_core }}">
-                <input type="hidden" name="cert_elective_courses_still_needed"
-                    value="{{ cert_elective_courses_still_needed }}">
-                <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
-                <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
-                <input type="hidden" name="first_semester" value="{{ first_semester }}">
-                <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
-                <input type="hidden" name="semester_years" value="{{ semester_years }}">
-                <input type="hidden" name="required_courses_tuple" value = "{{ required_courses_tuple }}">
-                <input type="hidden" id="selected_certificates" name="selected_certificates" value="{{ selected_certificates }}">
-
-                <!-- submit buttons-->
-                <div class = "buttons">
-                    <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
-                    <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+                <!-- Choose Optional Courses-->
+                <div class = "help">
+                    <a href="javascript:void(0)"
+                       onclick="document.getElementById('light').style.display='block';
+                       document.getElementById('fade').style.display='block'">
+                        <p>Proceed</p>
+                    </a>
+                    <div id="light" class="tutorial_popup">
+                        This is a popup.
+                        <br><br>
+                        <!-- submit buttons-->
+                        <div class = "buttons">
+                            <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
+                            <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+                        </div>
+                        <br>
+                        <br><br>
+                        <div class = "close">
+                            <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';
+                            document.getElementById('fade').style.display='none'">
+                                Close this tutorial
+                            </a>
+                        </div>
+                    </div>
+                    <div id="fade" class="black_overlay"></div>
                 </div>
-                <br>
+                <br><br>
+
 
                 <!-- Tutorial -->
                 <div class = "help">
@@ -221,6 +223,24 @@
                     <div id="fade" class="black_overlay"></div>
 
                 </div>
+
+                <!-- hidden variables -->
+                <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
+                <input type="hidden" name="semester_number" value="{{ semester_number }}">
+                <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
+                <input type="hidden" name="include_summer" value="{{ include_summer }}">
+                <input type="hidden" id="json_required_courses" name="json_required_courses"
+                    value="{{ json_required_courses }}">
+                <input type="hidden" name="num_3000_replaced_by_cert_core" value="{{ num_3000_replaced_by_cert_core }}">
+                <input type="hidden" name="cert_elective_courses_still_needed"
+                    value="{{ cert_elective_courses_still_needed }}">
+                <input type="hidden" name="elective_courses" value="{{ elective_courses }}">
+                <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
+                <input type="hidden" name="first_semester" value="{{ first_semester }}">
+                <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
+                <input type="hidden" name="semester_years" value="{{ semester_years }}">
+                <input type="hidden" name="required_courses_tuple" value = "{{ required_courses_tuple }}">
+                <input type="hidden" id="selected_certificates" name="selected_certificates" value="{{ selected_certificates }}">
 
             </div>
             <div class="second-form" id = "form-container-2">
