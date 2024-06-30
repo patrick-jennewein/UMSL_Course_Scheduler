@@ -121,7 +121,11 @@
                         <p>Proceed</p>
                     </a>
                     <div id="proceed-button" class="tutorial_popup">
-                        This is a popup.
+                        <h3>Iterate through the following courses here.</h3>
+                        {% for key, value in required_courses_dict_display.items() %}
+                            {{key}}
+                        {% endfor %}
+
                         <br><br>
                         <!-- submit buttons-->
                         <div class = "buttons">
@@ -241,7 +245,8 @@
                 <input type="hidden" name="semester_years" value="{{ semester_years }}">
                 <input type="hidden" name="required_courses_tuple" value = "{{ required_courses_tuple }}">
                 <input type="hidden" id="selected_certificates" name="selected_certificates" value="{{ selected_certificates }}">
-
+                <input type="hidden" name="required_courses_dict" value="{{ required_courses_dict }}">
+                <input type="hidden" name="required_courses_dict_display" value="{{ required_courses_dict_display }}">
             </div>
             <div class="second-form" id = "form-container-2">
                 <!-- Select waived courses-->
@@ -380,7 +385,7 @@
                     <option value="{{credits}}">{{ credits }}</option>
                     {% endfor %}
                 </select>
-                <input type="hidden" name="required_courses_dict" value="{{ required_courses_dict }}">
+
                 <br><br>
 
                 <!-- Disclaimer -->

@@ -1,6 +1,6 @@
 from flask import render_template, request, json
 from app import app
-from app.middleware.course_parsing import parse_courses, generate_semester
+from app.middleware.course_parsing import parse_courses, generate_semester, print_dictionary
 from pprint import pprint
 
 @app.route('/')
@@ -31,11 +31,11 @@ def index():
         }
         all_courses_list.append(course_info)
     all_courses_list = sorted(all_courses_list, key=lambda d: d["course"])
-
     return render_template('index.html',
                            initial_load=True,
                            required_courses=all_courses_list,
                            required_courses_dict=json.dumps(all_courses),
+                           required_courses_dict_display=all_courses,
                            json_required_courses=json.dumps(all_courses_list),
                            semesters=semesters,
                            certificates=certificates,
@@ -55,7 +55,7 @@ def index():
                            user_name = "Student",
                            ge_taken = 0,
                            fe_taken = 0,
-                           degree_choice = "BSComputerScience",
+                           degree_choice = "BSComputingTechnology",
                            is_graduated = False,
                            required_courses_tuple = json.dumps([]),
                            certificate_choice = json.dumps([]),
@@ -75,6 +75,7 @@ def schedule_generator():
         degree_choice = str(request.form["degree_choice"])
         c = json.loads(request.form["certificate_choice"])
         user_name = request.form["user_name"]
+        required_courses_dict_display = request.form["required_courses_dict_display"]
         if(c != ""):
             certificate = c[0]
         else:
@@ -95,6 +96,7 @@ def schedule_generator():
     else:
         render_info = generate_semester(request)
         return render_template('index.html',
+                            required_courses_dict_display=render_info["required_courses_dict_display"],
                             required_courses_dict_list=render_info["required_courses_dict_list"],
                             required_courses_dict_list_unchanged=render_info["required_courses_dict_list_unchanged"],
                             semesters=render_info["semesters"],

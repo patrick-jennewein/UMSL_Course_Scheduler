@@ -519,6 +519,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])
     min_3000_course_still_needed = int(request.form["min_3000_course"])
     total_credits_accumulated = int(request.form["total_credits"]) if semester != 0 else int(request.form["total_credits"]) + ge_taken + free_elective_credits_accumulated
+    required_courses_dict_display = (request.form['required_courses_dict_display'])
 
     # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_GRADUATION = 120
@@ -1129,6 +1130,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     modified_accumulated_3000 = (modified_total_for_3000 -(min_3000_course_still_needed*DEFAULT_CREDIT_HOURS))
 
     return {
+        "required_courses_dict_display": required_courses_dict_display,
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
         "required_courses_dict_list_unchanged": json.dumps(courses_dict_list_unchanged),
         "semesters": user_semesters,
