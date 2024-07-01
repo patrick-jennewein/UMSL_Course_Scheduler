@@ -1,7 +1,6 @@
 from flask import render_template, request, json
 from app import app
 from app.middleware.course_parsing import parse_courses, generate_semester
-from pprint import pprint
 
 @app.route('/')
 @app.route('/index')
@@ -64,6 +63,7 @@ def index():
 
 @app.route('/schedule', methods=["POST"])
 def schedule_generator():
+    print(f'{request.form.keys()=}')
     if "Print" in request.form.keys():
         course_schedule_display = json.loads(request.form["course_schedule"])
         total_credits = int(request.form["total_credits"])
@@ -93,7 +93,12 @@ def schedule_generator():
                            total_elective_credits = total_elective_credits,
                            user_name = user_name)
     else:
-        render_info = generate_semester(request)
+        render_info = None
+
+        if "upload" in request.form.keys():
+            render_info = get_render_info_from_upload(request)
+        else:
+            render_info = generate_semester(request)
         return render_template('index.html',
                             required_courses_dict_list=render_info["required_courses_dict_list"],
                             required_courses_dict_list_unchanged=render_info["required_courses_dict_list_unchanged"],
@@ -129,5 +134,29 @@ def schedule_generator():
                             is_graduated = render_info['is_graduated'],
                             required_courses_tuple = render_info['required_courses_tuple'],
                             required_courses_tuple_display = render_info["required_courses_tuple_display"],
-                            total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"]
+                            total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
+                            render_info=json.dumps(render_info)
     )
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() == 'txt'
+
+def get_render_info_from_upload(request):
+    # check if the post request has the file part
+    if 'file' not in request.files:
+        print('No file part')
+        return index()
+    file = request.files['file']
+    # If the user does not select a file, the browser submits an
+    # empty file without a filename.
+    if file.filename == '':
+        print('No selected file')
+        return index()
+    if file and allowed_file(file.filename):
+        print(f'{file.name=}')
+        print(f'{file.filename=}')
+        file_content = file.read().decode()
+        return json.loads(file_content)
+    else:
+        return index()

@@ -2,7 +2,7 @@
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-    <form id="form" action="/schedule" method="post">
+    <form id="form" action="/schedule" method="post" enctype="multipart/form-data">
         <div class="cover-page-background">
             <!-- Menu -->
             <div class="form-container">
@@ -98,6 +98,8 @@
                 </select>
                 <br>
                 <br>
+                <input type=file id="file" name=file>
+                <input type=submit name=upload value=Upload>
 
                 <!-- Earned credit boolean -->
                 <label for="earned_credit">
