@@ -63,8 +63,7 @@ def index():
 
 @app.route('/schedule', methods=["POST"])
 def schedule_generator():
-    print(f'{request.form.keys()=}')
-    if "Print" in request.form.keys():
+    if request.form.get('Print'):
         course_schedule_display = json.loads(request.form["course_schedule"])
         total_credits = int(request.form["total_credits"])
         num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])
@@ -94,8 +93,8 @@ def schedule_generator():
                            user_name = user_name)
     else:
         render_info = None
-
-        if "upload" in request.form.keys():
+        print()
+        if request.form.get('upload'):
             render_info = get_render_info_from_upload(request)
         else:
             render_info = generate_semester(request)
