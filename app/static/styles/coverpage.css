@@ -1,7 +1,6 @@
 /* styles for the front-page*/
 /* styles for the 'see tutorial' button*/
 /* styles for the 'required courses' button, re-used from the 'see tutorial' button*/
-
 .cover-page-background {
   display: flex;
   justify-content: center;
@@ -67,6 +66,7 @@
 .second-form{
   display: none;
 }
+
 
 /* styles for form display when clicked*/
 .form-container-2{
@@ -151,6 +151,72 @@ strong{
   display: flex;
   justify-content: space-evenly;
 }
+
+/*file upload*/
+.question-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: "Roboto Condensed", sans-serif;
+}
+#has_upload{
+  accent-color: #a80b2d;
+}
+.upload_schedule{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://www.umsl.edu/new-home/files/images/tour-2023.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 10em 6em #000;
+  overflow: hidden;
+}
+.upload_schedule h1{
+  text-align: left;
+}
+.upload_schedule .form-container{
+  width: 404px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.upload-label{
+  color: black;
+  text-align: center !important;
+}
+::-webkit-file-upload-button{
+  border: 1px solid black;
+  padding: 10px;
+  font-family: "Roboto Condensed", sans-serif;
+  border-radius: 5px;
+  display: block;
+  text-align: center;
+  width: 200px;
+  margin: 0 auto!important;
+}
+::-webkit-file-upload-button:hover{
+  transition: 0.5s;
+  color: lightgray;
+  background-color: #a80b2d;
+}
+input[type="file"] {
+    color: transparent;
+    cursor: pointer;
+}
+
 
 /* styles for smaller screens*/
 @media screen and (max-height: 900px) {

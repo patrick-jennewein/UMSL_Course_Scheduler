@@ -53,6 +53,19 @@ function handleEarnedCreditCheckboxClick(checkbox){
     }
 }
 
+// Add the main page when the checkbox is clicked
+function handleUploadCheckbox(checkbox){
+    const coverPageBackground = document.querySelector('.cover-page-background');
+    const uploadScheduleBox = document.querySelector('.upload_schedule');
+    if (checkbox.checked) {
+        coverPageBackground.style.display = 'none';
+        uploadScheduleBox.style.display = 'flex';
+    } else {
+        coverPageBackground.style.display = 'flex';
+        uploadScheduleBox.style.display = 'none';
+    }
+}
+
 // Remove all options of a passed in select element
 function removeOptions(selectElement) {
     var i, L = selectElement.options.length - 1;

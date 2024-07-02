@@ -3,9 +3,29 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <form id="form" action="/schedule" method="post" enctype="multipart/form-data">
+        <div class = "question-box" id = "has_upload_question">
+            <label for="question">
+                Upload previously-made schedule?
+            </label>
+            <input type="checkbox" id="has_upload" name="include_upload" onclick="handleUploadCheckbox(this)"><br>
+        </div>
+        <div class = "upload_schedule">
+            <div class = "form-container">
+                <h1>Returning user? Upload your schedule here!</h1>
+                <p>You can easily upload your previously created schedule to quickly integrate it into our system.
+                    Please follow the instructions below to ensure a smooth upload process:</p>
+                <!-- Features -->
+                <h3>Step One: Select Your File</h3>
+                <p>Be sure that your file is a .txt file, and click the "Choose File" button below.</p>
+                <input type=file id="file" name=file class = "upload-label" title = ""><br><br>
+                <h3>Step Two: Upload Your File</h3>
+                <p>Click the "upload" button and retun to the schedule editor.</p>
+                <input type=submit name=upload value=Upload>
+            </div>
+        </div>
         <div class="cover-page-background">
             <!-- Menu -->
-            <div class="form-container">
+            <div class="form-container" id = "form-container-1">
                 <!-- Display logo-->
                 <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
                 <br><br>
@@ -113,11 +133,6 @@
                 </label>
                 <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
                 <br><br><br>
-
-                <!--
-                <input type=file id="file" name=file>
-                <input type=submit name=upload value=Upload>
-                -->
 
                 <div class = "cover-page-buttons">
                     <!-- Choose Optional Courses-->
@@ -265,7 +280,7 @@
                             </a>
                         </span>
                     </span>
-                    Waived Core Courses
+                    Waived Courses
                 </label>
                 <select name="waived_courses" id="waived_courses" multiple onchange="updateWaivedTakenDropdown(this)"
                 onfocus='this.size=10;' onblur='this.size=10;'
@@ -291,7 +306,7 @@
                             </a>
                         </span>
                     </span>
-                    Completed Core Courses
+                    Completed Courses
                 </label>
                 <select name="courses_taken" id="taken_courses" multiple onChange="handleTakenCourseSelect(this)"
                 onfocus='this.size=10;' onblur='this.size=10;'
