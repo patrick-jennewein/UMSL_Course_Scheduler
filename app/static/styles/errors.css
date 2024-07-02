@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+}
+.error-cover-page-background{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url("https://www.rccllc.com/wp-content/uploads/umsl-rec1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 10em 6em #000;
+  overflow: hidden;
+  font-family: "Roboto Condensed", sans-serif;
+  color: white;
+}
+.error-cover-page-background .error-page-text{
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  border-radius: 20px;
+  padding: 30px;
+}
+.error-cover-page-background h1{
+  font-size: 80px;
+}
+.error-page-text a{
+  color: black;
+}
+.error-page-text a:hover{
+  color: #a80b2d;
+  transition: 0.5s;
+}
+
+
+
+

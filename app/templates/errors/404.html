@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error!</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='../../../static/styles/errors.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+<body>
+    <div class = "error-cover-page-background">
+        <div class = "error-page-text">
+            <h1>Uh-Oh!</h1>
+            <h2>Looks like the page you're looking for isn't here.</h2>
+            <p>Double-check the URL or <a href="{{ url_for('index') }}">head back</a> to the homepage</p>
+        </div>
+    </div>
+</body>
+</html>
