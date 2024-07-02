@@ -92,50 +92,53 @@ def schedule_generator():
                            total_elective_credits = total_elective_credits,
                            user_name = user_name)
     else:
-        render_info = None
-        print()
-        if request.form.get('upload'):
-            render_info = get_render_info_from_upload(request)
-        else:
-            render_info = generate_semester(request)
-        return render_template('index.html',
-                            required_courses_dict_list=render_info["required_courses_dict_list"],
-                            required_courses_dict_list_unchanged=render_info["required_courses_dict_list_unchanged"],
-                            semesters=render_info["semesters"],
-                            total_credits=render_info["total_credits"],
-                            course_schedule=render_info["course_schedule"],
-                            course_schedule_display=render_info["course_schedule_display"],
-                            courses_taken=render_info["courses_taken"],
-                            list_of_required_courses_taken_display = render_info["list_of_required_courses_taken_display"],
-                            semester_number=render_info["semester_number"],
-                            waived_courses=render_info["waived_courses"],
-                            current_semester=render_info["current_semester"],
-                            minimum_semester_credits=render_info["minimum_semester_credits"],
-                            min_3000_course=render_info["min_3000_course"],
-                            include_summer=render_info["include_summer"],
-                            certificates=render_info["certificate_choice"],
-                            certificates_display = render_info["certificates_display"],
-                            num_3000_replaced_by_cert_core=render_info["num_3000_replaced_by_cert_core"],
-                            cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"],
-                            TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES=render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
-                            saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
-                            gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
-                            full_schedule_generation=render_info['full_schedule_generation'],
-                            minimum_summer_credits=render_info['minimum_summer_credits'],
-                            first_semester = render_info['first_semester'],
-                            semester_years = render_info['semester_years'],
-                            semester_years_display = render_info["semester_years_display"],
-                            course_prereqs_for = render_info['course_prereqs_for'],
-                            user_name = render_info['user_name'],
-                            ge_taken = render_info['ge_taken'],
-                            fe_taken = render_info['fe_taken'],
-                            degree_choice = render_info['degree_choice'],
-                            is_graduated = render_info['is_graduated'],
-                            required_courses_tuple = render_info['required_courses_tuple'],
-                            required_courses_tuple_display = render_info["required_courses_tuple_display"],
-                            total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
-                            render_info=json.dumps(render_info)
-    )
+        try:
+            render_info = None
+            if request.form.get('upload'):
+                render_info = get_render_info_from_upload(request)
+            else:
+                render_info = generate_semester(request)
+            return render_template('index.html',
+                                required_courses_dict_list=render_info["required_courses_dict_list"],
+                                required_courses_dict_list_unchanged=render_info["required_courses_dict_list_unchanged"],
+                                semesters=render_info["semesters"],
+                                total_credits=render_info["total_credits"],
+                                course_schedule=render_info["course_schedule"],
+                                course_schedule_display=render_info["course_schedule_display"],
+                                courses_taken=render_info["courses_taken"],
+                                list_of_required_courses_taken_display = render_info["list_of_required_courses_taken_display"],
+                                semester_number=render_info["semester_number"],
+                                waived_courses=render_info["waived_courses"],
+                                current_semester=render_info["current_semester"],
+                                minimum_semester_credits=render_info["minimum_semester_credits"],
+                                min_3000_course=render_info["min_3000_course"],
+                                include_summer=render_info["include_summer"],
+                                certificates=render_info["certificate_choice"],
+                                certificates_display = render_info["certificates_display"],
+                                num_3000_replaced_by_cert_core=render_info["num_3000_replaced_by_cert_core"],
+                                cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"],
+                                TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES=render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
+                                saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
+                                gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
+                                full_schedule_generation=render_info['full_schedule_generation'],
+                                minimum_summer_credits=render_info['minimum_summer_credits'],
+                                first_semester = render_info['first_semester'],
+                                semester_years = render_info['semester_years'],
+                                semester_years_display = render_info["semester_years_display"],
+                                course_prereqs_for = render_info['course_prereqs_for'],
+                                user_name = render_info['user_name'],
+                                ge_taken = render_info['ge_taken'],
+                                fe_taken = render_info['fe_taken'],
+                                degree_choice = render_info['degree_choice'],
+                                is_graduated = render_info['is_graduated'],
+                                required_courses_tuple = render_info['required_courses_tuple'],
+                                required_courses_tuple_display = render_info["required_courses_tuple_display"],
+                                total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
+                                render_info=json.dumps(render_info)
+            )
+        except Exception as e:
+            print(e)
+            return index()
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -157,5 +160,3 @@ def get_render_info_from_upload(request):
         print(f'{file.filename=}')
         file_content = file.read().decode()
         return json.loads(file_content)
-    else:
-        return index()
