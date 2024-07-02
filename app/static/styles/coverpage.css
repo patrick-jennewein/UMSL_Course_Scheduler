@@ -192,6 +192,10 @@ strong{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+}
+.upload_schedule .form-container h1{
+  text-align: center;
 }
 .upload-label{
   color: black;
@@ -239,7 +243,7 @@ input[type="file"] {
 
 
 /* styles for smaller screens*/
-@media screen and (max-height: 900px) {
+@media screen and (max-height: 775px) {
   .form-container {
     border-radius: 20px;
     padding: 30px;
