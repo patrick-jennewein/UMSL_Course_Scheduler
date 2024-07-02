@@ -36,7 +36,7 @@
   margin: 0 auto;
   display: inline-block;
   text-align: center;
-  width: 45%;
+  width: 200px;
 }
 .form-container input[type = submit]:hover{
   transition: 0.5s;
@@ -72,19 +72,13 @@
 .form-container-2{
   display: inline;
   color: black;
-  height: 600px;
+  height: 650px;
   background-color: rgba(255, 255, 255, 0.9);.
   transition: background-color 1s;
   border-radius: 20px;
   padding: 30px;
   font-family: "Roboto Condensed", sans-serif;
   width: 420px;
-}
-
-/* buttons */
-.buttons{
-  display: flex;
-  justify-content: center;
 }
 
 /* hide the boxes*/
@@ -126,6 +120,38 @@ strong{
   text-decoration: underline;
 }
 
+/* buttons */
+.cover-page-buttons{
+  display: flex;
+  justify-content: space-evenly;
+}
+.buttons a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 4px;
+    border-radius: 5px;
+    margin: 0 auto;
+    text-align: center;
+    width: 200px;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    vertical-align: center;
+    background-color: #f0f0f0;
+    color: black;
+}
+.buttons a:hover{
+    transition: 0.5s;
+    color: lightgray;
+    background-color: #a80b2d;
+}
+.buttons{
+  display: flex;
+  justify-content: space-evenly;
+}
+
 /* styles for smaller screens*/
 @media screen and (max-height: 900px) {
   .form-container {
@@ -146,7 +172,7 @@ strong{
     border-radius: 5px;
     margin: 0 auto;
     text-align: center;
-    width: 45%;
+    width: 200px;
     font-size: 11px;
   }
   .form-container input[type = "text"]{
