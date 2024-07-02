@@ -202,10 +202,10 @@ strong{
   padding: 10px;
   font-family: "Roboto Condensed", sans-serif;
   border-radius: 5px;
-  display: block;
+  display: inline;
   text-align: center;
-  width: 200px;
-  margin: 0 auto!important;
+  /*width: 200px;
+  margin: 0 auto!important;*/
 }
 ::-webkit-file-upload-button:hover{
   transition: 0.5s;
@@ -213,8 +213,28 @@ strong{
   background-color: #a80b2d;
 }
 input[type="file"] {
-    color: transparent;
+    color: black;
     cursor: pointer;
+}
+
+.upload-file{
+  display: flex;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 0px solid black;
+  font-family: "Roboto Condensed", sans-serif;
+  border-radius: 5px;
+  width: 350px;
+  min-height: 40px;
+}
+
+#upload-button{
+  width: 350px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 50px;
 }
 
 
