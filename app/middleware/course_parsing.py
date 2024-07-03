@@ -7,6 +7,7 @@ import datetime
 from itertools import chain
 import os
 import copy
+import random
 
 def print_dictionary(course_dictionary: dict) -> None:
     """
@@ -614,9 +615,13 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         student_selections = []
         for course_choice in course_choices_for_graduation:
             for i in range(int(course_choice[0])):
+                # show the choice, choose a random selection, delete, and continue
                 print(f"choose {course_choice[0]} from {course_choice[1]}: ")
-                student_selection = str(input("Selection: "))
+                student_selection = random.choice(list(course_choice[1]))
                 student_selections.append(student_selection)
+                course_choice[1].remove(student_selection)
+                print(f"\tchose {student_selection} and removed it")
+
 
         # search .xml document for required courses and build user schedule
         print(f"All courses for {degree_choice}:")
