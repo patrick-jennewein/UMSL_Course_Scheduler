@@ -601,48 +601,44 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # create list of courses in which user makes a selection from a set
         for k, v in all_courses_dict.items():
-            print(k)
-            if "selection_group" in v.keys():
-                for program in v["selection_group"]["program"]:
-                    if program['major_or_cert'] == degree_choice:
-                        course_set = set(program["course_options"]["option"])
-                        num_of_choices = program["choose"]
-                        course_tuple = (num_of_choices, course_set)
-                        if(course_tuple not in course_choices_for_graduation):
-                            course_choices_for_graduation.append(course_tuple)
-        print(f"Course choices to make: {course_choices_for_graduation}")
-        # iterate through the number of course choices
-        student_selections = []
-        for course_choice in course_choices_for_graduation:
-            for i in range(int(course_choice[0])):
-                # show the choice, choose a random selection, delete, and continue
-                print(f"choose {course_choice[0]} from {course_choice[1]}: ")
-                student_selection = random.choice(list(course_choice[1]))
-                student_selections.append(student_selection)
-                course_choice[1].remove(student_selection)
-                print(f"\tchose {student_selection} and removed it")
-
-
-        # search .xml document for required courses and build user schedule
-        print(f"All courses for {degree_choice}:")
-        for k, v in all_courses_dict.items():
-            # append all required courses
+            # if the course is required
             if "required" in v:
                 major_or_cert = v['required']['major_or_cert']
                 if not isinstance(major_or_cert, list):
                     major_or_cert = [major_or_cert]
                 for item in major_or_cert:
                     if item == degree_choice or len(set(cert_xml_tag_list).intersection(v['required_by_major_cert'])):
-                        print(f"\t{k}: {item}")
+                        print(f"\t{k:<20}{item}") if item == degree_choice else None
                         courses_for_graduation.append(k)
-            # append courses that user has chosen
-            if(k in student_selections):
-                courses_for_graduation.append(k)
-        # select courses
-        for choices in course_choices_for_graduation:
-            print(f"Choose {choices[0]} course(s) from {choices[1]}")
+            # if the course is a part of a user's selection
+            if "selection_group" in v.keys():
+                for program in v["selection_group"]["program"]:
+                    # selections for degree
+                    if program['major_or_cert'] == degree_choice:
+                        course_set = set(program["course_options"]["option"])
+                        num_of_choices = program["choose"]
+                        course_tuple = (num_of_choices, course_set)
+                        if(course_tuple not in course_choices_for_graduation):
+                            course_choices_for_graduation.append(course_tuple)
+                    # selections for certificate electives, if certificate
+                    if certificate_choice and program['major_or_cert'] == certificate_choice[0]:
+                        course_set = set(program["course_options"]["option"])
+                        num_of_choices = program["choose"]
+                        course_tuple = (num_of_choices, course_set)
+                        if(course_tuple not in course_choices_for_graduation):
+                            course_choices_for_graduation.append(course_tuple)
+
+        # iterate through the number of course choices and add to list of courses
+        student_selections = []
+        for course_choice in course_choices_for_graduation:
+            for i in range(int(course_choice[0])):
+                student_selection = random.choice(list(course_choice[1]))
+                courses_for_graduation.append(student_selection)
+                print(f"\t{student_selection:<20}{'Choice'}")
+                course_choice[1].remove(student_selection)
+
+        # copy
         required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
-        print(f"Courses for Graduation: {courses_for_graduation}")
         build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_graduation, required_courses_tuple)
 
         # remove University course - INTDSC 1003 - if user has required credits
@@ -690,7 +686,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         courses_dict_list_unchanged = copy.deepcopy(required_courses_dict_list)
         prereqs_for_dict = {}
 
-        print("These are all the courses that will be added to the schedule:")
+        print("FINAL SCHEDULE:")
         for course in required_courses_dict_list:
             print(course[0])
         for course_data in required_courses_dict.items():

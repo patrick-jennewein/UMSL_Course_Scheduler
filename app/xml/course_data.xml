@@ -585,6 +585,18 @@
                 <major_or_cert>BSComputingTechnology</major_or_cert>
 				<major_or_cert>WEBCERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Mobile Apps and Computing</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4010</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -648,6 +660,21 @@
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Artificial Intelligence</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4340</option>
+                        <option>CMP SCI 4342</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4420</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -669,6 +696,19 @@
 			<required>
                 <major_or_cert>MOBILECERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Internet and Web</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4730</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -806,6 +846,19 @@
                         <option>MATH 2450</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>Artificial Intelligence</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4340</option>
+                        <option>CMP SCI 4342</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4420</option>
+                    </course_options>
+                </program>
             </selection_group>
         </course>
 		<course>
@@ -837,6 +890,21 @@
                 <major_or_cert>BSDataScience</major_or_cert>
 				<major_or_cert>DATACERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Artificial Intelligence</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4340</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4420</option>
+                        <option>CMP SCI 4342</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -867,6 +935,21 @@
                 <major_or_cert>BSDataScience</major_or_cert>
 				<major_or_cert>DATACERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Artificial Intelligence</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4340</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4342</option>
+                        <option>CMP SCI 4420</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -897,6 +980,19 @@
                         <option>CMP SCI 4390</option>
                         <option>CMP SCI 4610</option>
                         <option>MATH 2450</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Artificial Intelligence</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4340</option>
+                        <option>CMP SCI 4342</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4420</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -930,6 +1026,19 @@
                         <option>CMP SCI 4390</option>
                         <option>CMP SCI 4610</option>
                         <option>MATH 2450</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Artificial Intelligence</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4340</option>
+                        <option>CMP SCI 4342</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4420</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -976,6 +1085,21 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: MATH 1900, MATH 2450, CMP SCI 2750, and CMP SCI 3130. </prerequisite_description>
 			<paired>CMP SCI 5420</paired>
+            <selection_group>
+                <program>
+                    <major_or_cert>Artificial Intelligence</major_or_cert>
+                    <choose>3</choose>
+                    <course_options>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4340</option>
+                        <option>CMP SCI 4342</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4420</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1017,6 +1141,27 @@
                         <option>CMP SCI 4390</option>
                         <option>CMP SCI 4610</option>
                         <option>MATH 2450</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Internet and Web</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4730</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Mobile Apps and Computing</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4010</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -1072,6 +1217,19 @@
                 <major_or_cert>BSCyberSecurity</major_or_cert>
 				<major_or_cert>CYBERCERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Internet and Web</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4730</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1114,6 +1272,29 @@
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Internet and Web</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4730</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Mobile Apps and Computing</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4010</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1186,6 +1367,29 @@
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Internet and Web</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4730</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Mobile Apps and Computing</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4010</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
