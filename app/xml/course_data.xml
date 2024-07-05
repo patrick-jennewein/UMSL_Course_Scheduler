@@ -1329,7 +1329,6 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750 and MATH 1320, or graduate standing. </prerequisite_description>
             <required>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
 				<major_or_cert>CYBERCERTReq</major_or_cert>
             </required>
             <selection_group>
@@ -1345,7 +1344,7 @@
                     </course_options>
                 </program>
                 <program>
-                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <major_or_cert>Cybersecurity</major_or_cert>
                     <choose>1</choose>
                     <course_options>
                         <option>CMP SCI 4730</option>
@@ -1475,16 +1474,6 @@
                 <major_or_cert>BSCyberSecurity</major_or_cert>
 				<major_or_cert>CYBERCERTReq</major_or_cert>
             </required>
-            <selection_group>
-                <program>
-                    <major_or_cert>BSCyberSecurity</major_or_cert>
-                    <choose>1</choose>
-                    <course_options>
-                        <option>CMP SCI 4782</option>
-                        <option>INFSYS 3858</option>
-                    </course_options>
-                </program>
-            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -2047,7 +2036,7 @@
             <prerequisite_description>Prerequisites: INFSYS 2800 and a minimum campus GPA of 2.0; or consent of instructor. </prerequisite_description>
             <selection_group>
                 <program>
-                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <major_or_cert>Cybersecurity</major_or_cert>
                     <choose>1</choose>
                     <course_options>
                         <option>CMP SCI 4730</option>
@@ -2137,16 +2126,6 @@
 				</or_choice>
 			</prerequisite>
             <prerequisite_description>Prerequisites: INFSYS 3848 or consent of department chair. </prerequisite_description>
-            <selection_group>
-                <program>
-                    <major_or_cert>BSCyberSecurity</major_or_cert>
-                    <choose>1</choose>
-                    <course_options>
-                        <option>CMP SCI 4782</option>
-                        <option>INFSYS 3858</option>
-                    </course_options>
-                </program>
-            </selection_group>
         </course>
         <course>
             <subject>INFSYS</subject>
@@ -2276,6 +2255,12 @@
 				<time_code>O</time_code>
 			</rotation_term>
             <prerequisite_description>No prerequisites. </prerequisite_description>
+            <required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+                <major_or_cert>BSComputingTechnology</major_or_cert>
+                <major_or_cert>BSCyberSecurity</major_or_cert>
+                <major_or_cert>BSDataScience</major_or_cert>
+            </required>
 		</course>
         <course>
             <subject>ENGLISH</subject>
