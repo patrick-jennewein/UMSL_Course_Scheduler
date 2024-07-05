@@ -243,18 +243,12 @@ def checkMobile(cert, user_courses):
 
 def checkCyber(cert, user_courses):
     print(f"Checking {cert}...")
-    core_courses = [
-
-    ]
-    for course in core_courses:
-        if course in user_courses:
-            print(f"\t{course:<80}{GREEN}PASSED{RESET}")
-        else:
-            print(f"\t{course:<80}{RED}FAILED{RESET}")
-
     # check xors
     xors = [
-        [1, "MATH 1800"],
+        [1, "CMP SCI 3702", "INFSYS 3848"],
+        [1, "CMP SCI 4730", "INFSYS 3842"],
+        [1, "CMP SCI 4782", "INFSYS 3858"],
+        [2, "CMP SCI 4700", "CMP SCI 4020", "CMP SCI 4732","CMP SCI 4750","CMP SCI 4792","CMP SCI 4794","INFSYS 3868","CMP SCI 3878",]
     ]
 
     for xor in xors:
@@ -270,7 +264,9 @@ def checkCyber(cert, user_courses):
 def checkData(cert, user_courses):
     print(f"Checking {cert}...")
     core_courses = [
-
+        "CMP SCI 4200",
+        "CMP SCI 4340",
+        "CMP SCI 4342"
     ]
     for course in core_courses:
         if course in user_courses:
@@ -280,7 +276,7 @@ def checkData(cert, user_courses):
 
     # check xors
     xors = [
-        [1, "MATH 1800"],
+        [2, "CMP SCI 3411","CMP SCI 4151","CMP SCI 4300","CMP SCI 4320","CMP SCI 4370","CMP SCI 4390", "MATH 4005"]
     ]
 
     for xor in xors:

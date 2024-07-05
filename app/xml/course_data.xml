@@ -444,6 +444,21 @@
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>MATH 4005</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -674,6 +689,20 @@
                         <option>CMP SCI 4420</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4030</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>MATH 4005</option>
+                    </course_options>
+                </program>
             </selection_group>
         </course>
 		<course>
@@ -706,6 +735,20 @@
                         <option>CMP SCI 4730</option>
                         <option>CMP SCI 4750</option>
                         <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -812,6 +855,20 @@
                         <option>MATH 2450</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4030</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>MATH 4005</option>
+                    </course_options>
+                </program>
             </selection_group>
 		</course>
 		<course>
@@ -857,6 +914,20 @@
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
                         <option>CMP SCI 4420</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4030</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>MATH 4005</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -995,6 +1066,20 @@
                         <option>CMP SCI 4420</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4030</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>MATH 4005</option>
+                    </course_options>
+                </program>
             </selection_group>
         </course>
 		<course>
@@ -1039,6 +1124,20 @@
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
                         <option>CMP SCI 4420</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4030</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>MATH 4005</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -1188,6 +1287,22 @@
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1229,6 +1344,14 @@
                         <option>CMP SCI 4794</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4730</option>
+                        <option>INFSYS 3842</option>
+                    </course_options>
+                </program>
             </selection_group>
         </course>
 		<course>
@@ -1251,6 +1374,22 @@
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1294,6 +1433,20 @@
                         <option>CMP SCI 4794</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
+                    </course_options>
+                </program>
             </selection_group>
 		</course>
 		<course>
@@ -1322,6 +1475,16 @@
                 <major_or_cert>BSCyberSecurity</major_or_cert>
 				<major_or_cert>CYBERCERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4782</option>
+                        <option>INFSYS 3858</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1347,6 +1510,22 @@
 			<required>
                 <major_or_cert>MOBILECERTReq</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
+                    </course_options>
+                </program>
+            </selection_group>
 		</course>
 		<course>
 			<subject>CMP SCI</subject>
@@ -1387,6 +1566,20 @@
                         <option>CMP SCI 4610</option>
                         <option>CMP SCI 4750</option>
                         <option>CMP SCI 4794</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -1767,9 +1960,44 @@
             <required>
                 <major_or_cert>BSDataScience</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4030</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>MATH 4005</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
 	</MathandStatistics>
     <InformationSystems>
+        <course>
+            <subject>INFSYS</subject>
+			<course_number>2800</course_number>
+			<course_name>Information Systems Concepts and Applications</course_name>
+			<rotation_term>
+				<term>Summer</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course provides an overview of the field of information systems including concepts of systems analysis and design, ethics in information systems usage, electronic business, database management, enterprise systems, information security, and JavaScript programming concepts. Business cases will be utilized to illustrate how information systems improve decision-making. Students will also gain valuable strategies for career development and networking.</course_description>
+        </course>
         <course>
             <subject>INFSYS</subject>
 			<course_number>3820</course_number>
@@ -1798,6 +2026,35 @@
             <required>
                 <major_or_cert>BSComputingTechnology</major_or_cert>
             </required>
+        </course>
+        <course>
+            <subject>INFSYS</subject>
+			<course_number>3842</course_number>
+			<course_name>Data Networks and Security</course_name>
+			<rotation_term>
+				<term>Fall</term>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This is a foundational course in data networking and network security. It covers the fundamentals of networking and security implications of data networks with hands-on exercises. Topics include networking layers and standardization of functionality across layers, wired and wireless Local Area Networks (LANs) along with switching and physical layer technologies, Internetworking, supporting and supervisory protocols; application layer protocols such as HTTP, and fundamentals of network security. Students will also learn about network protocol analyzers such as Wireshark, virtualization, and networking in virtual environments. Credit cannot be granted for both INFSYS 3842 and INFSYS 6836. Course satisfies/fulfills the College of Business Global Awareness requirement.</course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>INFSYS 2800</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: INFSYS 2800 and a minimum campus GPA of 2.0; or consent of instructor. </prerequisite_description>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4730</option>
+                        <option>INFSYS 3842</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
         <course>
             <subject>INFSYS</subject>
@@ -1864,6 +2121,35 @@
         </course>
         <course>
             <subject>INFSYS</subject>
+			<course_number>3858</course_number>
+			<course_name>Advanced Security and Information Systems</course_name>
+			<rotation_term>
+				<term>Fall</term>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course builds upon the principles of information security. It covers topics ranging from networking, penetration testing, formal verification of systems, formal models of information flow and protection, distributed system authentication, protocol design and attack, computer viruses and malware, as well as intrusion and anomaly detection models. Students are exposed to virtualization, defensive security, offensive security, and other forms of cybersecurity. </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>INFSYS 3848</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: INFSYS 3848 or consent of department chair. </prerequisite_description>
+            <selection_group>
+                <program>
+                    <major_or_cert>BSCyberSecurity</major_or_cert>
+                    <choose>1</choose>
+                    <course_options>
+                        <option>CMP SCI 4782</option>
+                        <option>INFSYS 3858</option>
+                    </course_options>
+                </program>
+            </selection_group>
+        </course>
+        <course>
+            <subject>INFSYS</subject>
 			<course_number>3868</course_number>
 			<course_name>Secure Software Development</course_name>
 			<rotation_term>
@@ -1889,6 +2175,22 @@
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
         <course>
             <subject>INFSYS</subject>
@@ -1914,6 +2216,22 @@
             <required>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
             </required>
+            <selection_group>
+                <program>
+                    <major_or_cert>Cybersecurity</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4700</option>
+                        <option>CMP SCI 4020</option>
+                        <option>CMP SCI 4732</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4792</option>
+                        <option>CMP SCI 4794</option>
+                        <option>INFSYS 3868</option>
+                        <option>INFSYS 3878</option>
+                    </course_options>
+                </program>
+            </selection_group>
         </course>
     </InformationSystems>
 	<OtherCourses>
