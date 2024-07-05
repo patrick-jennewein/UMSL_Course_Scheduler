@@ -631,15 +631,24 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             course_choices_for_graduation.append(course_tuple)
 
         # iterate through the number of course choices and add to list of courses
-        student_selections = []
         for course_choice in course_choices_for_graduation:
-            for i in range(int(course_choice[0])):
-                student_selection = random.choice(list(course_choice[1]))
-                courses_for_graduation.append(student_selection)
-                print(f"\t{student_selection:<20}{'Choice'}")
-                course_choice[1].remove(student_selection)
+            print(f"\nSelect {course_choice[0]} from {course_choice[1]}")
+            intersection = set(courses_for_graduation) & set(course_choice[1])
+            print(f"\tIntersection: {intersection}")
+
+            # only add courses that are necessary (avoid overlap)
+            if len(intersection) >= int(course_choice[0]):
+                print("\tRequirement already satisfied")
+            else:
+                print(f"\tMust now select {int(course_choice[0]) - len(intersection)}")
+                for i in range(int(course_choice[0]) - len(intersection)):
+                    student_selection = random.choice(list(course_choice[1]))
+                    courses_for_graduation.append(student_selection)
+                    print(f"\t{student_selection:<20}{'Choice'}")
+                    course_choice[1].remove(student_selection)
 
         # copy
+        print("\n\nContinuing...")
         required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
         build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_graduation, required_courses_tuple)
 

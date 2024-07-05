@@ -294,6 +294,7 @@ def checkData(cert, user_courses):
 
 
 def test_schedule(degree, user_courses_raw, certificate = ""):
+    print()
     print("#################")
     print("#### TESTING ####")
     print("#################")
@@ -322,3 +323,5 @@ def test_schedule(degree, user_courses_raw, certificate = ""):
             checkWeb(certificate, user_courses)
         else:
             print("CERTIFICATE ERROR!")
+    print()
+    print()
