@@ -8,6 +8,7 @@ from itertools import chain
 import os
 import copy
 import random
+from app.middleware.test_schedule import test_schedule
 
 def print_dictionary(course_dictionary: dict) -> None:
     """
@@ -478,13 +479,13 @@ def build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_g
                 if isinstance(prereqs, str):
                     if (prereqs not in courses_for_graduation) and (prereqs not in courses_taken):
                         courses_for_graduation.append(prereqs)
-                        print(f'Missing course: {prereqs}')
+                        print(f'\tMissing course: {prereqs}')
                         added_courses.append(prereqs)
                         break
                 elif (len(prereqs) == 1):
                     if (prereqs[0] not in courses_for_graduation) and (prereqs[0] not in courses_taken):
                         courses_for_graduation.append(prereqs[0])
-                        print(f'Missing course: {prereqs[0]}')
+                        print(f'\tMissing course: {prereqs[0]}')
                         added_courses.append(prereqs[0])
                         break
                 else:
@@ -600,6 +601,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             cert_xml_tag_list.append(certificate_choice_xml_tag)
 
         # create list of courses in which user makes a selection from a set
+        print("BUILD SCHEDULE: ")
         for k, v in all_courses_dict.items():
             # if the course is required
             if "required" in v:
@@ -686,9 +688,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         courses_dict_list_unchanged = copy.deepcopy(required_courses_dict_list)
         prereqs_for_dict = {}
 
-        print("FINAL SCHEDULE:")
-        for course in required_courses_dict_list:
-            print(course[0])
         for course_data in required_courses_dict.items():
             prereq_for_list = []
             key = course_data[0]
@@ -706,7 +705,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     prereqs_for_dict[prereq].append(key)
         course_prereqs_for = prereqs_for_dict
 
-
+        # testing
+        if certificate_choice:
+            test_schedule(degree_choice, required_courses_dict_list, certificate_choice[0])
+        else:
+            test_schedule(degree_choice, required_courses_dict_list)
     # if NOT the first semester
     elif semester != 0:
         required_courses_dict_list = json.loads(request.form['required_courses_dict_list'])
