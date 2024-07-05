@@ -23,7 +23,9 @@ def check_BSCS (degree, user_courses):
         "MATH 1900",
         "MATH 2450",
         "MATH 3000",
-        "ENGLISH 3130"
+        "ENGLISH 1100",
+        "ENGLISH 3130",
+        "INTDSC 1003"
     ]
     for course in BSCS_core:
         if course in user_courses:
@@ -49,7 +51,9 @@ def check_BS_ComputingTechnology(degree, user_courses):
         "INFSYS 3844",
         "MATH 1320",
         "MATH 3000",
-        "ENGLISH 3130"
+        "ENGLISH 1100",
+        "ENGLISH 3130",
+        "INTDSC 1003"
     ]
     for course in BSComputing_Technology_core:
         if course in user_courses:
@@ -65,12 +69,14 @@ def check_BS_ComputingTechnology(degree, user_courses):
 
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
+            print(f"\t\tChose{intersection}")
 
 
 def check_BS_Cyber(degree, user_courses):
@@ -93,7 +99,9 @@ def check_BS_Cyber(degree, user_courses):
         "INFSYS 3868",
         "INFSYS 3878",
         "MATH 1320",
-        "MATH 3000"
+        "MATH 3000",
+        "ENGLISH 1100",
+        "INTDSC 1003"
     ]
     for course in BS_Cyber_core:
         if course in user_courses:
@@ -109,12 +117,14 @@ def check_BS_Cyber(degree, user_courses):
     ]
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
+            print(f"\t\tChose{intersection}")
 
 
 def check_BS_DataScience(degree, user_courses):
@@ -132,7 +142,9 @@ def check_BS_DataScience(degree, user_courses):
         "CMP SCI 4151",
         "CMP SCI 4340",
         "MATH 1900",
-        "MATH 3000"
+        "MATH 3000",
+        "ENGLISH 1100",
+        "INTDSC 1003"
     ]
     for course in BS_DataScience_core:
         if course in user_courses:
@@ -147,12 +159,14 @@ def check_BS_DataScience(degree, user_courses):
 
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
+            print(f"\t\tChose{intersection}")
 
 
 # check certificates
@@ -176,13 +190,14 @@ def checkAI(cert, user_courses):
 
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
-
+            print(f"\t\tChose{intersection}")
 
 def checkWeb(cert, user_courses):
     print(f"Checking {cert}...")
@@ -205,12 +220,14 @@ def checkWeb(cert, user_courses):
 
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
+            print(f"\t\tChose{intersection}")
 
 
 def checkMobile(cert, user_courses):
@@ -233,12 +250,14 @@ def checkMobile(cert, user_courses):
 
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
+            print(f"\t\tChose{intersection}")
 
 
 def checkCyber(cert, user_courses):
@@ -248,17 +267,19 @@ def checkCyber(cert, user_courses):
         [1, "CMP SCI 3702", "INFSYS 3848"],
         [1, "CMP SCI 4730", "INFSYS 3842"],
         [1, "CMP SCI 4782", "INFSYS 3858"],
-        [2, "CMP SCI 4700", "CMP SCI 4020", "CMP SCI 4732", "CMP SCI 4750", "CMP SCI 4792", "CMP SCI 4794", "INFSYS 3868","CMP SCI 3878"]
+        [2, "CMP SCI 4700", "CMP SCI 4020", "CMP SCI 4732", "CMP SCI 4750", "CMP SCI 4792", "CMP SCI 4794", "INFSYS 3868","INFSYS 3878"]
     ]
 
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
+            print(f"\t\tChose{intersection}")
 
 
 def checkData(cert, user_courses):
@@ -281,12 +302,14 @@ def checkData(cert, user_courses):
 
     for xor in xors:
         required_num = xor[0]
-        intersection = set(user_courses) & set(xors[0])
+        intersection = set(user_courses) & set(xor)
         left_column = f"{required_num} of {xor[1:]}"
         if len(intersection) >= required_num:
             print(f"\t{left_column:<80}{GREEN}PASSED{RESET}")
+            print(f"\t\tChose{intersection}")
         else:
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
+            print(f"\t\tChose{intersection}")
 
 
 def test_schedule(degree, user_courses_raw, certificate = ""):
