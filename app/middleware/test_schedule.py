@@ -248,7 +248,7 @@ def checkCyber(cert, user_courses):
         [1, "CMP SCI 3702", "INFSYS 3848"],
         [1, "CMP SCI 4730", "INFSYS 3842"],
         [1, "CMP SCI 4782", "INFSYS 3858"],
-        [2, "CMP SCI 4700", "CMP SCI 4020", "CMP SCI 4732","CMP SCI 4750","CMP SCI 4792","CMP SCI 4794","INFSYS 3868","CMP SCI 3878",]
+        [2, "CMP SCI 4700", "CMP SCI 4020", "CMP SCI 4732", "CMP SCI 4750", "CMP SCI 4792", "CMP SCI 4794", "INFSYS 3868","CMP SCI 3878"]
     ]
 
     for xor in xors:
