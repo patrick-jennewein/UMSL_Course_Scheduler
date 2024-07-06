@@ -1275,6 +1275,8 @@
 			<prerequisite>
 				<or_choice>
 					<and_required>MATH 1100</and_required>
+				</or_choice>
+                <or_choice>
 					<and_required>MATH 1800</and_required>
 				</or_choice>
 			</prerequisite>

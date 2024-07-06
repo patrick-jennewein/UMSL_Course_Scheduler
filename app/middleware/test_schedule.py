@@ -112,7 +112,7 @@ def check_BS_Cyber(degree, user_courses):
     # check xors
     xors = [
         [1, "ENGLISH 3120", "ENGLISH 3130"],
-        [1, "CMP SCI 3702", "CMP SCI 3848"],
+        [1, "CMP SCI 3702", "INFSYS 3848"],
         [1, "MATH 1100", "MATH 1800"]
     ]
     for xor in xors:
