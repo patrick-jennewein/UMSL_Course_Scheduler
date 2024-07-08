@@ -1,5 +1,4 @@
 <html>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- If generating a schedule semester-by-semester-->
     <form id="form" action="/schedule" method="post">
         {% if not full_schedule_generation %}
@@ -23,10 +22,7 @@
                                             courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
                                             ondragstart="drag(event, this)">
                                             <div class="course-name-and-num">
-                                                <p class="course-number">{{ course.course }}</p>
-                                                <p class="course-name">{{ course.name }}</p>
-                                                <p class="course-credits">({{ course.credits }})</p>
-                                                <p class="course-category">{{ course.category }}</p>
+                                                {% include 'course_name_and_num.html' %}
                                             </div>
                                         </li>
                                     {% else %}
@@ -35,10 +31,7 @@
                                             ondragstart="drag(event, this)" style="border: 1px solid red;">
                                             <div class="course-name-and-num">
                                                 <i id="{{ course.course }}-quest-icon" class="fa fa-question-circle" title="{{ course.validation_msg }}" style="color: red"></i>
-                                                <p class="course-number">{{ course.course }}</p>
-                                                <p class="course-name">{{ course.name }}</p>
-                                                <p class="course-credits">({{ course.credits }})</p>
-                                                <p class="course-category">{{ course.category }}</p>
+                                                {% include 'course_name_and_num.html' %}
                                             </div>
                                         </li>
                                     {% endif %}
@@ -72,10 +65,7 @@
                                             courseName="{{ course.name }}" courseCredits="{{ course.credits }}" draggable="true"
                                             ondragstart="drag(event, this)">
                                             <div class="course-name-and-num">
-                                                <p class="course-number">{{ course.course }}</p>
-                                                <p class="course-name">{{ course.name }}</p>
-                                                <p class="course-credits">({{ course.credits }})</p>
-                                                <p class="course-category">{{ course.category }}</p>
+                                                {% include 'course_name_and_num.html' %}
                                             </div>
                                         </li>
                                     {% else %}
@@ -84,10 +74,7 @@
                                             ondragstart="drag(event, this)" style="border: 1px solid red;">
                                             <div class="course-name-and-num">
                                                 <i id="{{ course.course }}-quest-icon" class="fa fa-question-circle" title="{{ course.validation_msg }}" style="color: red"></i>
-                                                <p class="course-number">{{ course.course }}</p>
-                                                <p class="course-name">{{ course.name }}</p>
-                                                <p class="course-credits">({{ course.credits }})</p>
-                                                <p class="course-category">{{ course.category }}</p>
+                                                {% include 'course_name_and_num.html' %}
                                             </div>
                                         </li>
                                     {% endif %}
@@ -131,5 +118,6 @@
         <input type = "hidden" name = "required_courses_tuple" value = "{{ required_courses_tuple }}">
         <input type="hidden" name="is_graduated" value = "{{ is_graduated }}">
         <input type="hidden" id="render_info" name="render_info" value = "{{ render_info }}">
+        <input type="hidden" id="is_upload" name="is_upload" value = "{{ is_upload }}">
     </form>
 </html>
