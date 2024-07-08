@@ -2,28 +2,26 @@
 <p class="course-name">{{ course.name }}</p>
 <p class="course-credits">({{ course.credits }})</p>
 <p class="course-category">{{ course.category }}</p>
-{% if is_upload == true %}
-    {% if course.is_completed %}
-        <i
-            id="{{ course.course }}-completed-icon"
-            class="fa fa-check-circle"
-            title="Course has been taken/passed."
-            style="color: green; cursor: pointer;"
-            courseNum="{{ course.course }}"
-            semesterNum="{{ semester.semester_number }}"
-            is_completed="true"
-            onclick="has_completed_course(this)">
-        </i>
-    {% else %}
-        <i
-            id="{{ course.course }}-completed-icon"
-            class="fa fa-check-circle-o"
-            title="Course has not been completed."
-            style="color: blue; cursor: pointer;"
-            courseNum="{{ course.course }}"
-            semesterNum="{{ semester.semester_number }}"
-            is_completed="false"
-            onclick="has_completed_course(this)">
-        </i>
-    {% endif %}
+{% if course.is_completed %}
+    <i
+        id="{{ course.course }}-completed-icon"
+        class="fa fa-check-circle"
+        title="Course has been taken/passed."
+        style="color: green; cursor: pointer;"
+        courseNum="{{ course.course }}"
+        semesterNum="{{ semester.semester_number }}"
+        is_completed="true"
+        onclick="has_completed_course(this)">
+    </i>
+{% else %}
+    <i
+        id="{{ course.course }}-completed-icon"
+        class="fa fa-check-circle-o"
+        title="Course has not been completed."
+        style="color: blue; cursor: pointer;"
+        courseNum="{{ course.course }}"
+        semesterNum="{{ semester.semester_number }}"
+        is_completed="false"
+        onclick="has_completed_course(this)">
+    </i>
 {% endif %}

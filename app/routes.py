@@ -59,7 +59,6 @@ def index():
                            required_courses_tuple = json.dumps([]),
                            certificate_choice = json.dumps([]),
                            selected_certificates = json.dumps([]),
-                           is_upload=False,
     )
 
 @app.route('/schedule', methods=["POST"])
@@ -97,7 +96,6 @@ def schedule_generator():
             render_info = None
             if request.form.get('upload'):
                 render_info = get_render_info_from_upload(request)
-                render_info['is_upload'] = True
             else:
                 render_info = generate_semester(request)
             return render_template('index.html',
@@ -137,7 +135,6 @@ def schedule_generator():
                                 required_courses_tuple_display = render_info["required_courses_tuple_display"],
                                 total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
                                 render_info=json.dumps(render_info),
-                                is_upload=render_info['is_upload']
             )
         except Exception as e:
             print(e)
