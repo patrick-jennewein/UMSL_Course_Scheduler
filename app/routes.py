@@ -138,7 +138,7 @@ def schedule_generator():
             )
         except Exception as e:
             print(e)
-            return index()
+            render_template('errors/500.html')
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -148,13 +148,13 @@ def get_render_info_from_upload(request):
     # check if the post request has the file part
     if 'file' not in request.files:
         print('No file part')
-        return index()
+        render_template('errors/500.html')
     file = request.files['file']
     # If the user does not select a file, the browser submits an
     # empty file without a filename.
     if file.filename == '':
         print('No selected file')
-        return index()
+        render_template('errors/500.html')
     if file and allowed_file(file.filename):
         file_content = file.read().decode()
         return json.loads(file_content)
