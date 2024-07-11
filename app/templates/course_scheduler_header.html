@@ -132,10 +132,10 @@
                             </span>
                         </span>
                     </label>
-                    {% if (15 - (min_3000_course * 3)) >= 15 %}
-                        <span class="credit-count-success" >{{ 15 - (min_3000_course * 3)}}</span>
+                    {% if (15 - (min_degree_electives * 3)) >= 15 %}
+                        <span class="credit-count-success" >{{ 15 - (min_degree_electives * 3)}}</span>
                     {% else %}
-                        <span class="credit-count" id = "fail">{{ 15 - (min_3000_course * 3)}}</span>
+                        <span class="credit-count" id = "fail">{{ 15 - (min_degree_electives * 3)}}</span>
                     {% endif %}
                     <span class = "credit-minimum">/ 15</span>
             {% endif %}

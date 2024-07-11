@@ -290,10 +290,10 @@ def add_free_elective() -> dict:
 
 
 def graduation_check(total_credits_accumulated, required_courses_tuple, courses_taken,
-                   min_3000_course_still_needed, cert_elective_courses_still_needed, gen_ed_credits_still_needed) -> bool:
+                   degree_electives_still_needed, cert_elective_courses_still_needed, gen_ed_credits_still_needed) -> bool:
 
     # print(f"Total_credits_accumulated: {total_credits_accumulated}")
-    # print(f"Min_3000_course_still_needed: {min_3000_course_still_needed}")
+    # print(f"degree_electives_still_needed: {degree_electives_still_needed}")
     # print(f"Cert_elective_courses_still_needed: {cert_elective_courses_still_needed}")
     # print(f"Gen_ed_credits_still_needed: {gen_ed_credits_still_needed}\n")
 
@@ -309,9 +309,9 @@ def graduation_check(total_credits_accumulated, required_courses_tuple, courses_
             break # leave 'for' loop if a course still needs to be taken
 
     # check all required electives have been taken
-    if is_course_generation_complete and min_3000_course_still_needed > 0:
+    if is_course_generation_complete and degree_electives_still_needed > 0:
         is_course_generation_complete = False
-        error_messages.append(f"ERROR: Must take {min_3000_course_still_needed} more 3000+ level electives.")
+        error_messages.append(f"ERROR: Must take {degree_electives_still_needed} more 3000+ level electives.")
 
     # check that all certificates have been taken
     if is_course_generation_complete and cert_elective_courses_still_needed > 0:
@@ -682,7 +682,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
     summer_credit_count = int(request.form["minimum_summer_credits"])
     temp_min_credits_per_semester = None
-    min_3000_course_still_needed = int(request.form["min_3000_course"])
     num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])  # default is 0
 
     # set up default variables (also used for counter on scheduling page)
@@ -706,6 +705,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     required_courses_dict_list = []
     has_passed_math_placement_exam = False
     is_graduated = False
+    degree_electives_still_needed = int(request.form["min_degree_electives"])
 
     # set up certificate variables
     certificate_choice_xml_tag = ""
@@ -797,7 +797,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         course_prereqs_for = prereqs_for_dict
 
         # add degree electives
-        electives_needed = build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
+        degree_electives_still_needed = build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
 
 
         # testing
@@ -948,7 +948,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         
                         is_graduated = graduation_check(
                                 total_credits_accumulated, required_courses_tuple,
-                                courses_taken, min_3000_course_still_needed,
+                                courses_taken, degree_electives_still_needed,
                                 cert_elective_courses_still_needed, gen_ed_credits_still_needed)
 
                         # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
@@ -1024,7 +1024,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                 (current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3) or \
                                  (max_CS_math_total_credits - 3) <= 0):
                             # condition 3: if non-elective 3000-level courses are still needed, add these primarily
-                            if min_3000_course_still_needed > 0:
+                            if degree_electives_still_needed > 0:
                                 current_semester_classes.append({
                                         'course': "CMP SCI 3000+",
                                         'name': '[User Selects]',
@@ -1037,7 +1037,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                 # increment current semester credits, decrement courses needed
                                 current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
                                 current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
-                                min_3000_course_still_needed -= 1
+                                degree_electives_still_needed -= 1
                                 # print(f"Added: \t{'COMP SCI 3000+':<15}{'[User Selects]':<40} "
                                 #     f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
                                 #     f"{total_credits_accumulated + 3:>15}")
@@ -1102,7 +1102,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             3. Total credit count of CS/MATH is less than pre-determined maximum 
                         """
                         # condition 1, 2, and 3
-                        if min_3000_course_still_needed > 0 and \
+                        if degree_electives_still_needed > 0 and \
                                 (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
                                 (current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3) or \
                                  (max_CS_math_total_credits - 3) <= 0):
@@ -1116,7 +1116,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             })
                             current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
                             current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
-                            min_3000_course_still_needed -= 1
+                            degree_electives_still_needed -= 1
                             # print(f"Added: \t{'CMP SCI 3000+':<15}{'[User Selects]':<40} "
                             #     f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
                             #     f"{total_credits_accumulated + 3:>15}")
@@ -1142,7 +1142,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
                 is_graduated = graduation_check(
                                 total_credits_accumulated, required_courses_tuple,
-                                courses_taken, min_3000_course_still_needed,
+                                courses_taken, degree_electives_still_needed,
                                 cert_elective_courses_still_needed, gen_ed_credits_still_needed)
 
                 # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
@@ -1212,9 +1212,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     # Calculating counter values (credits for ELECTIVES)
     accumulated_gen_eds = (TOTAL_CREDITS_FOR_GEN_EDS - gen_ed_credits_still_needed)
     accumulated_certificates = (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed* DEFAULT_CREDIT_HOURS))
-    accumulated_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - ((min_3000_course_still_needed + cert_elective_courses_still_needed + num_3000_replaced_by_cert_core)*DEFAULT_CREDIT_HOURS))
+    accumulated_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - ((degree_electives_still_needed + cert_elective_courses_still_needed + num_3000_replaced_by_cert_core)*DEFAULT_CREDIT_HOURS))
     modified_total_for_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES+ (num_3000_replaced_by_cert_core*DEFAULT_CREDIT_HOURS)))
-    modified_accumulated_3000 = (modified_total_for_3000 -(min_3000_course_still_needed*DEFAULT_CREDIT_HOURS))
+    modified_accumulated_3000 = (modified_total_for_3000 -(degree_electives_still_needed*DEFAULT_CREDIT_HOURS))
 
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
@@ -1229,7 +1229,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "waived_courses": waived_courses,
         "current_semester": current_semester,
         "minimum_semester_credits": minimum_semester_credits,
-        "min_3000_course": min_3000_course_still_needed,
+        "min_degree_electives": degree_electives_still_needed,
         "include_summer": include_summer,
         "certificate_choice": json.dumps(certificate_choice),
         "certificates_display": certificate_choice,

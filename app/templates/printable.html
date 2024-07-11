@@ -51,7 +51,7 @@
             <!-- Otherwise, the number of electives is 15-->
             {% else %}
                 <span id = "label"><p>CMP SCI 3000+ Elective Credits Earned</p></span>
-                <span id = "answer"><p> {{ 15 - (min_3000_course * 3)}} / 15</p></span><br>
+                <span id = "answer"><p> {{ 15 - (min_degree_electives * 3)}} / 15</p></span><br>
             {% endif %}
         </span>
     </div>

@@ -45,7 +45,7 @@ def index():
                            include_summer=False,
                            semester_number=0,
                            minimum_semester_credits=list(map(lambda x: x, range(3, 22))), # create list for minimum credits dropdown
-                           min_3000_course=5,
+                           min_degree_electives=0,
                            starting_credits=list(map(lambda x: x, range(0, 201))), # create list for minimum credits dropdown
                            core_credit_count = 0,
                            gen_ed_credits_still_needed=27,
@@ -67,7 +67,7 @@ def schedule_generator():
         course_schedule_display = json.loads(request.form["course_schedule"])
         total_credits = int(request.form["total_credits"])
         num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])
-        min_3000_course = int(request.form["min_3000_course"])
+        min_degree_electives = int(request.form["min_degree_electives"])
         cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])
         ge_taken = 27 - int(request.form["gen_ed_credits_still_needed"])
         fe_taken = int(request.form["fe_taken"])
@@ -83,7 +83,7 @@ def schedule_generator():
                             course_schedule_display=course_schedule_display,
                             total_credits = total_credits,
                            num_3000_replaced_by_cert_core = num_3000_replaced_by_cert_core,
-                           min_3000_course = min_3000_course,
+                           min_degree_electives = min_degree_electives,
                            cert_elective_courses_still_needed = cert_elective_courses_still_needed,
                            ge_taken = ge_taken,
                            fe_taken = fe_taken,
@@ -111,7 +111,7 @@ def schedule_generator():
                                 waived_courses=render_info["waived_courses"],
                                 current_semester=render_info["current_semester"],
                                 minimum_semester_credits=render_info["minimum_semester_credits"],
-                                min_3000_course=render_info["min_3000_course"],
+                                min_degree_electives=render_info["min_degree_electives"],
                                 include_summer=render_info["include_summer"],
                                 certificates=render_info["certificate_choice"],
                                 certificates_display = render_info["certificates_display"],
