@@ -686,7 +686,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_BSCS_ELECTIVES = 15
     TOTAL_CREDITS_FOR_GEN_EDS = 27
-    TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # DROP
     DEFAULT_CREDIT_HOURS = 3
     course_categories = {
         'R': 'BSCS',                # required
@@ -822,7 +821,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         else:
             certificate_choice_name = certificate_choice[0]
             certificate_choice_xml_tag = certificate_choice[1]
-        TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = int(request.form["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"])
         if ("courses_taken" in request.form.keys()):
             courses_taken = json.loads(request.form["courses_taken"])
         required_courses_tuple = json.loads(request.form["required_courses_tuple"])
@@ -1227,7 +1225,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "certificate_choice": json.dumps(certificate_choice),
         "certificates_display": certificate_choice,
         "cert_elective_courses_still_needed": cert_elective_courses_still_needed, #DROP
-        "TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES": TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES, #DROP
         "saved_minimum_credits_selection": min_credits_per_semester,
         "gen_ed_credits_still_needed": gen_ed_credits_still_needed,
         "full_schedule_generation": generate_complete_schedule,

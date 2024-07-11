@@ -75,7 +75,6 @@ def schedule_generator():
             certificate = c[0]
         else:
             certificate = ""
-        total_elective_credits = int(request.form["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"])
         return render_template('printable.html',
                             course_schedule_display=course_schedule_display,
                             total_credits = total_credits,
@@ -85,7 +84,6 @@ def schedule_generator():
                            fe_taken = fe_taken,
                            degree_choice = degree_choice,
                            certificate = certificate,
-                           total_elective_credits = total_elective_credits,
                            user_name = user_name)
     else:
         try:
@@ -112,7 +110,6 @@ def schedule_generator():
                                 certificates=render_info["certificate_choice"],
                                 certificates_display = render_info["certificates_display"],
                                 cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"], #DROP
-                                TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES=render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],#DROP
                                 saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                                 gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
                                 full_schedule_generation=render_info['full_schedule_generation'],
@@ -128,7 +125,6 @@ def schedule_generator():
                                 is_graduated = render_info['is_graduated'],
                                 required_courses_tuple = render_info['required_courses_tuple'],
                                 required_courses_tuple_display = render_info["required_courses_tuple_display"],
-                                total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
                                 render_info=json.dumps(render_info),
             )
         except Exception as e:

@@ -72,11 +72,7 @@
                     </span>
                 </label>
                 <span class = "credit-count">
-                    {{ total_credits - (27 - gen_ed_credits_still_needed)
-                    - fe_taken
-                    - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES
-                    - (cert_elective_courses_still_needed * 3))
-                    }}
+                    test
                 </span>
             </div>
 
@@ -107,20 +103,19 @@
                             <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                                 <span class="tooltiptext">
                                 Each recipient of the {{ certificates_display[0] }} certificate must
-                                take a series of {{ total_elective_credits // 3}} classes to satisfy the
-                                certificate's requirements. <br><br> The other {{ 5 - (total_elective_credits // 3)}}
-                                elective courses necessary for the BSCS are allocated to the required courses
+                                take a series of classes to satisfy the
+                                certificate's requirements. <br><br> The other elective courses necessary for the BSCS are allocated to the required courses
                                 of the {{ certificates_display[0] }} certificate and have thus been added to the
                                 list of required classes provided below.
                             </span>
                         </span>
                     </label>
-                    {% if total_elective_credits - (cert_elective_courses_still_needed * 3) >= total_elective_credits %}
-                        <span class="credit-count-success">{{total_elective_credits - (cert_elective_courses_still_needed * 3) }}</span>
+                    {% if 1 == 1 %}
+                        <span class="credit-count-success">test</span>
                     {% else %}
-                        <span class="credit-count" id = "fail">{{total_elective_credits - (cert_elective_courses_still_needed * 3) }}</span>
+                        <span class="credit-count" id = "fail">test</span>
                     {% endif %}
-                    <span class = "credit-minimum">/ {{ total_elective_credits }}</span>
+                    <span class = "credit-minimum">test</span>
             {% else %}
                     <label>CS Electives
                         <span class="tooltip">
