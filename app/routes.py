@@ -38,7 +38,6 @@ def index():
                            json_required_courses=json.dumps(all_courses_list),
                            semesters=semesters,
                            certificates=certificates,
-                           cert_elective_courses_still_needed=0,#DROP
                            total_credits=0,
                            course_schedule=json.dumps([]),
                            include_summer=False,
@@ -65,7 +64,6 @@ def schedule_generator():
         course_schedule_display = json.loads(request.form["course_schedule"])
         total_credits = int(request.form["total_credits"])
         min_degree_electives = int(request.form["min_degree_electives"])
-        cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])
         ge_taken = 27 - int(request.form["gen_ed_credits_still_needed"])
         fe_taken = int(request.form["fe_taken"])
         degree_choice = str(request.form["degree_choice"])
@@ -79,7 +77,6 @@ def schedule_generator():
                             course_schedule_display=course_schedule_display,
                             total_credits = total_credits,
                            min_degree_electives = min_degree_electives,
-                           cert_elective_courses_still_needed = cert_elective_courses_still_needed,
                            ge_taken = ge_taken,
                            fe_taken = fe_taken,
                            degree_choice = degree_choice,
@@ -109,7 +106,6 @@ def schedule_generator():
                                 include_summer=render_info["include_summer"],
                                 certificates=render_info["certificate_choice"],
                                 certificates_display = render_info["certificates_display"],
-                                cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"], #DROP
                                 saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                                 gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
                                 full_schedule_generation=render_info['full_schedule_generation'],

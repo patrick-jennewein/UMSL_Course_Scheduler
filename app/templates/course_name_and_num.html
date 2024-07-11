@@ -1,7 +1,7 @@
 <p class="course-number">{{ course.course }}</p>
 <p class="course-name">{{ course.name }}</p>
 <p class="course-credits">({{ course.credits }})</p>
-<p class="course-category">{{ course.category }}</p>
+<span class="checkmark">
 {% if course.is_completed %}
     <i
         id="{{ course.course }}-completed-icon"
@@ -25,3 +25,10 @@
         onclick="has_completed_course(this)">
     </i>
 {% endif %}
+</span>
+
+<style>
+    .checkmark{
+        float: right;
+    }
+</style>
