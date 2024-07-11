@@ -35,22 +35,6 @@
         <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
     </div>
     <div class = "right-counter">
-        <!-- Free Electives-->
-        <div class = "credit-category">
-            <label>Free Elective Credits
-                <span class="tooltip">
-                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                        <span class="tooltiptext">
-                        All courses that are not covered by BSCS Credits and General Education credits.
-                    </span>
-                </span>
-            </label>
-            <span class = "credit-count">
-                {{ fe_taken
-                }}
-            </span>
-        </div>
-
         <!-- Core Courses -->
         <div class = "credit-category">
                 <label>BSCS Credits
@@ -72,7 +56,7 @@
                     </span>
                 </label>
                 <span class = "credit-count">
-                    test
+                    {{ total_credits -  (27 - gen_ed_credits_still_needed) - fe_taken }}
                 </span>
             </div>
 
@@ -95,45 +79,20 @@
                 <span class = "credit-minimum">/ 27</span>
         </div>
 
-        <!-- Certificate Credits-->
+        <!-- Free Electives-->
         <div class = "credit-category">
-            {% if certificates_display[0] != "None" %}
-                    <label>CS Electives
-                        <span class="tooltip">
-                            <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                <span class="tooltiptext">
-                                Each recipient of the {{ certificates_display[0] }} certificate must
-                                take a series of classes to satisfy the
-                                certificate's requirements. <br><br> The other elective courses necessary for the BSCS are allocated to the required courses
-                                of the {{ certificates_display[0] }} certificate and have thus been added to the
-                                list of required classes provided below.
-                            </span>
-                        </span>
-                    </label>
-                    {% if 1 == 1 %}
-                        <span class="credit-count-success">test</span>
-                    {% else %}
-                        <span class="credit-count" id = "fail">test</span>
-                    {% endif %}
-                    <span class = "credit-minimum">test</span>
-            {% else %}
-                    <label>CS Electives
-                        <span class="tooltip">
-                            <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                <span class="tooltiptext">
-                                Credits earned from 5 elective courses needed for the BSCS degree.<br><br>
-                                Every student must earn 15 additional CMP SCI 3000+ credits, above the required courses
-                                listed below, to graduate.
-                            </span>
-                        </span>
-                    </label>
-                    {% if (15 - (min_degree_electives * 3)) >= 15 %}
-                        <span class="credit-count-success" >{{ 15 - (min_degree_electives * 3)}}</span>
-                    {% else %}
-                        <span class="credit-count" id = "fail">{{ 15 - (min_degree_electives * 3)}}</span>
-                    {% endif %}
-                    <span class = "credit-minimum">/ 15</span>
-            {% endif %}
+            <label>Free Elective Credits
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                        All courses that are not covered by BSCS Credits and General Education credits.
+                    </span>
+                </span>
+            </label>
+            <span class = "credit-count">
+                {{ fe_taken
+                }}
+            </span>
         </div>
 
         <!-- Total Credits-->

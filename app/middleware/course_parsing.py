@@ -290,7 +290,7 @@ def add_free_elective() -> dict:
 
 
 def graduation_check(total_credits_accumulated, required_courses_tuple, courses_taken,
-                   degree_electives_still_needed, gen_ed_credits_still_needed) -> bool:
+                   degree_electives_remaining, gen_ed_credits_still_needed) -> bool:
 
     # assume that course generation is complete
     is_course_generation_complete = True
@@ -304,9 +304,9 @@ def graduation_check(total_credits_accumulated, required_courses_tuple, courses_
             break # leave 'for' loop if a course still needs to be taken
 
     # check all required electives have been taken
-    if is_course_generation_complete and degree_electives_still_needed > 0:
+    if is_course_generation_complete and degree_electives_remaining > 0:
         is_course_generation_complete = False
-        error_messages.append(f"ERROR: Must take {degree_electives_still_needed} more 3000+ level electives.")
+        error_messages.append(f"ERROR: Must take {degree_electives_remaining} more 3000+ level electives.")
 
      # check that all gen eds have been taken
     if is_course_generation_complete and gen_ed_credits_still_needed > 0:
@@ -572,51 +572,71 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
     for course in leftover_courses:
         print(f"\t{course}")
 
-    electives_needed = -1
+    electives_remaining = -1
+    electives_taken = -1
+    course_info = ()
+
     if degree_choice == "BSComputerScience":
-        count = len([course for course in leftover_courses if "CMP SCI" in course and int(course.split()[2]) >= 3000])
-        electives_needed = 5
-        print(f"{degree_choice} needs {electives_needed} 3000+ courses, has {count}")
-        electives_needed -= count
-        print(f"needs {electives_needed} more.")
+        electives_taken = len([course for course in leftover_courses if "CMP SCI" in course and int(course.split()[2]) >= 3000])
+        electives_remaining = 5 - electives_taken
+        print(f"{degree_choice} needs 5 3000+ courses, has {electives_taken}\nNeeds {electives_remaining} more.")
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "A CMP SCI 3000+ course of the user's choosing")
     elif degree_choice == "BSComputingTechnology":
-        count = 0
-        infsys_count = 0
+        electives_taken = 0
+        infsys_taken = 0
         for course in leftover_courses:
             if "CMP SCI" in course and int(course.split()[2]) >= 3000:
-                count += 1
+                electives_taken += 1
             elif "INFSYS" in course and int(course.split()[2]) >= 2000:
-                if infsys_count < 2:
-                    count += 1
-                    infsys_count += 1
-        electives_needed = 6
-        print(f"{degree_choice} needs {electives_needed} 2000+ courses, has {count}")
-        electives_needed -= count
-        print(f"needs {electives_needed} more.")
+                if infsys_taken < 2:
+                    electives_taken += 1
+                    infsys_taken += 1
+        electives_remaining = 6 - electives_taken
+        print(f"{degree_choice} needs 6 2000+ courses, has {electives_taken}\nNeeds {electives_remaining} more.")
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "A CMP SCI 2000+ or INFSYS 2000+ course of the user's choosing")
     elif degree_choice == "BSCyberSecurity":
         possible_electives = [
             "CMP SCI 3990", "CMP SCI 4020", "CMP SCI 4220", "CMP SCI 4222",
             "CMP SCI 4300", "CMP SCI 4500", "CMP SCI 4610", "CMP SCI 4792",
             "INFSYS 3858", "INFSYS 3898"
         ]
-        count = len([course for course in leftover_courses if course in possible_electives])
-        electives_needed = 3
-        print(f"{degree_choice} needs {electives_needed} elective courses, has {count}")
-        electives_needed -= count
-        print(f"needs {electives_needed} more.")
+        electives_taken = len([course for course in leftover_courses if course in possible_electives])
+        electives_remaining = 3 - electives_taken
+        print(f"{degree_choice} needs 3 3000+ courses, has {electives_taken}\nNeeds {electives_remaining} more.")
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "An elective from one of the following courses: CMP SCI 3990, CMP SCI 4020, CMP SCI 4220, "
+                                                          "CMP SCI 4222, CMP SCI 4300, CMP SCI 4500, CMP SCI 4610, CMP SCI 4792, "
+                                                          "INFSYS 3858, or INFSYS 3898")
     elif degree_choice == "BSDataScience":
         possible_electives = [
             "CMP SCI 3010", "CMP SCI 3702", "CMP SCI 4300", "CMP SCI 4320",
             "CMP SCI 4370", "CMP SCI 4390", "CMP SCI 4610", "MATH 2450"]
-        count = len([course for course in leftover_courses if course in possible_electives])
-        electives_needed = 3
-        print(f"{degree_choice} needs {electives_needed} elective courses, has {count}")
-        electives_needed -= count
+        electives_taken = len([course for course in leftover_courses if course in possible_electives])
+        electives_remaining = 3
+        print(f"{degree_choice} needs {electives_remaining} elective courses, has {electives_taken}")
+        electives_needed = 3 - electives_taken
         print(f"needs {electives_needed} more.")
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "An elective from one of the following courses: CMP SCI 3010, CMP SCI 3702, CMP SCI 4300, "
+                                                          "CMP SCI 4320, CMP SCI 4370, CMP SCI 4390, CMP SCI 4610, or MATH 2450")
     else:
         print("ERROR")
 
-    return electives_needed
+    return electives_remaining, electives_taken
+
+def generate_elective_info(degree_choice):
+    if degree_choice == "BSComputerScience":
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "A CMP SCI 3000+ course of the user's choosing")
+    elif degree_choice == "BSComputingTechnology":
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "A CMP SCI 2000+ or INFSYS 2000+ course of the user's choosing")
+    elif degree_choice == "BSCyberSecurity":
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "An elective from one of the following courses: CMP SCI 3990, CMP SCI 4020, CMP SCI 4220, "
+                                                          "CMP SCI 4222, CMP SCI 4300, CMP SCI 4500, CMP SCI 4610, CMP SCI 4792, "
+                                                          "INFSYS 3858, or INFSYS 3898")
+    elif degree_choice == "BSDataScience":
+        course_info = ("B.S. ELECTIVE", "[User Selects]", "An elective from one of the following courses: CMP SCI 3010, CMP SCI 3702, CMP SCI 4300, "
+                                                          "CMP SCI 4320, CMP SCI 4370, CMP SCI 4390, CMP SCI 4610, or MATH 2450")
+    else:
+        print("ERROR")
+    return course_info
 
 
 def math_course_selections(courses_taken, courses_for_graduation, has_passed_math_placement_exam):
@@ -690,7 +710,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     required_courses_dict_list = []
     has_passed_math_placement_exam = False
     is_graduated = False
-    degree_electives_still_needed = int(request.form["min_degree_electives"])
+    degree_electives_remaining = int(request.form["min_degree_electives"])
 
     # set up certificate variables
     certificate_choice_xml_tag = ""
@@ -782,7 +802,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         course_prereqs_for = prereqs_for_dict
 
         # add degree electives
-        degree_electives_still_needed = build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
+        degree_electives_remaining, degree_electives_taken = \
+            build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
 
 
         # testing
@@ -932,7 +953,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         
                         is_graduated = graduation_check(
                                 total_credits_accumulated, required_courses_tuple,
-                                courses_taken, degree_electives_still_needed,
+                                courses_taken, degree_electives_remaining,
                                 gen_ed_credits_still_needed)
 
                         # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
@@ -1008,11 +1029,11 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                 (current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3) or \
                                  (max_CS_math_total_credits - 3) <= 0):
                             # condition 3: if non-elective 3000-level courses are still needed, add these primarily
-                            if degree_electives_still_needed > 0:
+                            if degree_electives_remaining > 0:
                                 current_semester_classes.append({
-                                        'course': "CMP SCI 3000+",
-                                        'name': '[User Selects]',
-                                        'description': '',
+                                        'course': generate_elective_info(degree_choice)[0],
+                                        'name': generate_elective_info(degree_choice)[1],
+                                        'description': generate_elective_info(degree_choice)[2],
                                         'credits': 3,
                                         'category': 'CS Elective',
                                         'passed_validation': True
@@ -1021,7 +1042,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                 # increment current semester credits, decrement courses needed
                                 current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
                                 current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
-                                degree_electives_still_needed -= 1
+                                degree_electives_remaining -= 1
                                 # print(f"Added: \t{'COMP SCI 3000+':<15}{'[User Selects]':<40} "
                                 #     f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
                                 #     f"{total_credits_accumulated + 3:>15}")
@@ -1067,21 +1088,21 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                             3. Total credit count of CS/MATH is less than pre-determined maximum 
                         """
                         # condition 1, 2, and 3
-                        if degree_electives_still_needed > 0 and \
+                        if degree_electives_remaining > 0 and \
                                 (current_CS_elective_credits_per_semester <= (max_CS_elective_credits_per_semester - 3)) and \
                                 (current_semester_cs_math_credits_per_semester <= (max_CS_math_total_credits - 3) or \
                                  (max_CS_math_total_credits - 3) <= 0):
                             current_semester_classes.append({
-                                'course': "CMP SCI 3000+",
-                                'name': '[User Selects]',
-                                'description': '',
+                                'course': generate_elective_info(degree_choice)[0],
+                                'name': generate_elective_info(degree_choice)[1],
+                                'description': generate_elective_info(degree_choice)[2],
                                 'credits': 3,
                                 'category': course_categories['E'],
                                 'passed_validation': True
                             })
                             current_semester_cs_math_credits_per_semester += DEFAULT_CREDIT_HOURS
                             current_CS_elective_credits_per_semester += DEFAULT_CREDIT_HOURS
-                            degree_electives_still_needed -= 1
+                            degree_electives_remaining -= 1
                             # print(f"Added: \t{'CMP SCI 3000+':<15}{'[User Selects]':<40} "
                             #     f"{current_semester_credits + 3:<2} of {min_credits_per_semester:<2}"
                             #     f"{total_credits_accumulated + 3:>15}")
@@ -1107,7 +1128,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
                 is_graduated = graduation_check(
                                 total_credits_accumulated, required_courses_tuple,
-                                courses_taken, degree_electives_still_needed,gen_ed_credits_still_needed)
+                                courses_taken, degree_electives_remaining,gen_ed_credits_still_needed)
 
                 # if current semester is fully generated or generating the whole schedule and has graduated, then stop generation
                 if (current_semester_credits >= min_credits_per_semester) or (generate_complete_schedule and is_graduated):
@@ -1187,7 +1208,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "waived_courses": waived_courses,
         "current_semester": current_semester,
         "minimum_semester_credits": minimum_semester_credits,
-        "min_degree_electives": degree_electives_still_needed,
+        "min_degree_electives": degree_electives_remaining,
         "include_summer": include_summer,
         "certificate_choice": json.dumps(certificate_choice),
         "certificates_display": certificate_choice,

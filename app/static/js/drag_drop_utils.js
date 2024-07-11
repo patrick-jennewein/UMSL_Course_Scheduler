@@ -84,7 +84,7 @@ function prereqVerification(course_info, course_num, semester_num, li_to_move, r
     if (!is_prereq_for_check) {
         course_schedule.forEach((semester) => { 
             semester_schedule = semester.schedule.forEach((course_info) => {
-                const is_elective = course_info.name === '[User Selects]';   
+                const is_elective = course_info.name === '[User Selects]';
 
                 if (!is_elective) {
                     if (semester.semester_number < semester_num) {
