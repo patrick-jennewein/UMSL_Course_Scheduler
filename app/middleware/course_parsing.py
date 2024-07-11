@@ -677,17 +677,16 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     ge_taken = int(request.form["ge_taken"])
     free_elective_credits_accumulated = int(request.form["fe_taken"])
     gen_ed_credits_still_needed = int(request.form["gen_ed_credits_still_needed"]) - ge_taken if semester == 0 else int(request.form["gen_ed_credits_still_needed"])
-    cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])
+    cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"]) #DROP
     total_credits_accumulated = int(request.form["total_credits"]) if semester != 0 else int(request.form["total_credits"]) + ge_taken + free_elective_credits_accumulated
     min_credits_per_semester = int(request.form["minimum_semester_credits"])
     summer_credit_count = int(request.form["minimum_summer_credits"])
     temp_min_credits_per_semester = None
-    num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])  # default is 0
 
     # set up default variables (also used for counter on scheduling page)
     TOTAL_CREDITS_FOR_BSCS_ELECTIVES = 15
     TOTAL_CREDITS_FOR_GEN_EDS = 27
-    TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # set in first semester and maintained by request.form in subsequent semesters
+    TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # DROP
     DEFAULT_CREDIT_HOURS = 3
     course_categories = {
         'R': 'BSCS',                # required
@@ -1209,12 +1208,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         minimum_semester_credits = list(map(lambda x: x, range(0, 13)))
     else:
         minimum_semester_credits = list(map(lambda x: x, range(3, 22)))
-    # Calculating counter values (credits for ELECTIVES)
-    accumulated_gen_eds = (TOTAL_CREDITS_FOR_GEN_EDS - gen_ed_credits_still_needed)
-    accumulated_certificates = (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES - (cert_elective_courses_still_needed* DEFAULT_CREDIT_HOURS))
-    accumulated_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - ((degree_electives_still_needed + cert_elective_courses_still_needed + num_3000_replaced_by_cert_core)*DEFAULT_CREDIT_HOURS))
-    modified_total_for_3000 = (TOTAL_CREDITS_FOR_BSCS_ELECTIVES - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES+ (num_3000_replaced_by_cert_core*DEFAULT_CREDIT_HOURS)))
-    modified_accumulated_3000 = (modified_total_for_3000 -(degree_electives_still_needed*DEFAULT_CREDIT_HOURS))
 
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
@@ -1233,9 +1226,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "include_summer": include_summer,
         "certificate_choice": json.dumps(certificate_choice),
         "certificates_display": certificate_choice,
-        "num_3000_replaced_by_cert_core": num_3000_replaced_by_cert_core,
-        "cert_elective_courses_still_needed": cert_elective_courses_still_needed,
-        "TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES": TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES,
+        "cert_elective_courses_still_needed": cert_elective_courses_still_needed, #DROP
+        "TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES": TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES, #DROP
         "saved_minimum_credits_selection": min_credits_per_semester,
         "gen_ed_credits_still_needed": gen_ed_credits_still_needed,
         "full_schedule_generation": generate_complete_schedule,
