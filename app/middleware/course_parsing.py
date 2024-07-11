@@ -143,7 +143,6 @@ def build_dictionary(courses: Union[dict, list]) -> dict:
         if "selection_group" in course:
             if not isinstance(course["selection_group"]["program"], list):
                 course["selection_group"]["program"] = [course["selection_group"]["program"]]
-            print(f'{course["selection_group"]["program"]=}')
 
         # make final update to course dictionary
         updated_course_dict.update(course_dict)
@@ -289,28 +288,14 @@ def add_free_elective() -> dict:
     }
     return free_elective_info
 
-def print_course_list_information(certificate_core, cert_elective_courses_still_needed,
-                                  certificate_electives, min_3000_course_still_needed,
-                                  required_courses_tuple):
-    print("Certificate Core (Necessary): ")
-    for item in certificate_core.keys():
-        print(f"{'':<40}{item}")
-    print(f"Certificate Electives (Pick {cert_elective_courses_still_needed}): ")
-    for item in certificate_electives.keys():
-        print(f"{'':<40}{item}")
-    print(f"{'3000+ Level Electives Still Needed:':<40}{min_3000_course_still_needed}")
-    print("Required Course List:")
-    for item in required_courses_tuple:
-        if item in certificate_core.keys() and item[0] not in required_courses_tuple:
-            print(f"\t{item} ***(Core of Certificate, Now Required)")
-        elif item in certificate_electives.keys():
-            print(f"\t{item} ***(Elective of Certificate)")
-        else:
-            print(f"\t{item}")
-
 
 def graduation_check(total_credits_accumulated, required_courses_tuple, courses_taken,
                    min_3000_course_still_needed, cert_elective_courses_still_needed, gen_ed_credits_still_needed) -> bool:
+
+    print(f"Total_credits_accumulated: {total_credits_accumulated}")
+    print(f"Min_3000_course_still_needed: {min_3000_course_still_needed}")
+    print(f"Cert_elective_courses_still_needed: {cert_elective_courses_still_needed}")
+    print(f"Gen_ed_credits_still_needed: {gen_ed_credits_still_needed}\n")
 
     # assume that course generation is complete
     is_course_generation_complete = True
@@ -324,33 +309,29 @@ def graduation_check(total_credits_accumulated, required_courses_tuple, courses_
             break # leave 'for' loop if a course still needs to be taken
 
     # check all required electives have been taken
-    # print(f"{'CMP SCI 3000+ courses needed:':<30}{min_3000_course_still_needed:}")
-    if is_course_generation_complete and min_3000_course_still_needed != 0:
+    if is_course_generation_complete and min_3000_course_still_needed > 0:
         is_course_generation_complete = False
         error_messages.append(f"ERROR: Must take {min_3000_course_still_needed} more 3000+ level electives.")
 
     # check that all certificates have been taken
-    # print(f"{'Certificate courses needed:':<30}{cert_elective_courses_still_needed:}")
-    if is_course_generation_complete and cert_elective_courses_still_needed != 0:
+    if is_course_generation_complete and cert_elective_courses_still_needed > 0:
         is_course_generation_complete = False
         error_messages.append(f"ERROR: Must take {cert_elective_courses_still_needed} more certificate electives.")
 
      # check that all gen eds have been taken
-    # print(f"{'Gen Ed courses needed:':<30}{gen_ed_credits_still_needed:}")
-    if is_course_generation_complete and gen_ed_credits_still_needed != 0:
+    if is_course_generation_complete and gen_ed_credits_still_needed > 0:
         is_course_generation_complete = False
         error_messages.append(f"ERROR: Must take {gen_ed_credits_still_needed} more general education electives.")
 
     # check credit hours
-    # print(f"{'Total credits accumulated:':<30}{total_credits_accumulated:}/{120}")
     if is_course_generation_complete and total_credits_accumulated < 120:
         is_course_generation_complete = False
         error_messages.append(f"ERROR: Must have 120 credit hours completed. Only {total_credits_accumulated} completed.")
 
-    # if is_course_generation_complete == False:
-    #     print(error_messages)
+    if is_course_generation_complete == False:
+        print(error_messages)
 
-    # check if ultimately finished
+    #check if ultimately finished
     return is_course_generation_complete
 
 def update_semester(current_semester, include_summer) -> str:
@@ -504,6 +485,89 @@ def build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_g
     if (len(added_courses)):
         build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_graduation, added_courses)
 
+def build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice,
+                           courses_for_graduation, course_choices_for_graduation, certificate_choice):
+    print("BUILD SCHEDULE: ")
+    for k, v in all_courses_dict.items():
+        # if the course is required
+        if "required" in v:
+            major_or_cert = v['required']['major_or_cert']
+            if not isinstance(major_or_cert, list):
+                major_or_cert = [major_or_cert]
+            for item in major_or_cert:
+                if item == degree_choice or len(set(cert_xml_tag_list).intersection(v['required_by_major_cert'])):
+                    print(f"\t{k:<20}{item}") if item == degree_choice else None
+                    courses_for_graduation.append(k)
+        # if the course is a part of a user's selection
+        if "selection_group" in v.keys():
+            for program in v["selection_group"]["program"]:
+                # selections for degree
+                if program['major_or_cert'] == degree_choice:
+                    course_set = set(program["course_options"]["option"])
+                    num_of_choices = program["choose"]
+                    course_tuple = (num_of_choices, course_set)
+                    if (course_tuple not in course_choices_for_graduation):
+                        course_choices_for_graduation.append(course_tuple)
+                # selections for certificate electives, if certificate
+                if certificate_choice and program['major_or_cert'] == certificate_choice[0]:
+                    course_set = set(program["course_options"]["option"])
+                    num_of_choices = program["choose"]
+                    course_tuple = (num_of_choices, course_set)
+                    if (course_tuple not in course_choices_for_graduation):
+                        course_choices_for_graduation.append(course_tuple)
+
+def make_course_selections(course_choices_for_graduation, courses_for_graduation):
+    for course_choice in course_choices_for_graduation:
+        print(f"\nSelect {course_choice[0]} from {course_choice[1]}")
+        intersection = set(courses_for_graduation) & set(course_choice[1])
+        print(f"\tIntersection: {intersection}")
+
+        # only add courses that are necessary (avoid overlap)
+        if len(intersection) >= int(course_choice[0]):
+            print("\tRequirement already satisfied")
+        else:
+            print(f"\tMust now select {int(course_choice[0]) - len(intersection)}")
+            for i in range(int(course_choice[0]) - len(intersection)):
+                student_selection = random.choice(list(course_choice[1]))
+                courses_for_graduation.append(student_selection)
+                print(f"\t{student_selection:<20}{'Choice'}")
+                course_choice[1].remove(student_selection)
+
+def math_course_selections(courses_taken, courses_for_graduation, has_passed_math_placement_exam):
+    # MATH 1045 checks first because it's an unnecessary course if MATH 1030 and MATH 1035 exist
+    if ('MATH 1045' in courses_taken) and (('MATH 1030' not in courses_taken) or ('MATH 1035' not in courses_taken)):
+        if "MATH 1030" in courses_for_graduation:
+            courses_for_graduation.remove('MATH 1030')
+        if "MATH 1035" in courses_for_graduation:
+            courses_for_graduation.remove('MATH 1035')
+    # MATH 1045 is redundant if MATH 1030 and MATH 1035 are going to be courses used
+    if ('MATH 1045' not in courses_taken) and ('MATH 1030' in courses_for_graduation) and (
+            'MATH 1035' in courses_for_graduation) and ("MATH 1045" in courses_for_graduation):
+        courses_for_graduation.remove('MATH 1045')
+    # Remove optional courses if they are no longer required due to courses already taken
+    if ('ENGLISH 3130' in courses_taken) and ('ENGLISH 1100' not in courses_taken) and (
+            'ENGLISH 1100' in courses_for_graduation):
+        courses_for_graduation.remove('ENGLISH 1100')
+    if ('MATH 1800' in courses_taken):
+        if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and (
+                "MATH 1030" in courses_for_graduation):
+            courses_for_graduation.remove('MATH 1030')
+        if ("MATH 1035" in courses_for_graduation) and ('MATH 1035' not in courses_taken) and (
+                "MATH 1035" in courses_for_graduation):
+            courses_for_graduation.remove('MATH 1035')
+    if has_passed_math_placement_exam:
+        if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and (
+                "MATH 1030" in courses_for_graduation):
+            courses_for_graduation.remove('MATH 1030')
+        if "MATH 1035" in courses_for_graduation:
+            courses_for_graduation.remove('MATH 1035')
+        if "MATH 1045" in courses_for_graduation:
+            courses_for_graduation.remove('MATH 1045')
+        courses_taken.append("ALEKS")
+    for course in courses_taken:
+        if course in courses_for_graduation:
+            courses_for_graduation.remove(course)
+
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     # pass variables back
     degree_choice = str(request.form["degree_choice"])
@@ -521,10 +585,14 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])
     min_3000_course_still_needed = int(request.form["min_3000_course"])
     total_credits_accumulated = int(request.form["total_credits"]) if semester != 0 else int(request.form["total_credits"]) + ge_taken + free_elective_credits_accumulated
+    min_credits_per_semester = int(request.form["minimum_semester_credits"])
+    summer_credit_count = int(request.form["minimum_summer_credits"])
+    temp_min_credits_per_semester = None
+
+    print(f"ge taken: {ge_taken}")
+    print(f"gen ed still needed: {gen_ed_credits_still_needed}")
 
     # set up default variables (also used for counter on scheduling page)
-    TOTAL_CREDITS_FOR_GRADUATION = 120
-    TOTAL_CREDITS_FOR_BSCS = 71
     TOTAL_CREDITS_FOR_BSCS_ELECTIVES = 15
     TOTAL_CREDITS_FOR_GEN_EDS = 27
     TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES = 0 # set in first semester and maintained by request.form in subsequent semesters
@@ -538,11 +606,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         'O': 'Other'
     }
 
-    # user enters credits for upcoming semester
-    min_credits_per_semester = int(request.form["minimum_semester_credits"])
-    summer_credit_count = int(request.form["minimum_summer_credits"])
-    temp_min_credits_per_semester = None
-
     # set up scheduler variables, and overwritten below
     include_summer = False
     courses_taken = []
@@ -552,9 +615,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     is_graduated = False
 
     # set up certificate variables
-    # certificate_option = False
-    certificate_core = {}
-    certificate_electives = {}
     certificate_choice_xml_tag = ""
     certificate_choice_name = ""
 
@@ -601,51 +661,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             cert_xml_tag_list.append(certificate_choice_xml_tag)
 
         # create list of courses in which user makes a selection from a set
-        print("BUILD SCHEDULE: ")
-        for k, v in all_courses_dict.items():
-            # if the course is required
-            if "required" in v:
-                major_or_cert = v['required']['major_or_cert']
-                if not isinstance(major_or_cert, list):
-                    major_or_cert = [major_or_cert]
-                for item in major_or_cert:
-                    if item == degree_choice or len(set(cert_xml_tag_list).intersection(v['required_by_major_cert'])):
-                        print(f"\t{k:<20}{item}") if item == degree_choice else None
-                        courses_for_graduation.append(k)
-            # if the course is a part of a user's selection
-            if "selection_group" in v.keys():
-                for program in v["selection_group"]["program"]:
-                    # selections for degree
-                    if program['major_or_cert'] == degree_choice:
-                        course_set = set(program["course_options"]["option"])
-                        num_of_choices = program["choose"]
-                        course_tuple = (num_of_choices, course_set)
-                        if(course_tuple not in course_choices_for_graduation):
-                            course_choices_for_graduation.append(course_tuple)
-                    # selections for certificate electives, if certificate
-                    if certificate_choice and program['major_or_cert'] == certificate_choice[0]:
-                        course_set = set(program["course_options"]["option"])
-                        num_of_choices = program["choose"]
-                        course_tuple = (num_of_choices, course_set)
-                        if(course_tuple not in course_choices_for_graduation):
-                            course_choices_for_graduation.append(course_tuple)
-
-        # iterate through the number of course choices and add to list of courses
-        for course_choice in course_choices_for_graduation:
-            print(f"\nSelect {course_choice[0]} from {course_choice[1]}")
-            intersection = set(courses_for_graduation) & set(course_choice[1])
-            print(f"\tIntersection: {intersection}")
-
-            # only add courses that are necessary (avoid overlap)
-            if len(intersection) >= int(course_choice[0]):
-                print("\tRequirement already satisfied")
-            else:
-                print(f"\tMust now select {int(course_choice[0]) - len(intersection)}")
-                for i in range(int(course_choice[0]) - len(intersection)):
-                    student_selection = random.choice(list(course_choice[1]))
-                    courses_for_graduation.append(student_selection)
-                    print(f"\t{student_selection:<20}{'Choice'}")
-                    course_choice[1].remove(student_selection)
+        build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice, courses_for_graduation, course_choices_for_graduation, certificate_choice)
+        make_course_selections(course_choices_for_graduation, courses_for_graduation)
 
         # copy
         print("\n\nContinuing...")
@@ -657,34 +674,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             courses_for_graduation.remove('INTDSC 1003')
 
         # handle math academic history
-        # MATH 1045 checks first because it's an unnecessary course if MATH 1030 and MATH 1035 exist
-        if ('MATH 1045' in courses_taken) and (('MATH 1030' not in courses_taken) or ('MATH 1035' not in courses_taken)):
-            if "MATH 1030" in courses_for_graduation:
-                courses_for_graduation.remove('MATH 1030')
-            if "MATH 1035" in courses_for_graduation:
-                courses_for_graduation.remove('MATH 1035')
-        # MATH 1045 is redundant if MATH 1030 and MATH 1035 are going to be courses used
-        if ('MATH 1045' not in courses_taken) and ('MATH 1030' in courses_for_graduation) and ('MATH 1035' in courses_for_graduation) and ("MATH 1045" in courses_for_graduation):
-            courses_for_graduation.remove('MATH 1045')
-        # Remove optional courses if they are no longer required due to courses already taken
-        if ('ENGLISH 3130' in courses_taken) and ('ENGLISH 1100' not in courses_taken) and ('ENGLISH 1100' in courses_for_graduation):
-            courses_for_graduation.remove('ENGLISH 1100')
-        if ('MATH 1800' in courses_taken):
-            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in courses_for_graduation):
-                courses_for_graduation.remove('MATH 1030')
-            if ("MATH 1035" in courses_for_graduation) and ('MATH 1035' not in courses_taken) and ("MATH 1035" in courses_for_graduation):
-                courses_for_graduation.remove('MATH 1035')
-        if has_passed_math_placement_exam:
-            if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and ("MATH 1030" in courses_for_graduation):
-                courses_for_graduation.remove('MATH 1030')
-            if "MATH 1035" in courses_for_graduation:
-                courses_for_graduation.remove('MATH 1035')
-            if "MATH 1045" in courses_for_graduation:
-                courses_for_graduation.remove('MATH 1045')
-            courses_taken.append("ALEKS")
-        for course in courses_taken:
-            if course in courses_for_graduation:
-                courses_for_graduation.remove(course)
+        math_course_selections(courses_taken, courses_for_graduation, has_passed_math_placement_exam)
 
         # create required courses dictionary and convert to a list for easier processing
         required_courses_dict = {}
@@ -719,8 +709,10 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             test_schedule(degree_choice, required_courses_dict_list, certificate_choice[0])
         else:
             test_schedule(degree_choice, required_courses_dict_list)
+
     # if NOT the first semester
     elif semester != 0:
+        print("MADE IT TO SEMESTER TWO!")
         required_courses_dict_list = json.loads(request.form['required_courses_dict_list'])
         courses_dict_list_unchanged = json.loads(request.form['required_courses_dict_list_unchanged'])
         course_prereqs_for = json.loads(request.form["course_prereqs_for"])
@@ -750,16 +742,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     current_CS_elective_credits_per_semester = 0
     is_course_generation_complete = False
 
-    # create header for console
-    # if(generate_complete_schedule):
-    #     print(f"{'Min credits Fall/Spring:':<40} {min_credits_per_semester}")
-    #     print(f"{'Min credits for summer:':<40} {summer_credit_count}\n\n")
-    # elif(not generate_complete_schedule):
-    #     print(f"Minimum credits for upcoming semester: {min_credits_per_semester}\n\n")
-    # print(f"Status:\t{'Num:':<15}{'Course Name:':<40} "
-    #       f"{'Cr of Min:':<5}"
-    #       f"{'Total':>15}/{TOTAL_CREDITS_FOR_GRADUATION}:")
-    
 
 
     if not is_graduated:
@@ -776,9 +758,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             for index, x in enumerate(required_courses_dict_list):
                 course: str = x[0]  # holds course subject + number
                 course_info: dict = x[1]  # holds all other information about course
-                # print(f"{course=}")
-                # print(f"{course_info['prerequisite']=}")
-                # print(f"{courses_taken=}")
                 concurrent = None
                 if "concurrent" in course_info.keys():
                     concurrent = course_info["concurrent"]
