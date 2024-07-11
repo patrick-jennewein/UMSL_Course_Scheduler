@@ -582,6 +582,7 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
     for course in leftover_courses:
         print(f"\t{course}")
 
+    electives_needed = -1
     if degree_choice == "BSComputerScience":
         count = len([course for course in leftover_courses if "CMP SCI" in course and int(course.split()[2]) >= 3000])
         electives_needed = 5
@@ -625,6 +626,7 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
     else:
         print("ERROR")
 
+    return electives_needed
 
 
 def math_course_selections(courses_taken, courses_for_graduation, has_passed_math_placement_exam):
@@ -795,7 +797,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         course_prereqs_for = prereqs_for_dict
 
         # add degree electives
-        build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
+        electives_needed = build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
 
 
         # testing
