@@ -1,66 +1,106 @@
 {% if course.degree_selection_choices %}
-    <p class="course-number"contenteditable="true">{{ course.course }}</p>
-    <p class="course-name"contenteditable="true">{{ course.name }}</p>
-    <p class="course-credits">({{ course.credits }})</p>
-    <span class="tooltip">
-        <i style="font-size:16px" class="fa" class="fas fa-question-circle">
-            &#xf059;
-        </i>
-        <span class="tooltiptext">
-            {% for choice in course.degree_selection_choices %}
-            {{ choice }}
-            {% if not loop.last %}, {% endif %}
-            {% endfor %}
-        </span>
-    </span>
-{% elif course.cert_selection_choices %}
-    <p class="course-number"contenteditable="true">{{ course.course }}</p>
-    <p class="course-name"contenteditable="true">{{ course.name }}</p>
-    <p class="course-credits">({{ course.credits }})</p>
-    <span class="tooltip">
-        <i style="font-size:16px" class="fa" class="fas fa-question-circle">
-            &#xf059;
-        </i>
-        <span class="tooltiptext">
-            {% for choice in course.cert_selection_choices %}
-            {{ choice }}
-            {% if not loop.last %}, {% endif %}
-            {% endfor %}
-        </span>
-    </span>
-{% else %}
-    <p class="course-number">{{ course.course }}</p>
-    <p class="course-name">{{ course.name }}</p>
-    <p class="course-credits">({{ course.credits }})</p>
-{% endif %}
-<span class="checkmark">
-{% if course.is_completed %}
-    <i
-        id="{{ course.course }}-completed-icon"
-        class="fa fa-check-circle"
-        title="Course has been taken/passed."
-        style="color: green; cursor: pointer;"
-        courseNum="{{ course.course }}"
-        semesterNum="{{ semester.semester_number }}"
-        is_completed="true"
-        onclick="has_completed_course(this)">
-    </i>
-{% else %}
-    <i
-        id="{{ course.course }}-completed-icon"
-        class="fa fa-check-circle-o"
-        title="Course has not been completed."
-        style="color: blue; cursor: pointer;"
-        courseNum="{{ course.course }}"
-        semesterNum="{{ semester.semester_number }}"
-        is_completed="false"
-        onclick="has_completed_course(this)">
-    </i>
-{% endif %}
-</span>
+    <span class="checkmark">
 
-<style>
-    .checkmark{
-        float: right;
-    }
-</style>
+        {% if course.is_completed %}
+        <i
+            id="{{ course.course }}-completed-icon"
+            class="fa fa-check-circle"
+            title="Course has been taken/passed."
+            style="color: green; cursor: pointer;"
+            courseNum="{{ course.course }}"
+            semesterNum="{{ semester.semester_number }}"
+            is_completed="true"
+            onclick="has_completed_course(this)">
+        </i>
+        {% else %}
+        <i
+            id="{{ course.course }}-completed-icon"
+            class="fa fa-check-circle-o"
+            title="Course has not been completed."
+            style="color: blue; cursor: pointer;"
+            courseNum="{{ course.course }}"
+            semesterNum="{{ semester.semester_number }}"
+            is_completed="false"
+            onclick="has_completed_course(this)">
+        </i>
+        {% endif %}
+    </span>
+    <p class="course-number"contenteditable="true">{{ course.course }}</p>
+    <p class="course-credits">({{ course.credits }})</p>
+    <p class="course-name"contenteditable="true">{{ course.name }}</p>
+    <div class = "selection-info"
+         title = "{{ course.name }} was selected from {{ course.degree_selection_choices }}">
+         DEGREE ELECTIVE
+    </div>
+
+
+{% elif course.cert_selection_choices %}
+    <span class="checkmark">
+
+        {% if course.is_completed %}
+        <i
+            id="{{ course.course }}-completed-icon"
+            class="fa fa-check-circle"
+            title="Course has been taken/passed."
+            style="color: green; cursor: pointer;"
+            courseNum="{{ course.course }}"
+            semesterNum="{{ semester.semester_number }}"
+            is_completed="true"
+            onclick="has_completed_course(this)">
+        </i>
+        {% else %}
+        <i
+            id="{{ course.course }}-completed-icon"
+            class="fa fa-check-circle-o"
+            title="Course has not been completed."
+            style="color: blue; cursor: pointer;"
+            courseNum="{{ course.course }}"
+            semesterNum="{{ semester.semester_number }}"
+            is_completed="false"
+            onclick="has_completed_course(this)">
+        </i>
+        {% endif %}
+    </span>
+    <p class="course-number"contenteditable="true">{{ course.course }}</p>
+    <p class="course-credits">({{ course.credits }})</p>
+    <p class="course-name"contenteditable="true">{{ course.name }}</p>
+
+    <div class = "selection-info"
+         title = "{{ course.name }} was selected from {{ course.cert_selection_choices }}">
+         CERT ELECTIVE
+    </div>
+
+
+
+{% else %}
+    <span class="checkmark">
+        {% if course.is_completed %}
+        <i
+            id="{{ course.course }}-completed-icon"
+            class="fa fa-check-circle"
+            title="Course has been taken/passed."
+            style="color: green; cursor: pointer;"
+            courseNum="{{ course.course }}"
+            semesterNum="{{ semester.semester_number }}"
+            is_completed="true"
+            onclick="has_completed_course(this)">
+        </i>
+        {% else %}
+        <i
+            id="{{ course.course }}-completed-icon"
+            class="fa fa-check-circle-o"
+            title="Course has not been completed."
+            style="color: blue; cursor: pointer;"
+            courseNum="{{ course.course }}"
+            semesterNum="{{ semester.semester_number }}"
+            is_completed="false"
+            onclick="has_completed_course(this)">
+        </i>
+        {% endif %}
+    </span>
+    <p class="course-number">{{ course.course }}</p>
+    <p class="course-credits">({{ course.credits }})</p>
+    <p class="course-name">{{ course.name }}</p>
+
+{% endif %}
+

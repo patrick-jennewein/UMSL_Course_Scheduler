@@ -78,14 +78,17 @@ body {
 .course-number, .course-name, .course-credits {
     display: inline-block;
 }
+.course-credits{
+    width: 15px;
+}
 .course-number{
     font-weight: 400;
     min-width: 15ch;
 }
-.course-category {
-    display: inline;
-    float: right;
-}
+/*.course-category {*/
+/*    display: inline;*/
+/*    float: right;*/
+/*}*/
 .course-name-and-num {
     border: 1px solid lightgray;
     padding: 5px;
@@ -96,6 +99,20 @@ body {
     border: 1px solid black;
     transition: 0.5s;
     font-weight: 600;
+}
+.selection-info{
+    display: inline-block;
+    border: 2px solid black;
+    float: right;
+    background-color: lightgray;
+    font-weight: 400;
+}
+
+
+.checkmark{
+    float: left;
+    width: 20px;
+    text-align: left;
 }
 
 /* styles for smaller screens */
