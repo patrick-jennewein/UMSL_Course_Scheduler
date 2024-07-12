@@ -238,9 +238,9 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
             'prerequisite_description': course_info['prerequisite_description'] if 'prerequisite_description' in course_info.keys() else '',
             'passed_validation': True,
             'degree_option': course_info['degree_option'] if 'degree_option' in course_info else False,
-            'degree_selection_choices': list(course_info['degree_selection_choices']) if 'degree_selection_choices' in course_info else "N/A",
+            'degree_selection_choices': list(course_info['degree_selection_choices']) if 'degree_selection_choices' in course_info else [],
             'cert_option': course_info['cert_option'] if 'cert_option' in course_info else False,
-            'cert_selection_choices': list(course_info['cert_selection_choices']) if 'cert_selection_choices' in course_info else "N/A",
+            'cert_selection_choices': list(course_info['cert_selection_choices']) if 'cert_selection_choices' in course_info else [],
         })
         courses_taken.append(course)
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
