@@ -1,6 +1,7 @@
 <p class="course-number">{{ course.course }}</p>
 <p class="course-name">{{ course.name }}</p>
 <p class="course-credits">({{ course.credits }})</p>
+<p class="course-credits">({{ course.cert_selection_choices }})</p>
 <span class="checkmark">
 {% if course.is_completed %}
     <i

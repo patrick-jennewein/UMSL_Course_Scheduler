@@ -227,6 +227,7 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
                total_credits_accumulated, current_semester_credits, course_category):
     # Add course, credits to current semester and list of courses taken, credits earned
     course_added = False
+    print(course_info)
     if current_semester in course_info['semesters_offered']:
         current_semester_classes.append({
             'course': course,
@@ -235,7 +236,11 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
             'credits': course_info['credit'],
             'category': course_category,
             'prerequisite_description': course_info['prerequisite_description'] if 'prerequisite_description' in course_info.keys() else '',
-            'passed_validation': True
+            'passed_validation': True,
+            'degree_option': course_info['degree_option'] if 'degree_option' in course_info else False,
+            'degree_selection_choices': list(course_info['degree_selection_choices']) if 'degree_selection_choices' in course_info else "N/A",
+            'cert_option': course_info['cert_option'] if 'cert_option' in course_info else False,
+            'cert_selection_choices': list(course_info['cert_selection_choices']) if 'cert_selection_choices' in course_info else "N/A",
         })
         courses_taken.append(course)
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
@@ -477,6 +482,11 @@ def build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_g
 
 def build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice,
                            courses_for_graduation, course_choices_for_graduation, certificate_choice):
+
+    degree_indices = []
+    certificate_indices = []
+    index_counter = 0
+
     print("BUILD SCHEDULE: ")
     for k, v in all_courses_dict.items():
         # if the course is required
@@ -498,6 +508,8 @@ def build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice,
                     course_tuple = (num_of_choices, course_set)
                     if (course_tuple not in course_choices_for_graduation):
                         course_choices_for_graduation.append(course_tuple)
+                        degree_indices.append(index_counter)
+                        index_counter += 1
                 # selections for certificate electives, if certificate
                 if certificate_choice and program['major_or_cert'] == certificate_choice[0]:
                     course_set = set(program["course_options"]["option"])
@@ -505,8 +517,19 @@ def build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice,
                     course_tuple = (num_of_choices, course_set)
                     if (course_tuple not in course_choices_for_graduation):
                         course_choices_for_graduation.append(course_tuple)
+                        certificate_indices.append(index_counter)
+                        index_counter += 1
 
-def make_course_selections(course_choices_for_graduation, courses_for_graduation):
+    return degree_indices, certificate_indices
+
+def make_course_selections(course_choices_for_graduation, courses_for_graduation, degree_indices, cert_indices):
+    # keep track of the indices in which degree selections vs. cert selections take place
+    index_counter = 0
+    course_choices_tuple = tuple(copy.deepcopy(course_choices_for_graduation))
+    degree_choices_dict = {}
+    cert_choices_dict = {}
+
+    # iterate through every choice the user has to make
     for course_choice in course_choices_for_graduation:
         print(f"\nSelect {course_choice[0]} from {course_choice[1]}")
         intersection = set(courses_for_graduation) & set(course_choice[1])
@@ -520,8 +543,26 @@ def make_course_selections(course_choices_for_graduation, courses_for_graduation
             for i in range(int(course_choice[0]) - len(intersection)):
                 student_selection = random.choice(list(course_choice[1]))
                 courses_for_graduation.append(student_selection)
-                print(f"\t{student_selection:<20}{'Choice'}")
                 course_choice[1].remove(student_selection)
+
+                # add to cert or degree list
+                if index_counter in degree_indices:
+                    degree_choices_dict[student_selection] = course_choices_tuple[index_counter]
+                elif index_counter in cert_indices:
+                    cert_choices_dict[student_selection] = course_choices_tuple[index_counter]
+                print(f"\t{student_selection:<20}{'Choice'}")
+        index_counter += 1
+
+    print()
+    print("Degree choices: ")
+    for selection, choice in degree_choices_dict.items():
+        print(selection, choice)
+    print("\nCert choices")
+    for selection, choice in cert_choices_dict.items():
+        print(selection, choice)
+
+    return degree_choices_dict, cert_choices_dict
+
 
 
 def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice):
@@ -759,8 +800,13 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             cert_xml_tag_list.append(certificate_choice_xml_tag)
 
         # create list of necessary courses and those in which user makes a selection from a set
-        build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice, courses_for_graduation, course_choices_for_graduation, certificate_choice)
-        make_course_selections(course_choices_for_graduation, courses_for_graduation)
+        degree_indices, cert_indices = build_course_selections(all_courses_dict, cert_xml_tag_list,
+                                                                            degree_choice, courses_for_graduation,
+                                                                            course_choices_for_graduation,
+                                                                            certificate_choice)
+        degree_choices_dict, cert_choices_dict = make_course_selections(course_choices_for_graduation,
+                                                                        courses_for_graduation,
+                                                                        degree_indices, cert_indices)
 
         # copy
         required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
@@ -799,12 +845,19 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                     prereqs_for_dict[prereq] = [key]
                 else:
                     prereqs_for_dict[prereq].append(key)
+
+            # add additional selection information to 'or' choices
+            if key in degree_choices_dict:
+                course["degree_option"] = "True"
+                course["degree_selection_choices"] = degree_choices_dict[key][1]
+            elif key in cert_choices_dict:
+                course["cert_option"] = "True"
+                course["cert_selection_choices"] = cert_choices_dict[key][1]
         course_prereqs_for = prereqs_for_dict
 
         # add degree electives
         degree_electives_remaining, degree_electives_taken = \
             build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
-
 
         # testing
         if certificate_choice:
@@ -842,8 +895,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
     current_semester_cs_math_credits_per_semester = 0
     current_CS_elective_credits_per_semester = 0
     is_course_generation_complete = False
-
-
 
     if not is_graduated:
         # loop through to generate a semester or a whole schedule
