@@ -15,10 +15,21 @@
             {% endif %}
             {% endfor %}
         </select><br>
-        <label>{{ degree_choice }} </label><br>
+        {% if degree_choice == "BSComputerScience" %}
+            <label>B.S. in Computer Science</label>
+        {% elif degree_choice == "BSComputingTechnology" %}
+            <label>B.S. in Computing Technology</label>
+        {% elif degree_choice == "BSCyberSecurity" %}
+            <label>B.S. in CyberSecurity</label>
+        {% elif degree_choice == "BSDataScience" %}
+            <label>B.S. in Data Science and Analysis</label>
+        {% else %}
+            <br>
+        {% endif %}
+        <br>
         <div class = "credit-category">
-            {% if certificates_display[0] != "None" %}
-                <label>{{ certificates_display[0]}} Certificate</label>
+            {% if certificates_display[0] != " " %}
+                <label>{{ certificates_display[0]}}</label>
             {% else %}
                 <br>
             {% endif %}
@@ -137,10 +148,10 @@
             <a href="javascript:void(0)"
                onclick="document.getElementById('light').style.display='block';
                document.getElementById('fade').style.display='block'">
-                <p>Required Courses Progress</p>
+                <p>Course Progress</p>
             </a>
             <div id="light" class="tutorial_popup">
-                <h1>Required Courses</h1>
+                <h1>Degree Courses</h1>
                 <h3>
                     {% if certificates_display[0] != "None" %}
                          (Includes {{ certificates_display[0] }} Certificate Core Courses)

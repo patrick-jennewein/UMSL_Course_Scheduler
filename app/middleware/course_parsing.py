@@ -227,7 +227,6 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
                total_credits_accumulated, current_semester_credits, course_category):
     # Add course, credits to current semester and list of courses taken, credits earned
     course_added = False
-    print(course_info)
     if current_semester in course_info['semesters_offered']:
         current_semester_classes.append({
             'course': course,
@@ -1245,6 +1244,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         minimum_semester_credits = list(map(lambda x: x, range(0, 13)))
     else:
         minimum_semester_credits = list(map(lambda x: x, range(3, 22)))
+    required_courses_tuple = tuple(sorted(set(required_courses_tuple)))
 
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),

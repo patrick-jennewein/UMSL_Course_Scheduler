@@ -102,10 +102,7 @@ body {
 }
 .selection-info{
     display: inline-block;
-    border: 2px solid black;
     float: right;
-    background-color: lightgray;
-    font-weight: 400;
 }
 
 
