@@ -2,6 +2,32 @@ from flask import render_template, request, json
 from app import app
 from app.middleware.course_parsing import parse_courses, generate_semester
 
+def build_deg_course_menu(all_courses_dict, degree_choice):
+    degree_course_choices = []
+    for k, v in all_courses_dict.items():
+        if "selection_group" in v.keys():
+            for program in v["selection_group"]["program"]:
+                if program['major_or_cert'] == degree_choice:
+                    course_set = set(program["course_options"]["option"])
+                    num_of_choices = program["choose"]
+                    course_tuple = (num_of_choices, course_set)
+                    if (course_tuple not in degree_course_choices):
+                        degree_course_choices.append(course_tuple)
+    return degree_course_choices
+
+def build_cert_course_menu(all_courses_dict, certificate_choice = ""):
+    certificate_course_choices = []
+    for k, v in all_courses_dict.items():
+        if "selection_group" in v.keys():
+            for program in v["selection_group"]["program"]:
+                if certificate_choice and program['major_or_cert'] == certificate_choice[0]:
+                    course_set = set(program["course_options"]["option"])
+                    num_of_choices = program["choose"]
+                    course_tuple = (num_of_choices, course_set)
+                    if (course_tuple not in certificate_course_choices):
+                        certificate_course_choices.append(course_tuple)
+    return certificate_course_choices
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -14,6 +40,8 @@ def index():
         ("Mobile Apps and Computing", "MOBILECERTReq"),
         ("Internet and Web", "WEBCERTReq")
     ]
+
+    degree_options = ["BSComputerScience", "BSComputingTechnology", "BSCyberSecurity", "BSDataScience"]
 
     # create a list of all courses
     all_courses = parse_courses()
@@ -30,6 +58,17 @@ def index():
         }
         all_courses_list.append(course_info)
     all_courses_list = sorted(all_courses_list, key=lambda d: d["course"])
+
+    # create menu of course choices
+    selection_dict = {}
+    for option in degree_options:
+        selection_dict[option] = build_deg_course_menu(all_courses, option)
+    for option in certificates:
+        selection_dict[option[0]] = build_cert_course_menu(all_courses, option)
+    for key, index in selection_dict.items():
+        print(key, index)
+
+
 
     return render_template('index.html',
                            initial_load=True,
