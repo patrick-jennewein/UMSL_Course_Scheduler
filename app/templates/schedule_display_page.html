@@ -87,7 +87,6 @@
             </div>
         {% endif %}
         <input type="hidden" name="waived_courses" value="{{ waived_courses }}">
-        <input type="hidden" name="total_elective_credits" value="{{ total_elective_credits }}">
         <input type="hidden" name="current_semester" value="{{ current_semester }}">
         <input type="hidden" id="courses_taken" name="courses_taken" value="{{ courses_taken }}">
         <input type="hidden" name="semesters" value="{{ semesters }}">
@@ -98,13 +97,9 @@
             value="{{ required_courses_dict_list_unchanged }}">
         <input type="hidden" id="course_schedule" name="course_schedule" value="{{ course_schedule }}">
         <input type="hidden" name="semester_number" value="{{ semester_number }}">
-        <input type="hidden" name="min_3000_course" value="{{ min_3000_course }}">
+        <input type="hidden" name="min_degree_electives" value="{{ min_degree_electives }}">
         <input type="hidden" name="include_summer" value="{{ include_summer }}">
         <input type="hidden" name="certificate_choice" value="{{ certificates }}">
-        <input type="hidden" name="num_3000_replaced_by_cert_core" value="{{ num_3000_replaced_by_cert_core }}">
-        <input type="hidden" name="cert_elective_courses_still_needed" value="{{ cert_elective_courses_still_needed }}">
-        <input type="hidden" name="TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"
-            value="{{ TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES }}">
         <input type="hidden" name="gen_ed_credits_still_needed" value="{{ gen_ed_credits_still_needed }}">
         <input type="hidden" name="minimum_summer_credits" value="{{ minimum_summer_credits }}">
         <input type="hidden" name="first_semester" value="{{ first_semester }}">

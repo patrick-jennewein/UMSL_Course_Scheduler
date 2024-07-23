@@ -15,10 +15,21 @@
             {% endif %}
             {% endfor %}
         </select><br>
-        <label>{{ degree_choice }} </label><br>
+        {% if degree_choice == "BSComputerScience" %}
+            <label>B.S. in Computer Science</label>
+        {% elif degree_choice == "BSComputingTechnology" %}
+            <label>B.S. in Computing Technology</label>
+        {% elif degree_choice == "BSCyberSecurity" %}
+            <label>B.S. in CyberSecurity</label>
+        {% elif degree_choice == "BSDataScience" %}
+            <label>B.S. in Data Science and Analysis</label>
+        {% else %}
+            <br>
+        {% endif %}
+        <br>
         <div class = "credit-category">
-            {% if certificates_display[0] != "None" %}
-                <label>{{ certificates_display[0]}} Certificate</label>
+            {% if certificates_display[0] != " " %}
+                <label>{{ certificates_display[0]}}</label>
             {% else %}
                 <br>
             {% endif %}
@@ -35,22 +46,6 @@
         <img src="https://www.umsl.edu/branding/logos/images/vertical-triton-red-blk.png">
     </div>
     <div class = "right-counter">
-        <!-- Free Electives-->
-        <div class = "credit-category">
-            <label>Free Elective Credits
-                <span class="tooltip">
-                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                        <span class="tooltiptext">
-                        All courses that are not covered by BSCS Credits and General Education credits.
-                    </span>
-                </span>
-            </label>
-            <span class = "credit-count">
-                {{ fe_taken
-                }}
-            </span>
-        </div>
-
         <!-- Core Courses -->
         <div class = "credit-category">
                 <label>BSCS Credits
@@ -72,11 +67,7 @@
                     </span>
                 </label>
                 <span class = "credit-count">
-                    {{ total_credits - (27 - gen_ed_credits_still_needed)
-                    - fe_taken
-                    - (TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES
-                    - (cert_elective_courses_still_needed * 3))
-                    }}
+                    {{ total_credits -  (27 - gen_ed_credits_still_needed) - fe_taken }}
                 </span>
             </div>
 
@@ -99,46 +90,20 @@
                 <span class = "credit-minimum">/ 27</span>
         </div>
 
-        <!-- Certificate Credits-->
+        <!-- Free Electives-->
         <div class = "credit-category">
-            {% if certificates_display[0] != "None" %}
-                    <label>CS Electives
-                        <span class="tooltip">
-                            <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                <span class="tooltiptext">
-                                Each recipient of the {{ certificates_display[0] }} certificate must
-                                take a series of {{ total_elective_credits // 3}} classes to satisfy the
-                                certificate's requirements. <br><br> The other {{ 5 - (total_elective_credits // 3)}}
-                                elective courses necessary for the BSCS are allocated to the required courses
-                                of the {{ certificates_display[0] }} certificate and have thus been added to the
-                                list of required classes provided below.
-                            </span>
-                        </span>
-                    </label>
-                    {% if total_elective_credits - (cert_elective_courses_still_needed * 3) >= total_elective_credits %}
-                        <span class="credit-count-success">{{total_elective_credits - (cert_elective_courses_still_needed * 3) }}</span>
-                    {% else %}
-                        <span class="credit-count" id = "fail">{{total_elective_credits - (cert_elective_courses_still_needed * 3) }}</span>
-                    {% endif %}
-                    <span class = "credit-minimum">/ {{ total_elective_credits }}</span>
-            {% else %}
-                    <label>CS Electives
-                        <span class="tooltip">
-                            <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                                <span class="tooltiptext">
-                                Credits earned from 5 elective courses needed for the BSCS degree.<br><br>
-                                Every student must earn 15 additional CMP SCI 3000+ credits, above the required courses
-                                listed below, to graduate.
-                            </span>
-                        </span>
-                    </label>
-                    {% if (15 - (min_3000_course * 3)) >= 15 %}
-                        <span class="credit-count-success" >{{ 15 - (min_3000_course * 3)}}</span>
-                    {% else %}
-                        <span class="credit-count" id = "fail">{{ 15 - (min_3000_course * 3)}}</span>
-                    {% endif %}
-                    <span class = "credit-minimum">/ 15</span>
-            {% endif %}
+            <label>Free Elective Credits
+                <span class="tooltip">
+                    <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                        All courses that are not covered by BSCS Credits and General Education credits.
+                    </span>
+                </span>
+            </label>
+            <span class = "credit-count">
+                {{ fe_taken
+                }}
+            </span>
         </div>
 
         <!-- Total Credits-->
@@ -183,10 +148,10 @@
             <a href="javascript:void(0)"
                onclick="document.getElementById('light').style.display='block';
                document.getElementById('fade').style.display='block'">
-                <p>Required Courses Progress</p>
+                <p>Course Progress</p>
             </a>
             <div id="light" class="tutorial_popup">
-                <h1>Required Courses</h1>
+                <h1>Degree Courses</h1>
                 <h3>
                     {% if certificates_display[0] != "None" %}
                         (Includes {{ certificates_display[0] }} Certificate Core Courses)

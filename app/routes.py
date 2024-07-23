@@ -38,16 +38,13 @@ def index():
                            json_required_courses=json.dumps(all_courses_list),
                            semesters=semesters,
                            certificates=certificates,
-                           num_3000_replaced_by_cert_core=0,
-                           cert_elective_courses_still_needed=0,
                            total_credits=0,
                            course_schedule=json.dumps([]),
                            include_summer=False,
                            semester_number=0,
                            minimum_semester_credits=list(map(lambda x: x, range(3, 22))), # create list for minimum credits dropdown
-                           min_3000_course=5,
+                           min_degree_electives=0,
                            starting_credits=list(map(lambda x: x, range(0, 201))), # create list for minimum credits dropdown
-                           core_credit_count = 0,
                            gen_ed_credits_still_needed=27,
                            minimum_summer_credits = list(map(lambda x: x, range(1, 13))),
                            semester_years = json.dumps({}),
@@ -66,9 +63,7 @@ def schedule_generator():
     if request.form.get('Print'):
         course_schedule_display = json.loads(request.form["course_schedule"])
         total_credits = int(request.form["total_credits"])
-        num_3000_replaced_by_cert_core = int(request.form["num_3000_replaced_by_cert_core"])
-        min_3000_course = int(request.form["min_3000_course"])
-        cert_elective_courses_still_needed = int(request.form["cert_elective_courses_still_needed"])
+        min_degree_electives = int(request.form["min_degree_electives"])
         ge_taken = 27 - int(request.form["gen_ed_credits_still_needed"])
         fe_taken = int(request.form["fe_taken"])
         degree_choice = str(request.form["degree_choice"])
@@ -78,18 +73,14 @@ def schedule_generator():
             certificate = c[0]
         else:
             certificate = ""
-        total_elective_credits = int(request.form["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"])
         return render_template('printable.html',
                             course_schedule_display=course_schedule_display,
                             total_credits = total_credits,
-                           num_3000_replaced_by_cert_core = num_3000_replaced_by_cert_core,
-                           min_3000_course = min_3000_course,
-                           cert_elective_courses_still_needed = cert_elective_courses_still_needed,
+                           min_degree_electives = min_degree_electives,
                            ge_taken = ge_taken,
                            fe_taken = fe_taken,
                            degree_choice = degree_choice,
                            certificate = certificate,
-                           total_elective_credits = total_elective_credits,
                            user_name = user_name)
     else:
         try:
@@ -111,13 +102,10 @@ def schedule_generator():
                                 waived_courses=render_info["waived_courses"],
                                 current_semester=render_info["current_semester"],
                                 minimum_semester_credits=render_info["minimum_semester_credits"],
-                                min_3000_course=render_info["min_3000_course"],
+                                min_degree_electives=render_info["min_degree_electives"],
                                 include_summer=render_info["include_summer"],
                                 certificates=render_info["certificate_choice"],
                                 certificates_display = render_info["certificates_display"],
-                                num_3000_replaced_by_cert_core=render_info["num_3000_replaced_by_cert_core"],
-                                cert_elective_courses_still_needed=render_info["cert_elective_courses_still_needed"],
-                                TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES=render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
                                 saved_minimum_credits_selection=render_info["saved_minimum_credits_selection"],
                                 gen_ed_credits_still_needed=render_info['gen_ed_credits_still_needed'],
                                 full_schedule_generation=render_info['full_schedule_generation'],
@@ -133,7 +121,6 @@ def schedule_generator():
                                 is_graduated = render_info['is_graduated'],
                                 required_courses_tuple = render_info['required_courses_tuple'],
                                 required_courses_tuple_display = render_info["required_courses_tuple_display"],
-                                total_elective_credits = render_info["TOTAL_CREDITS_FOR_CERTIFICATE_ELECTIVES"],
                                 render_info=json.dumps(render_info),
             )
         except Exception as e:
