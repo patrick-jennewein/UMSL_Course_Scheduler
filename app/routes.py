@@ -95,6 +95,8 @@ def index():
                            required_courses_tuple = json.dumps([]),
                            certificate_choice = json.dumps([]),
                            selected_certificates = json.dumps([]),
+                           selection_dict = selection_dict
+
     )
 
 @app.route('/schedule', methods=["POST"])
