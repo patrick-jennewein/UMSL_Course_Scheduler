@@ -649,7 +649,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # copy
         print("\n\nContinuing...")
-        required_courses_tuple = tuple(copy.deepcopy(courses_for_graduation))
+        required_courses_tuple = tuple(sorted(set(copy.deepcopy(courses_for_graduation))))
         build_courses_for_graduation (all_courses_dict, courses_taken, courses_for_graduation, required_courses_tuple)
 
         # remove University course - INTDSC 1003 - if user has required credits
