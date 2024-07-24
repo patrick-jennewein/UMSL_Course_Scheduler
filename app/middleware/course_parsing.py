@@ -521,7 +521,7 @@ def build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice,
 
     return degree_indices, certificate_indices
 
-def make_course_selections(course_choices_for_graduation, courses_for_graduation, degree_indices, cert_indices):
+def make_course_selections(course_choices_for_graduation, courses_for_graduation, degree_indices, cert_indices, include_summer):
     # keep track of the indices in which degree selections vs. cert selections take place
     index_counter = 0
     course_choices_tuple = tuple(copy.deepcopy(course_choices_for_graduation))
@@ -540,7 +540,10 @@ def make_course_selections(course_choices_for_graduation, courses_for_graduation
         else:
             print(f"\tMust now select {int(course_choice[0]) - len(intersection)}")
             for i in range(int(course_choice[0]) - len(intersection)):
-                student_selection = random.choice(list(course_choice[1]))
+                choices = list(course_choice[1])
+                if ('CMP SCI 4732' in choices) and (not include_summer):
+                    choices.remove('CMP SCI 4732')
+                student_selection = random.choice(choices)
                 courses_for_graduation.append(student_selection)
                 course_choice[1].remove(student_selection)
 
@@ -564,7 +567,7 @@ def make_course_selections(course_choices_for_graduation, courses_for_graduation
 
 
 
-def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice):
+def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice, include_summer):
     print()
     print("#####################")
     print("##### ELECTIVES #####")
@@ -605,6 +608,10 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
     for course in all_required_courses_dict_list_simplified:
         if course in degree_required_courses:
             all_required_courses_dict_list_simplified.remove(course)
+        # Instead of specific course, should update with check for course only having summer availability
+        elif 'CMP SCI 4732' is course:
+            if include_summer:
+                leftover_courses.append(course)
         else:
             leftover_courses.append(course)
 
@@ -805,7 +812,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                                                             certificate_choice)
         degree_choices_dict, cert_choices_dict = make_course_selections(course_choices_for_graduation,
                                                                         courses_for_graduation,
-                                                                        degree_indices, cert_indices)
+                                                                        degree_indices, cert_indices, include_summer)
 
         # copy
         required_courses_tuple = tuple(sorted(set(copy.deepcopy(courses_for_graduation))))
@@ -856,7 +863,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # add degree electives
         degree_electives_remaining, degree_electives_taken = \
-            build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice)
+            build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice, include_summer)
 
         # testing
         if certificate_choice:
