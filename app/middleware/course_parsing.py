@@ -851,7 +851,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             # add additional selection information to 'or' choices
             if key in degree_choices_dict:
                 course["degree_option"] = "True"
-                course["degree_selection_choices"] = degree_choices_dict[key][1]
+                course["degree_selection_choices"] = list(degree_choices_dict[key][1])
             elif key in cert_choices_dict:
                 course["cert_option"] = "True"
                 course["cert_selection_choices"] = list(cert_choices_dict[key][1])
