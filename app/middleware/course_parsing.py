@@ -828,7 +828,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 course: all_courses_dict[course]
             }
             required_courses_dict.update(course_dict)
-        required_courses_dict_list = list(sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"]))
+        required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
         courses_dict_list_unchanged = copy.deepcopy(required_courses_dict_list)
         prereqs_for_dict = {}
 
