@@ -608,10 +608,6 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
     for course in all_required_courses_dict_list_simplified:
         if course in degree_required_courses:
             all_required_courses_dict_list_simplified.remove(course)
-        # Instead of specific course, should update with check for course only having summer availability
-        elif 'CMP SCI 4732' is course:
-            if include_summer:
-                leftover_courses.append(course)
         else:
             leftover_courses.append(course)
 
@@ -832,7 +828,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 course: all_courses_dict[course]
             }
             required_courses_dict.update(course_dict)
-        required_courses_dict_list = sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"])
+        required_courses_dict_list = list(sorted(list(required_courses_dict.items()), key=lambda d: d[1]["course_number"]))
         courses_dict_list_unchanged = copy.deepcopy(required_courses_dict_list)
         prereqs_for_dict = {}
 
@@ -858,7 +854,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                 course["degree_selection_choices"] = degree_choices_dict[key][1]
             elif key in cert_choices_dict:
                 course["cert_option"] = "True"
-                course["cert_selection_choices"] = cert_choices_dict[key][1]
+                course["cert_selection_choices"] = list(cert_choices_dict[key][1])
         course_prereqs_for = prereqs_for_dict
 
         # add degree electives
@@ -866,10 +862,10 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice, include_summer)
 
         # testing
-        if certificate_choice:
-            test_schedule(degree_choice, required_courses_dict_list, certificate_choice[0])
-        else:
-            test_schedule(degree_choice, required_courses_dict_list)
+        # if certificate_choice:
+        #     test_schedule(degree_choice, required_courses_dict_list, certificate_choice[0])
+        # else:
+        #     test_schedule(degree_choice, required_courses_dict_list)
 
 
     # if NOT the first semester
@@ -1251,7 +1247,6 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         minimum_semester_credits = list(map(lambda x: x, range(0, 13)))
     else:
         minimum_semester_credits = list(map(lambda x: x, range(3, 22)))
-    required_courses_tuple = tuple(sorted(set(required_courses_tuple)))
 
     return {
         "required_courses_dict_list": json.dumps(required_courses_dict_list),
