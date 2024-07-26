@@ -521,7 +521,7 @@ def build_course_selections(all_courses_dict, cert_xml_tag_list, degree_choice,
 
     return degree_indices, certificate_indices
 
-def make_course_selections(course_choices_for_graduation, courses_for_graduation, degree_indices, cert_indices, include_summer):
+def make_course_selections(course_choices_for_graduation, courses_for_graduation, degree_indices, cert_indices, include_summer, front_page_course_selections):
     # keep track of the indices in which degree selections vs. cert selections take place
     index_counter = 0
     course_choices_tuple = tuple(copy.deepcopy(course_choices_for_graduation))
@@ -543,7 +543,15 @@ def make_course_selections(course_choices_for_graduation, courses_for_graduation
                 choices = list(course_choice[1])
                 if ('CMP SCI 4732' in choices) and (not include_summer):
                     choices.remove('CMP SCI 4732')
-                student_selection = random.choice(choices)
+
+                # Determine the intersection between choices and front_page_course_selections
+                possible_selections = set(choices) & set(front_page_course_selections)
+
+                if possible_selections:
+                    student_selection = random.choice(list(possible_selections))
+                else:
+                    student_selection = random.choice(choices)
+
                 courses_for_graduation.append(student_selection)
                 course_choice[1].remove(student_selection)
 
@@ -719,8 +727,7 @@ def math_course_selections(courses_taken, courses_for_graduation, has_passed_mat
 
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     # pass variables back
-    print("selections")
-    print(request.form.getlist("user_course_selections"))
+    front_page_course_selections = request.form.getlist("user_course_selections")
     degree_choice = str(request.form["degree_choice"])
     course_schedule = json.loads(request.form["course_schedule"])
     current_semester = request.form["current_semester"]
@@ -804,13 +811,18 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             cert_xml_tag_list.append(certificate_choice_xml_tag)
 
         # create list of necessary courses and those in which user makes a selection from a set
+        print()
+        print("######################")
+        print("##### SELECTIONS #####")
+        print("######################")
+        print(front_page_course_selections)
         degree_indices, cert_indices = build_course_selections(all_courses_dict, cert_xml_tag_list,
                                                                             degree_choice, courses_for_graduation,
                                                                             course_choices_for_graduation,
                                                                             certificate_choice)
         degree_choices_dict, cert_choices_dict = make_course_selections(course_choices_for_graduation,
                                                                         courses_for_graduation,
-                                                                        degree_indices, cert_indices, include_summer)
+                                                                        degree_indices, cert_indices, include_summer, front_page_course_selections)
 
         # copy
         required_courses_tuple = tuple(sorted(set(copy.deepcopy(courses_for_graduation))))

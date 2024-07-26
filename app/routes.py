@@ -13,6 +13,7 @@ def build_deg_course_menu(all_courses_dict, degree_choice):
                     course_tuple = (num_of_choices, course_set)
                     if (course_tuple not in degree_course_choices):
                         degree_course_choices.append(course_tuple)
+    print(degree_course_choices)
     return degree_course_choices
 
 def build_cert_course_menu(all_courses_dict, certificate_choice = ""):
@@ -42,6 +43,7 @@ def index():
     ]
 
     degree_options = ["BSComputerScience", "BSComputingTechnology", "BSCyberSecurity", "BSDataScience"]
+    degree_options_display = ["B.S. in Computer Science", "B.S. in Computing Technology", "B.S. in CyberSecurity", "B.S. in Data Science and Analysis"]
 
     # create a list of all courses
     all_courses = parse_courses()
@@ -61,12 +63,21 @@ def index():
 
     # create menu of course choices
     selection_dict = {}
-    for option in degree_options:
-        selection_dict[option] = build_deg_course_menu(all_courses, option)
-    for option in certificates:
-        selection_dict[option[0]] = build_cert_course_menu(all_courses, option)
-    for key, index in selection_dict.items():
-        print(key, index)
+    selection_dict = {
+        display: build_deg_course_menu(all_courses, option)
+        for option, display in zip(degree_options, degree_options_display)
+        if build_deg_course_menu(all_courses, option)
+    }
+
+    selection_dict.update({
+        f"{option[0]} Certificate": build_cert_course_menu(all_courses, option)
+        for option in certificates
+        if build_cert_course_menu(all_courses, option)
+    })
+
+    # print menu
+    # for key, index in selection_dict.items():
+    #     print(key, index)
 
 
 
