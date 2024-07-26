@@ -28,9 +28,11 @@ function cyber_degree_check() {
 
     // Show only the selected major's courses
     majors.forEach(major => {
-        if (major.id === degree.value) {
+        console.log(major)
+        if (major.id === degree.value || major.id === "Artificial Intelligence Certificate") {
             major.style.display = 'block'; // Show matching major
-        } else {
+        }
+        else {
             major.style.display = 'none'; // Hide non-matching majors
         }
     });
@@ -237,7 +239,7 @@ document.querySelectorAll('.course-checkbox').forEach(function(checkbox) {
 
         // If the number of selected checkboxes exceeds the limit, uncheck the current one
         if (selectedCheckboxes.length > maxSelections) {
-            alert(`You can only select a maximum of ${maxSelections} from this group.`);
+            alert(`You can only select ${maxSelections} from this course group.`);
             this.checked = false; // Uncheck the checkbox
         }
     });

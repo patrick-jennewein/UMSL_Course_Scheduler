@@ -64,6 +64,14 @@
   list-style-type: none;
 }
 
+#proceed-button h2{
+  text-align: center;
+}
+
+#course-selection-message{
+  text-align: center;
+}
+
 /* front page re-design with multiple containers */
 /* form initially does not display*/
 .second-form{

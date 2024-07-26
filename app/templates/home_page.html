@@ -156,40 +156,43 @@
                             <p>Create a Schedule</p>
                         </a>
                         <div id="proceed-button" class="tutorial_popup">
+                            <h2>Create a Schedule</h2>
+                            <p id = "course-selection-message">In order to create a schedule that best matches your needs, you may select from the following
+                                courses. After this, choose to either generate your schedule by semester or in full.</p>
+                            <!-- submit buttons-->
+                                <div class = "buttons">
+                                    <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
+                                    <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+                                    <a href="javascript:void(0)" onclick="document.getElementById('proceed-button').style.display='none';
+                                    document.getElementById('fade').style.display='none'">Go Back</a>
+                                </div>
+                            <br>
+                            <hr>
+                            <br><br>
+                            <!-- Course selection checkboxes -->
+                            <div id="course_selection">
+                                {% for major, courses in selection_dict.items() %}
+                                    <div class="major" id="{{ major }}">
+                                        <strong>{{ major }}</strong>
+                                        {% for course_set in courses %}
+                                            <p id="selected_degree"></p>
+                                            <p>Select {{ course_set[0] }} from the following courses:</p>
+                                            <ul>
+                                                {% for course in course_set[1] %}
+                                                    <li>
+                                                        <input type="checkbox" name="user_course_selections" value="{{ course }}"
+                                                               data-max="{{ course_set[0] }}" class="course-checkbox"> {{ course }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
 
-                <!-- Course selection checkboxes -->
-                <h2>Course Selection</h2>
-                <div id="course_selection">
-                    {% for major, courses in selection_dict.items() %}
-                        <div class="major" id="{{ major }}">
-                            <strong>{{ major }}</strong>
-                            {% for course_set in courses %}
-                                <p id="selected_degree"></p>
-                                <p>Select {{ course_set[0] }} from the following courses:</p>
-                                <ul>
-                                    {% for course in course_set[1] %}
-                                        <li>
-                                            <input type="checkbox" name="user_course_selections" value="{{ course }}"
-                                                   data-max="{{ course_set[0] }}" class="course-checkbox"> {{ course }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                </div>
-
-                <script src="../static/js/initial_page_utils.js"></script>
+                            <script src="../static/js/initial_page_utils.js"></script>
 
                             <br><br>
-                            <!-- submit buttons-->
-                            <div class = "buttons">
-                                <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
-                                <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
-                                <a href="javascript:void(0)" onclick="document.getElementById('proceed-button').style.display='none';
-                                document.getElementById('fade').style.display='none'">Go Back</a>
-                            </div>
-                            <br>
                             <div class = "close" id = "close-optional">
 
                             </div>
