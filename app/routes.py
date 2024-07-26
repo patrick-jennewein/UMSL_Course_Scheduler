@@ -63,11 +63,9 @@ def index():
 
     # create menu of course choices
     selection_dict = {}
-    selection_dict = {
-        display: build_deg_course_menu(all_courses, option)
-        for option, display in zip(degree_options, degree_options_display)
-        if build_deg_course_menu(all_courses, option)
-    }
+    selection_dict = {option: build_deg_course_menu(all_courses, option)
+                      for option in degree_options
+                      if build_deg_course_menu(all_courses, option)}
 
     selection_dict.update({
         f"{option[0]} Certificate": build_cert_course_menu(all_courses, option)

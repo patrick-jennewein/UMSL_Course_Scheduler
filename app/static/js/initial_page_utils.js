@@ -19,13 +19,28 @@ function mobile_cert_check(cert_value) {
 function cyber_degree_check() {
     const single_semester_submit = document.getElementById('single_semester_submit');
     const complete_schedule_submit = document.getElementById('complete_schedule_submit');
-    const degree = document.getElementById('degree_choice')
-    console.log(degree.value)
+    const degree = document.getElementById('degree_choice');
+    const selectedDegreeDisplay = document.getElementById('selected_degree');
+    const majors = document.querySelectorAll('.major');
+
+    // Display the selected degree
+    selectedDegreeDisplay.textContent = `Selected Degree: ${degree.options[degree.selectedIndex].text}`;
+
+    // Show only the selected major's courses
+    majors.forEach(major => {
+        if (major.id === degree.value) {
+            major.style.display = 'block'; // Show matching major
+        } else {
+            major.style.display = 'none'; // Hide non-matching majors
+        }
+    });
+
+    console.log(degree.value);
     if (degree.value === 'BSCyberSecurity') {
         if (!document.getElementById("summer").checked) {
             single_semester_submit.disabled = true;
             complete_schedule_submit.disabled = true;
-            alert("The B.S. in Cybersecurity requires a course only offered in Summer, so Summer must be selected.")
+            alert("The B.S. in Cybersecurity requires a course only offered in Summer, so Summer must be selected.");
         } else if (single_semester_submit.disabled && complete_schedule_submit.disabled) {
             single_semester_submit.disabled = false;
             complete_schedule_submit.disabled = false;
@@ -35,7 +50,6 @@ function cyber_degree_check() {
         complete_schedule_submit.disabled = false;
     }
 }
-
 
 // Add or remove 'Summer' option depending on Summer checkbox
 function handleSummerCheckboxClick(checkbox){

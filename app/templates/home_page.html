@@ -66,6 +66,9 @@
                 </select>
                 <br><br>
 
+                <!-- Area to display course selections -->
+                <div id="course_selection_area"></div>
+
                 <!-- Select certificate option -->
                 <label for="certificate">
                     Certificate Option
@@ -153,23 +156,27 @@
                             <p>Create a Schedule</p>
                         </a>
                         <div id="proceed-button" class="tutorial_popup">
-                            <!-- Course selection checkboxes -->
-                            <h2>Course Selection</h2>
-                            {% for major, courses in selection_dict.items() %}
-                                <strong>{{ major }}</strong>
-                                {% for course_set in courses %}
-                                    <p>Select {{ course_set[0] }} from the following courses:</p>
-                                    <ul>
-                                        {% for course in course_set[1] %}
-                                            <li>
-                                                <input type="checkbox" name="user_course_selections" value="{{ course }}"> {{ course }}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endfor %}
+
+                <!-- Course selection checkboxes -->
+                <h2>Course Selection</h2>
+                <div id="course_selection">
+                    {% for major, courses in selection_dict.items() %}
+                        <div class="major" id="{{ major }}">
+                            <strong>{{ major }}</strong>
+                            {% for course_set in courses %}
+                                <p id="selected_degree"></p>
+                                <p>Select {{ course_set[0] }} from the following courses:</p>
+                                <ul>
+                                    {% for course in course_set[1] %}
+                                        <li>
+                                            <input type="checkbox" name="user_course_selections" value="{{ course }}"> {{ course }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             {% endfor %}
-
-
+                        </div>
+                    {% endfor %}
+                </div>
 
                             <br><br>
                             <!-- submit buttons-->
