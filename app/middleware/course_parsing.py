@@ -862,10 +862,10 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
             build_degree_electives(all_courses_dict, required_courses_dict_list, degree_choice, include_summer)
 
         # testing
-        # if certificate_choice:
-        #     test_schedule(degree_choice, required_courses_dict_list, certificate_choice[0])
-        # else:
-        #     test_schedule(degree_choice, required_courses_dict_list)
+        if certificate_choice:
+            test_schedule(degree_choice, required_courses_dict_list, certificate_choice[0])
+        else:
+            test_schedule(degree_choice, required_courses_dict_list)
 
 
     # if NOT the first semester
