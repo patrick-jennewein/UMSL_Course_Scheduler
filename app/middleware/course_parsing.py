@@ -719,6 +719,8 @@ def math_course_selections(courses_taken, courses_for_graduation, has_passed_mat
 
 def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list, int, list[Any], None], Any]]:
     # pass variables back
+    print("selections")
+    print(request.form.getlist("user_course_selections"))
     degree_choice = str(request.form["degree_choice"])
     course_schedule = json.loads(request.form["course_schedule"])
     current_semester = request.form["current_semester"]
