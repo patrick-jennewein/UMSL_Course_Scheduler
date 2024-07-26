@@ -60,6 +60,9 @@
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 300;
 }
+.major ul li{
+  list-style-type: none;
+}
 
 /* front page re-design with multiple containers */
 /* form initially does not display*/

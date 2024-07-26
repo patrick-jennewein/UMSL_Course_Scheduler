@@ -169,7 +169,8 @@
                                 <ul>
                                     {% for course in course_set[1] %}
                                         <li>
-                                            <input type="checkbox" name="user_course_selections" value="{{ course }}"> {{ course }}
+                                            <input type="checkbox" name="user_course_selections" value="{{ course }}"
+                                                   data-max="{{ course_set[0] }}" class="course-checkbox"> {{ course }}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -177,6 +178,8 @@
                         </div>
                     {% endfor %}
                 </div>
+
+                <script src="../static/js/initial_page_utils.js"></script>
 
                             <br><br>
                             <!-- submit buttons-->

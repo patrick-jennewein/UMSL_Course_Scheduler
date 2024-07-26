@@ -24,7 +24,7 @@ function cyber_degree_check() {
     const majors = document.querySelectorAll('.major');
 
     // Display the selected degree
-    selectedDegreeDisplay.textContent = `Selected Degree: ${degree.options[degree.selectedIndex].text}`;
+    //selectedDegreeDisplay.textContent = `Selected Degree: ${degree.options[degree.selectedIndex].text}`;
 
     // Show only the selected major's courses
     majors.forEach(major => {
@@ -225,4 +225,21 @@ function handleCertSelect(selectElement) {
         mobile_cert_check('');
     }
 }
+
+// course_selection.js
+
+document.querySelectorAll('.course-checkbox').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        // Get the parent <ul> to count selected checkboxes
+        const courseSet = this.closest('ul');
+        const maxSelections = parseInt(this.getAttribute('data-max'));
+        const selectedCheckboxes = courseSet.querySelectorAll('input[type="checkbox"]:checked');
+
+        // If the number of selected checkboxes exceeds the limit, uncheck the current one
+        if (selectedCheckboxes.length > maxSelections) {
+            alert(`You can only select a maximum of ${maxSelections} from this group.`);
+            this.checked = false; // Uncheck the checkbox
+        }
+    });
+});
 
