@@ -58,7 +58,7 @@
                         </span>
                     </span>
                 </label>
-                <select id="degree_choice" name="degree_choice" onchange="cyber_degree_check(this)">
+                <select id="degree_choice" name="degree_choice" onchange="cyber_degree_check()">
                     <option value="BSComputerScience">B.S. in Computer Science</option>
                     <option value="BSComputingTechnology">B.S. in Computing Technology</option>
                     <option value="BSCyberSecurity">B.S. in CyberSecurity</option>
@@ -90,6 +90,19 @@
                     {% endfor %}
                 </select>
                 <br><br>
+
+                <!-- Hidden element to store selected certificates as JSON string -->
+                <input type="hidden" id="selected_certificates" name="selected_certificates">
+
+                <!-- Elements that your JavaScript functions reference -->
+                <div id="single_semester_submit"></div>
+                <div id="complete_schedule_submit"></div>
+                <div id="selected_degree"></div>
+                <div class="major" id="BSComputerScience"></div>
+                <div class="major" id="BSComputingTechnology"></div>
+                <div class="major" id="BSCyberSecurity"></div>
+                <div class="major" id="BSDataScience"></div>
+                <div class="major" id="Artificial Intelligence Certificate"></div>
 
                 <!-- Select starting semester-->
                 <label for="current_semester">Starting Semester</label>
@@ -173,7 +186,7 @@
                             <div id="course_selection">
                                 {% for major, courses in selection_dict.items() %}
                                     <div class="major" id="{{ major }}">
-                                        <strong>{{ major }}</strong>
+                                        <!--<strong>{{ major }}</strong>-->
                                         {% for course_set in courses %}
                                             <p id="selected_degree"></p>
                                             <p>Select {{ course_set[0] }} from the following courses:</p>

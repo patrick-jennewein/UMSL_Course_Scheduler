@@ -22,17 +22,20 @@ function cyber_degree_check() {
     const degree = document.getElementById('degree_choice');
     const selectedDegreeDisplay = document.getElementById('selected_degree');
     const majors = document.querySelectorAll('.major');
+    const selectedCertificates = JSON.parse(document.getElementById('selected_certificates').value || '[]');
 
     // Display the selected degree
     //selectedDegreeDisplay.textContent = `Selected Degree: ${degree.options[degree.selectedIndex].text}`;
 
     // Show only the selected major's courses
     majors.forEach(major => {
-        console.log(major)
-        if (major.id === degree.value || major.id === "Artificial Intelligence Certificate") {
+        console.log(major);
+        const majorIdMatchesDegree = major.id === degree.value;
+        const majorIdMatchesCertificate = selectedCertificates.some(cert => `${cert.split(',')[0]} Certificate` === major.id);
+
+        if (majorIdMatchesDegree || majorIdMatchesCertificate) {
             major.style.display = 'block'; // Show matching major
-        }
-        else {
+        } else {
             major.style.display = 'none'; // Hide non-matching majors
         }
     });
@@ -208,24 +211,26 @@ function updateWaivedTakenDropdown(sel, is_taken_courses) {
 }
 
 function handleCertSelect(selectElement) {
-    selected_certs_element = document.getElementById("selected_certificates");
-    selected_certs_array = [];
+    const selected_certs_element = document.getElementById("selected_certificates");
+    const selected_certs_array = [];
 
-    for (var i = 0; i < selectElement.options.length; i++) {
-        opt = selectElement.options[i];
-
+    for (let i = 0; i < selectElement.options.length; i++) {
+        const opt = selectElement.options[i];
         if (opt.selected) {
-            selected_certs_array.push(opt.value)
+            selected_certs_array.push(opt.value);
         }
     }
 
-    selected_certs_element.value = JSON.stringify(selected_certs_array)
+    selected_certs_element.value = JSON.stringify(selected_certs_array);
 
-    if (selected_certs_array.includes('Mobile Apps and Computing,MOBILECERTReq')) { 
+    if (selected_certs_array.includes('Mobile Apps and Computing,MOBILECERTReq')) {
         mobile_cert_check('MOBILECERTReq');
     } else {
         mobile_cert_check('');
     }
+
+    // Call cyber_degree_check to handle the degree selection logic
+    cyber_degree_check();
 }
 
 // course_selection.js
