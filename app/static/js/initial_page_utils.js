@@ -214,10 +214,12 @@ function handleCertSelect(selectElement) {
     const selected_certs_element = document.getElementById("selected_certificates");
     const selected_certs_array = [];
 
-    for (let i = 0; i < selectElement.options.length; i++) {
-        const opt = selectElement.options[i];
-        if (opt.selected) {
-            selected_certs_array.push(opt.value);
+    if (selectElement) {
+        for (let i = 0; i < selectElement.options.length; i++) {
+            const opt = selectElement.options[i];
+            if (opt.selected) {
+                selected_certs_array.push(opt.value);
+            }
         }
     }
 
