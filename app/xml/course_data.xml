@@ -440,7 +440,6 @@
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
                         <option>MATH 4005</option>
-                        <option>CMP SCI 4030</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -669,7 +668,6 @@
                     <choose>2</choose>
                     <course_options>
                         <option>CMP SCI 3411</option>
-                        <option>CMP SCI 4030</option>
                         <option>CMP SCI 4151</option>
                         <option>CMP SCI 4300</option>
                         <option>CMP SCI 4320</option>
@@ -821,7 +819,6 @@
                     <choose>2</choose>
                     <course_options>
                         <option>CMP SCI 3411</option>
-                        <option>CMP SCI 4030</option>
                         <option>CMP SCI 4151</option>
                         <option>CMP SCI 4300</option>
                         <option>CMP SCI 4320</option>
@@ -868,7 +865,6 @@
                     <choose>2</choose>
                     <course_options>
                         <option>CMP SCI 3411</option>
-                        <option>CMP SCI 4030</option>
                         <option>CMP SCI 4151</option>
                         <option>CMP SCI 4300</option>
                         <option>CMP SCI 4320</option>
@@ -1004,7 +1000,6 @@
                     <choose>2</choose>
                     <course_options>
                         <option>CMP SCI 3411</option>
-                        <option>CMP SCI 4030</option>
                         <option>CMP SCI 4151</option>
                         <option>CMP SCI 4300</option>
                         <option>CMP SCI 4320</option>
@@ -1050,7 +1045,6 @@
                     <choose>2</choose>
                     <course_options>
                         <option>CMP SCI 3411</option>
-                        <option>CMP SCI 4030</option>
                         <option>CMP SCI 4151</option>
                         <option>CMP SCI 4300</option>
                         <option>CMP SCI 4320</option>
@@ -1856,7 +1850,6 @@
                     <choose>2</choose>
                     <course_options>
                         <option>CMP SCI 3411</option>
-                        <option>CMP SCI 4030</option>
                         <option>CMP SCI 4151</option>
                         <option>CMP SCI 4300</option>
                         <option>CMP SCI 4320</option>
