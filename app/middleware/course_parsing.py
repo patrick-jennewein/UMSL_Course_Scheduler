@@ -589,7 +589,10 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
     leftover_courses = []
 
     for course in required_courses_dict_list:
+        print(course)
         all_required_courses_dict_list_simplified.append(course[0])
+
+
 
     # iterate through all courses
     for k, v in all_courses_dict.items():
@@ -600,7 +603,7 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
                 major_or_cert = [major_or_cert]
             for item in major_or_cert:
                 if item == degree_choice:
-                    #print(f"\t{k:<20}{item}") if item == degree_choice else None
+                    print(f"{k:<20}{item} DEGREE") if item == degree_choice else None
                     degree_required_courses.append(k)
         # catch xor courses for degree
         if "selection_group" in v.keys():
@@ -611,9 +614,12 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
                     course_tuple = (num_of_choices, course_set)
                     if (course_tuple not in degree_choices):
                         degree_choices.append(course_tuple)
+                        print(course_tuple)
 
     # go through every non-xor selection
-    for course in all_required_courses_dict_list_simplified:
+    print("All required courses dict list simplified")
+    for course in all_required_courses_dict_list_simplified[:]:  # Iterate over a copy of the list
+        print(course)
         if course in degree_required_courses:
             all_required_courses_dict_list_simplified.remove(course)
         else:
@@ -877,9 +883,9 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
 
         # testing
         if certificate_choice:
-            test_schedule(degree_choice, required_courses_dict_list, certificate_choice[0])
+            test_schedule(degree_choice, required_courses_dict_list, courses_taken, certificate_choice[0])
         else:
-            test_schedule(degree_choice, required_courses_dict_list)
+            test_schedule(degree_choice, required_courses_dict_list, courses_taken)
 
 
     # if NOT the first semester

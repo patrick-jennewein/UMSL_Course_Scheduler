@@ -3,7 +3,7 @@ RED = '\033[91m'
 RESET = '\033[0m'
 
 # check degrees
-def check_BSCS (degree, user_courses):
+def check_BSCS (degree, user_courses, courses_taken):
     print(f"Checking {degree}...")
     BSCS_core = [
         "CMP SCI 1000",
@@ -30,11 +30,13 @@ def check_BSCS (degree, user_courses):
     for course in BSCS_core:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
 
-def check_BS_ComputingTechnology(degree, user_courses):
+def check_BS_ComputingTechnology(degree, user_courses, courses_taken):
     print(f"Checking {degree}...")
     BSComputing_Technology_core = [
         "CMP SCI 1000",
@@ -58,6 +60,8 @@ def check_BS_ComputingTechnology(degree, user_courses):
     for course in BSComputing_Technology_core:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
@@ -79,7 +83,7 @@ def check_BS_ComputingTechnology(degree, user_courses):
             print(f"\t\tChose{intersection}")
 
 
-def check_BS_Cyber(degree, user_courses):
+def check_BS_Cyber(degree, user_courses, courses_taken):
     print(f"Checking {degree}...")
     BS_Cyber_core = [
         "CMP SCI 1250",
@@ -106,6 +110,8 @@ def check_BS_Cyber(degree, user_courses):
     for course in BS_Cyber_core:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
@@ -127,7 +133,7 @@ def check_BS_Cyber(degree, user_courses):
             print(f"\t\tChose{intersection}")
 
 
-def check_BS_DataScience(degree, user_courses):
+def check_BS_DataScience(degree, user_courses, courses_taken):
     print(f"Checking {degree}...")
     BS_DataScience_core = [
         "MATH 1320",
@@ -149,6 +155,8 @@ def check_BS_DataScience(degree, user_courses):
     for course in BS_DataScience_core:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
@@ -170,7 +178,7 @@ def check_BS_DataScience(degree, user_courses):
 
 
 # check certificates
-def checkAI(cert, user_courses):
+def checkAI(cert, user_courses, courses_taken):
     print(f"Checking {cert}...")
     core_courses = [
         "CMP SCI 3130",
@@ -179,6 +187,8 @@ def checkAI(cert, user_courses):
     for course in core_courses:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
@@ -199,7 +209,7 @@ def checkAI(cert, user_courses):
             print(f"\t{left_column:<80}{RED}FAILED{RESET}")
             print(f"\t\tChose{intersection}")
 
-def checkWeb(cert, user_courses):
+def checkWeb(cert, user_courses, courses_taken):
     print(f"Checking {cert}...")
     core_courses = [
         "CMP SCI 3010",
@@ -210,6 +220,8 @@ def checkWeb(cert, user_courses):
     for course in core_courses:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
@@ -230,7 +242,7 @@ def checkWeb(cert, user_courses):
             print(f"\t\tChose{intersection}")
 
 
-def checkMobile(cert, user_courses):
+def checkMobile(cert, user_courses, courses_taken):
     print(f"Checking {cert}...")
     core_courses = [
         "CMP SCI 4020",
@@ -240,6 +252,8 @@ def checkMobile(cert, user_courses):
     for course in core_courses:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
@@ -260,7 +274,7 @@ def checkMobile(cert, user_courses):
             print(f"\t\tChose{intersection}")
 
 
-def checkCyber(cert, user_courses):
+def checkCyber(cert, user_courses, courses_taken):
     print(f"Checking {cert}...")
     # check xors
     xors = [
@@ -282,7 +296,7 @@ def checkCyber(cert, user_courses):
             print(f"\t\tChose{intersection}")
 
 
-def checkData(cert, user_courses):
+def checkData(cert, user_courses, courses_taken):
     print(f"Checking {cert}...")
     core_courses = [
         "CMP SCI 4200",
@@ -292,6 +306,8 @@ def checkData(cert, user_courses):
     for course in core_courses:
         if course in user_courses:
             print(f"\t{course:<80}{GREEN}PASSED{RESET}")
+        elif course in courses_taken:
+            print(f"\t{course:<80}{GREEN}WAIVED/TRANSFERRED{RESET}")
         else:
             print(f"\t{course:<80}{RED}FAILED{RESET}")
 
@@ -312,7 +328,7 @@ def checkData(cert, user_courses):
             print(f"\t\tChose{intersection}")
 
 
-def test_schedule(degree, user_courses_raw, certificate = ""):
+def test_schedule(degree, user_courses_raw, courses_taken, certificate = ""):
     print()
     print("#################")
     print("#### TESTING ####")
@@ -320,26 +336,26 @@ def test_schedule(degree, user_courses_raw, certificate = ""):
 
     user_courses = [course[0] for course in user_courses_raw]
     if degree == "BSComputerScience":
-        check_BSCS(degree, user_courses)
+        check_BSCS(degree, user_courses, courses_taken)
     elif degree == "BSComputingTechnology":
-        check_BS_ComputingTechnology(degree, user_courses)
+        check_BS_ComputingTechnology(degree, user_courses, courses_taken)
     elif degree == "BSCyberSecurity":
-        check_BS_Cyber(degree, user_courses)
+        check_BS_Cyber(degree, user_courses, courses_taken)
     elif degree == "BSDataScience":
-        check_BS_DataScience(degree, user_courses)
+        check_BS_DataScience(degree, user_courses, courses_taken)
     else:
         print("DEGREE ERROR!")
     if certificate:
         if certificate == "Artificial Intelligence":
-            checkAI(certificate, user_courses)
+            checkAI(certificate, user_courses, courses_taken)
         elif certificate == "Cybersecurity":
-            checkCyber(certificate, user_courses)
+            checkCyber(certificate, user_courses, courses_taken)
         elif certificate == "Data Science":
-            checkData(certificate, user_courses)
+            checkData(certificate, user_courses, courses_taken)
         elif certificate == "Mobile Apps and Computing":
-            checkMobile(certificate, user_courses)
+            checkMobile(certificate, user_courses, courses_taken)
         elif certificate == "Internet and Web":
-            checkWeb(certificate, user_courses)
+            checkWeb(certificate, user_courses, courses_taken)
         else:
             print("CERTIFICATE ERROR!")
     print()

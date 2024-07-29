@@ -13,7 +13,6 @@ def build_deg_course_menu(all_courses_dict, degree_choice):
                     course_tuple = (num_of_choices, course_set)
                     if (course_tuple not in degree_course_choices):
                         degree_course_choices.append(course_tuple)
-    print(degree_course_choices)
     return degree_course_choices
 
 def build_cert_course_menu(all_courses_dict, certificate_choice = ""):
