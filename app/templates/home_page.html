@@ -149,8 +149,8 @@
                     <span class="tooltip">
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                         <span class="tooltiptext">
-                            If you have already earned credits — be it through waived, transferred, or already completed courses at UMSL —
-                            check this box to bring you to a form for more information.
+                            If you have already earned credits — be it through waived, transferred, or already completed courses at UMSL  —
+                            check this box to bring you to a form for more information. Earned credit also includes coures you have tested out of!
                         </span>
                     </span>
                 </label>
@@ -330,6 +330,20 @@
                         </span>
                     </span>
                     Waived Courses
+                    <br>
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Make sure that you select all Math courses that you have tested out of. These count as "waived
+                            courses". <br><br>
+
+                            Unsure if a math course is waived?<br><br>
+                            <a href ="https://www.umsl.edu/~campustesting/mathplacement.html" target="_blank">
+                                Math Placement Testing
+                            </a>
+                        </span>
+                    </span>
+                    <p id = "subtext">(includes Math courses tested out of)</p>
                 </label>
                 <select name="waived_courses" id="waived_courses" multiple onchange="updateWaivedTakenDropdown(this)"
                 onfocus='this.size=10;' onblur='this.size=10;'
@@ -423,6 +437,7 @@
                 <br><br>
 
                 <!-- Select if successfully passed proctored math exam -->
+                <!--
                 <label for="aleks">
                     <span class="tooltip">
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
@@ -433,7 +448,7 @@
                     70% on UMSL Math Placement
                 </label>
                 <input type="checkbox" id="aleks" name="aleks_check"><br>
-                <br><br>
+                <br><br>-->
 
                 <!-- Select number of credits already earned -->
                 <label for="total_credits" id = "total_credits_id">

@@ -72,6 +72,11 @@
   text-align: center;
 }
 
+#subtext{
+  font-weight: 300;
+  display: inline-block;
+}
+
 /* front page re-design with multiple containers */
 /* form initially does not display*/
 .second-form{
