@@ -169,8 +169,10 @@
                         </a>
                         <div id="proceed-button" class="tutorial_popup">
                             <h2>Create a Schedule</h2>
-                            <p id = "course-selection-message">In order to create a schedule that best matches your needs, you may select from the following
-                                courses. After this, choose to either generate your schedule by semester or in full.</p>
+                            <p id = "course-selection-message">
+                                Choose to either generate your schedule by semester or in full.
+                                If selections need to be made, courses will be populated below.
+                                </p>
                             <!-- submit buttons-->
                                 <div class = "buttons">
                                     <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
@@ -180,7 +182,6 @@
                                 </div>
                             <br>
                             <hr>
-                            <br><br>
                             <!-- Course selection checkboxes -->
                             <div id="course_selection">
                                 {% for major, courses in selection_dict.items() %}
