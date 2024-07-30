@@ -1,11 +1,16 @@
-function mobile_cert_check(cert_value) {
+function summer_degree_cert_check(degree_certs) {
     const single_semester_submit = document.getElementById('single_semester_submit');
     const complete_schedule_submit = document.getElementById('complete_schedule_submit');
-    if (cert_value === 'MOBILECERTReq') {
+    
+    if (degree_certs.includes('Mobile Apps and Computing,MOBILECERTReq') || degree_certs.includes('BSCyberSecurity')) {
         if (!document.getElementById("summer").checked) {
             single_semester_submit.disabled = true;
             complete_schedule_submit.disabled = true;
-            alert("The Mobile Apps and Computing Certificate requires a course only offered in Summer, so Summer must be selected.")
+            if (degree_certs.includes('BSCyberSecurity')) {
+                alert("The B.S. in Cybersecurity requires a course only offered in Summer, so Summer must be selected.");
+            } else {
+                alert("The Mobile Apps and Computing Certificate requires a course only offered in Summer, so Summer must be selected.")
+            }
         } else if (single_semester_submit.disabled && complete_schedule_submit.disabled) {
             single_semester_submit.disabled = false;
             complete_schedule_submit.disabled = false;
@@ -17,19 +22,19 @@ function mobile_cert_check(cert_value) {
 }
 
 function cyber_degree_check() {
-    const single_semester_submit = document.getElementById('single_semester_submit');
-    const complete_schedule_submit = document.getElementById('complete_schedule_submit');
     const degree = document.getElementById('degree_choice');
-    const selectedDegreeDisplay = document.getElementById('selected_degree');
     const majors = document.querySelectorAll('.major');
     const selectedCertificates = JSON.parse(document.getElementById('selected_certificates').value || '[]');
+
+    const selectedMajorAndCerts = selectedCertificates;
+    selectedMajorAndCerts.push(degree.value)
 
     // Display the selected degree
     //selectedDegreeDisplay.textContent = `Selected Degree: ${degree.options[degree.selectedIndex].text}`;
 
     // Show only the selected major's courses
     majors.forEach(major => {
-        console.log(major);
+        // console.log(major);
         const majorIdMatchesDegree = major.id === degree.value;
         const majorIdMatchesCertificate = selectedCertificates.some(cert => `${cert.split(',')[0]} Certificate` === major.id);
 
@@ -40,20 +45,7 @@ function cyber_degree_check() {
         }
     });
 
-    console.log(degree.value);
-    if (degree.value === 'BSCyberSecurity') {
-        if (!document.getElementById("summer").checked) {
-            single_semester_submit.disabled = true;
-            complete_schedule_submit.disabled = true;
-            alert("The B.S. in Cybersecurity requires a course only offered in Summer, so Summer must be selected.");
-        } else if (single_semester_submit.disabled && complete_schedule_submit.disabled) {
-            single_semester_submit.disabled = false;
-            complete_schedule_submit.disabled = false;
-        }
-    } else if (single_semester_submit.disabled && complete_schedule_submit.disabled) {
-        single_semester_submit.disabled = false;
-        complete_schedule_submit.disabled = false;
-    }
+    summer_degree_cert_check(selectedMajorAndCerts)
 }
 
 // Add or remove 'Summer' option depending on Summer checkbox
@@ -73,16 +65,18 @@ function handleSummerCheckboxClick(checkbox){
         summer_credits_label.style.visibility = "visible";
         summer_credits_select.style.visibility = "visible";
     }
-    const certificate_select = document.getElementById('certificate');
-    const index_of_cert_value = certificate_select.value.indexOf(',') + 1; // Index will be after comma
-    const cert_value = certificate_select.value.substring(index_of_cert_value);
 
-    mobile_cert_check(cert_value);
+    const degree = document.getElementById('degree_choice');
+    const selectedCertificates = JSON.parse(document.getElementById('selected_certificates').value || '[]');
+
+    const selectedMajorAndCerts = selectedCertificates;
+    selectedMajorAndCerts.push(degree.value)
+
+    summer_degree_cert_check(selectedMajorAndCerts);
 }
 
 // Add the earned credit form upon earned credit checkbox
 function handleEarnedCreditCheckboxClick(checkbox){
-    console.log("Function initiated.")
     const second_form = document.getElementById('form-container-2');
 
     if (!checkbox.checked){
@@ -224,12 +218,6 @@ function handleCertSelect(selectElement) {
     }
 
     selected_certs_element.value = JSON.stringify(selected_certs_array);
-
-    if (selected_certs_array.includes('Mobile Apps and Computing,MOBILECERTReq')) {
-        mobile_cert_check('MOBILECERTReq');
-    } else {
-        mobile_cert_check('');
-    }
 
     // Call cyber_degree_check to handle the degree selection logic
     cyber_degree_check();

@@ -91,16 +91,6 @@
                 </select>
                 <br><br>
 
-                <!-- Elements that your JavaScript functions reference -->
-                <div id="single_semester_submit"></div>
-                <div id="complete_schedule_submit"></div>
-                <div id="selected_degree"></div>
-                <div class="major" id="BSComputerScience"></div>
-                <div class="major" id="BSComputingTechnology"></div>
-                <div class="major" id="BSCyberSecurity"></div>
-                <div class="major" id="BSDataScience"></div>
-                <div class="major" id="Artificial Intelligence Certificate"></div>
-
                 <!-- Select starting semester-->
                 <label for="current_semester">Starting Semester</label>
                 <select name="current_semester" id="starting_semester">
@@ -162,7 +152,8 @@
                     <div class = "help">
                         <a href="javascript:void(0)"
                            onclick="document.getElementById('proceed-button').style.display='block';
-                           document.getElementById('fade').style.display='block'">
+                           document.getElementById('fade').style.display='block'"
+                           id="create_schedule_btn">
                             <p>Create a Schedule</p>
                         </a>
                         <div id="proceed-button" class="tutorial_popup">
