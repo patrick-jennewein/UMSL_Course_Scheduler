@@ -6,7 +6,10 @@ function summer_degree_cert_check(degree_certs) {
         if (!document.getElementById("summer").checked) {
             single_semester_submit.disabled = true;
             complete_schedule_submit.disabled = true;
-            if (degree_certs.includes('BSCyberSecurity')) {
+            if (degree_certs.includes('Mobile Apps and Computing,MOBILECERTReq') && degree_certs.includes('BSCyberSecurity')) {
+                alert("The B.S. in Cybersecurity and the Mobile Apps and Computing Certificate require a course only offered in Summer, so Summer must be selected.");
+            }
+            else if (degree_certs.includes('BSCyberSecurity')) {
                 alert("The B.S. in Cybersecurity requires a course only offered in Summer, so Summer must be selected.");
             } else {
                 alert("The Mobile Apps and Computing Certificate requires a course only offered in Summer, so Summer must be selected.")
