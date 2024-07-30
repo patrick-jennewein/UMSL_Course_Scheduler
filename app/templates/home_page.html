@@ -4,14 +4,14 @@
     </head>
     <form id="form" action="/schedule" method="post" enctype="multipart/form-data">
         <div class = "question-box" id = "has_upload_question">
-            <label for="question">
+            <label for="question" id = "pre-made">
                 Upload previously-made schedule?
             </label>
             <input type="checkbox" id="has_upload" name="include_upload" onclick="handleUploadCheckbox(this)"><br>
             <span class="tooltip">
                 <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                 <span class="tooltiptext">
-                    Effortlessly save your schedule and come back anytime to make adjustments by uploading it here.
+                    Create a schedule and effortlessly save it. Come back anytime to make adjustments by uploading it here.
                     Need feedback? Send your schedule directly to your advisor for seamless collaboration -
                     No login credentials needed!
                 </span>
@@ -80,9 +80,12 @@
                             your resume and advance your career.<br><br>
                             <a href ="https://www.umsl.edu/cmpsci/certificates/undergraduate-certificates.html" target="_blank">
                                 Learn More
-                            </a>
+                            </a><br><br>
+
+                            Multiple certificates can be chosen! <br>Type Ctrl + Click (Windows) or ⌘ + Click (Mac) to do so.
                         </span>
                     </span>
+                    <br>
                 </label>
                 <select id="certificate" name="certificate_choice" multiple onchange="handleCertSelect(this)">
                     {% for certificate, certificate_value in certificates %}
@@ -119,7 +122,15 @@
                 <br>
 
                 <!-- Ask user for number of credits for summer-->
-                <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">Minimum Credits for Summer</label>
+                <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">
+                    Minimum Credits for Summer
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Though a student is free to take as many credits as he or she wishes, 6 credits is the maximum recommended in one summer.
+                        </span>
+                    </span>
+                </label>
                 <select style="visibility: hidden;" id="summer_credits_select" name="minimum_summer_credits">
                     {% for credits in minimum_summer_credits %}
                     {% if credits == 0 %}
@@ -135,12 +146,12 @@
 
                 <!-- Earned credit boolean -->
                 <label for="earned_credit">
-                    Earned Credit
+                    Input Academic History
                     <span class="tooltip">
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                         <span class="tooltiptext">
                             If you have already earned credits — be it through waived, transferred, or already completed courses at UMSL  —
-                            check this box to bring you to a form for more information. Earned credit also includes coures you have tested out of!
+                            check this box to bring you to a form for more information. Earned credit also includes courses a student has tested out of.
                         </span>
                     </span>
                 </label>
@@ -323,7 +334,7 @@
                     Waived Courses
                     <br>
                     <span class="tooltip">
-                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <i style="font-size:12px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                         <span class="tooltiptext">
                             Make sure that you select all Math courses that you have tested out of. These count as "waived
                             courses". <br><br>
@@ -334,7 +345,7 @@
                             </a>
                         </span>
                     </span>
-                    <p id = "subtext">(includes Math courses tested out of)</p>
+                    <p id = "subtext">include Math courses tested out of</p>
                 </label>
                 <select name="waived_courses" id="waived_courses" multiple onchange="updateWaivedTakenDropdown(this)"
                 onfocus='this.size=10;' onblur='this.size=10;'

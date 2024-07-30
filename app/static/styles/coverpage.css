@@ -74,6 +74,7 @@
 
 #subtext{
   font-weight: 300;
+  font-size: 12px;
   display: inline-block;
 }
 
@@ -134,6 +135,10 @@ h3{
 strong{
   color: #a80b2d;
   text-decoration: underline;
+}
+
+#pre-made{
+  color: #FAF9F6;
 }
 
 /* buttons */
