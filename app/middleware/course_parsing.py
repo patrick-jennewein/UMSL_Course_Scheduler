@@ -664,9 +664,9 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
             "CMP SCI 3010", "CMP SCI 3702", "CMP SCI 4300", "CMP SCI 4320",
             "CMP SCI 4370", "CMP SCI 4390", "CMP SCI 4610", "MATH 2450"]
         electives_taken = len([course for course in leftover_courses if course in possible_electives])
-        electives_remaining = 3
+        electives_remaining = 6
         print(f"{degree_choice} needs {electives_remaining} elective courses, has {electives_taken}")
-        electives_needed = 3 - electives_taken
+        electives_needed = 6 - electives_taken
         print(f"needs {electives_needed} more.")
         course_info = ("B.S. ELECTIVE", "[User Selects]", "An elective from one of the following courses: CMP SCI 3010, CMP SCI 3702, CMP SCI 4300, "
                                                           "CMP SCI 4320, CMP SCI 4370, CMP SCI 4390, CMP SCI 4610, or MATH 2450")
