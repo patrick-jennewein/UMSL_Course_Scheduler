@@ -644,7 +644,7 @@ def build_degree_electives(all_courses_dict, required_courses_dict_list, degree_
                 if infsys_taken < 2:
                     electives_taken += 1
                     infsys_taken += 1
-        electives_remaining = 6 - electives_taken
+        electives_remaining = 5 - electives_taken
         print(f"{degree_choice} needs 6 2000+ courses, has {electives_taken}\nNeeds {electives_remaining} more.")
         course_info = ("B.S. ELECTIVE", "[User Selects]", "A CMP SCI 2000+ or INFSYS 2000+ course of the user's choosing")
     elif degree_choice == "BSCyberSecurity":

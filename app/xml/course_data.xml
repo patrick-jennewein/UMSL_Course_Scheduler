@@ -154,7 +154,6 @@
                 <major_or_cert>BSComputerScience</major_or_cert>
                 <major_or_cert>BSComputingTechnology</major_or_cert>
                 <major_or_cert>BSCyberSecurity</major_or_cert>
-                <major_or_cert>BSDataScience</major_or_cert>
             </required>
 		</course>
 		<course>
@@ -218,6 +217,33 @@
 			<concurrent>
 				CMP SCI 2700
 			</concurrent>
+		</course>
+        <course>
+			<subject>CMP SCI</subject>
+			<course_number>2751</course_number>
+			<course_name>File Systems, Operations, and Tools </course_name>
+			<rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+			<rotation_term>
+				<term>Summer</term>
+				<time_code>O</time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>
+                This course uses the Linux Operating System to teach the file system, command-line interactions, shell scripting, and some productivity tools.
+            </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>CMP SCI 1250</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: CMP SCI 1250. </prerequisite_description>
 			<required>
                 <major_or_cert>BSComputerScience</major_or_cert>
                 <major_or_cert>BSComputingTechnology</major_or_cert>
@@ -292,6 +318,41 @@
             </required>
 		</course>
 		<course>
+			<subject>CMP SCI</subject>
+			<course_number>3260</course_number>
+			<course_name>C/C++ for Advanced Programming</course_name>
+			<rotation_term>
+				<term>Spring</term>
+				<time_code></time_code>
+			</rotation_term>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code></time_code>
+			</rotation_term>
+			<rotation_term>
+				<term>Summer</term>
+				<time_code>O</time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>
+                This course covers C and C++ programming for those already familiar with programming and data structures. It covers syntax, modularization and abstractions, templates, system programming, makefiles and debugging.
+            </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>CMP SCI 2250</and_required>
+                    <and_required>CMP SCI 2700</and_required>
+                    <and_required>CMP SCI 2751</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>CMP SCI 2250, CMP SCI 2700 (can be taken concurrently), and CMP SCI 2751 (can be taken concurrently).</prerequisite_description>
+			<required>
+                <major_or_cert>BSComputerScience</major_or_cert>
+            </required>
+			<concurrent>
+				CMP SCI 2700
+			</concurrent>
+		</course>
+        <course>
 			<subject>CMP SCI</subject>
 			<course_number>4250</course_number>
 			<course_name>Programming Languages</course_name>
@@ -439,6 +500,7 @@
                         <option>CMP SCI 4320</option>
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
                         <option>MATH 4005</option>
                     </course_options>
                 </program>
@@ -583,6 +645,7 @@
                         <option>CMP SCI 4610</option>
                         <option>CMP SCI 4750</option>
                         <option>CMP SCI 4794</option>
+                        <option>CMP SCI 4730</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -673,6 +736,7 @@
                         <option>CMP SCI 4320</option>
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
                         <option>MATH 4005</option>
                     </course_options>
                 </program>
@@ -824,6 +888,7 @@
                         <option>CMP SCI 4320</option>
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
                         <option>MATH 4005</option>
                     </course_options>
                 </program>
@@ -860,7 +925,7 @@
                         <option>CMP SCI 4420</option>
                     </course_options>
                 </program>
-                <program>
+               <program>
                     <major_or_cert>Data Science</major_or_cert>
                     <choose>2</choose>
                     <course_options>
@@ -870,6 +935,7 @@
                         <option>CMP SCI 4320</option>
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
                         <option>MATH 4005</option>
                     </course_options>
                 </program>
@@ -1005,6 +1071,7 @@
                         <option>CMP SCI 4320</option>
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
                         <option>MATH 4005</option>
                     </course_options>
                 </program>
@@ -1050,6 +1117,7 @@
                         <option>CMP SCI 4320</option>
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
                         <option>MATH 4005</option>
                     </course_options>
                 </program>
@@ -1160,6 +1228,7 @@
                         <option>CMP SCI 4610</option>
                         <option>CMP SCI 4750</option>
                         <option>CMP SCI 4794</option>
+                        <option>CMP SCI 4730</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -1255,6 +1324,17 @@
                         <option>INFSYS 3842</option>
                     </course_options>
                 </program>
+                <program>
+                    <major_or_cert>Mobile Apps and Computing</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 4010</option>
+                        <option>CMP SCI 4610</option>
+                        <option>CMP SCI 4750</option>
+                        <option>CMP SCI 4794</option>
+                        <option>CMP SCI 4730</option>
+                    </course_options>
+                </program>
             </selection_group>
         </course>
 		<course>
@@ -1313,9 +1393,6 @@
 			</prerequisite>
             <prerequisite_description>Prerequisites: CMP SCI 2750. </prerequisite_description>
 			<paired>CMP SCI 5750</paired>
-            <required>
-                <major_or_cert>BSCyberSecurity</major_or_cert>
-            </required>
             <selection_group>
                 <program>
                     <major_or_cert>Internet and Web</major_or_cert>
@@ -1336,6 +1413,7 @@
                         <option>CMP SCI 4610</option>
                         <option>CMP SCI 4750</option>
                         <option>CMP SCI 4794</option>
+                        <option>CMP SCI 4730</option>
                     </course_options>
                 </program>
                 <program>
@@ -1350,6 +1428,20 @@
                         <option>CMP SCI 4794</option>
                         <option>INFSYS 3868</option>
                         <option>INFSYS 3878</option>
+                    </course_options>
+                </program>
+                <program>
+                    <major_or_cert>Data Science</major_or_cert>
+                    <choose>2</choose>
+                    <course_options>
+                        <option>CMP SCI 3411</option>
+                        <option>CMP SCI 4151</option>
+                        <option>CMP SCI 4300</option>
+                        <option>CMP SCI 4320</option>
+                        <option>CMP SCI 4370</option>
+                        <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
+                        <option>MATH 4005</option>
                     </course_options>
                 </program>
             </selection_group>
@@ -1434,7 +1526,7 @@
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4794</course_number>
-			<course_name>Introduction to Security of IoT Systems</course_name>
+			<course_name>IoT and Security</course_name>
 			<rotation_term>
 				<term>Fall</term>
 				<time_code>O</time_code>
@@ -1470,6 +1562,7 @@
                         <option>CMP SCI 4610</option>
                         <option>CMP SCI 4750</option>
                         <option>CMP SCI 4794</option>
+                        <option>CMP SCI 4730</option>
                     </course_options>
                 </program>
                 <program>
@@ -1855,6 +1948,7 @@
                         <option>CMP SCI 4320</option>
                         <option>CMP SCI 4370</option>
                         <option>CMP SCI 4390</option>
+                        <option>CMP SCI 4750</option>
                         <option>MATH 4005</option>
                     </course_options>
                 </program>
