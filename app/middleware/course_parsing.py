@@ -224,7 +224,7 @@ def parse_certificate(certificate_name) -> dict:
 
 
 def add_course(current_semester, course_info, current_semester_classes, course, courses_taken,
-               total_credits_accumulated, current_semester_credits, course_category):
+               total_credits_accumulated, current_semester_credits, course_category, waived_courses):
     # Add course, credits to current semester and list of courses taken, credits earned
     course_added = False
     if current_semester in course_info['semesters_offered']:
@@ -245,6 +245,8 @@ def add_course(current_semester, course_info, current_semester_classes, course, 
         total_credits_accumulated = total_credits_accumulated + int(course_info['credit'])
         current_semester_credits = current_semester_credits + int(course_info['credit'])
         course_added = True
+        if ('CMP SCI 2250' == course) and ('CMP SCI 1250' in waived_courses):
+                total_credits_accumulated = total_credits_accumulated + 3
     return course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits
 
 
@@ -714,6 +716,12 @@ def math_course_selections(courses_taken, courses_for_graduation, has_passed_mat
         if ("MATH 1035" in courses_for_graduation) and ('MATH 1035' not in courses_taken) and (
                 "MATH 1035" in courses_for_graduation):
             courses_for_graduation.remove('MATH 1035')
+        if ('MATH 1030' not in courses_taken):
+            courses_taken.append('MATH 1030')
+        if ('MATH 1035' not in courses_taken):
+            courses_taken.append('MATH 1035')
+        if ('MATH 1045' not in courses_taken):
+            courses_taken.append('MATH 1045')
     if has_passed_math_placement_exam:
         if ('MATH 1320' in courses_taken) and ('MATH 1030' not in courses_taken) and (
                 "MATH 1030" in courses_for_graduation):
@@ -787,11 +795,15 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         if "include_summer" in request.form.keys():
             include_summer = True if request.form["include_summer"] == "on" else False
 
+        waived_courses = request.form.getlist("waived_courses")
+
         # set up academic history
         if ("courses_taken" in request.form.keys()):
             courses_taken = request.form.getlist("courses_taken")
+            if ('CMP SCI 2250' in courses_taken) and ('CMP SCI 1250' in waived_courses):
+                total_credits_accumulated = total_credits_accumulated + 3
         if ("waived_courses" in request.form.keys()):
-            courses_taken.extend(request.form.getlist("waived_courses"))
+            courses_taken.extend(waived_courses)
             courses_taken = list(dict.fromkeys(courses_taken))
         if ("aleks_check" in request.form.keys()):
             has_passed_math_placement_exam = True
@@ -894,6 +906,8 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         temp_min_credits_per_semester = int(request.form["saved_minimum_credits_selection"])
         is_graduated = True if request.form["is_graduated"] == "True" else False
         certificate_choice = json.loads(request.form["certificate_choice"])
+        waived_courses = json.loads(request.form["waived_courses"])
+
         if(certificate_choice_name == ""):
             certificate_choice_name = " "
             certificate_choice_xml_tag = " "
@@ -940,7 +954,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                         course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
                             = add_course(
                             current_semester, course_info, current_semester_classes, course, courses_taken,
-                            total_credits_accumulated, current_semester_credits, course_categories['R'])
+                            total_credits_accumulated, current_semester_credits, course_categories['R'], waived_courses)
 
                     # if the course has at least one pre-requisite
                     else:
@@ -959,7 +973,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                         course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits \
                                             = add_course(
                                             current_semester, course_info, current_semester_classes, course, courses_taken,
-                                            total_credits_accumulated, current_semester_credits, course_categories['R']
+                                            total_credits_accumulated, current_semester_credits, course_categories['R'], waived_courses
                                         )
                                         break
 
@@ -982,7 +996,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                             or (prereqs[0] == concurrent)):
                                         course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                                             current_semester, course_info, current_semester_classes, course, courses_taken,
-                                            total_credits_accumulated, current_semester_credits, course_categories['R']
+                                            total_credits_accumulated, current_semester_credits, course_categories['R'], waived_courses
                                         )
                                         break
 
@@ -1003,14 +1017,14 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
                                     if required_courses_taken:
                                         course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                                             current_semester, course_info, current_semester_classes, course, courses_taken,
-                                            total_credits_accumulated, current_semester_credits, course_categories['R']
+                                            total_credits_accumulated, current_semester_credits, course_categories['R'], waived_courses
                                         )
                                         required_courses_taken = False
                                         break
                         if required_courses_taken:
                             course_added, current_semester_classes, courses_taken, total_credits_accumulated, current_semester_credits = add_course(
                                 current_semester, course_info, current_semester_classes, course, courses_taken,
-                                total_credits_accumulated, current_semester_credits, course_categories['R']
+                                total_credits_accumulated, current_semester_credits, course_categories['R'], waived_courses
                             )
 
                     # if the course was added, update semester info
@@ -1274,7 +1288,7 @@ def generate_semester(request): # -> dict[Union[str, Any], Union[Union[str, list
         "courses_taken": json.dumps(courses_taken),
         "list_of_required_courses_taken_display": courses_taken,
         "semester_number": semester,
-        "waived_courses": waived_courses,
+        "waived_courses": json.dumps(waived_courses),
         "current_semester": current_semester,
         "minimum_semester_credits": minimum_semester_credits,
         "min_degree_electives": degree_electives_remaining,

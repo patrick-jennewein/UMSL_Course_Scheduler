@@ -94,13 +94,14 @@ function handleEarnedCreditCheckboxClick(checkbox){
 function handleUploadCheckbox(checkbox){
     const coverPageBackground = document.querySelector('.cover-page-background');
     const uploadScheduleBox = document.querySelector('.upload_schedule');
-    if (checkbox.checked) {
+    if (checkbox.id === "has_upload") {
         coverPageBackground.style.display = 'none';
         uploadScheduleBox.style.display = 'flex';
     } else {
         coverPageBackground.style.display = 'flex';
         uploadScheduleBox.style.display = 'none';
     }
+    checkbox.checked = false
 }
 
 // Remove all options of a passed in select element

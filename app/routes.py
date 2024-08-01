@@ -93,7 +93,7 @@ def index():
                            min_degree_electives=0,
                            starting_credits=list(map(lambda x: x, range(0, 201))), # create list for minimum credits dropdown
                            gen_ed_credits_still_needed=27,
-                           minimum_summer_credits = list(map(lambda x: x, range(1, 13))),
+                           minimum_summer_credits = list(map(lambda x: x, range(3, 13))),
                            semester_years = json.dumps({}),
                            user_name = "Student",
                            ge_taken = 0,

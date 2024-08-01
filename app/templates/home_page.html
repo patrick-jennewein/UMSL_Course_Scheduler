@@ -3,20 +3,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <form id="form" action="/schedule" method="post" enctype="multipart/form-data">
-        <div class = "question-box" id = "has_upload_question">
-            <label for="question" id = "pre-made">
-                Upload previously-made schedule?
-            </label>
-            <input type="checkbox" id="has_upload" name="include_upload" onclick="handleUploadCheckbox(this)"><br>
-            <span class="tooltip">
-                <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                <span class="tooltiptext" id = "question-tooltip">
-                    Create a schedule and effortlessly save it. Come back anytime to make adjustments by uploading it here.
-                    Need feedback? Send your schedule directly to your advisor for seamless collaboration -
-                    No login credentials needed!
-                </span>
-            </span>
-        </div>
         <div class = "upload_schedule">
             <div class = "form-container">
                 <h1>Returning user? Upload your schedule here!</h1>
@@ -31,6 +17,17 @@
                 <h3>Step Two: Upload Your File</h3>
                 <p>Click the "upload" button and retun to the schedule editor.</p>
                 <input type=submit name=upload value=Upload id = "upload-button">
+                <br>
+                <label for="question" id = "return-to-home">
+                    Return to home page?
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext" id = "question-tooltip">
+                            Leave the upload page and return to the home page.
+                        </span>
+                    </span>
+                    <input type="checkbox" id="return-to-home-checkbox" name="return-to-home-checkbox" onclick="handleUploadCheckbox(this)"><br>
+                </label>
             </div>
         </div>
         <div class="cover-page-background">
@@ -156,7 +153,20 @@
                     </span>
                 </label>
                 <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
-                <br><br><br>
+                <br>
+                <label for="question" id = "saved-schedule">
+                    Upload saved schedule?
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext" id = "question-tooltip">
+                            Create a schedule and effortlessly save it. Come back anytime to make adjustments by uploading it here.
+                            Need feedback? Send your schedule directly to your advisor for seamless collaboration -
+                            No login credentials needed!
+                        </span>
+                    </span>
+                </label>
+                <input type="checkbox" id="has_upload" name="include_upload" onclick="handleUploadCheckbox(this)"><br>
+                <br><br>
 
                 <div class = "cover-page-buttons">
                     <!-- Choose Optional Courses-->
