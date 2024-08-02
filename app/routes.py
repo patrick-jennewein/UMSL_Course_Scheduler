@@ -107,7 +107,7 @@ def index():
 
     )
 
-@app.route('/schedule', methods=["POST"])
+@app.route('/UndergradMap/schedule', methods=["POST"])
 def schedule_generator():
     if request.form.get('Print'):
         course_schedule_display = json.loads(request.form["course_schedule"])
