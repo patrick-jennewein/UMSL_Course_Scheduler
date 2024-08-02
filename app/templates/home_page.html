@@ -3,20 +3,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <form id="form" action="/schedule" method="post" enctype="multipart/form-data">
-        <div class = "question-box" id = "has_upload_question">
-            <label for="question">
-                Upload previously-made schedule?
-            </label>
-            <input type="checkbox" id="has_upload" name="include_upload" onclick="handleUploadCheckbox(this)"><br>
-            <span class="tooltip">
-                <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
-                <span class="tooltiptext">
-                    Effortlessly save your schedule and come back anytime to make adjustments by uploading it here.
-                    Need feedback? Send your schedule directly to your advisor for seamless collaboration -
-                    No login credentials needed!
-                </span>
-            </span>
-        </div>
         <div class = "upload_schedule">
             <div class = "form-container">
                 <h1>Returning user? Upload your schedule here!</h1>
@@ -31,6 +17,17 @@
                 <h3>Step Two: Upload Your File</h3>
                 <p>Click the "upload" button and retun to the schedule editor.</p>
                 <input type=submit name=upload value=Upload id = "upload-button">
+                <br>
+                <label for="question" id = "return-to-home">
+                    Return to home page?
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext" id = "question-tooltip">
+                            Leave the upload page and return to the home page.
+                        </span>
+                    </span>
+                    <input type="checkbox" id="return-to-home-checkbox" name="return-to-home-checkbox" onclick="handleUploadCheckbox(this)"><br>
+                </label>
             </div>
         </div>
         <div class="cover-page-background">
@@ -58,13 +55,16 @@
                         </span>
                     </span>
                 </label>
-                <select id="degree_choice" name="degree_choice" onchange="cyber_degree_check(this)">
+                <select id="degree_choice" name="degree_choice" onchange="cyber_degree_check()">
                     <option value="BSComputerScience">B.S. in Computer Science</option>
                     <option value="BSComputingTechnology">B.S. in Computing Technology</option>
                     <option value="BSCyberSecurity">B.S. in CyberSecurity</option>
                     <option value="BSDataScience">B.S. in Data Science and Analysis</option>
                 </select>
                 <br><br>
+
+                <!-- Area to display course selections -->
+                <div id="course_selection_area"></div>
 
                 <!-- Select certificate option -->
                 <label for="certificate">
@@ -77,9 +77,12 @@
                             your resume and advance your career.<br><br>
                             <a href ="https://www.umsl.edu/cmpsci/certificates/undergraduate-certificates.html" target="_blank">
                                 Learn More
-                            </a>
+                            </a><br><br>
+
+                            Multiple certificates can be chosen! <br>Type Ctrl + Click (Windows) or ⌘ + Click (Mac) to do so.
                         </span>
                     </span>
+                    <br>
                 </label>
                 <select id="certificate" name="certificate_choice" multiple onchange="handleCertSelect(this)">
                     {% for certificate, certificate_value in certificates %}
@@ -116,7 +119,15 @@
                 <br>
 
                 <!-- Ask user for number of credits for summer-->
-                <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">Minimum Credits for Summer</label>
+                <label style="visibility: hidden;" id="summer_credits_label" for="minimum_summer_credits">
+                    Minimum Credits for Summer
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Though a student is free to take as many credits as he or she wishes, 6 credits is the maximum recommended in one summer.
+                        </span>
+                    </span>
+                </label>
                 <select style="visibility: hidden;" id="summer_credits_select" name="minimum_summer_credits">
                     {% for credits in minimum_summer_credits %}
                     {% if credits == 0 %}
@@ -132,38 +143,79 @@
 
                 <!-- Earned credit boolean -->
                 <label for="earned_credit">
-                    Earned Credit
+                    Input Academic History
                     <span class="tooltip">
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                         <span class="tooltiptext">
-                            If you have already earned credits — be it through waived, transferred, or already completed courses at UMSL —
-                            check this box to bring you to a form for more information.
+                            If you have already earned credits — be it through waived, transferred, or already completed courses at UMSL  —
+                            check this box to bring you to a form for more information. Earned credit also includes courses a student has tested out of.
                         </span>
                     </span>
                 </label>
                 <input type="checkbox" id="has_credits" name="include_credits" onclick="handleEarnedCreditCheckboxClick(this)"><br>
-                <br><br><br>
+                <br>
+                <label for="question" id = "saved-schedule">
+                    Upload Saved Schedule?
+                    <span class="tooltip">
+                        <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext" id = "question-tooltip">
+                            Create a schedule and effortlessly save it. Come back anytime to make adjustments by uploading it here.
+                            Need feedback? Send your schedule directly to your advisor for seamless collaboration -
+                            No login credentials needed!
+                        </span>
+                    </span>
+                </label>
+                <input type="checkbox" id="has_upload" name="include_upload" onclick="handleUploadCheckbox(this)"><br>
+                <br><br>
 
                 <div class = "cover-page-buttons">
                     <!-- Choose Optional Courses-->
                     <div class = "help">
                         <a href="javascript:void(0)"
                            onclick="document.getElementById('proceed-button').style.display='block';
-                           document.getElementById('fade').style.display='block'">
+                           document.getElementById('fade').style.display='block'"
+                           id="create_schedule_btn">
                             <p>Create a Schedule</p>
                         </a>
                         <div id="proceed-button" class="tutorial_popup">
-                            This is where class options will be displayed. Coming soon.<br>
+                            <h2>Create a Schedule</h2>
+                            <p id = "course-selection-message">
+                                Choose to either generate your schedule by semester or in full.
+                                If selections need to be made, courses will be populated below.
+                                </p>
+                            <!-- submit buttons-->
+                                <div class = "buttons">
+                                    <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
+                                    <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
+                                    <a href="javascript:void(0)" onclick="document.getElementById('proceed-button').style.display='none';
+                                    document.getElementById('fade').style.display='none'">Go Back</a>
+                                </div>
+                            <br>
+                            <hr>
+                            <!-- Course selection checkboxes -->
+                            <div id="course_selection">
+                                {% for major, courses in selection_dict.items() %}
+                                    <div class="major" id="{{ major }}">
+                                        <!--<strong>{{ major }}</strong>-->
+                                        {% for course_set in courses %}
+                                            <p id="selected_degree"></p>
+                                            <p>Select {{ course_set[0] }} from the following courses:</p>
+                                            <ul>
+                                                {% for course in course_set[1] %}
+                                                    <li>
+                                                        <input type="checkbox" name="user_course_selections" value="{{ course }}"
+                                                               data-max="{{ course_set[0] }}" class="course-checkbox"> {{ course }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <script src="../static/js/initial_page_utils.js"></script>
 
                             <br><br>
-                            <!-- submit buttons-->
-                            <div class = "buttons">
-                                <input type="submit" id="single_semester_submit" name="single_semester" value="Start Schedule by Semester">
-                                <input type="submit" id="complete_schedule_submit" name="generate_complete_schedule" value="Generate Full Schedule">
-                                <a href="javascript:void(0)" onclick="document.getElementById('proceed-button').style.display='none';
-                                document.getElementById('fade').style.display='none'">Go Back</a>
-                            </div>
-                            <br>
                             <div class = "close" id = "close-optional">
 
                             </div>
@@ -194,7 +246,7 @@
                                 <li><strong>Two Schedule Generation Options:</strong> Choose between generating your schedule semester-by-semester or generating a full schedule. Details provided below.</li>
                                 <li><strong>Optimized Course Balance:</strong> Our scheduling algorithm ensures that your generated schedules strike a balance, preventing overloaded semesters with an excessive focus on one discipline. Free electives and general education credits are strategically integrated throughout your schedule.</li>
                                 <li><strong>Easy Printing:</strong> Print your course schedule with ease using the "Print" button located at the top of each schedule generation page.</li>
-                                <li><strong>Effortless Saving and Sharing:</strong> Effortlessly save your schedule and come back anytime to make adjustments by uploading it here.
+                                <li><strong>Effortless Saving and Sharing:</strong> Effortlessly save your schedule on your machine locally and come back anytime to make adjustments by uploading it here.
                                         Need feedback? Send your schedule directly to your advisor for seamless collaboration -
                                         No login credentials needed!
                             </ul>
@@ -258,6 +310,7 @@
                 </div>
 
                 <!-- hidden variables -->
+                <input type="hidden" name = "selection_dict" value = {{ selection_dict }}>
                 <input type="hidden" name="course_schedule" value="{{ course_schedule }}">
                 <input type="hidden" name="semester_number" value="{{ semester_number }}">
                 <input type="hidden" name="min_degree_electives" value="{{ min_degree_electives }}">
@@ -290,6 +343,20 @@
                         </span>
                     </span>
                     Waived Courses
+                    <br>
+                    <span class="tooltip">
+                        <i style="font-size:12px" class="fa" class="fas fa-question-circle">&#xf059;</i>
+                        <span class="tooltiptext">
+                            Make sure that you select all Math courses that you have tested out of. These count as "waived
+                            courses". <br><br>
+
+                            Unsure if a math course is waived?<br><br>
+                            <a href ="https://www.umsl.edu/mpas/resources/placement-test.html" target="_blank">
+                                Math Placement Testing
+                            </a>
+                        </span>
+                    </span>
+                    <p id = "subtext">include Math courses tested out of</p>
                 </label>
                 <select name="waived_courses" id="waived_courses" multiple onchange="updateWaivedTakenDropdown(this)"
                 onfocus='this.size=10;' onblur='this.size=10;'
@@ -334,7 +401,8 @@
                         <span class="tooltiptext">
                             Select the credits from the dropdown that you have earned,
                             either previously at UMSL or transferred in from another institution, that
-                            count for General Education requirements.<br><br>
+                            count for General Education requirements. The BS degree satisfies much of the General Education requirements, so
+                            that a student must only take 27 additional credits to satisfy General Education. <br><br>
 
                             Want to learn more about the General Education Requirements?<br><br>
                             <a href ="https://bulletin.umsl.edu/generaleducationrequirements/"
@@ -361,6 +429,9 @@
                     <span class="tooltip">
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                         <span class="tooltiptext">
+                            Free electives are the credits remaining to ensure graduation. A student must earn
+                            120 credits to graduate.
+
                             Select the credits from the dropdown that you have earned,
                             either previously at UMSL or transferred in from another institution, that
                             count for credit, but not General Education or BSCS required courses.<br><br>
@@ -383,6 +454,7 @@
                 <br><br>
 
                 <!-- Select if successfully passed proctored math exam -->
+                <!--
                 <label for="aleks">
                     <span class="tooltip">
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
@@ -393,7 +465,7 @@
                     70% on UMSL Math Placement
                 </label>
                 <input type="checkbox" id="aleks" name="aleks_check"><br>
-                <br><br>
+                <br><br>-->
 
                 <!-- Select number of credits already earned -->
                 <label for="total_credits" id = "total_credits_id">
@@ -419,4 +491,8 @@
             </div>
         </div>
     </form>
+    <!-- Run handleCertSelect to initialize blank course selections -->
+    <script type="text/javascript">
+        handleCertSelect(null)
+    </script>
 </html>

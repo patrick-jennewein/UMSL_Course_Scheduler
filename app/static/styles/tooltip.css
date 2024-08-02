@@ -35,6 +35,13 @@
     opacity: 1;
 }
 
+#question-tooltip{
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 /* tooltips on semester-by-semester scheduler */
 .scheduler .tooltip .tooltiptext {
     right: calc(100% + 10px)
