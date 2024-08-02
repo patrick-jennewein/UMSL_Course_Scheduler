@@ -32,15 +32,11 @@
 			<credit>1</credit>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>D, E</time_code>
+				<time_code>D</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
 				<time_code>E</time_code>
-			</rotation_term>
-			<rotation_term>
-				<term>Summer</term>
-				<time_code>O</time_code>
 			</rotation_term>
 			<course_description>This course is for recently declared undergraduate students majoring in Computer Science or Computing Technology. Topics may include resources that are available on campus and in the department, career opportunities, choosing the right degree, and exploration of concepts, skills and practices that are essential for successful careers. This course should be taken by freshmen and transfers within the first two semesters of declaring the major.</course_description>
             <prerequisite_description>No prerequisites.</prerequisite_description>
@@ -98,11 +94,11 @@
 			<course_name>Programming and Data Structures</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>D, E, O</time_code>
+				<time_code>E, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>D, E, O</time_code>
+				<time_code>D, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Summer</term>
@@ -129,11 +125,11 @@
 			<course_name>Object-Oriented Programming</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>D, E, O</time_code>
+				<time_code>E, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>D, E, O</time_code>
+				<time_code>D, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Summer</term>
@@ -162,11 +158,11 @@
 			<course_name>Computer Organization and Architecture</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>D, E, O</time_code>
+				<time_code>D, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>D, E, O</time_code>
+				<time_code>E, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Summer</term>
@@ -195,11 +191,11 @@
 			<course_name>Linux Environment and Programming</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>D, E, O</time_code>
+				<time_code>E, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>D, E, O</time_code>
+				<time_code>D, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Summer</term>
@@ -253,14 +249,14 @@
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>3010</course_number>
-			<course_name>Web Programming</course_name>
+			<course_name>Full Stack Web Development</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>D, E, O</time_code>
+				<time_code>O, H</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>D, E, O</time_code>
+				<time_code>O, H</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Summer</term>
@@ -290,15 +286,15 @@
 			<course_name>Design and Analysis of Algorithms</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>D, E, O</time_code>
+				<time_code>E, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>D, E, O</time_code>
+				<time_code>D, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Summer</term>
-				<time_code>O, H</time_code>
+				<time_code>E</time_code>
 			</rotation_term>
 			<credit>3</credit>
 			<course_description>Addresses the design and analysis of fundamental algorithms in computer science. Studies basic sorting algorithms priority queues, order statistics, search trees, and hash tables. Analysis techniques may involve time and space complexity analysis of both iterative and recursive algorithms, analysis of algorithm correctness, and amortized complexity analysis. Additional topics may include data compression, string manipulation, greedy algorithms, dynamic programming, and graph traversal.</course_description>
@@ -422,11 +418,11 @@
 			<course_description>Focuses on software development and on the skills required for success in the software profession. Topics related to software development may include software process, models and views, software architectures, documentation, and testing strategies. Topics related to the profession may include licensing, copyright, trademarks, and professional conduct. Individual and group projects, research, and presentations may be required in this capstone course.</course_description>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>O</time_code>
+				<time_code>E, O</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>O</time_code>
+				<time_code>D, O</time_code>
 			</rotation_term>
 			<prerequisite>
 				<or_choice>
@@ -476,7 +472,7 @@
 			<course_name>Introduction to Data Visualization</course_name>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>D, E, H</time_code>
+				<time_code>H</time_code>
 			</rotation_term>
 			<credit>3</credit>
 			<prerequisite>
@@ -516,6 +512,10 @@
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
+				<time_code>O</time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Summer</term>
 				<time_code>O</time_code>
 			</rotation_term>
 			<credit>3</credit>
@@ -559,6 +559,10 @@
 			<course_name>Software Security</course_name>
 			<rotation_term>
 				<term>Fall</term>
+				<time_code>O</time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
 				<time_code>O</time_code>
 			</rotation_term>
 			<credit>3</credit>
@@ -658,6 +662,14 @@
 				<term>Spring</term>
 				<time_code>O</time_code>
 			</rotation_term>
+            <rotation_term>
+				<term>Summer</term>
+				<time_code>O</time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Fall</term>
+				<time_code>O</time_code>
+			</rotation_term>
 			<credit>3</credit>
 			<prerequisite>
 				<or_choice>
@@ -697,7 +709,7 @@
 			<course_name>Introduction to Statistical Methods for Data Science</course_name>
 			<credit>3</credit>
 			<rotation_term>
-				<term>Fall</term>
+				<term>Spring</term>
 				<time_code>H</time_code>
 			</rotation_term>
 			<prerequisite>
@@ -947,11 +959,11 @@
 			<course_name>Introduction to Machine Learning</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>H</time_code>
+				<time_code>D, E</time_code>
 			</rotation_term>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>H</time_code>
+				<time_code>D, E</time_code>
 			</rotation_term>
 			<credit>3</credit>
 			<course_description>Provides an introduction to machine learning in the context of applications such as data mining, natural language processing, and adaptive computer systems. The course reviews several supervised, unsupervised, and reinforcement machine learning techniques such as naive Bayes networks, clustering, and decision trees. Selected concepts in computational learning theory may also be covered. Credit cannot be granted for both CMP SCI 4340 and CMP SCI 5340.</course_description>
@@ -1037,7 +1049,7 @@
 			<course_name>Introduction to Biological Data Science</course_name>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>E</time_code>
+				<time_code>D, E</time_code>
 			</rotation_term>
 			<credit>3</credit>
 			<course_description>This course provides an introduction into several key areas of biological data science, with a focus upon genetic data. Relevant background topics in genetics, current issues, and a variety of available resources will be explored. Upon successful completion of this course, the student will be able to evaluate algorithms for analyzing genetic data, including assessments of sources of errors and analysis of time and space complexity; address shortcomings in existing approaches; and implement efficient and effective software for exposing information hidden in genetic data. </course_description>
@@ -1084,7 +1096,7 @@
 			<credit>3</credit>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>H</time_code>
+				<time_code>D, E</time_code>
 			</rotation_term>
 			<prerequisite>
 				<or_choice>
@@ -1233,12 +1245,43 @@
                 </program>
             </selection_group>
         </course>
+        <course>
+			<subject>CMP SCI</subject>
+			<course_number>4622</course_number>
+			<course_name>Introduction to Big Data</course_name>
+			<rotation_term>
+				<term>Fall</term>
+				<time_code>H</time_code>
+			</rotation_term>
+			<credit>3</credit>
+			<course_description>This course introduces big data fundamentals and covers topics including a wide range of techniques, from writing MapReduce and Spark applications with Python to using advanced modeling and data management with tools such as Spark MLlib, Hive and HBase. Students will also learn about the analytical processes and data systems available to build and empower data products
+            </course_description>
+			<prerequisite>
+				<or_choice>
+					<and_required>CMP SCI 2250</and_required>
+					<and_required>MATH 1320</and_required>
+                    <and_required>MATH 3000</and_required>
+                    <and_required>CMP SCI 4200</and_required>
+				</or_choice>
+				<or_choice>
+                    <and_required>CMP SCI 2250</and_required>
+					<and_required>MATH 1320</and_required>
+                    <and_required>MATH 3000</and_required>
+                    <and_required>CMP SCI 4342</and_required>
+				</or_choice>
+			</prerequisite>
+            <prerequisite_description>Prerequisites: CMPSCI 2250, MATH 1320, MATH 3000 and (CMPSCI 4200 or CMPSCI 4342).</prerequisite_description>
+        </course>
 		<course>
 			<subject>CMP SCI</subject>
 			<course_number>4700</course_number>
 			<course_name>Computer Forensics</course_name>
 			<rotation_term>
 				<term>Fall</term>
+				<time_code>O</time_code>
+			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
 				<time_code>O</time_code>
 			</rotation_term>
 			<credit>3</credit>
@@ -1384,6 +1427,10 @@
 				<term>Fall</term>
 				<time_code>O</time_code>
 			</rotation_term>
+            <rotation_term>
+				<term>Spring</term>
+				<time_code>H</time_code>
+			</rotation_term>
 			<credit>3</credit>
 			<course_description>This course provides an introduction to development and deployment of applications in the cloud space. Touches on different aspects of cloud computing such as IaaS, PaaS, and SaaS. Includes significant discussion on legal and security aspects of clouds in the marketplace. May also include public, private, and hybrid clouds, and Internet of Things. Credit not granted for both CMP SCI 4750 and CMP SCI 5750.</course_description>
 			<prerequisite>
@@ -1452,7 +1499,7 @@
 			<course_name>Information Security</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>O</time_code>
+				<time_code>D, E</time_code>
 			</rotation_term>
 			<credit>3</credit>
 			<course_description>This course covers topics related to maintaining security in an organizational infrastructure, including risk analysis of the environment, access level and control including multi-factor authentication, and detection capabilities to ensure adequate security monitoring. Additional topics may include network level protections, firewalls, intrusion detection/prevention systems, securing web and mobile applications, securing cloud implementations, and overall architectural considerations for system security. Credit not granted for both CMP SCI 4782 and CMP SCI 5782.</course_description>
@@ -1488,7 +1535,7 @@
 			<course_name>Introduction to Mobile Computing, Networking, and Security</course_name>
 			<rotation_term>
 				<term>Spring</term>
-				<time_code>H</time_code>
+				<time_code>D, E</time_code>
 			</rotation_term>
 			<credit>3</credit>
 			<course_description>This course introduces fundamental concepts of mobile wireless networks, mobile edge computing, and security measures at the edge. It discusses challenges related to mobile edge computing systems in general and may include topics such as crowdsourcing/crowdsensing systems, Quality of Experience (QoE) in real-time mobile services, Internet of Things, scalability, secure and verifiable computing, and vehicular and autonomous driving networks.</course_description>
@@ -1529,7 +1576,7 @@
 			<course_name>IoT and Security</course_name>
 			<rotation_term>
 				<term>Fall</term>
-				<time_code>O</time_code>
+				<time_code>D, E</time_code>
 			</rotation_term>
 			<credit>3</credit>
 			<prerequisite>
