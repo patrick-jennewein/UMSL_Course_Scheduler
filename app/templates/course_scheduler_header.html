@@ -36,8 +36,10 @@
         </div>
         <br><br>
         <div class = "continue-schedule">
-            <input type="button" id="download" value="Download" onclick="download_schedule()" />
-            <input type="submit" id = "print" name = "Print" value="Print View">
+            <input type="button" id="download" value="Save Locally" onclick="download_schedule()"
+                   title = "Download this schedule to save it for future use and sharing."/>
+            <input type="submit" id = "print" name = "Print" value="Print View"
+                    title = "Create an easy-to-read version of your schedule.">
             <input type="submit" id = "single_semester_submit" name = "single_semester" value="Continue Schedule">
         </div>
         <br>
@@ -48,21 +50,14 @@
     <div class = "right-counter">
         <!-- Core Courses -->
         <div class = "credit-category">
-                <label>BSCS Credits
+                <label>Degree Credits
                     <span class="tooltip">
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">
                             &#xf059;
                         </i>
                             <span class="tooltiptext">
-                            Credits earned from the following categories:
-                                <ul>
-                                    <li>Computer Science core courses</li>
-                                    <li>Required Mathematics courses</li>
-                                    <li>Required English courses</li>
-                                    {% if certificates_display[0] != "None" %}
-                                        <li>Required courses for the {{ certificates_display[0] }} certificate </li>
-                                    {% endif %}
-                                </ul>
+                                Credits earned for the degree, including all required Computer Science, Mathematics,
+                                English, and Information Systems classes.
                             </span>
                     </span>
                 </label>
@@ -78,7 +73,16 @@
                         <i style="font-size:16px" class="fa" class="fas fa-question-circle">&#xf059;</i>
                             <span class="tooltiptext">
                             Credits earned from various courses needed for the BSCS degree.<br><br>
-                            Every student must earn 27 general education credits to graduate.
+                            Every student must earn 27 general education credits to graduate. This includes:<br>
+                                <ul>
+                                    <li>3 English Credits</li>
+                                    <li>9 Humanities Credits</li>
+                                    <li>9 Social Science Credits</li>
+                                    <li>3 History / Government Credits</li>
+                                    <li>3 Communication Credits</li>
+                                </ul>
+                            A Cultural Diversity class must also be completed, though this class can be cross-listed
+                                between another course category.
                         </span>
                     </span>
                 </label>

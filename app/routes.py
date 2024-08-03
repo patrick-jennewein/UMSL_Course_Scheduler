@@ -2,6 +2,32 @@ from flask import render_template, request, json
 from app import app
 from app.middleware.course_parsing import parse_courses, generate_semester
 
+def build_deg_course_menu(all_courses_dict, degree_choice):
+    degree_course_choices = []
+    for k, v in all_courses_dict.items():
+        if "selection_group" in v.keys():
+            for program in v["selection_group"]["program"]:
+                if program['major_or_cert'] == degree_choice:
+                    course_set = set(program["course_options"]["option"])
+                    num_of_choices = program["choose"]
+                    course_tuple = (num_of_choices, course_set)
+                    if (course_tuple not in degree_course_choices):
+                        degree_course_choices.append(course_tuple)
+    return degree_course_choices
+
+def build_cert_course_menu(all_courses_dict, certificate_choice = ""):
+    certificate_course_choices = []
+    for k, v in all_courses_dict.items():
+        if "selection_group" in v.keys():
+            for program in v["selection_group"]["program"]:
+                if certificate_choice and program['major_or_cert'] == certificate_choice[0]:
+                    course_set = set(program["course_options"]["option"])
+                    num_of_choices = program["choose"]
+                    course_tuple = (num_of_choices, course_set)
+                    if (course_tuple not in certificate_course_choices):
+                        certificate_course_choices.append(course_tuple)
+    return certificate_course_choices
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -14,6 +40,9 @@ def index():
         ("Mobile Apps and Computing", "MOBILECERTReq"),
         ("Internet and Web", "WEBCERTReq")
     ]
+
+    degree_options = ["BSComputerScience", "BSComputingTechnology", "BSCyberSecurity", "BSDataScience"]
+    degree_options_display = ["B.S. in Computer Science", "B.S. in Computing Technology", "B.S. in CyberSecurity", "B.S. in Data Science and Analysis"]
 
     # create a list of all courses
     all_courses = parse_courses()
@@ -31,6 +60,24 @@ def index():
         all_courses_list.append(course_info)
     all_courses_list = sorted(all_courses_list, key=lambda d: d["course"])
 
+    # create menu of course choices
+    selection_dict = {}
+    selection_dict = {option: build_deg_course_menu(all_courses, option)
+                      for option in degree_options
+                      if build_deg_course_menu(all_courses, option)}
+
+    selection_dict.update({
+        f"{option[0]} Certificate": build_cert_course_menu(all_courses, option)
+        for option in certificates
+        if build_cert_course_menu(all_courses, option)
+    })
+
+    # print menu
+    # for key, index in selection_dict.items():
+    #     print(key, index)
+
+
+
     return render_template('index.html',
                            initial_load=True,
                            required_courses=all_courses_list,
@@ -46,7 +93,7 @@ def index():
                            min_degree_electives=0,
                            starting_credits=list(map(lambda x: x, range(0, 201))), # create list for minimum credits dropdown
                            gen_ed_credits_still_needed=27,
-                           minimum_summer_credits = list(map(lambda x: x, range(1, 13))),
+                           minimum_summer_credits = list(map(lambda x: x, range(3, 13))),
                            semester_years = json.dumps({}),
                            user_name = "Student",
                            ge_taken = 0,
@@ -56,6 +103,8 @@ def index():
                            required_courses_tuple = json.dumps([]),
                            certificate_choice = json.dumps([]),
                            selected_certificates = json.dumps([]),
+                           selection_dict = selection_dict
+
     )
 
 @app.route('/schedule', methods=["POST"])
