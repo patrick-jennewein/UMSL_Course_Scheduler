@@ -39,7 +39,7 @@ def build_cert_course_menu(all_courses_dict, certificate_choice = ""):
     return certificate_course_choices
 
 @app.route('/')
-@app.route('/index')
+@app.route('/UndergradMap/')
 def index():
     # set up defaults
     semesters = ["Fall", "Spring"]
@@ -118,6 +118,7 @@ def index():
     )
 
 @app.route('/schedule', methods=["POST"])
+@app.route('/UndergradMap/schedule', methods=["POST"])
 def schedule_generator():
     if request.form.get('Print'):
         course_schedule_display = json.loads(request.form["course_schedule"])
