@@ -1,6 +1,16 @@
 from flask import render_template, request, json
+import logging
+
 from app import app
 from app.middleware.course_parsing import parse_courses, generate_semester
+
+# Create and configure logger
+logging.basicConfig(filename="error.log",
+                    format='%(asctime)s %(message)s',
+                    filemode='w')
+
+# Creating an object
+logger = logging.getLogger()
 
 def build_deg_course_menu(all_courses_dict, degree_choice):
     degree_course_choices = []
@@ -173,6 +183,7 @@ def schedule_generator():
                                 render_info=json.dumps(render_info),
             )
         except Exception as e:
+            logger.error(e)
             print(e)
             render_template('errors/500.html')
 
